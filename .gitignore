@@ -10,10 +10,6 @@
 .svn/
 migrate_working_dir/
 
-# Riverpod
-*.freezed.dart
-*.g.dart
-
 # IntelliJ related
 *.iml
 *.ipr
