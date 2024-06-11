@@ -28,4 +28,17 @@ class Pings extends _$Pings {
 
     state = AsyncData(pings);
   }
+
+  void addPings(List<Map<String, dynamic>> pings) async {
+    // await db.batch(
+    //   'pings',
+    //   pings,
+    // );
+
+    // final newPings = await future;
+
+    // newPings.insertAll(0, pings.map((ping) => Ping.fromJson(ping)));
+
+    // state = AsyncData(newPings);
+  }
 }
