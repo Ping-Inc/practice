@@ -9,13 +9,13 @@ part 'pings_provider.g.dart';
 class Pings extends _$Pings {
   @override
   Future<List<Ping>> build() async {
-    final pingMaps = await db.query('pings');
+    final pingMaps = await db.query('pings', orderBy: 'id desc');
 
     return pingMaps.map<Ping>((data) => Ping.fromJson(data)).toList();
   }
 
-  void addPing() async {
-    final ping = Ping(time: DateTime.now(), text: 'Ping');
+  void addPing(String pingText) async {
+    final ping = Ping(time: DateTime.now(), text: pingText);
 
     await db.insert(
       'pings',

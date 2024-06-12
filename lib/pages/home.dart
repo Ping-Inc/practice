@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/add_ping_button.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_divider.dart';
-import 'package:practice/providers/pings_provider.dart';
 
 class Home extends ConsumerWidget {
   @override
@@ -21,11 +21,7 @@ class Home extends ConsumerWidget {
                 IconButton(
                     onPressed: () {},
                     icon: Icon(PhosphorIcons.magnifying_glass)),
-                IconButton(
-                    onPressed: () {
-                      ref.read(pingsProvider.notifier).addPing();
-                    },
-                    icon: Icon(PhosphorIcons.plus)),
+                AddPingButton(),
               ],
             ))
       ],
