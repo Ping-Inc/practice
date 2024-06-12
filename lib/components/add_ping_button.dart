@@ -78,7 +78,7 @@ class AddPingButton extends ConsumerWidget {
                         maxLines: 6,
                         controller: controller,
                         focusNode: focusNode,
-                        textInputAction: TextInputAction.send,
+                        textInputAction: TextInputAction.newline,
                         onSubmitted: (value) {
                           submitPing(context, ref, controller, focusNode);
                         },
