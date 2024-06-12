@@ -88,7 +88,7 @@ class AddPingButton extends ConsumerWidget {
                         ),
                       ),
                       TextButton(
-                        child: Text('send'),
+                        child: Text('done'),
                         onPressed: () {
                           submitPing(context, ref, controller, focusNode);
                         },
