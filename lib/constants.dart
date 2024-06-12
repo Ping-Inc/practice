@@ -16,6 +16,8 @@ const double spacingEight = spacingSeven * goldenRatio;
 const double spacingNine = spacingEight * goldenRatio;
 const double spacingTen = spacingNine * goldenRatio;
 
+const double cornerRadius = spacingFive;
+
 const int animationDuration = 200;
 const int slowAnimationDuration = 400;
 
@@ -23,3 +25,5 @@ const double tapTarget = 48;
 
 const double thinLine = 0.25;
 const double line = thinLine * goldenRatio;
+
+const double smallX = 20;
