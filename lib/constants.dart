@@ -30,6 +30,8 @@ const double smallX = 20;
 
 const int fetchLimit = 66;
 
+const int scaffoldTime = 2;
+
 const Map<int, String> migrationScripts = {
   1: '''CREATE TABLE pings (
               id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

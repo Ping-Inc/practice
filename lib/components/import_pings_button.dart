@@ -2,6 +2,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:practice/constants.dart';
 import 'dart:io';
 
 import 'package:practice/data/ping.dart';
@@ -39,9 +40,14 @@ class ImportPingsButton extends ConsumerWidget {
               }
 
               ref.read(pingsProvider.notifier).addAllPings(pings);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("${pings.length} pings imported"),
+                  duration: Duration(seconds: scaffoldTime)));
             }
           } catch (e) {
-            print(e);
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(e.toString()),
+                duration: Duration(seconds: scaffoldTime)));
           }
         },
         child: Text("import pings"),
