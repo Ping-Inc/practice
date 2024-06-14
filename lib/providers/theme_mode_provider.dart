@@ -5,11 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'theme_mode_provider.g.dart';
 
 @riverpod
-Stream<ThemeModeEnum> themeMode(ThemeModeRef ref) async* {
-  yield DateTime.now().themeMode();
-
-  await for (var _ in Stream.periodic(Duration(seconds: 1))) {
-    yield DateTime.now().themeMode();
-    ;
-  }
+ThemeModeEnum themeMode(ThemeModeRef ref) {
+  return DateTime.now().themeMode();
 }

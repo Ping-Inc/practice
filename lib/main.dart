@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
@@ -5,6 +6,8 @@ import 'package:practice/constants.dart';
 import 'package:practice/extensions/date_time_enum_extensions.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/home.dart';
+import 'package:practice/providers/theme_mode_provider.dart';
+import 'package:practice/providers/time_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -53,8 +56,17 @@ void main() async {
 class PingPractice extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(timeProvider, (previous, next) {
+      if (previous != null &&
+          previous.value != null &&
+          next.value != null &&
+          previous.value!.themeMode() != next.value!.themeMode()) {
+        ref.invalidate(themeModeProvider);
+      }
+    });
+
     return MaterialApp(
-        theme: DateTime.now().themeMode().data(),
+        theme: ref.watch(themeModeProvider).data(),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [
           AppLocalizations.delegate,
