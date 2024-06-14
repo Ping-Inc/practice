@@ -45,5 +45,7 @@ class Pings extends _$Pings {
 
   void addAllPings(List<Ping> pings) async {
     await PingsRepository.insertAll(pings);
+
+    ref.invalidateSelf();
   }
 }
