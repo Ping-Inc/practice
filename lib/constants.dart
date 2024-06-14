@@ -27,3 +27,5 @@ const double thinLine = 0.25;
 const double line = thinLine * goldenRatio;
 
 const double smallX = 20;
+
+const int fetchLimit = 66;

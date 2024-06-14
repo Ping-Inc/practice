@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
+import 'package:practice/repositories/pings_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pings_provider.g.dart';
@@ -9,18 +9,32 @@ part 'pings_provider.g.dart';
 class Pings extends _$Pings {
   @override
   Future<List<Ping>> build() async {
-    final pingMaps = await db.query('pings', orderBy: 'id desc');
+    final pingsList = await PingsRepository.fetch();
 
-    return pingMaps.map<Ping>((data) => Ping.fromJson(data)).toList();
+    return pingsList.map<Ping>((data) => Ping.fromJson(data)).toList();
+  }
+
+  Future<void> scroll() async {
+    final pings = await future;
+
+    if (pings.isNotEmpty) {
+      final lastPing = pings.last;
+
+      final pingsList = await PingsRepository.fetchBeforeTime(lastPing.time);
+
+      final newPings =
+          pingsList.map<Ping>((data) => Ping.fromJson(data)).toList();
+
+      pings.addAll(newPings);
+
+      state = AsyncData(pings);
+    }
   }
 
   void addPing(String pingText) async {
     final ping = Ping(time: DateTime.now(), text: pingText);
 
-    await db.insert(
-      'pings',
-      ping.toJson(),
-    );
+    await PingsRepository.insert(ping);
 
     final pings = await future;
 
@@ -29,16 +43,7 @@ class Pings extends _$Pings {
     state = AsyncData(pings);
   }
 
-  void addPings(List<Map<String, dynamic>> pings) async {
-    // await db.batch(
-    //   'pings',
-    //   pings,
-    // );
-
-    // final newPings = await future;
-
-    // newPings.insertAll(0, pings.map((ping) => Ping.fromJson(ping)));
-
-    // state = AsyncData(newPings);
+  void addAllPings(List<Ping> pings) async {
+    await PingsRepository.insertAll(pings);
   }
 }
