@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:practice/constants.dart';
 import 'dart:io';
-
 import 'package:practice/data/ping.dart';
 import 'package:practice/providers/pings_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImportPingsButton extends ConsumerWidget {
   @override
@@ -41,7 +41,8 @@ class ImportPingsButton extends ConsumerWidget {
 
               ref.read(pingsProvider.notifier).addAllPings(pings);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("${pings.length} pings imported"),
+                  content: Text(AppLocalizations.of(context)!
+                      .pings_imported(pings.length)),
                   duration: Duration(seconds: scaffoldTime)));
             }
           } catch (e) {
@@ -50,7 +51,7 @@ class ImportPingsButton extends ConsumerWidget {
                 duration: Duration(seconds: scaffoldTime)));
           }
         },
-        child: Text("import pings"),
+        child: Text(AppLocalizations.of(context)!.import_pings),
       )
     ]);
   }

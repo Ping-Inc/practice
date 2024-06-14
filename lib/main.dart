@@ -4,6 +4,8 @@ import 'package:path/path.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/pages/home.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<Database> initDatabase() async {
   // count the number of scripts to define the version of the database
@@ -50,10 +52,17 @@ class PingPractice extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         home: Scaffold(
-      body: SafeArea(
-        child: Home(),
-      ),
-    ));
+          body: SafeArea(
+            child: Home(),
+          ),
+        ));
   }
 }
