@@ -29,3 +29,11 @@ const double line = thinLine * goldenRatio;
 const double smallX = 20;
 
 const int fetchLimit = 66;
+
+const Map<int, String> migrationScripts = {
+  1: '''CREATE TABLE pings (
+              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+              time INTEGER NOT NULL,
+              text TEXT NOT NULL)
+              '''
+};
