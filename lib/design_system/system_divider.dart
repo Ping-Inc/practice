@@ -8,7 +8,7 @@ class SystemDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: thinLine,
-      color: Theme.of(context).colorScheme.tertiary.withOpacity(0.666),
+      color: Theme.of(context).colorScheme.primary,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 late Database db;
@@ -39,3 +40,22 @@ const Map<int, String> migrationScripts = {
               text TEXT NOT NULL)
               '''
 };
+
+const Color black3 = Color.fromRGBO(0, 0, 0, 1);
+const Color white3 = Color.fromRGBO(255, 255, 255, 1);
+const Color blue3 = Color.fromRGBO(43, 54, 193, 1);
+const Color yellow3 = Color.fromRGBO(253, 246, 227, 1);
+
+const Color black2 = Color.fromRGBO(33, 33, 33, 1);
+const Color white2 = Color.fromRGBO(232, 232, 232, 1);
+const Color blue2 = Color.fromRGBO(54, 66, 192, 1);
+const Color yellow2 = Color.fromRGBO(238, 232, 213, 1);
+
+const Color black1 = Color.fromRGBO(66, 66, 66, 1);
+const Color white1 = Color.fromRGBO(209, 209, 209, 1);
+const Color blue1 = Color.fromRGBO(110, 117, 194, 1);
+const Color yellow1 = Color.fromRGBO(147, 161, 161, 1);
+
+const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
+
+const Color blackInputBackgroundColor = Color.fromRGBO(36, 36, 36, 1);

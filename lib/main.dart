@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/extensions/date_time_enum_extensions.dart';
+import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/home.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -52,6 +54,7 @@ class PingPractice extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+        theme: DateTime.now().themeMode().data(),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [
           AppLocalizations.delegate,
