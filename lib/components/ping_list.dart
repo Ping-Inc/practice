@@ -28,7 +28,7 @@ class PingList extends ConsumerWidget {
               child:
                   Column(children: [Text("No pings yet"), ImportPingsButton()]))
           : GridView.builder(
-              itemCount: pingsValue.length,
+              itemCount: pingsValue.length + 1,
               padding: EdgeInsets.only(
                   left: spacingTwo,
                   right: spacingTwo,
@@ -40,6 +40,10 @@ class PingList extends ConsumerWidget {
                 mainAxisSpacing: spacingTwo,
               ),
               itemBuilder: (context, i) {
+                if (i == pingsValue.length) {
+                  return ImportPingsButton();
+                }
+
                 final ping = pingsValue[i];
 
                 if (i == pingsValue.length - 1 &&

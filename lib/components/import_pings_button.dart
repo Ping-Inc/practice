@@ -12,7 +12,7 @@ class ImportPingsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      ElevatedButton(
+      TextButton(
         onPressed: () async {
           try {
             FilePickerResult? result = await FilePicker.platform
@@ -51,7 +51,10 @@ class ImportPingsButton extends ConsumerWidget {
                 duration: Duration(seconds: scaffoldTime)));
           }
         },
-        child: Text(AppLocalizations.of(context)!.import_pings),
+        child: Text(
+          AppLocalizations.of(context)!.import_pings,
+          textAlign: TextAlign.center,
+        ),
       )
     ]);
   }
