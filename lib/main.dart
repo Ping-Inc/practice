@@ -76,6 +76,7 @@ class PingPractice extends ConsumerWidget {
         ],
         home: Scaffold(
           body: SafeArea(
+            bottom: false,
             child: Home(),
           ),
         ));

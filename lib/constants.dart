@@ -24,7 +24,7 @@ const int slowAnimationDuration = 400;
 
 const double tapTarget = 48;
 
-const double thinLine = 0.25;
+const double thinLine = 0.5;
 const double line = thinLine * goldenRatio;
 
 const double smallX = 20;
