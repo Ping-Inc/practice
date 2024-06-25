@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/add_ping_button.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/providers/hide_home_screen_provider.dart';
@@ -62,6 +63,12 @@ class _HomePageState extends ConsumerState<Home> with WidgetsBindingObserver {
                 duration: duration,
                 child: Container(
                     color: Theme.of(context).scaffoldBackgroundColor))),
+        Padding(
+            padding: EdgeInsets.only(
+                right: spacingSix,
+                bottom: spacingSix + MediaQuery.of(context).padding.bottom),
+            child:
+                Align(alignment: Alignment.bottomRight, child: AddPingButton()))
       ],
     );
   }
