@@ -29,6 +29,7 @@ class AddPingButton extends ConsumerWidget {
           ref.read(hideHomeScreenProviderProvider.notifier).toggle();
 
           showModalBottomSheet(
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(spacingFive),
@@ -54,7 +55,7 @@ class AddPingButton extends ConsumerWidget {
                           child: Center(
                               child: Icon(
                             PhosphorIcons.x_thin,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.primary,
                             size: smallX,
                           ))),
                     )
