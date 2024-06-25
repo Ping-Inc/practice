@@ -29,7 +29,7 @@ class AddPingButton extends ConsumerWidget {
           ref.read(hideHomeScreenProviderProvider.notifier).toggle();
 
           showModalBottomSheet(
-            backgroundColor: Theme.of(context).colorScheme.onPrimary,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(spacingFive),
@@ -74,7 +74,14 @@ class AddPingButton extends ConsumerWidget {
                     children: <Widget>[
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: [Text("metadata goes here..")]),
+                          children: [
+                            Text(
+                              "metadata goes here..",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            )
+                          ]),
                       TextField(
                         minLines: 1,
                         maxLines: 6,

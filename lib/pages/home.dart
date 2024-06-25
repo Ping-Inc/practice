@@ -15,8 +15,8 @@ class Home extends ConsumerWidget {
             child: AnimatedOpacity(
                 opacity: ref.watch(hideHomeScreenProviderProvider) ? 1 : 0,
                 duration: duration,
-                child:
-                    Container(color: Theme.of(context).colorScheme.onPrimary)))
+                child: Container(
+                    color: Theme.of(context).scaffoldBackgroundColor))),
       ],
     );
   }
