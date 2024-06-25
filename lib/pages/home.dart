@@ -9,7 +9,7 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
-        SafeArea(bottom: false, child: PingList()),
+        PingList() ,
         IgnorePointer(
             ignoring: true,
             child: AnimatedOpacity(

@@ -32,7 +32,7 @@ class PingList extends ConsumerWidget {
               padding: EdgeInsets.only(
                   left: spacingTwo,
                   right: spacingTwo,
-                  top: spacingFour,
+                  top: spacingFour + MediaQuery.of(context).padding.top,
                   bottom: spacingFour + MediaQuery.of(context).padding.bottom),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
