@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
+import 'package:practice/components/add_ping_button.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/extensions/date_time_enum_extensions.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
@@ -66,19 +67,18 @@ class PingPractice extends ConsumerWidget {
     });
 
     return MaterialApp(
-        theme: ref.watch(themeModeProvider).data(),
-        supportedLocales: AppLocalizations.supportedLocales,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        home: Scaffold(
-          body: SafeArea(
-            bottom: false,
-            child: Home(),
-          ),
-        ));
+      theme: ref.watch(themeModeProvider).data(),
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: Scaffold(
+        floatingActionButton: AddPingButton(),
+        body: Home(),
+      ),
+    );
   }
 }

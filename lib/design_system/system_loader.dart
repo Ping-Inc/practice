@@ -20,8 +20,7 @@ class _SystemLoaderState extends State<SystemLoader> {
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(const Duration(milliseconds: animationDuration),
-        (Timer t) {
+    timer = Timer.periodic(duration, (Timer t) {
       if (mounted) {
         setState(() {
           if (dots.length > 2) {

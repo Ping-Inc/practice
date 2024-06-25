@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/providers/pings_provider.dart';
 

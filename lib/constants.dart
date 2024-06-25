@@ -19,8 +19,7 @@ const double spacingTen = spacingNine * goldenRatio;
 
 const double cornerRadius = spacingFive;
 
-const int animationDuration = 200;
-const int slowAnimationDuration = 400;
+const Duration duration = Duration(milliseconds: 150);
 
 const double tapTarget = 48;
 

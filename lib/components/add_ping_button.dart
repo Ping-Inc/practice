@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
-
+import 'package:practice/providers/hide_home_screen_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 
 class AddPingButton extends ConsumerWidget {
@@ -23,9 +23,10 @@ class AddPingButton extends ConsumerWidget {
     final controller = TextEditingController();
     final focusNode = FocusNode();
 
-    return IconButton(
+    return FloatingActionButton(
         onPressed: () {
           HapticFeedback.selectionClick();
+          ref.read(hideHomeScreenProviderProvider.notifier).toggle();
 
           showModalBottomSheet(
             shape: RoundedRectangleBorder(
@@ -98,8 +99,11 @@ class AddPingButton extends ConsumerWidget {
                 )
               ]);
             },
-          );
+          ).then((value) {
+            ref.read(hideHomeScreenProviderProvider.notifier).toggle();
+          });
+          ;
         },
-        icon: Icon(PhosphorIcons.plus));
+        child: Icon(PhosphorIcons.plus));
   }
 }
