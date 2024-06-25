@@ -65,8 +65,8 @@ class _HomePageState extends ConsumerState<Home> with WidgetsBindingObserver {
                     color: Theme.of(context).scaffoldBackgroundColor))),
         Padding(
             padding: EdgeInsets.only(
-                right: spacingSix,
-                bottom: spacingSix + MediaQuery.of(context).padding.bottom),
+                right: spacingFive,
+                bottom: spacingFive + MediaQuery.of(context).padding.bottom),
             child:
                 Align(alignment: Alignment.bottomRight, child: AddPingButton()))
       ],

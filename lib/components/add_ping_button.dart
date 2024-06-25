@@ -8,6 +8,7 @@ class AddPingButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         onPressed: () {
           HapticFeedback.selectionClick();
           Sheets.showAddPing(context, ref);
