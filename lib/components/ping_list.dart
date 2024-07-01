@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/resizing_text_cell.dart';
+import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_loader.dart';
+import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/pings_provider.dart';
 
 class PingList extends ConsumerWidget {
@@ -51,7 +53,15 @@ class PingList extends ConsumerWidget {
                   ref.read(pingsProvider.notifier).scroll();
                 }
 
-                return ResizingTextCell(text: ping.text);
+                return SystemTap(
+                    child: ResizingTextCell(text: ping.text),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailsPage(ping: ping)),
+                      );
+                    });
               },
             ),
       AsyncError() => Text("Error"),

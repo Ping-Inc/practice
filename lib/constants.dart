@@ -19,7 +19,7 @@ const double spacingTen = spacingNine * goldenRatio;
 
 const double cornerRadius = spacingFive;
 
-const Duration duration = Duration(milliseconds: 150);
+const Duration duration = Duration(milliseconds: 200);
 
 const double tapTarget = 48;
 

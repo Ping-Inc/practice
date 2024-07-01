@@ -19,6 +19,7 @@ class ResizingTextCell extends StatelessWidget {
         padding: EdgeInsets.all(spacingFour),
         child: Center(
             child: AutoSizeText(
+          minFontSize: 1,
           text,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 200),
