@@ -48,4 +48,14 @@ class Pings extends _$Pings {
 
     ref.invalidateSelf();
   }
+
+  void deletePing(Ping ping) async {
+    await PingsRepository.delete(ping.id!);
+
+    final pings = await future;
+
+    pings.remove(ping);
+
+    state = AsyncData(pings);
+  }
 }

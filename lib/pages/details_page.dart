@@ -6,6 +6,7 @@ import 'package:practice/components/add_ping_button.dart';
 import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
+import 'package:practice/providers/pings_provider.dart';
 
 class DetailsPage extends ConsumerWidget {
   const DetailsPage({super.key, required this.ping});
@@ -28,6 +29,51 @@ class DetailsPage extends ConsumerWidget {
                   Navigator.pop(context);
                 },
                 child: Text("Back")),
+            Expanded(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      HapticFeedback.selectionClick();
+                      Navigator.pop(context);
+                    },
+                    child: Text("Edit")),
+                TextButton(
+                  onPressed: () {
+                    HapticFeedback.selectionClick();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirm'),
+                          content: Text('Do you really want to delete?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context); // Close the dialog
+                              },
+                              child: Text('No'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // This is where you would add your deletion logic
+                                Navigator.pop(context); // Close the dialog
+                                Navigator.pop(context);
+                                ref.read(pingsProvider.notifier).deletePing(
+                                    ping); // Optionally, navigate back if needed
+                              },
+                              child: Text('Yes'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text("Delete"),
+                )
+              ],
+            ))
           ])),
       Center(
           child: Padding(
@@ -53,16 +99,13 @@ class DetailsPage extends ConsumerWidget {
                             child: Text(DateFormat('EEEE').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child:
-                                Text(DateFormat('MMMM').format(ping.time))),
+                            child: Text(DateFormat('MMMM').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child:
-                                Text(DateFormat('d').format(ping.time))),
+                            child: Text(DateFormat('d').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child:
-                                Text(DateFormat('y').format(ping.time))),
+                            child: Text(DateFormat('y').format(ping.time))),
                       ],
                     )
                   ])))
