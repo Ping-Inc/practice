@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:practice/components/add_ping_button.dart';
 import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
@@ -57,11 +56,11 @@ class DetailsPage extends ConsumerWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                // This is where you would add your deletion logic
+                                ref
+                                    .read(pingsProvider.notifier)
+                                    .deletePing(ping);
                                 Navigator.pop(context); // Close the dialog
                                 Navigator.pop(context);
-                                ref.read(pingsProvider.notifier).deletePing(
-                                    ping); // Optionally, navigate back if needed
                               },
                               child: Text('Yes'),
                             ),

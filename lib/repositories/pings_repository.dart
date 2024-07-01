@@ -18,8 +18,11 @@ class PingsRepository {
         limit: fetchLimit);
   }
 
-  static Future<void> insert(Ping ping) async {
-    await db.insert('pings', ping.toJson());
+  static Future<int> insert(String pingText, DateTime pingTime) async {
+    return await db.insert('pings', {
+      'time': pingTime.millisecondsSinceEpoch,
+      'text': pingText,
+    });
   }
 
   static Future<void> insertAll(List<Ping> pings) async {
