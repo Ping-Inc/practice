@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/neighborhood_cell.dart';
 import 'package:practice/components/ping_id_cell.dart';
+import 'package:practice/components/time_row.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_drag_handle.dart';
 import 'package:practice/providers/pings_provider.dart';
@@ -52,16 +53,7 @@ class _NewPingPageState extends ConsumerState<NewPingPage>
                 ),
                 child: SystemDragHandle()),
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-              DateFormat('EEEE, MMMM d, y').format(now),
-              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-            ),
-            Text(
-              DateFormat('h:mma').format(now).toLowerCase(),
-              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-            )
-          ]),
+          TimeRow(),
           SizedBox(height: spacingThree),
           TextField(
               minLines: 8,
