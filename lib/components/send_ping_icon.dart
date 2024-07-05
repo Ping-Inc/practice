@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 
 class SendPingIcon extends ConsumerWidget {
@@ -17,10 +18,10 @@ class SendPingIcon extends ConsumerWidget {
     } else {
       return IconButton(
           icon: Icon(
-            PhosphorIcons.arrow_circle_up,
+            PhosphorIcons.circle_fill,
             size: 24,
           ),
-          color: Color.fromRGBO(0, 122, 255, 1),
+          color: gray2,
           onPressed: () => onPressed());
     }
   }

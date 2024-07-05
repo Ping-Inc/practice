@@ -75,13 +75,13 @@ class ThemeUtils {
   static Color secondary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow1;
+        return gray1;
       case ThemeModeEnum.afternoon:
-        return white1;
+        return gray1;
       case ThemeModeEnum.evening:
-        return blue1;
+        return Colors.white;
       case ThemeModeEnum.night:
-        return black1;
+        return Colors.white;
     }
   }
 

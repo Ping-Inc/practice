@@ -47,7 +47,7 @@ class _NewPingPageState extends ConsumerState<NewPingPage>
           TextField(
               maxLines: 1,
               controller: controller,
-              textInputAction: TextInputAction.send,
+              textInputAction: TextInputAction.newline,
               onChanged: (value) =>
                   ref.read(currentPingProvider.notifier).set(value),
               onSubmitted: (value) => submitPing(),
@@ -67,9 +67,7 @@ class _NewPingPageState extends ConsumerState<NewPingPage>
                           color: Theme.of(context).colorScheme.surface)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6.0),
-                      borderSide: BorderSide(
-                          width: thinLine,
-                          color: Theme.of(context).colorScheme.primary)),
+                      borderSide: BorderSide(width: thinLine, color: gray2)),
                   fillColor: Colors.white)),
           SizedBox(height: spacingFour),
           Row(

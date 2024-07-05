@@ -58,4 +58,7 @@ const Color yellow1 = Color.fromRGBO(147, 161, 161, 1);
 
 const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
 
+const Color gray1 = Color.fromRGBO(180, 180, 180, 1);
+const Color gray2 = Color.fromRGBO(211, 211, 211, 1);
+
 const Color blackInputBackgroundColor = Color.fromRGBO(36, 36, 36, 1);
