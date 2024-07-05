@@ -16,7 +16,10 @@ class SendPingIcon extends ConsumerWidget {
       return SizedBox.shrink();
     } else {
       return IconButton(
-          icon: Icon(PhosphorIcons.arrow_circle_up),
+          icon: Icon(
+            PhosphorIcons.arrow_circle_up,
+            size: 24,
+          ),
           color: Color.fromRGBO(0, 122, 255, 1),
           onPressed: () => onPressed());
     }

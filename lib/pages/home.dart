@@ -68,12 +68,17 @@ class _HomePageState extends ConsumerState<Home> with WidgetsBindingObserver {
                     child: Align(
                         alignment: Alignment.topCenter,
                         child: CurrentPingCell())))),
-        Padding(
-            padding: EdgeInsets.only(
-                right: spacingFive,
-                bottom: spacingFive + MediaQuery.of(context).padding.bottom),
-            child:
-                Align(alignment: Alignment.bottomRight, child: AddPingButton()))
+        AnimatedOpacity(
+            opacity: ref.watch(hideHomeScreenProviderProvider) ? 0 : 1,
+            duration: duration,
+            curve: curve,
+            child: Padding(
+                padding: EdgeInsets.only(
+                    right: spacingFive,
+                    bottom:
+                        spacingFive + MediaQuery.of(context).padding.bottom),
+                child: Align(
+                    alignment: Alignment.bottomRight, child: AddPingButton())))
       ],
     );
   }

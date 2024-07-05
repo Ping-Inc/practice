@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ping_id_provider.dart';
+part of 'latest_ping_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pingIdHash() => r'a8af82166279edd965b1bea5b5c4c85e6064bcfc';
+String _$latestPingHash() => r'1bc232a37b8ffb891aa60a8ff04797394ac39067';
 
-/// See also [pingId].
-@ProviderFor(pingId)
-final pingIdProvider = AutoDisposeFutureProvider<int>.internal(
-  pingId,
-  name: r'pingIdProvider',
+/// See also [latestPing].
+@ProviderFor(latestPing)
+final latestPingProvider = AutoDisposeFutureProvider<Ping?>.internal(
+  latestPing,
+  name: r'latestPingProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$pingIdHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$latestPingHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef PingIdRef = AutoDisposeFutureProviderRef<int>;
+typedef LatestPingRef = AutoDisposeFutureProviderRef<Ping?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:practice/providers/ping_id_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class TimeRow extends ConsumerWidget {

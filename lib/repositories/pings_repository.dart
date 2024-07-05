@@ -5,11 +5,8 @@ import 'package:sqflite/sqflite.dart';
 class PingsRepository {
   PingsRepository._();
 
-  static Future<int> newestId() async {
-    final List<Map<String, Object?>> data = await db
-        .query('pings', orderBy: 'time desc', limit: 1, columns: ['id']);
-
-    return data.isEmpty ? 1 : (data[0]['id'] as int) + 1;
+  static Future<List<Map<String, Object?>>> latest() async {
+    return db.query('pings', orderBy: 'time desc', limit: 1);
   }
 
   static Future<List<Map<String, Object?>>> fetch() async {
