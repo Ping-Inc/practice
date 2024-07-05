@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/neighborhood_cell.dart';
 import 'package:practice/components/ping_id_cell.dart';
+import 'package:practice/components/send_ping_icon.dart';
 import 'package:practice/components/time_row.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_drag_handle.dart';
@@ -38,50 +40,42 @@ class _NewPingPageState extends ConsumerState<NewPingPage>
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom + spacingFive,
-        left: spacingFive,
-        right: spacingFive,
-        top: spacingFive,
+        bottom: MediaQuery.of(context).viewInsets.bottom + spacingFour,
+        left: spacingFour,
+        right: spacingFour,
+        top: spacingFour,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: spacingFive,
-                  top: spacingTwo,
-                ),
-                child: SystemDragHandle()),
-          ),
           TimeRow(),
-          SizedBox(height: spacingThree),
+          SizedBox(height: spacingTwo),
           TextField(
               maxLines: 1,
               controller: controller,
-              textInputAction: TextInputAction.done,
+              textInputAction: TextInputAction.send,
               onChanged: (value) =>
                   ref.read(currentPingProvider.notifier).set(value),
-              onSubmitted: (value) {
-                submitPing();
-              },
+              onSubmitted: (value) => submitPing(),
               autofocus: true,
               focusNode: focusNode,
               decoration: InputDecoration(
                 filled: true,
+                suffixIcon: SendPingIcon(onPressed: submitPing),
                 enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.zero,
                     borderSide: BorderSide(
                         width: thinLine,
                         color: Theme.of(context).colorScheme.surface)),
                 focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.zero,
                     borderSide: BorderSide(
                         width: thinLine,
                         color: Theme.of(context).colorScheme.primary)),
                 fillColor: Theme.of(context).colorScheme.surface,
               )),
-          SizedBox(height: spacingThree),
+          SizedBox(height: spacingTwo),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [PingIdCell(), NeighborhoodCell()],

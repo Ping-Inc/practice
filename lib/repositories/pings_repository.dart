@@ -28,7 +28,7 @@ class PingsRepository {
   static Future<int> insert(String pingText, DateTime pingTime) async {
     return await db.insert('pings', {
       'time': pingTime.millisecondsSinceEpoch,
-      'text': pingText,
+      'text': pingText.trim(),
     });
   }
 
