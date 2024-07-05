@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/resizing_text_cell.dart';
-import 'package:practice/pages/details_page.dart';
+import 'package:practice/pages/pings_page.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 
 class LastPingCell extends ConsumerWidget {
@@ -19,22 +19,19 @@ class LastPingCell extends ConsumerWidget {
               HapticFeedback.selectionClick();
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => DetailsPage(ping: latestPing)),
+                MaterialPageRoute(builder: (context) => PingsPage()),
               );
             },
             child: AspectRatio(
                 aspectRatio: 1,
                 child: Container(
-                    color: Colors.white,
                     child: ResizingTextCell(
-                      text: latestPing!.text,
-                    ))));
+                  text: latestPing!.text,
+                ))));
       default:
         return AspectRatio(
             aspectRatio: 1,
-            child: Container(
-                color: Colors.white, child: ResizingTextCell(text: "")));
+            child: Container(child: ResizingTextCell(text: "")));
     }
   }
 }

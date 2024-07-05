@@ -53,26 +53,27 @@ class _NewPingPageState extends ConsumerState<NewPingPage>
               onSubmitted: (value) => submitPing(),
               autofocus: true,
               focusNode: focusNode,
+              style: TextStyle(color: Colors.black),
+              cursorColor: Colors.black, // Set your desired cursor color here
               decoration: InputDecoration(
-                isDense: true,
-                filled: true,
-                suffixIcon: SendPingIcon(onPressed: submitPing),
-                contentPadding: EdgeInsets.symmetric(horizontal: spacingFour),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
-                    borderSide: BorderSide(
-                        width: thinLine,
-                        color: Theme.of(context).colorScheme.surface)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
-                    borderSide: BorderSide(
-                        width: thinLine,
-                        color: Theme.of(context).colorScheme.primary)),
-                fillColor: Colors.white,
-              )),
-          SizedBox(height: spacingThree),
+                  isDense: true,
+                  filled: true,
+                  suffixIcon: SendPingIcon(onPressed: submitPing),
+                  contentPadding: EdgeInsets.symmetric(horizontal: spacingFour),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                      borderSide: BorderSide(
+                          width: thinLine,
+                          color: Theme.of(context).colorScheme.surface)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                      borderSide: BorderSide(
+                          width: thinLine,
+                          color: Theme.of(context).colorScheme.primary)),
+                  fillColor: Colors.white)),
+          SizedBox(height: spacingFour),
           Row(
-            children: [SizedBox(width: 64, child: LastPingCell())],
+            children: [SizedBox(width: 72, child: LastPingCell())],
           )
         ],
       ),
