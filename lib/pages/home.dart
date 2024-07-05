@@ -62,6 +62,7 @@ class _HomePageState extends ConsumerState<Home> with WidgetsBindingObserver {
             child: AnimatedOpacity(
                 opacity: ref.watch(hideHomeScreenProviderProvider) ? 1 : 0,
                 duration: duration,
+                curve: curve,
                 child: Container(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     child: Align(

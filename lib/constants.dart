@@ -20,6 +20,7 @@ const double spacingTen = spacingNine * goldenRatio;
 const double cornerRadius = spacingFive;
 
 const Duration duration = Duration(milliseconds: 200);
+const Curve curve = Curves.ease;
 
 const double tapTarget = 48;
 
