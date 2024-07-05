@@ -43,7 +43,7 @@ const Map<int, String> migrationScripts = {
 
 const Color black3 = Color.fromRGBO(0, 0, 0, 1);
 const Color white3 = Color.fromRGBO(255, 255, 255, 1);
-const Color blue3 = Color.fromRGBO(43, 54, 193, 1);
+const Color blue3 = Color.fromRGBO(17, 0, 255, 1);
 const Color yellow3 = Color.fromRGBO(253, 246, 227, 1);
 
 const Color black2 = Color.fromRGBO(33, 33, 33, 1);
