@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:practice/constants.dart';
 
-class NeighborhoodCell extends StatelessWidget {
-  const NeighborhoodCell({Key? key}) : super(key: key);
+class WeatherCell extends StatelessWidget {
+  const WeatherCell({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text("neighborhood",
+    return Text("weather ☀️",
         style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: fontSmall));

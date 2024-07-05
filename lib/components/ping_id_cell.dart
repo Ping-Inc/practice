@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 
 class PingIdCell extends ConsumerWidget {
@@ -13,6 +14,8 @@ class PingIdCell extends ConsumerWidget {
             latestPing == null ? 1 : latestPing.id.toString(),
           _ => ""
         }}",
-        style: TextStyle(color: Theme.of(context).colorScheme.secondary));
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: fontSmall));
   }
 }

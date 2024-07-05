@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class TimeRow extends ConsumerWidget {
@@ -9,17 +10,12 @@ class TimeRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (ref.watch(timeProvider)) {
-      AsyncData(value: final now) =>
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            DateFormat('EEEE, MMMM d, y').format(now),
-            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          ),
-          Text(
-            DateFormat('h:mma').format(now).toLowerCase(),
-            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          )
-        ]),
+      AsyncData(value: final now) => Text(
+          DateFormat('MMMM d, y, h:mma').format(now),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: fontSmall),
+        ),
       _ => SizedBox.shrink()
     };
   }

@@ -4,6 +4,7 @@ import 'package:practice/components/neighborhood_cell.dart';
 import 'package:practice/components/ping_id_cell.dart';
 import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/components/time_row.dart';
+import 'package:practice/components/weather_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 
@@ -17,7 +18,9 @@ class CurrentPingCell extends ConsumerWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: spacingEight, vertical: spacingFive),
             child: Column(children: [
-              TimeRow(),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [PingIdCell(), TimeRow()]),
               SizedBox(height: spacingThree),
               AspectRatio(
                   aspectRatio: 1,
@@ -26,7 +29,7 @@ class CurrentPingCell extends ConsumerWidget {
               SizedBox(height: spacingThree),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [PingIdCell(), NeighborhoodCell()],
+                children: [NeighborhoodCell(), WeatherCell()],
               )
             ])));
   }
