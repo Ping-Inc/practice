@@ -34,6 +34,10 @@
 	<string>Main</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Some features of the app might need access to the photo library.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>	
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>UISupportedInterfaceOrientations</key>
