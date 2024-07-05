@@ -66,6 +66,7 @@ class PingPractice extends ConsumerWidget {
     });
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ref.watch(themeModeProvider).data(),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [

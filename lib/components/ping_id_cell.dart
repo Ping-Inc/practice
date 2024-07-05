@@ -8,9 +8,9 @@ class PingIdCell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (ref.watch(pingIdProvider)) {
-      AsyncData(value: final id) => Text("p${id.toString()}",
+      AsyncData(value: final id) => Text("P${id.toString()}",
           style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
-      _ => SizedBox.shrink()
+      _ => Text("P")
     };
   }
 }

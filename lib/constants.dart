@@ -51,7 +51,7 @@ const Color blue2 = Color.fromRGBO(54, 66, 192, 1);
 const Color yellow2 = Color.fromRGBO(238, 232, 213, 1);
 
 const Color black1 = Color.fromRGBO(66, 66, 66, 1);
-const Color white1 = Color.fromRGBO(209, 209, 209, 1);
+const Color white1 = Color.fromRGBO(180, 180, 180, 1);
 const Color blue1 = Color.fromRGBO(110, 117, 194, 1);
 const Color yellow1 = Color.fromRGBO(147, 161, 161, 1);
 

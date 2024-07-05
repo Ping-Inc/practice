@@ -7,7 +7,7 @@ part of 'hide_home_screen_provider.dart';
 // **************************************************************************
 
 String _$hideHomeScreenProviderHash() =>
-    r'b6d80eecf303bd5286e42f410dd7a3ac13e9eb94';
+    r'a7b4ede1c061b55d652acce1511783a2c3f01f62';
 
 /// See also [HideHomeScreenProvider].
 @ProviderFor(HideHomeScreenProvider)

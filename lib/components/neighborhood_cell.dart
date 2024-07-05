@@ -7,6 +7,8 @@ class NeighborhoodCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Text("weather ☀️  neighborhood",
+        style: TextStyle(color: Theme.of(context).colorScheme.secondary));
     return switch (LocationUtils.getNeighborhood(context)) {
       AsyncData(value: final neighborhood) => Text(neighborhood,
           style: TextStyle(color: Theme.of(context).colorScheme.secondary)),

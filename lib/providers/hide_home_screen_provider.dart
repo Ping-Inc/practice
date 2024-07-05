@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'hide_home_screen_provider.g.dart';
@@ -10,6 +11,12 @@ class HideHomeScreenProvider extends _$HideHomeScreenProvider {
   }
 
   void toggle() {
+    if (state == false) {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    } else {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    }
+
     state = !state;
   }
 }
