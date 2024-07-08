@@ -8,6 +8,7 @@ import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/home.dart';
 import 'package:practice/providers/theme_mode_provider.dart';
 import 'package:practice/providers/time_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -44,6 +45,7 @@ Future<Database> initDatabase() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  prefs = await SharedPreferences.getInstance();
   db = await initDatabase();
 
   runApp(

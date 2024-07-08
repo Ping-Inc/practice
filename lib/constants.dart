@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 late Database db;
@@ -64,3 +65,6 @@ const Color gray2 = Color.fromRGBO(211, 211, 211, 1);
 const Color blackInputBackgroundColor = Color.fromRGBO(36, 36, 36, 1);
 
 const double fontSmall = 12;
+
+late SharedPreferences prefs;
+const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";
