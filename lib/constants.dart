@@ -68,3 +68,5 @@ const double fontSmall = 12;
 
 late SharedPreferences prefs;
 const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";
+const String sharedPrefsBackupFrequencyKey =
+    "shared_prefs_backup_frequency_key";
