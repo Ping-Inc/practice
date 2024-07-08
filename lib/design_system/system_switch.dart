@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:practice/constants.dart';
+import 'package:flutter/cupertino.dart';
 
 class SystemSwitch extends StatelessWidget {
   const SystemSwitch({super.key, required this.value, required this.onChanged});
@@ -9,11 +8,7 @@ class SystemSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Switch(
-      trackOutlineWidth:
-          WidgetStateProperty.resolveWith<double?>((Set<WidgetState> states) {
-        return line; // Use the default width.
-      }),
+    return CupertinoSwitch(
       value: value,
       onChanged: onChanged,
     );

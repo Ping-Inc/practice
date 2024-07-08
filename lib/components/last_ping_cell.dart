@@ -31,7 +31,7 @@ class LastPingCell extends ConsumerWidget {
       default:
         return AspectRatio(
             aspectRatio: 1,
-            child: Container(child: ResizingTextCell(text: "")));
+            child: Container(child: ResizingTextCell(text: "loading...")));
     }
   }
 }

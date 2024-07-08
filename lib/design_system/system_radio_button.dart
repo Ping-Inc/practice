@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
+// ignore: unnecessary_import
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:flutter/services.dart';
+import 'package:practice/components/system_tap.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 
 class SystemRadioButton extends StatelessWidget {
@@ -19,19 +24,12 @@ class SystemRadioButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RadioListTile<dynamic>(
-      dense: true,
-      title: SystemText(
-        text: title,
-      ),
-      value: value,
-      groupValue: groupValue,
-      onChanged: enabled
-          ? (value) {
-              HapticFeedback.selectionClick();
-              onChanged(value);
-            }
-          : null,
-    );
+    return SystemTap(
+        onTap: () => enabled ? onChanged(value) : null,
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          CupertinoRadio(value: value, groupValue: groupValue, onChanged: null),
+          SizedBox(width: spacingTwo),
+          SystemText(text: title)
+        ]));
   }
 }

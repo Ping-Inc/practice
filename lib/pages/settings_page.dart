@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/backup_folder_path_button.dart';
 import 'package:practice/components/backup_frequency_radio_buttons.dart';
-import 'package:practice/components/backups_on_switch.dart';
+import 'package:practice/components/backup_on_switch.dart';
 import 'package:practice/constants.dart';
+// ignore: unused_import
 import 'package:practice/design_system/system_switch.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -40,8 +42,9 @@ class SettingsPage extends ConsumerWidget {
                       child: Column(
                         children: [
                           Text("Backup", style: TextStyle(fontSize: 24)),
-                          BackupsOnSwitch(),
-                          BackupFrequencyRadioButtons()
+                          BackupOnSwitch(),
+                          BackupFrequencyRadioButtons(),
+                          BackupFolderPathButton()
                         ],
                       )),
                 ))
