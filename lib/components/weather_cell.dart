@@ -15,7 +15,7 @@ class WeatherCell extends ConsumerWidget {
     return SystemText(
         text: "weather ☀️",
         color: color,
-        font: FontEnum.sfmono,
+        font: FontEnum.courier,
         size: TextSizeEnum.twelve);
   }
 }

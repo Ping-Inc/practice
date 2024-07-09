@@ -15,7 +15,7 @@ class NeighborhoodCell extends ConsumerWidget {
     return SystemText(
       text: "neighborhood",
       color: color,
-      font: FontEnum.sfmono,
+      font: FontEnum.courier,
       size: TextSizeEnum.twelve,
     );
   }

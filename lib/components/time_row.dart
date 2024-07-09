@@ -18,7 +18,7 @@ class TimeRow extends ConsumerWidget {
       AsyncData(value: final now) => SystemText(
           text: DateFormat('MMMM d, y, h:mma').format(now),
           color: color,
-          font: FontEnum.sfmono,
+          font: FontEnum.courier,
           size: TextSizeEnum.twelve),
       _ => SizedBox.shrink()
     };

@@ -38,7 +38,7 @@ class PingIdCell extends ConsumerWidget {
                   _ => ""
                 }}",
                 color: color,
-                font: FontEnum.sfmono,
+                font: FontEnum.courier,
                 size: TextSizeEnum.twelve)
           ])
         ]));
