@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:practice/constants.dart';
 import 'dart:io';
 import 'package:practice/data/ping.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/pings_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -41,19 +42,20 @@ class ImportPingsButton extends ConsumerWidget {
 
               ref.read(pingsProvider.notifier).addAllPings(pings);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(AppLocalizations.of(context)!
-                      .pings_imported(pings.length)),
+                  content: SystemText(
+                      text: AppLocalizations.of(context)!
+                          .pings_imported(pings.length)),
                   duration: Duration(seconds: scaffoldTime)));
             }
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(e.toString()),
+                content: SystemText(text: e.toString()),
                 duration: Duration(seconds: scaffoldTime)));
           }
         },
-        child: Text(
-          AppLocalizations.of(context)!.import_pings,
-          textAlign: TextAlign.center,
+        child: SystemText(
+          text: AppLocalizations.of(context)!.import_pings,
+          align: TextAlign.center,
         ),
       )
     ]);

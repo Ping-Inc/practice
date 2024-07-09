@@ -12,6 +12,7 @@ class BackupOn extends _$BackupOn {
 
   void toggle() {
     prefs.setBool(sharedPrefsBackupOnKey, !state);
+
     state = !state;
   }
 }

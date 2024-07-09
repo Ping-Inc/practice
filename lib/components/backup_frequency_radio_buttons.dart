@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/design_system/system_radio_button.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/backup_frequency_enum.dart';
 import 'package:practice/extensions/backup_frequency_enum_extensions.dart';
 import 'package:practice/extensions/string_extensions.dart';
@@ -16,7 +17,7 @@ class BackupFrequencyRadioButtons extends ConsumerWidget {
     final currentFrequency = ref.watch(backupFrequencyProvider);
 
     return Column(children: [
-      Text("choose frequency"),
+      SystemText(text: "choose frequency"),
       for (BackupFrequencyEnum frequency in BackupFrequencyEnum.values)
         SystemRadioButton(
           title: frequency.title(context).capitalize(),

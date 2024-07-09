@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/settings_page.dart';
 
 class PingsPage extends ConsumerWidget {
@@ -26,7 +27,7 @@ class PingsPage extends ConsumerWidget {
                               HapticFeedback.selectionClick();
                               Navigator.pop(context);
                             },
-                            child: Text("Back")),
+                            child: SystemText(text: "Back")),
                         TextButton(
                             onPressed: () {
                               HapticFeedback.selectionClick();
@@ -36,7 +37,7 @@ class PingsPage extends ConsumerWidget {
                                     builder: (context) => SettingsPage()),
                               );
                             },
-                            child: Text("Settings")),
+                            child: SystemText(text: "Settings")),
                       ],
                     )),
                 Expanded(child: PingList())

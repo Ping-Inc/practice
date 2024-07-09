@@ -1,18 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/enums/font_enum.dart';
+import 'package:practice/extensions/font_enum_extensions.dart';
 
 class ResizingTextCell extends StatelessWidget {
-  const ResizingTextCell({super.key, required this.text});
+  const ResizingTextCell(
+      {super.key, required this.text, this.color = Colors.grey});
 
   final String text;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: Theme.of(context).colorScheme.secondary,
+            color: color,
             width: line,
           ),
         ),
@@ -22,7 +26,10 @@ class ResizingTextCell extends StatelessWidget {
           minFontSize: 1,
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 200),
+          style: TextStyle(
+              height: 1.5,
+              fontSize: 200,
+              fontFamily: FontEnum.sfpro.toFontFamily()),
         )));
   }
 }

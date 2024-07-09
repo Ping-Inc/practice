@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/pings_provider.dart';
 
 class DetailsPage extends ConsumerWidget {
@@ -27,7 +28,7 @@ class DetailsPage extends ConsumerWidget {
                   HapticFeedback.selectionClick();
                   Navigator.pop(context);
                 },
-                child: Text("Back")),
+                child: SystemText(text: "Back")),
             Expanded(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -37,7 +38,7 @@ class DetailsPage extends ConsumerWidget {
                       HapticFeedback.selectionClick();
                       Navigator.pop(context);
                     },
-                    child: Text("Edit")),
+                    child: SystemText(text: "Edit")),
                 TextButton(
                   onPressed: () {
                     HapticFeedback.selectionClick();
@@ -45,14 +46,15 @@ class DetailsPage extends ConsumerWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Confirm'),
-                          content: Text('Do you really want to delete?'),
+                          title: SystemText(text: 'Confirm'),
+                          content:
+                              SystemText(text: 'Do you really want to delete?'),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () {
                                 Navigator.pop(context); // Close the dialog
                               },
-                              child: Text('No'),
+                              child: SystemText(text: 'No'),
                             ),
                             TextButton(
                               onPressed: () {
@@ -62,14 +64,14 @@ class DetailsPage extends ConsumerWidget {
                                 Navigator.pop(context); // Close the dialog
                                 Navigator.pop(context);
                               },
-                              child: Text('Yes'),
+                              child: SystemText(text: 'Yes'),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  child: Text("Delete"),
+                  child: SystemText(text: "Delete"),
                 )
               ],
             ))
@@ -91,20 +93,24 @@ class DetailsPage extends ConsumerWidget {
                       children: <Widget>[
                         TextButton(
                             onPressed: () {},
-                            child:
-                                Text(DateFormat('h:mm a').format(ping.time))),
+                            child: SystemText(
+                                text: DateFormat('h:mm a').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child: Text(DateFormat('EEEE').format(ping.time))),
+                            child: SystemText(
+                                text: DateFormat('EEEE').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child: Text(DateFormat('MMMM').format(ping.time))),
+                            child: SystemText(
+                                text: DateFormat('MMMM').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child: Text(DateFormat('d').format(ping.time))),
+                            child: SystemText(
+                                text: DateFormat('d').format(ping.time))),
                         TextButton(
                             onPressed: () {},
-                            child: Text(DateFormat('y').format(ping.time))),
+                            child: SystemText(
+                                text: DateFormat('y').format(ping.time))),
                       ],
                     )
                   ])))

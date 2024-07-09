@@ -5,8 +5,8 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/backup_on_provider.dart';
 import 'package:practice/providers/backup_path_provider.dart';
 
-class BackupFolderPathButton extends ConsumerWidget {
-  const BackupFolderPathButton({Key? key}) : super(key: key);
+class SavePingsButton extends ConsumerWidget {
+  const SavePingsButton({Key? key}) : super(key: key);
 
   Future<void> pickFolder(WidgetRef ref) async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();

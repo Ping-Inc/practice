@@ -16,3 +16,18 @@ extension StringParsing on BackupFrequencyEnum {
     }
   }
 }
+
+extension DurationParsing on BackupFrequencyEnum {
+  Duration duration() {
+    switch (this) {
+      case BackupFrequencyEnum.hourly:
+        return Duration(hours: 1);
+      case BackupFrequencyEnum.daily:
+        return Duration(days: 1);
+      case BackupFrequencyEnum.weekly:
+        return Duration(days: 7);
+      case BackupFrequencyEnum.monthly:
+        return Duration(days: 30);
+    }
+  }
+}

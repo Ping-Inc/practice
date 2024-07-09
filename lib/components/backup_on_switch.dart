@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/design_system/system_switch.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/backup_on_provider.dart';
 
 class BackupOnSwitch extends ConsumerWidget {
@@ -11,7 +12,7 @@ class BackupOnSwitch extends ConsumerWidget {
     final switchOn = ref.watch(backupOnProvider);
 
     return Column(children: [
-      Text(switchOn ? "Turn off" : "Turn on"),
+      SystemText(text: switchOn ? "Turn off" : "Turn on"),
       SystemSwitch(
         value: switchOn,
         onChanged: (_) => ref.read(backupOnProvider.notifier).toggle(),

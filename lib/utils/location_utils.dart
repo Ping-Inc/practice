@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:practice/design_system/system_text.dart';
 
 class LocationUtils {
   static Future<String?> getNeighborhood(BuildContext context) async {
@@ -47,7 +48,7 @@ class LocationUtils {
 
   static void showError(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message, style: TextStyle(color: Colors.white)),
+      content: SystemText(text: message, color: Colors.white),
       backgroundColor: Theme.of(context).colorScheme.error,
     ));
   }

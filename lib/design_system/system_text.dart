@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 
 class SystemText extends ConsumerWidget {
@@ -14,7 +16,8 @@ class SystemText extends ConsumerWidget {
       this.underline = false,
       this.light = false,
       this.overflow = TextOverflow.ellipsis,
-      this.weight = FontWeight.normal});
+      this.weight = FontWeight.normal,
+      this.font = FontEnum.sfpro});
 
   final String text;
   final TextSizeEnum size;
@@ -26,6 +29,7 @@ class SystemText extends ConsumerWidget {
   final bool light;
   final TextOverflow overflow;
   final FontWeight weight;
+  final FontEnum font;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,6 +37,7 @@ class SystemText extends ConsumerWidget {
         maxLines: maxLines ?? 999,
         textAlign: align,
         style: TextStyle(
+            fontFamily: font.toFontFamily(),
             fontWeight: weight,
             decoration: underline ? TextDecoration.underline : null,
             inherit: false,

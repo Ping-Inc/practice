@@ -75,6 +75,18 @@ flutter:
   generate: true
   assets:
     - images/
+    - fonts/
+
+  fonts: 
+    - family: SF-Pro
+      fonts:
+        - asset: fonts/sf-pro.ttf
+    - family: SF-Mono
+      fonts:
+        - asset: fonts/sf-mono.otf
+    - family: Courier
+      fonts:
+        - asset: fonts/courier.ttf
 
 
 flutter_launcher_icons:

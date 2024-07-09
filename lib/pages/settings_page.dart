@@ -7,6 +7,8 @@ import 'package:practice/components/backup_on_switch.dart';
 import 'package:practice/constants.dart';
 // ignore: unused_import
 import 'package:practice/design_system/system_switch.dart';
+import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/text_size_enum.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -29,7 +31,7 @@ class SettingsPage extends ConsumerWidget {
                               HapticFeedback.selectionClick();
                               Navigator.pop(context);
                             },
-                            child: Text("Back")),
+                            child: SystemText(text: "Back")),
                       ],
                     )),
                 Expanded(
@@ -41,7 +43,10 @@ class SettingsPage extends ConsumerWidget {
                           top: spacingFour),
                       child: Column(
                         children: [
-                          Text("Backup", style: TextStyle(fontSize: 24)),
+                          SystemText(
+                            text: "Backup",
+                            size: TextSizeEnum.twentyNine,
+                          ),
                           BackupOnSwitch(),
                           BackupFrequencyRadioButtons(),
                           BackupFolderPathButton()

@@ -5,6 +5,7 @@ import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_loader.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/pings_provider.dart';
 
@@ -14,8 +15,8 @@ class PingList extends ConsumerWidget {
   //       padding: EdgeInsets.only(
   //           left: spacingTwo, bottom: spacingThree, right: spacingTwo),
   //       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-  //         Text(ping.text),
-  //         Text(DateFormat('h:mm a - EEEE MMMM d, y').format(ping.time),
+  //         SystemText(text: ping.text),
+  //         SystemText(text: DateFormat('h:mm a - EEEE MMMM d, y').format(ping.time),
   //             style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
   //       ]));
   // }
@@ -27,8 +28,10 @@ class PingList extends ConsumerWidget {
     return switch (pings) {
       AsyncData(value: final pingsValue) => pingsValue.isEmpty
           ? Center(
-              child:
-                  Column(children: [Text("No pings yet"), ImportPingsButton()]))
+              child: Column(children: [
+              SystemText(text: "No pings yet"),
+              ImportPingsButton()
+            ]))
           : GridView.builder(
               itemCount: pingsValue.length + 1,
               padding: EdgeInsets.only(
@@ -64,7 +67,7 @@ class PingList extends ConsumerWidget {
                     });
               },
             ),
-      AsyncError() => Text("Error"),
+      AsyncError() => SystemText(text: "Error"),
       _ => SystemLoader()
     };
   }
