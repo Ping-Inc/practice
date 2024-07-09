@@ -11,7 +11,12 @@ class Home extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(child: SingleChildScrollView(child: CurrentPingCell())),
+          Expanded(
+              child: SingleChildScrollView(
+                  child: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [CurrentPingCell()])))),
           Padding(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),

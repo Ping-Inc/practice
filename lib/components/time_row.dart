@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
+import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/providers/ping_entry_color_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
@@ -17,7 +18,8 @@ class TimeRow extends ConsumerWidget {
       AsyncData(value: final now) => SystemText(
           text: DateFormat('MMMM d, y, h:mma').format(now),
           color: color,
-          font: FontEnum.sfmono),
+          font: FontEnum.sfmono,
+          size: TextSizeEnum.twelve),
       _ => SizedBox.shrink()
     };
   }

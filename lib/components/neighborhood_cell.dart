@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
+import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/providers/ping_entry_color_provider.dart';
 
 class NeighborhoodCell extends ConsumerWidget {
@@ -12,6 +13,10 @@ class NeighborhoodCell extends ConsumerWidget {
     final color = ref.watch(pingEntryColorProvider);
 
     return SystemText(
-        text: "neighborhood", color: color, font: FontEnum.sfmono);
+      text: "neighborhood",
+      color: color,
+      font: FontEnum.sfmono,
+      size: TextSizeEnum.twelve,
+    );
   }
 }
