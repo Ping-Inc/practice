@@ -6,8 +6,8 @@ import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/settings_page.dart';
 
-class PingsPage extends ConsumerWidget {
-  const PingsPage({super.key});
+class BrowsePage extends ConsumerWidget {
+  const BrowsePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

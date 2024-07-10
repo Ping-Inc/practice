@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/extensions/date_time_enum_extensions.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
-import 'package:practice/pages/home.dart';
+import 'package:practice/pages/home_page.dart';
 import 'package:practice/providers/theme_mode_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -138,7 +138,7 @@ class PingPractice extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       home: Scaffold(
-        body: Home(),
+        body: HomePage(),
       ),
     );
   }

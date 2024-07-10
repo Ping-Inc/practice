@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:practice/components/meta_data_text.dart';
 import 'package:practice/providers/time_provider.dart';
 
-class TimeRow extends ConsumerWidget {
-  const TimeRow({Key? key}) : super(key: key);
+class TimeCell extends ConsumerWidget {
+  const TimeCell({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

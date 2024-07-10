@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/input_ping_text_cell.dart';
 import 'package:practice/components/neighborhood_cell.dart';
-import 'package:practice/components/ping_id_cell.dart';
-import 'package:practice/components/time_row.dart';
-import 'package:practice/components/weather_cell.dart';
+import 'package:practice/components/meta_data/ping_id_cell.dart';
+import 'package:practice/components/meta_data/time_cell.dart';
+import 'package:practice/components/meta_data/weather_cell.dart';
 import 'package:practice/constants.dart';
 
 class CurrentPingCell extends ConsumerWidget {
@@ -19,7 +19,7 @@ class CurrentPingCell extends ConsumerWidget {
             child: Column(children: [
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [PingIdCell(), TimeRow()]),
+                  children: [PingIdCell(), TimeCell()]),
               SizedBox(height: spacingThree),
               AspectRatio(aspectRatio: 1, child: InputPingTextCell()),
               SizedBox(height: spacingThree),

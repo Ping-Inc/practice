@@ -6,14 +6,14 @@ import 'package:practice/constants.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 
-class NewPingPage extends ConsumerStatefulWidget {
-  const NewPingPage({super.key});
+class PingInput extends ConsumerStatefulWidget {
+  const PingInput({super.key});
 
   @override
-  ConsumerState<NewPingPage> createState() => _NewPingPageState();
+  ConsumerState<PingInput> createState() => _NewPingPageState();
 }
 
-class _NewPingPageState extends ConsumerState<NewPingPage>
+class _NewPingPageState extends ConsumerState<PingInput>
     with WidgetsBindingObserver {
   final now = DateTime.now();
   final controller = TextEditingController();
