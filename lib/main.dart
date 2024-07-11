@@ -47,8 +47,6 @@ void main() async {
 
   prefs = await SharedPreferences.getInstance();
   db = await initDatabase();
-  // await initializeBackupService();
-  // await backUpDB();
 
   runApp(
     ProviderScope(
@@ -56,64 +54,6 @@ void main() async {
     ),
   );
 }
-
-// Future<void> initializeBackupService() async {
-//   final service = FlutterBackgroundService();
-
-//   await service.configure(
-//     androidConfiguration: AndroidConfiguration(
-//       onStart: onStart,
-//       autoStart: true,
-//       isForegroundMode: true,
-//     ),
-//     iosConfiguration: IosConfiguration(
-//       autoStart: true,
-//       onForeground: onStart,
-//       onBackground: (service) async {
-//         // iOS will stop the background service after 30 seconds.
-//         // You can do any task within 30 seconds.
-//         return true;
-//       },
-//     ),
-//   );
-
-//   service.startService();
-// }
-
-// void onStart(ServiceInstance service) async {
-//   Timer? timer = null;
-
-//   final enabled = prefs.getBool(sharedPrefsBackupOnKey) ?? false;
-
-//   if (enabled) {
-//     final frequency = prefs.getString(sharedPrefsBackupFrequencyKey) == null
-//         ? BackupFrequencyEnum.hourly
-//         : BackupFrequencyEnum.values.firstWhere((e) =>
-//             e.toString() == prefs.getString(sharedPrefsBackupFrequencyKey)!);
-
-//     startTimer(timer, frequency.duration());
-//   }
-
-//   service.on('refreshTimer').listen((event) {
-//     refreshTimer(timer);
-//   });
-// }
-
-// void refreshTimer(Timer? timer) async {
-//   final enabled = prefs.getBool(sharedPrefsBackupOnKey) ?? false;
-
-//   if (enabled) {
-//     final frequency = prefs.getString(sharedPrefsBackupFrequencyKey) == null
-//         ? BackupFrequencyEnum.hourly
-//         : BackupFrequencyEnum.values.firstWhere((e) =>
-//             e.toString() == prefs.getString(sharedPrefsBackupFrequencyKey)!);
-
-//     stopTimer(timer);
-//     startTimer(timer, frequency.duration());
-//   } else {
-//     stopTimer(timer);
-//   }
-// }
 
 class PingPractice extends ConsumerWidget {
   @override

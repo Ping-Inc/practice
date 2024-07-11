@@ -9,6 +9,23 @@ class PingsRepository {
     return db.query('pings', orderBy: 'time desc', limit: 1);
   }
 
+  static Future<List<Map<String, Object?>>> fetchAll() async {
+    return db.query('pings', orderBy: 'time desc');
+  }
+
+  static Future<List<Map<String, Object?>>> fetchDay() async {
+    final now = DateTime.now();
+    final startOfDay = DateTime(now.year, now.month, now.day);
+    final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
+
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ?',
+      whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
+      orderBy: 'time desc',
+    );
+  }
+
   static Future<List<Map<String, Object?>>> fetch() async {
     return db.query('pings', orderBy: 'time desc', limit: fetchLimit);
   }

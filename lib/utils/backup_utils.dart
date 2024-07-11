@@ -1,16 +1,42 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/data/ping.dart';
+import 'package:practice/repositories/pings_repository.dart';
 
 class BackupUtils {
   static Future<void> backupPings() async {
-    final path = prefs.getString(sharedPrefsBackupPathKey);
+    final directory = await getApplicationDocumentsDirectory();
 
-    if (path != null) {
-      final fullPath = "${path}/pings_${DateTime.now().toIso8601String()}.csv";
-      final File file = File(fullPath);
-      await file.writeAsString("test");
+    if (await Permission.storage.request().isGranted) {
+      final backupDir = Directory("${directory.path}/pings");
+
+      if (!await backupDir.exists()) {
+        await backupDir.create(recursive: true);
+      }
+
+      final path =
+          "${backupDir.path}/${DateFormat('M_d_y').format(DateTime.now())}.csv";
+      final File file = File(path);
+
+      final pings = await PingsRepository.fetchAll();
+      final pingsList = pings.map<Ping>((data) => Ping.fromJson(data)).toList();
+      final csvContent = convertPingsToCSV(pingsList);
+
+      await file.writeAsString(csvContent);
     }
+  }
+
+  static String convertPingsToCSV(List<Ping> pings) {
+    final buffer = StringBuffer();
+    buffer.writeln('time,text');
+    for (final ping in pings) {
+      buffer.writeln('${ping.time.millisecondsSinceEpoch},${ping.text}');
+    }
+    return buffer.toString();
   }
 
   void startTimer() {

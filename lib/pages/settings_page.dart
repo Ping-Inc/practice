@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/backup_folder_path_button.dart';
 import 'package:practice/components/backup_frequency_radio_buttons.dart';
 import 'package:practice/components/backup_on_switch.dart';
 import 'package:practice/constants.dart';
@@ -49,7 +48,6 @@ class SettingsPage extends ConsumerWidget {
                           ),
                           BackupOnSwitch(),
                           BackupFrequencyRadioButtons(),
-                          BackupFolderPathButton()
                         ],
                       )),
                 ))
