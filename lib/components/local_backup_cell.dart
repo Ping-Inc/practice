@@ -16,8 +16,8 @@ class LocalBackupCell extends ConsumerWidget {
       children: [
         SystemText(
           text: backupOn
-              ? "Your Pings are automatically backed up every day to a local folder which you can access. We offer different strategies for ensuring that this data is synced to a cloud."
-              : "Your Pings are not being backup up.",
+              ? "Your pings are automatically backed up every day to a local folder which you can access. We offer different strategies for ensuring that this data is synced to a cloud."
+              : "Your pings are not being backed up.",
         ),
         if (backupOn)
           Column(children: [
