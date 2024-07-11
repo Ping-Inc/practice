@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/current_ping_cell.dart';
 import 'package:practice/components/ping_input.dart';
+import 'package:practice/providers/backup_on_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -34,7 +35,9 @@ class _HomePageState extends ConsumerState<HomePage>
       case AppLifecycleState.inactive:
         break;
       case AppLifecycleState.paused:
-        BackupUtils.backupPings();
+        if (ref.read(backupOnProvider)) {
+          BackupUtils.backupPings();
+        }
         break;
       case AppLifecycleState.detached:
         break;

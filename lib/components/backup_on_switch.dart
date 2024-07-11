@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/design_system/system_switch.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/providers/backup_on_provider.dart';
 
 class BackupOnSwitch extends ConsumerWidget {
@@ -11,12 +12,17 @@ class BackupOnSwitch extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final switchOn = ref.watch(backupOnProvider);
 
-    return Column(children: [
-      SystemText(text: switchOn ? "Turn off" : "Turn on"),
-      SystemSwitch(
-        value: switchOn,
-        onChanged: (_) => ref.read(backupOnProvider.notifier).toggle(),
-      )
-    ]);
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SystemText(
+              text: switchOn ? "Backup On" : "Backup Off",
+              size: TextSizeEnum.twentyNine),
+          SystemSwitch(
+            value: switchOn,
+            onChanged: (_) => ref.read(backupOnProvider.notifier).toggle(),
+          )
+        ]);
   }
 }

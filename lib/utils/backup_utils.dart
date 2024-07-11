@@ -30,6 +30,19 @@ class BackupUtils {
     }
   }
 
+  static void openPingsFolder() async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    if (await Permission.storage.request().isGranted) {
+      final backupDir = Directory("${directory.path}/pings");
+
+      if (!await backupDir.exists()) {
+        await backupDir.create(recursive: true);
+      }
+
+    }
+  }
+
   static String convertPingsToCSV(List<Ping> pings) {
     final buffer = StringBuffer();
     buffer.writeln('time,text');

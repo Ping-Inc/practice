@@ -7,7 +7,7 @@ part 'backup_on_provider.g.dart';
 class BackupOn extends _$BackupOn {
   @override
   bool build() {
-    return prefs.getBool(sharedPrefsBackupOnKey) ?? false;
+    return prefs.getBool(sharedPrefsBackupOnKey) ?? true;
   }
 
   void toggle() {

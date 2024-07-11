@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/backup_frequency_radio_buttons.dart';
 import 'package:practice/components/backup_on_switch.dart';
+import 'package:practice/components/cloud_sync_cell.dart';
+import 'package:practice/components/local_backup_cell.dart';
 import 'package:practice/constants.dart';
-// ignore: unused_import
-import 'package:practice/design_system/system_switch.dart';
+import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/enums/text_size_enum.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -37,17 +36,18 @@ class SettingsPage extends ConsumerWidget {
                     child: SingleChildScrollView(
                   child: Padding(
                       padding: EdgeInsets.only(
-                          left: spacingTwo,
-                          right: spacingTwo,
+                          left: spacingFour,
+                          right: spacingFour,
                           top: spacingFour),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SystemText(
-                            text: "Backup",
-                            size: TextSizeEnum.twentyNine,
-                          ),
                           BackupOnSwitch(),
-                          BackupFrequencyRadioButtons(),
+                          SystemDivider(),
+                          SizedBox(height: spacingFour),
+                          LocalBackupCell(),
+                          SizedBox(height: spacingSix),
+                          CloudSyncCell(),
                         ],
                       )),
                 ))
