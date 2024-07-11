@@ -17,7 +17,7 @@ class BackupOnSwitch extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SystemText(
-              text: switchOn ? "Backup On" : "Backup Off",
+              text: switchOn ? "Backups On" : "Backups Off",
               size: TextSizeEnum.twentyNine),
           SystemSwitch(
             value: switchOn,
