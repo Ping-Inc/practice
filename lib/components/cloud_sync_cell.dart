@@ -22,7 +22,7 @@ class CloudSyncCell extends ConsumerWidget {
               SizedBox(height: spacingFour),
               SystemText(
                 text:
-                    "Choose which providers you wish to sync your Ping Backups to:",
+                    "Choose which providers you wish to sync your backups to:",
               ),
             ],
           )
