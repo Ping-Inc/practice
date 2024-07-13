@@ -48,7 +48,7 @@
 	<string>Main</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-    	<key>iCloud.com.example.myapp</key>
+    	<key>iCloud.com.pinginc.practice</key>
     	<dict>
         	<key>NSUbiquitousContainerIsDocumentScopePublic</key>
         	<true/>
