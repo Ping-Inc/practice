@@ -53,7 +53,7 @@
         	<key>NSUbiquitousContainerIsDocumentScopePublic</key>
         	<true/>
         	<key>NSUbiquitousContainerName</key>
-        	<string>MyApp</string>
+        	<string>practice</string>
     	</dict>
 	</dict>
 	<key>NSUbiquitousKeyValueStore</key>
