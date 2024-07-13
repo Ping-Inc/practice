@@ -46,6 +46,18 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+    	<key>iCloud.com.example.myapp</key>
+    	<dict>
+        	<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+        	<true/>
+        	<key>NSUbiquitousContainerName</key>
+        	<string>MyApp</string>
+    	</dict>
+	</dict>
+	<key>NSUbiquitousKeyValueStore</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
