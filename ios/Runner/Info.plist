@@ -28,36 +28,36 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>This app needs access to the Documents folder to backup your pings.</string>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>This app needs access to the Documents folder to backup your pings.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Some features of the app might need access to the photo library.</string>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.com.pinginc.practice</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>practice</string>
+		</dict>
+	</dict>
+	<key>NSUbiquitousKeyValueStore</key>
+	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSUbiquitousContainers</key>
-	<dict>
-    	<key>iCloud.com.pinginc.practice</key>
-    	<dict>
-        	<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-        	<true/>
-        	<key>NSUbiquitousContainerName</key>
-        	<string>practice</string>
-    	</dict>
-	</dict>
-	<key>NSUbiquitousKeyValueStore</key>
-	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
