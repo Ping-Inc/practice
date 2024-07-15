@@ -42,14 +42,20 @@ class ImportPingsButton extends ConsumerWidget {
 
               ref.read(pingsProvider.notifier).addAllPings(pings);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   content: SystemText(
+                      color: Theme.of(context).colorScheme.onSurface,
                       text: AppLocalizations.of(context)!
                           .pings_imported(pings.length)),
                   duration: Duration(seconds: scaffoldTime)));
             }
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: SystemText(text: e.toString()),
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                content: SystemText(
+                  text: e.toString(),
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
                 duration: Duration(seconds: scaffoldTime)));
           }
         },
