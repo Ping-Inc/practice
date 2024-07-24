@@ -79,3 +79,6 @@ const String sharedPrefsBackupPathKey = "shared_prefs_backup_path_key";
 const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
 
 Timer? backupTimer;
+
+const String routeHome = 'home';
+const String routePingEntry = 'banned';

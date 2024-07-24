@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -25,12 +26,6 @@ class BrowsePage extends ConsumerWidget {
                         TextButton(
                             onPressed: () {
                               HapticFeedback.selectionClick();
-                              Navigator.pop(context);
-                            },
-                            child: SystemText(text: "Back")),
-                        TextButton(
-                            onPressed: () {
-                              HapticFeedback.selectionClick();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -38,6 +33,12 @@ class BrowsePage extends ConsumerWidget {
                               );
                             },
                             child: SystemText(text: "Settings")),
+                        TextButton(
+                            onPressed: () {
+                              HapticFeedback.selectionClick();
+                              context.pushNamed(routePingEntry);
+                            },
+                            child: SystemText(text: "New Ping")),
                       ],
                     )),
                 Expanded(child: PingList())
