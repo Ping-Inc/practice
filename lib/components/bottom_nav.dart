@@ -30,11 +30,11 @@ class BottomNav extends ConsumerWidget {
                 scrollController: browseController,
                 pageController: pageController),
             NavBarButton(
-                page: SubPagesEnum.search,
+                page: SubPagesEnum.search, pageController: pageController),
+            NavBarButton(
+                page: SubPagesEnum.settings,
                 scrollController: settingsController,
                 pageController: pageController),
-            NavBarButton(
-                page: SubPagesEnum.settings, pageController: pageController),
             NavBarButton(
                 page: SubPagesEnum.add, pageController: pageController),
           ]))

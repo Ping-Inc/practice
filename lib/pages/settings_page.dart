@@ -7,35 +7,24 @@ import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_divider.dart';
 
 class SettingsPage extends ConsumerWidget {
-  const SettingsPage({super.key});
+  const SettingsPage({super.key, required this.controller});
+
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-        body: SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                Expanded(
-                    child: SingleChildScrollView(
-                  child: Padding(
-                      padding: EdgeInsets.only(
-                          left: spacingFour,
-                          right: spacingFour,
-                          top: spacingFour),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BackupOnSwitch(),
-                          SystemDivider(),
-                          SizedBox(height: spacingFour),
-                          LocalBackupCell(),
-                          SizedBox(height: spacingSix),
-                          CloudSyncCell(),
-                        ],
-                      )),
-                ))
-              ],
-            )));
+    return SingleChildScrollView(
+        controller: controller,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BackupOnSwitch(),
+            SystemDivider(),
+            SizedBox(height: spacingFour),
+            LocalBackupCell(),
+            SizedBox(height: spacingSix),
+            CloudSyncCell(),
+          ],
+        ));
   }
 }

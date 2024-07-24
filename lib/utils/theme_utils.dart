@@ -49,35 +49,35 @@ class ThemeUtils {
   static Color primary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color onPrimary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color secondary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return gray1;
+        return Colors.black;
       case ThemeModeEnum.afternoon:
-        return gray1;
+        return Colors.black;
       case ThemeModeEnum.evening:
         return Colors.white;
       case ThemeModeEnum.night:
@@ -88,13 +88,13 @@ class ThemeUtils {
   static Color onSecondary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
@@ -109,299 +109,299 @@ class ThemeUtils {
   static Color background(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow3;
+        return themeYellow;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return blue3;
+        return themeBlue;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color surface(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow2;
+        return lightSecondary;
       case ThemeModeEnum.afternoon:
-        return white2;
+        return lightSecondary;
       case ThemeModeEnum.evening:
-        return blue2;
+        return blueSecondary;
       case ThemeModeEnum.night:
-        return black2;
+        return darkSecondary;
     }
   }
 
   static Color onSurface(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color primaryContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow3;
+        return themeYellow;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return blue3;
+        return themeBlue;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color onPrimaryContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color secondaryContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow3;
+        return themeYellow;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return blue3;
+        return themeBlue;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color onSecondaryContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color tertiary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow3;
+        return themeYellow;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return blue3;
+        return themeBlue;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color onTertiary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color tertiaryContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow3;
+        return themeYellow;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return blue3;
+        return themeBlue;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color onTertiaryContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color errorContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color onErrorContainer(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color surfaceVariant(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return yellow3;
+        return themeYellow;
       case ThemeModeEnum.afternoon:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.evening:
-        return blue3;
+        return themeBlue;
       case ThemeModeEnum.night:
-        return black3;
+        return themeBlack;
     }
   }
 
   static Color onSurfaceVariant(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color outline(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color outlineVariant(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color shadow(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color scrim(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color inverseSurface(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color onInverseSurface(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color inversePrimary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 
   static Color surfaceTint(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.afternoon:
-        return black3;
+        return themeBlack;
       case ThemeModeEnum.evening:
-        return white3;
+        return themeWhite;
       case ThemeModeEnum.night:
-        return white3;
+        return themeWhite;
     }
   }
 }

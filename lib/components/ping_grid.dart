@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/ping_cell.dart';
+import 'package:practice/components/ping_background.dart';
+import 'package:practice/components/resizing_text.dart';
+import 'package:practice/components/resonant_ping.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/enums/browse_enum.dart';
 import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/pings_provider.dart';
 
-class PingList extends ConsumerWidget {
-  const PingList({super.key, required this.controller});
+class PingGrid extends ConsumerWidget {
+  const PingGrid({Key? key, required this.controller}) : super(key: key);
 
   final ScrollController controller;
 
@@ -19,7 +20,7 @@ class PingList extends ConsumerWidget {
     final pings = ref.watch(pingsProvider);
 
     return switch (pings) {
-      AsyncData(value: final pingsValue) => ListView.separated(
+      AsyncData(value: final pingsValue) => GridView.builder(
           controller: controller,
           itemCount: pingsValue.length,
           padding: EdgeInsets.only(
@@ -27,8 +28,10 @@ class PingList extends ConsumerWidget {
               right: spacingTwo,
               top: spacingFour + MediaQuery.of(context).padding.top,
               bottom: spacingFour + MediaQuery.of(context).padding.bottom),
-          separatorBuilder: (context, index) => SizedBox(
-            height: spacingThree,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: spacingTwo,
+            mainAxisSpacing: spacingTwo,
           ),
           itemBuilder: (context, i) {
             final ping = pingsValue[i];
@@ -39,7 +42,17 @@ class PingList extends ConsumerWidget {
             }
 
             return SystemTap(
-                child: PingCell(ping: ping, mode: BrowseEnum.list),
+                child: PingBackground(
+                    child: Stack(children: [
+                  Padding(
+                      padding: EdgeInsets.all(spacingFive),
+                      child: ResizingText(text: ping.text)),
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                          padding: EdgeInsets.all(spacingFour),
+                          child: ResonantPing(ping: ping)))
+                ])),
                 onTap: () {
                   Navigator.push(
                     context,

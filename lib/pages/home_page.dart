@@ -4,7 +4,7 @@ import 'package:practice/components/bottom_nav.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/pages/search_page.dart';
 import 'package:practice/pages/settings_page.dart';
-import 'package:practice/pages/tab_provider.dart';
+import 'package:practice/providers/tab_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -45,12 +45,14 @@ class _SystemHomeState extends ConsumerState<HomePage> {
                     case 1:
                       return SearchPage();
                     case 2:
-                      return SettingsPage();
+                      return SettingsPage(
+                        controller: settingsController,
+                      );
                     case 3:
                       return SizedBox.shrink();
                     case 0:
                     default:
-                      return BrowsePage();
+                      return BrowsePage(controller: browseController);
                   }
                 })),
         BottomNav(

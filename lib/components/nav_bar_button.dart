@@ -5,7 +5,7 @@ import 'package:practice/constants.dart';
 import 'package:practice/enums/sub_pages_enum.dart';
 import 'package:practice/extensions/sub_pages_enum_extensions.dart';
 import 'package:practice/pages/ping_entry_page.dart';
-import 'package:practice/pages/tab_provider.dart';
+import 'package:practice/providers/tab_provider.dart';
 
 class NavBarButton extends ConsumerWidget {
   const NavBarButton(
@@ -44,8 +44,9 @@ class NavBarButton extends ConsumerWidget {
       child: SizedBox(
           height: tapTarget,
           width: tapTarget,
-          child:
-              Center(child: Icon(focused ? page.iconFilled() : page.icon()))),
+          child: Center(
+              child:
+                  Icon(focused ? page.iconFilled() : page.icon(), size: 34))),
     );
   }
 }

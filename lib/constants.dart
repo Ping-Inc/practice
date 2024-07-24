@@ -44,30 +44,18 @@ const Map<int, String> migrationScripts = {
               '''
 };
 
-const Color black3 = Color.fromRGBO(0, 0, 0, 1);
-const Color white3 = Color.fromRGBO(255, 255, 255, 1);
-const Color blue3 = Color.fromRGBO(17, 0, 255, 1);
-const Color yellow3 = Color.fromRGBO(253, 246, 227, 1);
-
-const Color black2 = Color.fromRGBO(33, 33, 33, 1);
-const Color white2 = Color.fromRGBO(232, 232, 232, 1);
-const Color blue2 = Color.fromRGBO(54, 66, 192, 1);
-const Color yellow2 = Color.fromRGBO(238, 232, 213, 1);
-
-const Color black1 = Color.fromRGBO(66, 66, 66, 1);
-const Color white1 = Color.fromRGBO(180, 180, 180, 1);
-const Color blue1 = Color.fromRGBO(110, 117, 194, 1);
-const Color yellow1 = Color.fromRGBO(147, 161, 161, 1);
+const Color themeBlack = Color.fromRGBO(0, 0, 0, 1);
+const Color themeWhite = Color.fromRGBO(255, 255, 255, 1);
+const Color themeBlue = Color.fromRGBO(17, 0, 255, 1);
+const Color themeYellow = Color.fromRGBO(253, 246, 227, 1);
 
 const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
 
-const Color gray1 = Color.fromRGBO(180, 180, 180, 1);
-const Color gray2 = Color.fromRGBO(211, 211, 211, 1);
-
-const Color blackInputBackgroundColor = Color.fromRGBO(36, 36, 36, 1);
-
-const Color blue = Color.fromRGBO(17, 0, 255, 1);
 const Color gray = Color.fromRGBO(180, 180, 180, 1);
+
+const Color lightSecondary = Color.fromRGBO(0, 0, 0, 0.06);
+const Color darkSecondary = Color.fromRGBO(255, 255, 255, 0.1);
+const Color blueSecondary = Color.fromRGBO(32, 0, 189, 1);
 
 const double fontSmall = 12;
 

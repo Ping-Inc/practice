@@ -1,44 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:practice/components/browse_mode_selector.dart';
+import 'package:practice/components/ping_grid.dart';
 import 'package:practice/components/ping_list.dart';
-import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/design_system/system_button.dart';
-import 'package:practice/design_system/system_text.dart';
-import 'package:practice/pages/settings_page.dart';
+import 'package:practice/enums/browse_enum.dart';
+import 'package:practice/providers/browse_provider.dart';
 
 class BrowsePage extends ConsumerWidget {
-  const BrowsePage({super.key});
+  const BrowsePage({super.key, required this.controller});
+
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-        body: Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
+    final browseMode = ref.watch(browseProvider);
+
+    return Stack(
       children: [
-        TopNav(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        if (browseMode == BrowseEnum.list) PingList(controller: controller),
+        if (browseMode == BrowseEnum.grid) PingGrid(controller: controller),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SystemButton(
-                onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsPage()),
-                    ),
-                text: "Settings"),
-            TextButton(
-                onPressed: () {
-                  HapticFeedback.selectionClick();
-                  context.pushNamed(routePingEntry);
-                },
-                child: SystemText(text: "New Ping")),
+            Padding(
+                padding: EdgeInsets.only(bottom: spacingFive),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [BrowseModeSelector()]))
           ],
-        )),
-        Expanded(child: PingList())
+        ),
       ],
-    ));
+    );
   }
 }

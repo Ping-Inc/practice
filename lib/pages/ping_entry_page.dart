@@ -28,14 +28,15 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
     });
 
     return Scaffold(
-        body: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+        body: SafeArea(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
           TopNav(
               child: SystemButton(
             onTap: () => context.pop(),
-            text: "Home",
+            text: "All Pings",
             icon: PhosphorIcons.caret_left,
           )),
           Expanded(
@@ -71,6 +72,6 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
           SizedBox(
             height: spacingFive,
           )
-        ]));
+        ])));
   }
 }
