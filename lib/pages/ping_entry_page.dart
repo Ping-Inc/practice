@@ -35,7 +35,7 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
           TopNav(
               child: SystemButton(
             onTap: () => context.pop(),
-            text: "All Ping",
+            text: "Home",
             icon: PhosphorIcons.caret_left,
           )),
           Expanded(
