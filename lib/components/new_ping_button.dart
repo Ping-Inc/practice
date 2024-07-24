@@ -25,7 +25,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
       duration: const Duration(milliseconds: 60),
       vsync: this,
     );
-    _animation = Tween<double>(begin: 48, end: 44).animate(_controller)
+    _animation = Tween<double>(begin: 50, end: 44).animate(_controller)
       ..addListener(() {
         setState(() {});
       })
@@ -55,19 +55,19 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               ref.read(currentPingProvider.notifier).reset();
             },
       child: SizedBox(
-        height: 58,
-        width: 58,
+        height: 57,
+        width: 57,
         child: Stack(
           children: [
             Container(
-              height: 58,
-              width: 58,
+              height: 57,
+              width: 57,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: ref.watch(currentPingProvider).isEmpty
                       ? Colors.grey
                       : Theme.of(context).colorScheme.primary,
-                  width: 2,
+                  width: 1.5,
                 ),
                 shape: BoxShape.circle,
               ),
