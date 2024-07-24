@@ -90,6 +90,9 @@ flutter:
     - family: Courier
       fonts:
         - asset: fonts/courier.ttf
+    - family: Garamond
+      fonts:
+        - asset: fonts/garamond.ttf
 
 
 flutter_launcher_icons:

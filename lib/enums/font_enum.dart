@@ -1,1 +1,1 @@
-enum FontEnum { sfpro, sfmono, courier }
+enum FontEnum { sfpro, sfmono, courier, garamond }

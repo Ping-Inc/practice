@@ -8,10 +8,12 @@ class TopNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: spacingThree, vertical: spacingFour),
-            child: child));
+    return Padding(
+        padding: EdgeInsets.only(
+            left: spacingThree,
+            right: spacingThree,
+            bottom: spacingFour,
+            top: spacingFour + MediaQuery.of(context).padding.top),
+        child: child);
   }
 }
