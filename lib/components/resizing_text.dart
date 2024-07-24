@@ -18,7 +18,7 @@ class ResizingText extends StatelessWidget {
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              height: 1.5,
+              height: 1.33,
               fontSize: 200,
               fontFamily: FontEnum.sfpro.toFontFamily()),
         )));

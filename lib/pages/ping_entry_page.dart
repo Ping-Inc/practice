@@ -35,6 +35,9 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
               child: Center(
             child: CurrentPingResizingTextCell(),
           )),
+          SizedBox(
+            height: spacingFive,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
