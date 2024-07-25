@@ -46,7 +46,9 @@ class PingGrid extends ConsumerWidget {
                     child: Stack(children: [
                   Padding(
                       padding: EdgeInsets.all(spacingFive),
-                      child: ResizingText(text: ping.text)),
+                      child: ResizingText(
+                        text: ping.text,
+                      )),
                   Align(
                       alignment: Alignment.topRight,
                       child: Padding(

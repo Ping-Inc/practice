@@ -5,7 +5,9 @@ import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
 
 class BrowseModeSelector extends ConsumerWidget {
-  const BrowseModeSelector({Key? key}) : super(key: key);
+  const BrowseModeSelector({super.key, required this.controller});
+
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,9 +22,12 @@ class BrowseModeSelector extends ConsumerWidget {
             borderRadius: BorderRadius.circular(999)),
         child: Row(
           children: [
-            BrowseModeButton(browseMode: BrowseEnum.slides),
-            BrowseModeButton(browseMode: BrowseEnum.list),
-            BrowseModeButton(browseMode: BrowseEnum.grid)
+            BrowseModeButton(
+                browseMode: BrowseEnum.slides, controller: controller),
+            BrowseModeButton(
+                browseMode: BrowseEnum.list, controller: controller),
+            BrowseModeButton(
+                browseMode: BrowseEnum.grid, controller: controller)
           ],
         ));
   }

@@ -20,7 +20,7 @@ class ResizingText extends StatelessWidget {
           style: TextStyle(
               height: 1.33,
               fontSize: 200,
-              fontFamily: FontEnum.sfpro.toFontFamily()),
+              fontFamily: FontEnum.garamond.toFontFamily()),
         )));
   }
 }

@@ -9,16 +9,23 @@ import 'package:practice/extensions/browse_enum_extensions.dart';
 import 'package:practice/providers/browse_provider.dart';
 
 class BrowseModeButton extends ConsumerWidget {
-  const BrowseModeButton({super.key, required this.browseMode});
+  const BrowseModeButton(
+      {super.key, required this.browseMode, required this.controller});
 
   final BrowseEnum browseMode;
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final browse = ref.watch(browseProvider);
 
     return SystemTap(
-        onTap: () => ref.read(browseProvider.notifier).setTab(browseMode),
+        onTap: () {
+          if (controller.hasClients && browse == browseMode) {
+            controller.animateTo(0, duration: duration, curve: curve);
+          }
+          ref.read(browseProvider.notifier).setTab(browseMode);
+        },
         child: Container(
           padding: EdgeInsets.symmetric(
               vertical: spacingTwo, horizontal: spacingFive),

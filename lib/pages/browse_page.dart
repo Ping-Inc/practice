@@ -27,7 +27,7 @@ class BrowsePage extends ConsumerWidget {
                 padding: EdgeInsets.only(bottom: spacingFive),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [BrowseModeSelector()]))
+                    children: [BrowseModeSelector(controller: controller)]))
           ],
         ),
       ],

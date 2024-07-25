@@ -4,6 +4,8 @@ import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
+import 'package:practice/enums/font_enum.dart';
+import 'package:practice/enums/text_size_enum.dart';
 
 class PingCell extends StatelessWidget {
   const PingCell({super.key, required this.ping, required this.mode});
@@ -14,17 +16,23 @@ class PingCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(spacingSix),
+      padding:
+          EdgeInsets.symmetric(horizontal: spacingSix, vertical: spacingFive),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(spacingFour),
       ),
       child: Row(children: [
+        ResonantPing(ping: ping),
+        SizedBox(
+          width: spacingFive,
+        ),
         SystemText(
           text: ping.text,
           color: Theme.of(context).colorScheme.primary,
+          font: FontEnum.garamond,
+          size: TextSizeEnum.twenty,
         ),
-        ResonantPing(ping: ping)
       ]),
     );
   }
