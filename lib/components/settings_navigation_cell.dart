@@ -26,12 +26,9 @@ class SettingsNavigationCell extends StatelessWidget {
                 children: [
                   SystemText(text: text),
                   Row(children: [
-                    SystemText(
-                        text: state,
-                        color: Theme.of(context).colorScheme.secondary),
+                    SystemText(text: state),
                     SizedBox(width: spacingFive),
-                    Icon(PhosphorIcons.caret_right,
-                        color: Theme.of(context).colorScheme.secondary),
+                    Icon(PhosphorIcons.caret_right),
                   ])
                 ])));
   }
