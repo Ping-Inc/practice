@@ -23,15 +23,11 @@ class PingGrid extends ConsumerWidget {
       AsyncData(value: final pingsValue) => GridView.builder(
           controller: controller,
           itemCount: pingsValue.length,
-          padding: EdgeInsets.only(
-              left: spacingTwo,
-              right: spacingTwo,
-              top: spacingFour + MediaQuery.of(context).padding.top,
-              bottom: spacingFour + MediaQuery.of(context).padding.bottom),
+          padding: EdgeInsets.all(spacingFour),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: spacingTwo,
-            mainAxisSpacing: spacingTwo,
+            crossAxisSpacing: spacingThree,
+            mainAxisSpacing: spacingThree,
           ),
           itemBuilder: (context, i) {
             final ping = pingsValue[i];

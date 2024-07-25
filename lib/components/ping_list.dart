@@ -22,11 +22,7 @@ class PingList extends ConsumerWidget {
       AsyncData(value: final pingsValue) => ListView.separated(
           controller: controller,
           itemCount: pingsValue.length,
-          padding: EdgeInsets.only(
-              left: spacingTwo,
-              right: spacingTwo,
-              top: spacingFour + MediaQuery.of(context).padding.top,
-              bottom: spacingFour + MediaQuery.of(context).padding.bottom),
+          padding: EdgeInsets.all(spacingFour),
           separatorBuilder: (context, index) => SizedBox(
             height: spacingThree,
           ),
