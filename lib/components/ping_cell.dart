@@ -27,12 +27,13 @@ class PingCell extends StatelessWidget {
         SizedBox(
           width: spacingFive,
         ),
-        SystemText(
+        Expanded(
+            child: SystemText(
           text: ping.text,
           color: Theme.of(context).colorScheme.primary,
           font: FontEnum.garamond,
           size: TextSizeEnum.twenty,
-        ),
+        )),
       ]),
     );
   }
