@@ -21,8 +21,8 @@ class PingSlides extends ConsumerWidget {
     return switch (pings) {
       AsyncData(value: final pingsValue) => CardSwiper(
           cardsCount: pingsValue.length,
-          numberOfCardsDisplayed: 4,
-          backCardOffset: const Offset(spacingSeven, spacingSix),
+          numberOfCardsDisplayed: 2,
+          backCardOffset: const Offset(0, 0),
           padding: const EdgeInsets.all(spacingFour),
           cardBuilder: (
             context,
