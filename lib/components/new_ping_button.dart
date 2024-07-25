@@ -25,10 +25,10 @@ class _PingEntryState extends ConsumerState<NewPingButton>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 70),
+      duration: const Duration(milliseconds: 66),
       vsync: this,
     );
-    _animation = Tween<double>(begin: 50, end: 44).animate(_controller)
+    _animation = Tween<double>(begin: 50, end: 45).animate(_controller)
       ..addListener(() {
         setState(() {});
       })
@@ -56,7 +56,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
                   .read(pingsProvider.notifier)
                   .addPing(widget.textEditingController.text);
               ref.read(currentPingProvider.notifier).reset();
-              Timer(const Duration(milliseconds: 140), () {
+              Timer(const Duration(milliseconds: 132), () {
                 HapticFeedback.selectionClick();
               });
             },
