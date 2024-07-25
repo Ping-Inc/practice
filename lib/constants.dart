@@ -49,15 +49,16 @@ const Color themeWhite = Color.fromRGBO(255, 255, 255, 1);
 const Color themeBlue = Color.fromRGBO(17, 0, 255, 1);
 const Color themeYellow = Color.fromRGBO(253, 246, 227, 1);
 
+const Color themeBlackSecondary = Color.fromRGBO(0, 0, 0, 0.15);
+const Color themeWhiteSecondary = Color.fromRGBO(255, 255, 255, 0.2);
+
 const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
 
 const Color gray = Color.fromRGBO(180, 180, 180, 1);
 
-const Color lightSecondary = Color.fromRGBO(0, 0, 0, 0.06);
+const Color lightSecondary = Color.fromRGBO(0, 0, 0, 0.05);
 const Color darkSecondary = Color.fromRGBO(255, 255, 255, 0.1);
 const Color blueSecondary = Color.fromRGBO(32, 0, 189, 1);
-
-const double fontSmall = 12;
 
 late SharedPreferences prefs;
 const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";

@@ -75,13 +75,13 @@ class ThemeUtils {
   static Color secondary(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return Colors.black;
+        return themeBlackSecondary;
       case ThemeModeEnum.afternoon:
-        return Colors.black;
+        return themeBlackSecondary;
       case ThemeModeEnum.evening:
-        return Colors.white;
+        return gray;
       case ThemeModeEnum.night:
-        return Colors.white;
+        return themeWhiteSecondary;
     }
   }
 
@@ -103,7 +103,7 @@ class ThemeUtils {
   }
 
   static Color onError(ThemeModeEnum themeEnum) {
-    return Colors.white;
+    return themeWhite;
   }
 
   static Color background(ThemeModeEnum themeEnum) {
