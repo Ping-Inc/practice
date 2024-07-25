@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/providers/current_ping_provider.dart';
@@ -22,10 +25,10 @@ class _PingEntryState extends ConsumerState<NewPingButton>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 60),
+      duration: const Duration(milliseconds: 66),
       vsync: this,
     );
-    _animation = Tween<double>(begin: 50, end: 47).animate(_controller)
+    _animation = Tween<double>(begin: 50, end: 44).animate(_controller)
       ..addListener(() {
         setState(() {});
       })
@@ -53,6 +56,9 @@ class _PingEntryState extends ConsumerState<NewPingButton>
                   .read(pingsProvider.notifier)
                   .addPing(widget.textEditingController.text);
               ref.read(currentPingProvider.notifier).reset();
+              Timer(const Duration(milliseconds: 120), () {
+                HapticFeedback.selectionClick();
+              });
             },
       child: SizedBox(
         height: 57,
