@@ -56,9 +56,10 @@ const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
 
 const Color gray = Color.fromRGBO(180, 180, 180, 1);
 
-const Color lightSecondary = Color.fromRGBO(0, 0, 0, 0.05);
-const Color darkSecondary = Color.fromRGBO(255, 255, 255, 0.1);
+const Color whiteSecondary = Color.fromRGBO(242, 242, 242, 1);
+const Color yellowSecondary = Color.fromRGBO(240, 234, 216, 1);
 const Color blueSecondary = Color.fromRGBO(32, 0, 189, 1);
+const Color darkSecondary = Color.fromRGBO(26, 26, 26, 1);
 
 late SharedPreferences prefs;
 const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";

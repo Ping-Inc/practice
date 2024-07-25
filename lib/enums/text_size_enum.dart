@@ -1,6 +1,6 @@
 enum TextSizeEnum {
   twelve,
   fifteen,
-  eighteen,
+  twenty,
   twentyNine,
 }

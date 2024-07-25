@@ -4,6 +4,7 @@ import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
+import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/browse_enum_extensions.dart';
 import 'package:practice/providers/browse_provider.dart';
 
@@ -19,10 +20,20 @@ class BrowseModeButton extends ConsumerWidget {
     return SystemTap(
         onTap: () => ref.read(browseProvider.notifier).setTab(browseMode),
         child: Container(
+          padding: EdgeInsets.symmetric(
+              vertical: spacingTwo, horizontal: spacingFive),
           decoration: BoxDecoration(
-            color: browse == browseMode ? Colors.blue : gray,
+              color: browse == browseMode
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+              borderRadius: BorderRadius.circular(999)),
+          child: SystemText(
+            color: browse == browseMode
+                ? Theme.of(context).colorScheme.surface
+                : Theme.of(context).colorScheme.primary,
+            text: browseMode.title(),
+            size: TextSizeEnum.twenty,
           ),
-          child: SystemText(text: browseMode.title()),
         ));
   }
 }

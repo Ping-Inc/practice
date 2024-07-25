@@ -122,9 +122,9 @@ class ThemeUtils {
   static Color surface(ThemeModeEnum themeEnum) {
     switch (themeEnum) {
       case ThemeModeEnum.morning:
-        return lightSecondary;
+        return yellowSecondary;
       case ThemeModeEnum.afternoon:
-        return lightSecondary;
+        return whiteSecondary;
       case ThemeModeEnum.evening:
         return blueSecondary;
       case ThemeModeEnum.night:
