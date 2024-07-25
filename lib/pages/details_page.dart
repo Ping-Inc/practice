@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/resizing_text_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
+import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/pings_provider.dart';
 
@@ -23,22 +25,15 @@ class DetailsPage extends ConsumerWidget {
               right: spacingTwo,
               top: spacingFour + MediaQuery.of(context).padding.top),
           child: Row(children: [
-            TextButton(
-                onPressed: () {
-                  HapticFeedback.selectionClick();
-                  Navigator.pop(context);
-                },
-                child: SystemText(text: "Back")),
+            SystemButton(
+              onTap: () => Navigator.pop(context),
+              text: "All Pings",
+              icon: PhosphorIcons.caret_left,
+            ),
             Expanded(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                    onPressed: () {
-                      HapticFeedback.selectionClick();
-                      Navigator.pop(context);
-                    },
-                    child: SystemText(text: "Edit")),
                 TextButton(
                   onPressed: () {
                     HapticFeedback.selectionClick();
