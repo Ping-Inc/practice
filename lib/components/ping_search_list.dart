@@ -43,7 +43,7 @@ class PingSearchList extends ConsumerWidget {
           },
         ),
       AsyncError() => SystemText(text: "Error"),
-      _ => SystemLoader()
+      _ => SizedBox.shrink()
     };
   }
 }
