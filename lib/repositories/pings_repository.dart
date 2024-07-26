@@ -30,6 +30,17 @@ class PingsRepository {
     return db.query('pings', orderBy: 'time desc', limit: fetchLimit);
   }
 
+  static Future<List<Map<String, Object?>>> search(String search) async {
+    return db.query(
+      'pings',
+      where:
+          'text LIKE ?', // Assuming the column you want to search is named 'content'
+      whereArgs: ['%$search%'],
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
   static Future<List<Map<String, Object?>>> fetchBeforeTime(
       DateTime time) async {
     return db.query('pings',
