@@ -12,11 +12,13 @@ class NavBarButton extends ConsumerWidget {
       {super.key,
       required this.page,
       this.scrollController,
-      required this.pageController});
+      required this.pageController,
+      required this.focusNode});
 
   final SubPagesEnum page;
   final ScrollController? scrollController;
   final PageController pageController;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,8 +42,8 @@ class NavBarButton extends ConsumerWidget {
             ref.read(tabProvider.notifier).setTab(page),
             pageController.jumpToPage(page.index),
             page == SubPagesEnum.search
-                ? FocusScope.of(context).nextFocus()
-                : FocusScope.of(context).unfocus()
+                ? focusNode.requestFocus()
+                : focusNode.unfocus()
           }
       },
       child: SizedBox(

@@ -5,7 +5,9 @@ import 'package:practice/constants.dart';
 import 'package:practice/providers/search_string_provider.dart';
 
 class SearchPage extends ConsumerWidget {
-  const SearchPage({super.key});
+  const SearchPage({super.key, required this.focusNode});
+
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,6 +16,7 @@ class SearchPage extends ConsumerWidget {
         child: Column(
           children: [
             TextField(
+              focusNode: focusNode,
               decoration: InputDecoration(
                 hintText: 'Search',
                 hintStyle: TextStyle(

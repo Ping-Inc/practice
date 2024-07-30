@@ -6,16 +6,17 @@ import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/enums/sub_pages_enum.dart';
 
 class BottomNav extends ConsumerWidget {
-  const BottomNav({
-    super.key,
-    required this.pageController,
-    required this.browseController,
-    required this.settingsController,
-  });
+  const BottomNav(
+      {super.key,
+      required this.pageController,
+      required this.browseController,
+      required this.settingsController,
+      required this.focusNode});
 
   final PageController pageController;
   final ScrollController browseController;
   final ScrollController settingsController;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,17 +27,23 @@ class BottomNav extends ConsumerWidget {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             NavBarButton(
+                focusNode: focusNode,
                 page: SubPagesEnum.browse,
                 scrollController: browseController,
                 pageController: pageController),
             NavBarButton(
-                page: SubPagesEnum.search, pageController: pageController),
+                focusNode: focusNode,
+                page: SubPagesEnum.search,
+                pageController: pageController),
             NavBarButton(
+                focusNode: focusNode,
                 page: SubPagesEnum.settings,
                 scrollController: settingsController,
                 pageController: pageController),
             NavBarButton(
-                page: SubPagesEnum.add, pageController: pageController),
+                focusNode: focusNode,
+                page: SubPagesEnum.add,
+                pageController: pageController),
           ]))
     ]);
   }

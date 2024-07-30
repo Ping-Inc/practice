@@ -17,6 +17,7 @@ class _SystemHomeState extends ConsumerState<HomePage> {
   late final PageController pageController;
   late final ScrollController browseController;
   late final ScrollController settingsController;
+  final focusNode = FocusNode();
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _SystemHomeState extends ConsumerState<HomePage> {
                 itemBuilder: (_, i) {
                   switch (i) {
                     case 1:
-                      return SearchPage();
+                      return SearchPage(focusNode: focusNode);
                     case 2:
                       return SettingsPage(
                         controller: settingsController,
@@ -56,6 +57,7 @@ class _SystemHomeState extends ConsumerState<HomePage> {
                   }
                 })),
         BottomNav(
+          focusNode: focusNode,
           pageController: pageController,
           browseController: browseController,
           settingsController: settingsController,
