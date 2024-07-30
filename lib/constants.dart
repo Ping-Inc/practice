@@ -37,11 +37,32 @@ const int fetchLimit = 66;
 const int scaffoldTime = 2;
 
 const Map<int, String> migrationScripts = {
-  1: '''CREATE TABLE pings (
-              id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-              time INTEGER NOT NULL,
-              text TEXT NOT NULL)
-              '''
+  1: '''
+  CREATE TABLE pings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    time INTEGER NOT NULL,
+    text TEXT NOT NULL)
+  ''',
+  2: '''
+  CREATE TABLE pings_new (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    time INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    reply_id INTEGER,
+    FOREIGN KEY (reply_id) REFERENCES pings(id)
+  )
+  ''',
+  3: '''
+  INSERT INTO pings_new (id, time, text)
+  SELECT id, time, text
+  FROM pings
+  ''',
+  4: '''
+  DROP TABLE pings
+  ''',
+  5: '''
+  ALTER TABLE pings_new RENAME TO pings
+  '''
 };
 
 const Color themeBlack = Color.fromRGBO(0, 0, 0, 1);
