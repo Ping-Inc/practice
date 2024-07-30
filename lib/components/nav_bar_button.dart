@@ -39,7 +39,9 @@ class NavBarButton extends ConsumerWidget {
           {
             ref.read(tabProvider.notifier).setTab(page),
             pageController.jumpToPage(page.index),
-            FocusScope.of(context).unfocus()
+            page == SubPagesEnum.search
+                ? FocusScope.of(context).nextFocus()
+                : FocusScope.of(context).unfocus()
           }
       },
       child: SizedBox(
