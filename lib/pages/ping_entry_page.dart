@@ -22,6 +22,14 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
   final controller = TextEditingController();
   final focusNode = FocusNode();
 
+  @override
+  void dispose() {
+    focusNode.unfocus();
+    focusNode.dispose();
+
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     ref.listen(pingsProvider, (previous, next) {
       controller.clear();
