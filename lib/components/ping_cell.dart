@@ -34,6 +34,7 @@ class PingCell extends StatelessWidget {
           font: FontEnum.garamond,
           size: TextSizeEnum.twenty,
         )),
+        SystemText(text: ping.reply_id == null ? "" : "reply")
       ]),
     );
   }

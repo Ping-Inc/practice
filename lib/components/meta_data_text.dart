@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/enums/font_enum.dart';
-import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 
 class MetaDataText extends ConsumerWidget {
@@ -19,8 +17,6 @@ class MetaDataText extends ConsumerWidget {
       color: currentPing.isEmpty
           ? Colors.grey
           : Theme.of(context).colorScheme.primary,
-      font: FontEnum.courier,
-      size: TextSizeEnum.twelve,
     );
   }
 }

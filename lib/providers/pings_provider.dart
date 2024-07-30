@@ -31,14 +31,16 @@ class Pings extends _$Pings {
     }
   }
 
-  void addPing(String pingText) async {
+  void addPing(String pingText, int? replyId) async {
     final now = DateTime.now();
 
-    int id = await PingsRepository.insert(pingText, now);
+    int id = replyId == null
+        ? await PingsRepository.insert(pingText, now)
+        : await PingsRepository.insertReply(pingText, replyId, now);
 
     final pings = await future;
 
-    pings.insert(0, Ping(time: now, text: pingText, id: id));
+    pings.insert(0, Ping(time: now, text: pingText, id: id, reply_id: replyId));
 
     state = AsyncData(pings);
   }

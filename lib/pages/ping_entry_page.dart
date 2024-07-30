@@ -3,9 +3,12 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice/components/new_ping_button.dart';
+import 'package:practice/components/ping_reply_text.dart';
+import 'package:practice/components/reply_ping_button.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_button.dart';
+import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/current_ping_provider.dart';
@@ -47,6 +50,8 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
             text: "All Pings",
             icon: PhosphorIcons.caret_left,
           )),
+          SystemDivider(),
+          PingReplyText(),
           Expanded(
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: spacingFive),
@@ -74,7 +79,17 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ReplyPingButton(),
+              SizedBox(
+                width: spacingFive,
+              ),
               NewPingButton(textEditingController: controller),
+              SizedBox(
+                width: spacingFive,
+              ),
+              SizedBox(
+                width: pingButtonWidth,
+              )
             ],
           ),
           SizedBox(

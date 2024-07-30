@@ -24,6 +24,7 @@ mixin _$Ping {
   @DateTimeConverter()
   DateTime get time => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
+  int? get reply_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,11 @@ abstract class $PingCopyWith<$Res> {
   factory $PingCopyWith(Ping value, $Res Function(Ping) then) =
       _$PingCopyWithImpl<$Res, Ping>;
   @useResult
-  $Res call({int? id, @DateTimeConverter() DateTime time, String text});
+  $Res call(
+      {int? id,
+      @DateTimeConverter() DateTime time,
+      String text,
+      int? reply_id});
 }
 
 /// @nodoc
@@ -54,6 +59,7 @@ class _$PingCopyWithImpl<$Res, $Val extends Ping>
     Object? id = freezed,
     Object? time = null,
     Object? text = null,
+    Object? reply_id = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -68,6 +74,10 @@ class _$PingCopyWithImpl<$Res, $Val extends Ping>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
+      reply_id: freezed == reply_id
+          ? _value.reply_id
+          : reply_id // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -79,7 +89,11 @@ abstract class _$$PingImplCopyWith<$Res> implements $PingCopyWith<$Res> {
       __$$PingImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? id, @DateTimeConverter() DateTime time, String text});
+  $Res call(
+      {int? id,
+      @DateTimeConverter() DateTime time,
+      String text,
+      int? reply_id});
 }
 
 /// @nodoc
@@ -95,6 +109,7 @@ class __$$PingImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? time = null,
     Object? text = null,
+    Object? reply_id = freezed,
   }) {
     return _then(_$PingImpl(
       id: freezed == id
@@ -109,6 +124,10 @@ class __$$PingImplCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
+      reply_id: freezed == reply_id
+          ? _value.reply_id
+          : reply_id // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -117,7 +136,10 @@ class __$$PingImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PingImpl implements _Ping {
   const _$PingImpl(
-      {this.id, @DateTimeConverter() required this.time, required this.text});
+      {this.id,
+      @DateTimeConverter() required this.time,
+      required this.text,
+      this.reply_id});
 
   factory _$PingImpl.fromJson(Map<String, dynamic> json) =>
       _$$PingImplFromJson(json);
@@ -129,10 +151,12 @@ class _$PingImpl implements _Ping {
   final DateTime time;
   @override
   final String text;
+  @override
+  final int? reply_id;
 
   @override
   String toString() {
-    return 'Ping(id: $id, time: $time, text: $text)';
+    return 'Ping(id: $id, time: $time, text: $text, reply_id: $reply_id)';
   }
 
   @override
@@ -142,12 +166,14 @@ class _$PingImpl implements _Ping {
             other is _$PingImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.time, time) || other.time == time) &&
-            (identical(other.text, text) || other.text == text));
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.reply_id, reply_id) ||
+                other.reply_id == reply_id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, time, text);
+  int get hashCode => Object.hash(runtimeType, id, time, text, reply_id);
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +193,8 @@ abstract class _Ping implements Ping {
   const factory _Ping(
       {final int? id,
       @DateTimeConverter() required final DateTime time,
-      required final String text}) = _$PingImpl;
+      required final String text,
+      final int? reply_id}) = _$PingImpl;
 
   factory _Ping.fromJson(Map<String, dynamic> json) = _$PingImpl.fromJson;
 
@@ -178,6 +205,8 @@ abstract class _Ping implements Ping {
   DateTime get time;
   @override
   String get text;
+  @override
+  int? get reply_id;
   @override
   @JsonKey(ignore: true)
   _$$PingImplCopyWith<_$PingImpl> get copyWith =>

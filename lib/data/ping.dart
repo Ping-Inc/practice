@@ -9,7 +9,8 @@ class Ping with _$Ping {
   const factory Ping(
       {int? id,
       @DateTimeConverter() required DateTime time,
-      required String text}) = _Ping;
+      required String text,
+      int? reply_id}) = _Ping;
 
   factory Ping.fromJson(Map<String, dynamic> json) => _$PingFromJson(json);
 }

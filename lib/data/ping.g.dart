@@ -10,6 +10,7 @@ _$PingImpl _$$PingImplFromJson(Map<String, dynamic> json) => _$PingImpl(
       id: (json['id'] as num?)?.toInt(),
       time: const DateTimeConverter().fromJson((json['time'] as num).toInt()),
       text: json['text'] as String,
+      reply_id: (json['reply_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$PingImplToJson(_$PingImpl instance) =>
@@ -17,4 +18,5 @@ Map<String, dynamic> _$$PingImplToJson(_$PingImpl instance) =>
       'id': instance.id,
       'time': const DateTimeConverter().toJson(instance.time),
       'text': instance.text,
+      'reply_id': instance.reply_id,
     };

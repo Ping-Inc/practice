@@ -57,6 +57,15 @@ class PingsRepository {
     });
   }
 
+  static Future<int> insertReply(
+      String pingText, int replyId, DateTime pingTime) async {
+    return await db.insert('pings', {
+      'time': pingTime.millisecondsSinceEpoch,
+      'text': pingText.trim(),
+      'reply_id': replyId
+    });
+  }
+
   static Future<void> insertAll(List<Ping> pings) async {
     Batch batch = db.batch();
 

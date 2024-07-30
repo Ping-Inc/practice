@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/system_tap.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/providers/current_ping_provider.dart';
+import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/reply_on_provider.dart';
 
 class NewPingButton extends ConsumerStatefulWidget {
   const NewPingButton({super.key, required this.textEditingController});
@@ -45,8 +48,22 @@ class _PingEntryState extends ConsumerState<NewPingButton>
     super.dispose();
   }
 
+  int? replyId(bool replyOn) {
+    if (replyOn) {
+      final latestPing = ref.read(latestPingProvider).value;
+
+      if (latestPing != null) {
+        return latestPing.id;
+      }
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final replyOn = ref.watch(replyOnProvider);
+
     return SystemTap(
       onTap: ref.watch(currentPingProvider).isEmpty
           ? null
@@ -54,20 +71,20 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               _controller.forward();
               ref
                   .read(pingsProvider.notifier)
-                  .addPing(widget.textEditingController.text);
+                  .addPing(widget.textEditingController.text, replyId(replyOn));
               ref.read(currentPingProvider.notifier).reset();
               Timer(const Duration(milliseconds: 132), () {
                 HapticFeedback.selectionClick();
               });
             },
       child: SizedBox(
-        height: 57,
-        width: 57,
+        height: pingButtonWidth,
+        width: pingButtonWidth,
         child: Stack(
           children: [
             Container(
-              height: 57,
-              width: 57,
+              height: pingButtonWidth,
+              width: pingButtonWidth,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: ref.watch(currentPingProvider).isEmpty

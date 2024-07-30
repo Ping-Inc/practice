@@ -27,6 +27,8 @@ const Curve curve = Curves.ease;
 
 const double tapTarget = 48;
 
+const double pingButtonWidth = 57;
+
 const double thinLine = 0.5;
 const double line = thinLine * goldenRatio;
 
