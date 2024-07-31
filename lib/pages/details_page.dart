@@ -86,12 +86,10 @@ class DetailsPage extends ConsumerWidget {
                   NavigationCellCluster(title: "This Ping's Time", children: [
                     PeriodOfDayNavigationCell(
                         title: "Period of Day", time: ping.time),
-                    DayOfWeekNavigationCell(
-                        title: "Day of Week", time: ping.time),
-                    MonthNavigationCell(title: "Month", time: ping.time),
-                    DayOfMonthNavigationCell(
-                        title: "Day of Month", time: ping.time),
-                    YearNavigationCell(title: "Year", time: ping.time),
+                    DayOfWeekNavigationCell(time: ping.time),
+                    MonthNavigationCell(time: ping.time),
+                    DayOfMonthNavigationCell(time: ping.time),
+                    YearNavigationCell(time: ping.time),
                   ]),
                   SizedBox(height: MediaQuery.of(context).padding.bottom)
                 ]))),

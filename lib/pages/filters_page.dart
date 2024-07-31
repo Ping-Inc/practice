@@ -31,9 +31,9 @@ class FiltersPage extends ConsumerWidget {
               ]),
               NavigationCellCluster(title: "Current Time", children: [
                 CurrentPeriodOfDayNavigationCell(title: "Period of Day"),
-                CurrentDayOfWeekNavigationCell(title: "Day of Week"),
-                CurrentMonthNavigationCell(title: "Month"),
-                CurrentDayOfMonthNavigationCell(title: "Day of Month"),
+                CurrentDayOfWeekNavigationCell(),
+                CurrentMonthNavigationCell(),
+                CurrentDayOfMonthNavigationCell(),
               ]),
               NavigationCellCluster(title: "Recommendations", children: [
                 NavigationCell(

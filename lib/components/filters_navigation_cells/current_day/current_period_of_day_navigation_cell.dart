@@ -11,7 +11,7 @@ class CurrentPeriodOfDayNavigationCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final time = ref.watch(timeProvider);
+    final time = ref.read(timeProvider);
 
     return switch (time) {
       AsyncData(value: final timeValue) =>

@@ -19,7 +19,6 @@ class AllPingsNavigationCell extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => BrowsePage(
-                        filter: false,
                         title: "All Pings",
                         count: countValue,
                         asyncPings: asyncPings,

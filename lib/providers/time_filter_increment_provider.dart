@@ -21,7 +21,7 @@ class TimeFilterIncrement extends _$TimeFilterIncrement {
         state = state.add(Duration(days: 30));
         break;
       case TimeFilterEnum.dayOfWeek:
-        state = state.add(Duration(days: 7));
+        state = state.add(Duration(days: 1));
         break;
       case TimeFilterEnum.dayOfMonth:
         state = state.add(Duration(days: 1));
@@ -40,7 +40,7 @@ class TimeFilterIncrement extends _$TimeFilterIncrement {
         state = state.subtract(Duration(days: 30));
         break;
       case TimeFilterEnum.dayOfWeek:
-        state = state.subtract(Duration(days: 7));
+        state = state.subtract(Duration(days: 1));
         break;
       case TimeFilterEnum.dayOfMonth:
         state = state.subtract(Duration(days: 1));
