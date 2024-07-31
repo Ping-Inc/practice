@@ -1,4 +1,5 @@
 import 'package:practice/enums/time_filter_enum.dart';
+import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'time_filter_increment_provider.g.dart';
@@ -18,7 +19,7 @@ class TimeFilterIncrement extends _$TimeFilterIncrement {
         state = state.add(Duration(days: 365));
         break;
       case TimeFilterEnum.month:
-        state = state.add(Duration(days: 30));
+        state = state.nextMonth();
         break;
       case TimeFilterEnum.dayOfWeek:
         state = state.add(Duration(days: 1));
@@ -37,7 +38,7 @@ class TimeFilterIncrement extends _$TimeFilterIncrement {
         state = state.subtract(Duration(days: 365));
         break;
       case TimeFilterEnum.month:
-        state = state.subtract(Duration(days: 30));
+        state = state.previousMonth();
         break;
       case TimeFilterEnum.dayOfWeek:
         state = state.subtract(Duration(days: 1));
