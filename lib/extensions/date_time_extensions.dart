@@ -25,7 +25,10 @@ extension DateTimeExtensions on DateTime {
       tempYear += 1;
     }
 
-    return DateTime(tempYear, tempMonth, 15);
+    int lastDayOfNextMonth = DateTime(tempYear, tempMonth + 1, 0).day;
+    int tempDay = day > lastDayOfNextMonth ? lastDayOfNextMonth : day;
+
+    return DateTime(tempYear, tempMonth, tempDay);
   }
 
   DateTime previousMonth() {
@@ -33,10 +36,13 @@ extension DateTimeExtensions on DateTime {
     int tempMonth = month - 1;
 
     if (tempMonth < 1) {
-      tempMonth = 1;
+      tempMonth = 12;
       tempYear -= 1;
     }
 
-    return DateTime(tempYear, tempMonth, 15);
+    int lastDayOfPreviousMonth = DateTime(tempYear, tempMonth + 1, 0).day;
+    int tempDay = day > lastDayOfPreviousMonth ? lastDayOfPreviousMonth : day;
+
+    return DateTime(tempYear, tempMonth, tempDay);
   }
 }
