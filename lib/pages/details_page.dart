@@ -6,6 +6,7 @@ import 'package:practice/components/filters_navigation_cells/day_of_month_naviga
 import 'package:practice/components/filters_navigation_cells/day_of_week_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/month_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/period_of_day_navigation_cell.dart';
+import 'package:practice/components/filters_navigation_cells/year_navigation_cell.dart';
 import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/top_nav.dart';
@@ -90,6 +91,7 @@ class DetailsPage extends ConsumerWidget {
                     MonthNavigationCell(title: "Month", time: ping.time),
                     DayOfMonthNavigationCell(
                         title: "Day of Month", time: ping.time),
+                    YearNavigationCell(title: "Year", time: ping.time),
                   ]),
                   SizedBox(height: MediaQuery.of(context).padding.bottom)
                 ]))),

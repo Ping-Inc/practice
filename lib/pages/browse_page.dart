@@ -20,12 +20,14 @@ class BrowsePage extends ConsumerStatefulWidget {
       required this.title,
       required this.asyncPings,
       required this.scroll,
-      required this.count});
+      required this.count,
+      this.filter = true});
 
   final String title;
   final AsyncValue<List<Ping>> asyncPings;
   final VoidCallback scroll;
   final int count;
+  final bool filter;
 
   @override
   ConsumerState<BrowsePage> createState() => _BrowserPageState();
@@ -59,8 +61,11 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
                 icon: PhosphorIcons.caret_left,
               )),
               SystemDivider(),
-              FilterIncrementer(),
-              SystemDivider(),
+              if (widget.filter)
+                Column(children: [
+                  FilterIncrementer(),
+                  SystemDivider(),
+                ]),
               Expanded(
                   child: Stack(
                 children: [

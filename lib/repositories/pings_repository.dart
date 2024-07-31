@@ -35,6 +35,68 @@ class PingsRepository {
     return db.query('pings', orderBy: 'time desc', limit: fetchLimit);
   }
 
+  static Future<List<Map<String, Object?>>> fetchMonth(
+      DateTime monthTime) async {
+    final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
+    final endOfMonth =
+        DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
+
+    return db.query('pings',
+        where: 'time >= ? AND time <= ?',
+        whereArgs: [
+          startOfMonth.millisecondsSinceEpoch,
+          endOfMonth.millisecondsSinceEpoch
+        ],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchYear(DateTime yearTime) async {
+    final startOfYear = DateTime(yearTime.year, 1, 1);
+    final endOfYear = DateTime(yearTime.year, 12, 31, 23, 59, 59);
+
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ?',
+      whereArgs: [
+        startOfYear.millisecondsSinceEpoch,
+        endOfYear.millisecondsSinceEpoch
+      ],
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
+  static Future<List<Map<String, Object?>>> fetchDayOfWeek(
+      DateTime dayOfWeekTime) async {
+    final dayOfWeek = dayOfWeekTime.weekday;
+
+    return db.query(
+      'pings',
+      where: 'strftime("%w", datetime(time / 1000, "unixepoch")) = ?',
+      whereArgs: [
+        (dayOfWeek % 7).toString()
+      ], // SQLite uses 0 for Sunday, 1 for Monday, etc.
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
+  static Future<List<Map<String, Object?>>> fetchDayOfMonth(
+      DateTime dayOfMonthTime) async {
+    final dayOfMonth = dayOfMonthTime.day;
+
+    return db.query(
+      'pings',
+      where: 'strftime("%d", datetime(time / 1000, "unixepoch")) = ?',
+      whereArgs: [
+        dayOfMonth.toString().padLeft(2, '0')
+      ], // Pad single digits with a leading zero
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
   static Future<List<Map<String, Object?>>> search(String search) async {
     return db.query(
       'pings',
@@ -53,6 +115,77 @@ class PingsRepository {
         where: 'time < ?',
         whereArgs: [time.millisecondsSinceEpoch],
         limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchMonthBeforeTime(
+      DateTime time, DateTime monthTime) async {
+    final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
+    final endOfMonth =
+        DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
+
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ? AND time < ?',
+      whereArgs: [
+        startOfMonth.millisecondsSinceEpoch,
+        endOfMonth.millisecondsSinceEpoch,
+        time.millisecondsSinceEpoch
+      ],
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
+  static Future<List<Map<String, Object?>>> fetchYearBeforeTime(
+      DateTime time, DateTime yearTime) async {
+    final startOfYear = DateTime(yearTime.year, 1, 1);
+    final endOfYear = DateTime(yearTime.year, 12, 31, 23, 59, 59);
+
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ? AND time < ?',
+      whereArgs: [
+        startOfYear.millisecondsSinceEpoch,
+        endOfYear.millisecondsSinceEpoch,
+        time.millisecondsSinceEpoch
+      ],
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
+  static Future<List<Map<String, Object?>>> fetchDayOfWeekBeforeTime(
+      DateTime time, DateTime dayOfWeekTime) async {
+    final dayOfWeek = dayOfWeekTime.weekday;
+
+    return db.query(
+      'pings',
+      where:
+          'strftime("%w", datetime(time / 1000, "unixepoch")) = ? AND time < ?',
+      whereArgs: [
+        (dayOfWeek % 7).toString(),
+        time.millisecondsSinceEpoch
+      ], // SQLite uses 0 for Sunday, 1 for Monday, etc.
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
+  }
+
+  static Future<List<Map<String, Object?>>> fetchDayOfMonthBeforeTime(
+      DateTime time, DateTime dayOfMonthTime) async {
+    final dayOfMonth = dayOfMonthTime.day;
+
+    return db.query(
+      'pings',
+      where:
+          'strftime("%d", datetime(time / 1000, "unixepoch")) = ? AND time < ?',
+      whereArgs: [
+        dayOfMonth.toString().padLeft(2, '0'),
+        time.millisecondsSinceEpoch
+      ], // Pad single digits with a leading zero
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
   }
 
   static Future<int> insert(String pingText, DateTime pingTime) async {

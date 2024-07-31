@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/navigation_cell.dart';
+import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/time_filtered_pings_provider.dart';
 
 class DayOfWeekNavigationCell extends ConsumerWidget {
   const DayOfWeekNavigationCell(
@@ -14,7 +16,8 @@ class DayOfWeekNavigationCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncPings = ref.watch(pingsProvider);
+    final asyncPings =
+        ref.watch(timeFilteredPingsProvider(TimeFilterEnum.dayOfWeek, time));
 
     return NavigationCell(
         onTap: () => Navigator.push(
