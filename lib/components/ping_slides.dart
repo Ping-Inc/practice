@@ -18,50 +18,58 @@ class PingSlides extends ConsumerWidget {
     final pings = ref.watch(pingsProvider);
 
     return switch (pings) {
-      AsyncData(value: final pingsValue) => CardSwiper(
-          cardsCount: pingsValue.length,
-          numberOfCardsDisplayed: 2,
-          backCardOffset: const Offset(0, 0),
-          padding: EdgeInsets.only(
-              top: spacingFour,
-              left: spacingFour,
-              right: spacingFour,
-              bottom: spacingEight + MediaQuery.of(context).padding.bottom),
-          cardBuilder: (
-            context,
-            i,
-            horizontalThresholdPercentage,
-            verticalThresholdPercentage,
-          ) {
-            final ping = pingsValue[i];
+      AsyncData(value: final pingsValue) => SafeArea(
+            child: Column(children: [
+          Padding(
+            padding: EdgeInsets.all(spacingFour),
+            child: SystemText(text: "1/28"),
+          ),
+          Expanded(
+              child: CardSwiper(
+            cardsCount: pingsValue.length,
+            numberOfCardsDisplayed: 2,
+            backCardOffset: const Offset(0, 0),
+            padding: EdgeInsets.only(
+                top: spacingFour,
+                left: spacingFour,
+                right: spacingFour,
+                bottom: spacingNine),
+            cardBuilder: (
+              context,
+              i,
+              horizontalThresholdPercentage,
+              verticalThresholdPercentage,
+            ) {
+              final ping = pingsValue[i];
 
-            if (i == pingsValue.length - 1 &&
-                pingsValue.length % fetchLimit == 0) {
-              ref.read(pingsProvider.notifier).scroll();
-            }
+              if (i == pingsValue.length - 1 &&
+                  pingsValue.length % fetchLimit == 0) {
+                ref.read(pingsProvider.notifier).scroll();
+              }
 
-            return Center(
-                child: SystemTap(
-                    child: AspectRatio(
-                        aspectRatio: 1.0,
-                        child: PingBackground(
-                            child: Stack(children: [
-                          Padding(
-                              padding: EdgeInsets.all(spacingFive),
-                              child: ResizingText(
-                                text: ping.text,
-                              )),
-                        ]))),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DetailsPage(ping: ping, title: "Slides")),
-                      );
-                    }));
-          },
-        ),
+              return Center(
+                  child: SystemTap(
+                      child: AspectRatio(
+                          aspectRatio: 1.0,
+                          child: PingBackground(
+                              child: Stack(children: [
+                            Padding(
+                                padding: EdgeInsets.all(spacingFive),
+                                child: ResizingText(
+                                  text: ping.text,
+                                )),
+                          ]))),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailsPage(ping: ping, title: "Slides")),
+                        );
+                      }));
+            },
+          ))
+        ])),
       AsyncError() => SystemText(text: "Error"),
       _ => SystemLoader()
     };

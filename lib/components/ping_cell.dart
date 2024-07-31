@@ -17,7 +17,7 @@ class PingCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.symmetric(horizontal: spacingSix, vertical: spacingFive),
+          EdgeInsets.symmetric(horizontal: spacingFour, vertical: spacingFour),
       child: Row(children: [
         ResonantPing(ping: ping),
         SizedBox(

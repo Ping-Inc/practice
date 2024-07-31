@@ -7,6 +7,7 @@ import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
+import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
@@ -74,6 +75,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
                   .addPing(widget.textEditingController.text, replyId(replyOn));
               ref.read(currentPingProvider.notifier).reset();
               ref.read(replyOnProvider.notifier).toggle();
+              ref.invalidate(pingsCountProvider);
               Timer(const Duration(milliseconds: 132), () {
                 HapticFeedback.selectionClick();
               });

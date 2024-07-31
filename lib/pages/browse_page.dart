@@ -3,6 +3,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice/components/browse_mode_selector.dart';
+import 'package:practice/components/filter_incrementer.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/components/ping_slides.dart';
 import 'package:practice/components/top_nav.dart';
@@ -45,6 +46,8 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
                 text: widget.title,
                 icon: PhosphorIcons.caret_left,
               )),
+              SystemDivider(),
+              FilterIncrementer(),
               SystemDivider(),
               Expanded(
                   child: Stack(
