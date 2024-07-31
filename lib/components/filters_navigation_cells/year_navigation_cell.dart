@@ -5,26 +5,10 @@ import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/time_provider.dart';
 
-class DayOfMonthNavigationCell extends ConsumerWidget {
-  const DayOfMonthNavigationCell({super.key, required this.title});
+class YearNavigationCell extends ConsumerWidget {
+  const YearNavigationCell({super.key, required this.title});
 
   final String title;
-
-  String getDayWithSuffix(int day) {
-    if (day >= 11 && day <= 13) {
-      return '${day}th';
-    }
-    switch (day % 10) {
-      case 1:
-        return '${day}st';
-      case 2:
-        return '${day}nd';
-      case 3:
-        return '${day}rd';
-      default:
-        return '${day}th';
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,9 +21,8 @@ class DayOfMonthNavigationCell extends ConsumerWidget {
                 MaterialPageRoute(
                     builder: (context) => BrowsePage(title: title)),
               ),
-          label: "Day of Month",
-          value:
-              getDayWithSuffix(int.parse(DateFormat('d').format(timeValue)))),
+          label: "Year",
+          value: DateFormat('yyyy').format(timeValue)),
       _ => SizedBox.shrink()
     };
   }
