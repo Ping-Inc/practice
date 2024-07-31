@@ -5,11 +5,9 @@ import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
 
 class BrowseModeSelector extends ConsumerWidget {
-  const BrowseModeSelector(
-      {super.key, required this.controller, required this.browseController});
+  const BrowseModeSelector({super.key, required this.browseController});
 
   final PageController browseController;
-  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,16 +24,12 @@ class BrowseModeSelector extends ConsumerWidget {
           children: [
             BrowseModeButton(
                 browseMode: BrowseEnum.slides,
-                controller: controller,
                 browseController: browseController),
             BrowseModeButton(
                 browseMode: BrowseEnum.list,
-                controller: controller,
                 browseController: browseController),
             BrowseModeButton(
-                browseMode: BrowseEnum.grid,
-                controller: controller,
-                browseController: browseController)
+                browseMode: BrowseEnum.grid, browseController: browseController)
           ],
         ));
   }

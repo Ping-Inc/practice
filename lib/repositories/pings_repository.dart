@@ -5,6 +5,11 @@ import 'package:sqflite/sqflite.dart';
 class PingsRepository {
   PingsRepository._();
 
+  static Future<int> count() async {
+    final result = await db.rawQuery('SELECT COUNT(id) as count FROM pings');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   static Future<List<Map<String, Object?>>> latest() async {
     return db.query('pings', orderBy: 'time desc', limit: 1);
   }
@@ -87,6 +92,11 @@ class PingsRepository {
 
   static Future<void> deleteAll() async {
     await db.delete('pings');
+  }
+
+  static Future<Map<String, Object?>> random() async {
+    final result = await db.query('pings', orderBy: 'RANDOM()', limit: 1);
+    return result.first;
   }
 
   // static Future<void> exportToCsv() async {

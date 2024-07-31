@@ -4,7 +4,7 @@ import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/sub_pages_enum.dart';
 import 'package:practice/extensions/sub_pages_enum_extensions.dart';
-import 'package:practice/pages/ping_entry_page.dart';
+import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/tab_provider.dart';
 
 class NavBarButton extends ConsumerWidget {
@@ -30,7 +30,7 @@ class NavBarButton extends ConsumerWidget {
           {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PingEntryPage()),
+              MaterialPageRoute(builder: (context) => NewPingPage()),
             )
           }
         else if (focused &&

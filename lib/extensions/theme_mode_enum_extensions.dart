@@ -20,3 +20,18 @@ extension ThemeDataExtension on ThemeModeEnum {
     }
   }
 }
+
+extension StringParsingExtensions on ThemeModeEnum {
+  String toTitle() {
+    switch (this) {
+      case ThemeModeEnum.morning:
+        return "Morning";
+      case ThemeModeEnum.afternoon:
+        return "Afternoon";
+      case ThemeModeEnum.evening:
+        return "Evening";
+      case ThemeModeEnum.night:
+        return "Night";
+    }
+  }
+}

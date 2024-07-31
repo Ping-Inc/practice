@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:practice/components/resizing_text_cell.dart';
+import 'package:practice/components/navigation_cell.dart';
+import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
 import 'package:practice/design_system/system_button.dart';
+import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/enums/font_enum.dart';
+import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/extensions/date_time_enum_extensions.dart';
 
 class DetailsPage extends ConsumerWidget {
   const DetailsPage({super.key, required this.ping});
@@ -18,97 +21,100 @@ class DetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        body: Stack(children: [
-      Padding(
-          padding: EdgeInsets.only(
-              left: spacingTwo,
-              right: spacingTwo,
-              top: spacingFour + MediaQuery.of(context).padding.top),
-          child: Row(children: [
-            SystemButton(
-              onTap: () => Navigator.pop(context),
-              text: "All Pings",
-              icon: PhosphorIcons.caret_left,
+        body: SafeArea(
+            child: Column(
+      children: [
+        TopNav(
+            child: Stack(children: [
+          SystemButton(
+            onTap: () => Navigator.pop(context),
+            icon: PhosphorIcons.caret_left,
+          ),
+          Positioned.fill(
+              child: Align(
+            alignment: Alignment.center,
+            child: SystemText(
+              text: "Ping 12/28",
             ),
-            Expanded(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+          )),
+        ])),
+        SystemDivider(),
+        AspectRatio(
+            aspectRatio: 1.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextButton(
-                  onPressed: () {
-                    HapticFeedback.selectionClick();
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: SystemText(text: 'Confirm'),
-                          content:
-                              SystemText(text: 'Do you really want to delete?'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context); // Close the dialog
-                              },
-                              child: SystemText(text: 'No'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                ref
-                                    .read(pingsProvider.notifier)
-                                    .deletePing(ping);
-                                Navigator.pop(context); // Close the dialog
-                                Navigator.pop(context);
-                              },
-                              child: SystemText(text: 'Yes'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: SystemText(text: "Delete"),
-                )
-              ],
-            ))
-          ])),
-      Center(
-          child: Padding(
-              padding: EdgeInsets.all(spacingFour),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AspectRatio(
-                        aspectRatio: 1,
-                        child: ResizingTextCell(text: ping.text)),
-                    SizedBox(height: spacingFour),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: spacingFour,
-                      runSpacing: spacingFour,
-                      children: <Widget>[
-                        TextButton(
-                            onPressed: () {},
-                            child: SystemText(
-                                text: DateFormat('h:mm a').format(ping.time))),
-                        TextButton(
-                            onPressed: () {},
-                            child: SystemText(
-                                text: DateFormat('EEEE').format(ping.time))),
-                        TextButton(
-                            onPressed: () {},
-                            child: SystemText(
-                                text: DateFormat('MMMM').format(ping.time))),
-                        TextButton(
-                            onPressed: () {},
-                            child: SystemText(
-                                text: DateFormat('d').format(ping.time))),
-                        TextButton(
-                            onPressed: () {},
-                            child: SystemText(
-                                text: DateFormat('y').format(ping.time))),
+                Expanded(
+                    child: FittedBox(
+                        alignment: Alignment.topLeft,
+                        fit: BoxFit.scaleDown,
+                        child: SystemText(
+                          text: "\"${ping.text}\"",
+                          font: FontEnum.garamond,
+                          size: TextSizeEnum.thirtySix,
+                        ))),
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: spacingFour, vertical: spacingFour),
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 34,
+                          width: 34,
+                          decoration: BoxDecoration(
+                              color: gray, shape: BoxShape.circle),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: SystemText(
+                            text: DateFormat('EEE MMM d, yyyy · h:mma')
+                                .format(ping.time),
+                            color: gray,
+                          ),
+                        ),
                       ],
-                    )
-                  ])))
-    ]));
+                    ))
+              ],
+            )),
+        SystemDivider(),
+        Column(children: [
+          NavigationCell(
+              onTap: () {
+                // Go to replies filter
+              },
+              label: "Replies",
+              value: "5"),
+          SystemDivider(),
+          NavigationCell(
+              onTap: () {
+                // Go to time of day filter
+              },
+              label: "Time of Day",
+              value: ping.time.themeMode().toString()),
+          SystemDivider(),
+          NavigationCell(
+              onTap: () {
+                // Go to time of day filter
+              },
+              label: "Day of Week",
+              value: DateFormat('EEEE').format(ping.time)),
+          SystemDivider(),
+          NavigationCell(
+              onTap: () {
+                // Go to time of day filter
+              },
+              label: "Month",
+              value: DateFormat('MMMM').format(ping.time)),
+          SystemDivider(),
+          NavigationCell(
+              onTap: () {
+                // Go to time of day filter
+              },
+              label: "Day",
+              value: DateFormat('MMM d, yyyy').format(ping.time)),
+          SystemDivider(),
+        ])
+      ],
+    )));
   }
 }

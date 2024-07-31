@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/pages/home_page.dart';
-import 'package:practice/pages/ping_entry_page.dart';
+import 'package:practice/pages/new_ping_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router_provider.g.dart';
@@ -21,7 +21,7 @@ GoRouter router(RouterRef ref) {
             name: routePingEntry,
             path: routePingEntry,
             builder: (BuildContext context, GoRouterState state) {
-              return const PingEntryPage();
+              return const NewPingPage();
             },
           )
         ])

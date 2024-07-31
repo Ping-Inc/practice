@@ -11,9 +11,7 @@ import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/pings_provider.dart';
 
 class PingGrid extends ConsumerWidget {
-  const PingGrid({Key? key, required this.controller}) : super(key: key);
-
-  final ScrollController controller;
+  const PingGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +19,6 @@ class PingGrid extends ConsumerWidget {
 
     return switch (pings) {
       AsyncData(value: final pingsValue) => GridView.builder(
-          controller: controller,
           itemCount: pingsValue.length,
           padding: EdgeInsets.all(spacingFour),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

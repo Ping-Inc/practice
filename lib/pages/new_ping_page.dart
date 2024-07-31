@@ -14,14 +14,14 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 
-class PingEntryPage extends ConsumerStatefulWidget {
-  const PingEntryPage({super.key});
+class NewPingPage extends ConsumerStatefulWidget {
+  const NewPingPage({super.key});
 
   @override
-  ConsumerState<PingEntryPage> createState() => _HomePageState();
+  ConsumerState<NewPingPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<PingEntryPage> {
+class _HomePageState extends ConsumerState<NewPingPage> {
   final controller = TextEditingController();
   final focusNode = FocusNode();
 
@@ -47,7 +47,7 @@ class _HomePageState extends ConsumerState<PingEntryPage> {
           TopNav(
               child: SystemButton(
             onTap: () => context.pop(),
-            text: "All Pings",
+            text: "Home",
             icon: PhosphorIcons.caret_left,
           )),
           SystemDivider(),

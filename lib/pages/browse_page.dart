@@ -8,9 +8,7 @@ import 'package:practice/constants.dart';
 import 'package:practice/providers/browse_provider.dart';
 
 class BrowsePage extends ConsumerStatefulWidget {
-  const BrowsePage({super.key, required this.controller});
-
-  final ScrollController controller;
+  const BrowsePage({super.key});
 
   @override
   ConsumerState<BrowsePage> createState() => _BrowserPageState();
@@ -29,7 +27,8 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
 
   @override
   Widget build(BuildContext contex) {
-    return Stack(
+    return Scaffold(
+        body: Stack(
       children: [
         PageView.builder(
             itemCount: 3,
@@ -40,9 +39,9 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
             itemBuilder: (_, i) {
               switch (i) {
                 case 1:
-                  return PingList(controller: widget.controller);
+                  return PingList();
                 case 2:
-                  return PingGrid(controller: widget.controller);
+                  return PingGrid();
                 case 0:
                 default:
                   return PingSlides();
@@ -53,15 +52,14 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: spacingFive),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  BrowseModeSelector(
-                      controller: widget.controller,
-                      browseController: browseController)
-                ]))
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      BrowseModeSelector(browseController: browseController)
+                    ]))
           ],
         ),
       ],
-    );
+    ));
   }
 }
