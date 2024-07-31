@@ -6,7 +6,7 @@ extension IconParsing on SubPagesEnum {
   IconData icon() {
     switch (this) {
       case SubPagesEnum.browse:
-        return PhosphorIcons.folder;
+        return PhosphorIcons.sun_dim;
       case SubPagesEnum.search:
         return PhosphorIcons.magnifying_glass;
       case SubPagesEnum.settings:
@@ -19,7 +19,7 @@ extension IconParsing on SubPagesEnum {
   IconData iconFilled() {
     switch (this) {
       case SubPagesEnum.browse:
-        return PhosphorIcons.folder_open_fill;
+        return PhosphorIcons.sun_fill;
       case SubPagesEnum.search:
         return PhosphorIcons.magnifying_glass_fill;
       case SubPagesEnum.settings:

@@ -6,6 +6,7 @@ import 'package:practice/components/filters_navigation_cells/day_of_week_navigat
 import 'package:practice/components/filters_navigation_cells/month_navigation_cell%20copy.dart';
 import 'package:practice/components/filters_navigation_cells/ping_of_the_day_cell.dart';
 import 'package:practice/components/filters_navigation_cells/time_of_day_navigation_cell.dart';
+import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
 
@@ -33,6 +34,10 @@ class FiltersPage extends ConsumerWidget {
                 DayOfWeekNavigationCell(title: "Day of Week"),
                 MonthNavigationCell(title: "Month"),
                 DayOfMonthNavigationCell(title: "Day of Month"),
+              ]),
+              NavigationCellCluster(title: "Recommendations", children: [
+                NavigationCell(
+                    onTap: () {}, label: 'Albums', value: 'Paris 2023')
               ])
             ])));
   }
