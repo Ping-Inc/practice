@@ -30,6 +30,7 @@ class NavigationCellCluster extends StatelessWidget {
                 child: ListView.separated(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
+              padding: EdgeInsets.zero,
               itemCount: children.length,
               separatorBuilder: (context, index) => SystemDivider(),
               itemBuilder: (context, i) {

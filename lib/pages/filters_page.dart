@@ -5,7 +5,7 @@ import 'package:practice/components/filters_navigation_cells/day_of_month_naviga
 import 'package:practice/components/filters_navigation_cells/day_of_week_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/month_navigation_cell%20copy.dart';
 import 'package:practice/components/filters_navigation_cells/ping_of_the_day_cell.dart';
-import 'package:practice/components/filters_navigation_cells/time_of_day_navigation_cell.dart';
+import 'package:practice/components/filters_navigation_cells/period_of_day_navigation_cell.dart';
 import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
@@ -29,8 +29,8 @@ class FiltersPage extends ConsumerWidget {
               NavigationCellCluster(title: "Browse", children: [
                 AllPingsNavigationCell(),
               ]),
-              NavigationCellCluster(title: "Filters", children: [
-                TimeOfDayNavigationCell(title: "Time of Day"),
+              NavigationCellCluster(title: "Today's Time", children: [
+                PeriodOfDayNavigationCell(title: "Period of Day"),
                 DayOfWeekNavigationCell(title: "Day of Week"),
                 MonthNavigationCell(title: "Month"),
                 DayOfMonthNavigationCell(title: "Day of Month"),

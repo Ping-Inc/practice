@@ -6,8 +6,8 @@ import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/time_provider.dart';
 
-class TimeOfDayNavigationCell extends ConsumerWidget {
-  const TimeOfDayNavigationCell({super.key, required this.title});
+class PeriodOfDayNavigationCell extends ConsumerWidget {
+  const PeriodOfDayNavigationCell({super.key, required this.title});
 
   final String title;
 
@@ -22,7 +22,7 @@ class TimeOfDayNavigationCell extends ConsumerWidget {
                 MaterialPageRoute(
                     builder: (context) => BrowsePage(title: title)),
               ),
-          label: "Time of Day",
+          label: "Period of Day",
           value: timeValue.themeMode().toTitle()),
       _ => SizedBox.shrink()
     };
