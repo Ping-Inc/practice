@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/browse_mode_button.dart';
 import 'package:practice/constants.dart';
@@ -6,10 +7,14 @@ import 'package:practice/enums/browse_enum.dart';
 
 class BrowseModeSelector extends ConsumerWidget {
   const BrowseModeSelector(
-      {super.key, required this.controller, required this.browseController});
+      {super.key,
+      required this.scrollController,
+      required this.browseController,
+      required this.swipeController});
 
-  final ScrollController controller;
+  final ScrollController scrollController;
   final PageController browseController;
+  final CardSwiperController swipeController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,11 +31,14 @@ class BrowseModeSelector extends ConsumerWidget {
           children: [
             BrowseModeButton(
                 browseMode: BrowseEnum.slides,
-                browseController: browseController),
+                scrollController: scrollController,
+                browseController: browseController,
+                swipeController: swipeController),
             BrowseModeButton(
                 browseMode: BrowseEnum.list,
-                controller: controller,
-                browseController: browseController),
+                scrollController: scrollController,
+                browseController: browseController,
+                swipeController: swipeController),
           ],
         ));
   }

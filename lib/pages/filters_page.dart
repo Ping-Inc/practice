@@ -29,7 +29,7 @@ class FiltersPage extends ConsumerWidget {
               NavigationCellCluster(title: "Browse", children: [
                 AllPingsNavigationCell(),
               ]),
-              NavigationCellCluster(title: "Today's Time", children: [
+              NavigationCellCluster(title: "Current Time", children: [
                 CurrentPeriodOfDayNavigationCell(title: "Period of Day"),
                 CurrentDayOfWeekNavigationCell(title: "Day of Week"),
                 CurrentMonthNavigationCell(title: "Month"),

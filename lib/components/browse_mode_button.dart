@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
@@ -12,11 +13,13 @@ class BrowseModeButton extends ConsumerWidget {
   const BrowseModeButton(
       {super.key,
       required this.browseMode,
-      this.controller,
+      required this.scrollController,
+      required this.swipeController,
       required this.browseController});
 
   final BrowseEnum browseMode;
-  final ScrollController? controller;
+  final ScrollController scrollController;
+  final CardSwiperController swipeController;
   final PageController browseController;
 
   @override
@@ -24,16 +27,18 @@ class BrowseModeButton extends ConsumerWidget {
     final browse = ref.watch(browseProvider);
 
     return SystemTap(
-        onTap: browse == browseMode && browseMode == BrowseEnum.slides
-            ? null
-            : () {
-                if (browse == browseMode && controller != null) {
-                  controller!.animateTo(0, duration: duration, curve: curve);
-                } else {
-                  browseController.jumpToPage(browseMode.index);
-                  ref.read(browseProvider.notifier).setTab(browseMode);
-                }
-              },
+        onTap: () {
+          if (browse == browseMode) {
+            if (browseMode == BrowseEnum.slides) {
+              swipeController.moveTo(0);
+            } else {
+              scrollController.animateTo(0, duration: duration, curve: curve);
+            }
+          } else {
+            browseController.jumpToPage(browseMode.index);
+            ref.read(browseProvider.notifier).setTab(browseMode);
+          }
+        },
         child: Container(
           padding: EdgeInsets.symmetric(
               vertical: spacingTwo, horizontal: spacingFive),

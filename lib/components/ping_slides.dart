@@ -5,30 +5,55 @@ import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/resizing_text.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/data/ping.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/details_page.dart';
-import 'package:practice/providers/pings_provider.dart';
 
-class PingSlides extends ConsumerWidget {
-  const PingSlides({super.key});
+class PingSlides extends StatefulWidget {
+  const PingSlides(
+      {super.key,
+      required this.swipeController,
+      required this.scroll,
+      required this.asyncPings,
+      required this.count});
+
+  final CardSwiperController swipeController;
+  final VoidCallback scroll;
+  final AsyncValue<List<Ping>> asyncPings;
+  final int count;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final pings = ref.watch(pingsProvider);
+  State<PingSlides> createState() => _PingSlidesState();
+}
 
-    return switch (pings) {
+class _PingSlidesState extends State<PingSlides> {
+  int index = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (widget.asyncPings) {
       AsyncData(value: final pingsValue) => SafeArea(
             child: Column(children: [
           Padding(
             padding: EdgeInsets.all(spacingFour),
-            child: SystemText(text: "1/28"),
+            child: SystemText(text: "$index/${widget.count}"),
           ),
           Expanded(
               child: CardSwiper(
+            controller: widget.swipeController,
             cardsCount: pingsValue.length,
             numberOfCardsDisplayed: 2,
             backCardOffset: const Offset(0, 0),
+            onSwipe: (pi, ni, direction) {
+              if (ni != null) {
+                setState(() {
+                  index = ni + 1;
+                });
+              }
+
+              return true;
+            },
             padding: EdgeInsets.only(
                 top: spacingFour,
                 left: spacingFour,
@@ -44,7 +69,7 @@ class PingSlides extends ConsumerWidget {
 
               if (i == pingsValue.length - 1 &&
                   pingsValue.length % fetchLimit == 0) {
-                ref.read(pingsProvider.notifier).scroll();
+                widget.scroll();
               }
 
               return Center(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,14 +9,23 @@ import 'package:practice/components/ping_list.dart';
 import 'package:practice/components/ping_slides.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/data/ping.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/providers/browse_provider.dart';
 
 class BrowsePage extends ConsumerStatefulWidget {
-  const BrowsePage({super.key, required this.title});
+  const BrowsePage(
+      {super.key,
+      required this.title,
+      required this.asyncPings,
+      required this.scroll,
+      required this.count});
 
   final String title;
+  final AsyncValue<List<Ping>> asyncPings;
+  final VoidCallback scroll;
+  final int count;
 
   @override
   ConsumerState<BrowsePage> createState() => _BrowserPageState();
@@ -23,6 +33,7 @@ class BrowsePage extends ConsumerStatefulWidget {
 
 class _BrowserPageState extends ConsumerState<BrowsePage> {
   late final PageController browseController;
+  late final CardSwiperController swipeController;
   late final ScrollController listController;
 
   @override
@@ -31,6 +42,7 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
 
     browseController =
         PageController(initialPage: ref.read(browseProvider).index);
+    swipeController = CardSwiperController();
     listController = ScrollController();
   }
 
@@ -61,10 +73,17 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
                       itemBuilder: (_, i) {
                         switch (i) {
                           case 1:
-                            return PingList(controller: listController);
+                            return PingList(
+                                controller: listController,
+                                asyncPings: widget.asyncPings,
+                                scroll: widget.scroll);
                           case 0:
                           default:
-                            return PingSlides();
+                            return PingSlides(
+                                swipeController: swipeController,
+                                count: widget.count,
+                                asyncPings: widget.asyncPings,
+                                scroll: widget.scroll);
                         }
                       }),
                   Column(
@@ -78,8 +97,9 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 BrowseModeSelector(
-                                    controller: listController,
-                                    browseController: browseController)
+                                    scrollController: listController,
+                                    browseController: browseController,
+                                    swipeController: swipeController)
                               ]))
                     ],
                   ),
