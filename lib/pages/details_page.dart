@@ -14,9 +14,10 @@ import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/date_time_enum_extensions.dart';
 
 class DetailsPage extends ConsumerWidget {
-  const DetailsPage({super.key, required this.ping});
+  const DetailsPage({super.key, required this.ping, required this.title});
 
   final Ping ping;
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,19 +26,11 @@ class DetailsPage extends ConsumerWidget {
             child: Column(
       children: [
         TopNav(
-            child: Stack(children: [
-          SystemButton(
-            onTap: () => Navigator.pop(context),
-            icon: PhosphorIcons.caret_left,
-          ),
-          Positioned.fill(
-              child: Align(
-            alignment: Alignment.center,
-            child: SystemText(
-              text: "Ping 12/28",
-            ),
-          )),
-        ])),
+          child: SystemButton(
+              onTap: () => Navigator.pop(context),
+              icon: PhosphorIcons.caret_left,
+              text: title),
+        ),
         SystemDivider(),
         AspectRatio(
             aspectRatio: 1.0,

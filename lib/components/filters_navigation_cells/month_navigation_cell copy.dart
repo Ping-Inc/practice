@@ -6,7 +6,9 @@ import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class MonthNavigationCell extends ConsumerWidget {
-  const MonthNavigationCell({super.key});
+  const MonthNavigationCell({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +18,8 @@ class MonthNavigationCell extends ConsumerWidget {
       AsyncData(value: final timeValue) => NavigationCell(
           onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BrowsePage()),
+                MaterialPageRoute(
+                    builder: (context) => BrowsePage(title: title)),
               ),
           label: "Month",
           value: DateFormat('MMMM').format(timeValue)),

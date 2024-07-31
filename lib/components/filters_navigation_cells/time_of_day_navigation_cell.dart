@@ -7,7 +7,9 @@ import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class TimeOfDayNavigationCell extends ConsumerWidget {
-  const TimeOfDayNavigationCell({super.key});
+  const TimeOfDayNavigationCell({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +19,8 @@ class TimeOfDayNavigationCell extends ConsumerWidget {
       AsyncData(value: final timeValue) => NavigationCell(
           onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BrowsePage()),
+                MaterialPageRoute(
+                    builder: (context) => BrowsePage(title: title)),
               ),
           label: "Time of Day",
           value: timeValue.themeMode().toTitle()),

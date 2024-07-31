@@ -7,8 +7,6 @@ extension StringParsing on BrowseEnum {
         return "Slides";
       case BrowseEnum.list:
         return "List";
-      case BrowseEnum.grid:
-        return "Grid";
     }
   }
 }

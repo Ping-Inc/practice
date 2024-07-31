@@ -36,7 +36,8 @@ class PingSearchList extends ConsumerWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailsPage(ping: ping)),
+                        builder: (context) =>
+                            DetailsPage(ping: ping, title: "Search")),
                   );
                 });
           },

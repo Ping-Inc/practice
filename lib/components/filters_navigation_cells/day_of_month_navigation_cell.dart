@@ -6,7 +6,9 @@ import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class DayOfMonthNavigationCell extends ConsumerWidget {
-  const DayOfMonthNavigationCell({super.key});
+  const DayOfMonthNavigationCell({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +18,8 @@ class DayOfMonthNavigationCell extends ConsumerWidget {
       AsyncData(value: final timeValue) => NavigationCell(
           onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BrowsePage()),
+                MaterialPageRoute(
+                    builder: (context) => BrowsePage(title: title)),
               ),
           label: "Day of Month",
           value: DateFormat('d').format(timeValue)),

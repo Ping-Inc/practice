@@ -10,7 +10,9 @@ import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/pings_provider.dart';
 
 class PingList extends ConsumerWidget {
-  const PingList({super.key});
+  const PingList({super.key, required this.controller});
+
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,6 +20,7 @@ class PingList extends ConsumerWidget {
 
     return switch (pings) {
       AsyncData(value: final pingsValue) => ListView.separated(
+          controller: controller,
           itemCount: pingsValue.length,
           padding: EdgeInsets.all(spacingFour),
           separatorBuilder: (context, index) => SizedBox(
@@ -37,7 +40,8 @@ class PingList extends ConsumerWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailsPage(ping: ping)),
+                        builder: (context) =>
+                            DetailsPage(ping: ping, title: "Home")),
                   );
                 });
           },

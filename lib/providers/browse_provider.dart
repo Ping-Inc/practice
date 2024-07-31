@@ -7,7 +7,7 @@ part 'browse_provider.g.dart';
 class Browse extends _$Browse {
   @override
   BrowseEnum build() {
-    return BrowseEnum.list;
+    return BrowseEnum.slides;
   }
 
   void setTab(BrowseEnum browse) {

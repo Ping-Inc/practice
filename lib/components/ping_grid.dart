@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/resizing_text.dart';
-import 'package:practice/components/resonant_ping.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_loader.dart';
@@ -35,24 +33,21 @@ class PingGrid extends ConsumerWidget {
             }
 
             return SystemTap(
-                child: PingBackground(
-                    child: Stack(children: [
+                child: Stack(children: [
                   Padding(
                       padding: EdgeInsets.all(spacingFive),
                       child: ResizingText(
                         text: ping.text,
                       )),
-                  Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                          padding: EdgeInsets.all(spacingFour),
-                          child: ResonantPing(ping: ping)))
-                ])),
+                ]),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailsPage(ping: ping)),
+                        builder: (context) => DetailsPage(
+                              ping: ping,
+                              title: "Home",
+                            )),
                   );
                 });
           },

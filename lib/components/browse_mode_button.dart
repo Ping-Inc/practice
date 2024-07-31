@@ -10,9 +10,13 @@ import 'package:practice/providers/browse_provider.dart';
 
 class BrowseModeButton extends ConsumerWidget {
   const BrowseModeButton(
-      {super.key, required this.browseMode, required this.browseController});
+      {super.key,
+      required this.browseMode,
+      this.controller,
+      required this.browseController});
 
   final BrowseEnum browseMode;
+  final ScrollController? controller;
   final PageController browseController;
 
   @override
@@ -20,12 +24,16 @@ class BrowseModeButton extends ConsumerWidget {
     final browse = ref.watch(browseProvider);
 
     return SystemTap(
-        onTap: browseController.hasClients && browse != browseMode
-            ? () {
-                browseController.jumpToPage(browseMode.index);
-                ref.read(browseProvider.notifier).setTab(browseMode);
-              }
-            : null,
+        onTap: browse == browseMode && browseMode == BrowseEnum.slides
+            ? null
+            : () {
+                if (browse == browseMode && controller != null) {
+                  controller!.animateTo(0, duration: duration, curve: curve);
+                } else {
+                  browseController.jumpToPage(browseMode.index);
+                  ref.read(browseProvider.notifier).setTab(browseMode);
+                }
+              },
         child: Container(
           padding: EdgeInsets.symmetric(
               vertical: spacingTwo, horizontal: spacingFive),

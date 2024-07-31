@@ -18,10 +18,6 @@ class PingCell extends StatelessWidget {
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: spacingSix, vertical: spacingFive),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(spacingFour),
-      ),
       child: Row(children: [
         ResonantPing(ping: ping),
         SizedBox(

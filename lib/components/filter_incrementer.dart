@@ -4,11 +4,9 @@ import 'package:practice/components/browse_mode_button.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
 
-class BrowseModeSelector extends ConsumerWidget {
-  const BrowseModeSelector(
-      {super.key, required this.controller, required this.browseController});
+class FilterIncrementer extends ConsumerWidget {
+  const FilterIncrementer({super.key, required this.browseController});
 
-  final ScrollController controller;
   final PageController browseController;
 
   @override
@@ -29,7 +27,6 @@ class BrowseModeSelector extends ConsumerWidget {
                 browseController: browseController),
             BrowseModeButton(
                 browseMode: BrowseEnum.list,
-                controller: controller,
                 browseController: browseController),
           ],
         ));

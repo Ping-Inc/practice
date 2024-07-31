@@ -15,7 +15,8 @@ class AllPingsNavigationCell extends ConsumerWidget {
       AsyncData(value: final countValue) => NavigationCell(
           onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BrowsePage()),
+                MaterialPageRoute(
+                    builder: (context) => BrowsePage(title: "All Pings")),
               ),
           label: "All Pings",
           value: countValue.toString()),

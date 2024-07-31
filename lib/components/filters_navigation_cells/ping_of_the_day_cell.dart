@@ -24,12 +24,16 @@ class PingOfTheDayCell extends ConsumerWidget {
     return switch (pingOfTheDay) {
       AsyncData(value: final pingOfTheDayValue) => NavigationCell(
           onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailsPage(ping: pingOfTheDayValue)),
-              ),
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailsPage(
+                      ping: pingOfTheDayValue,
+                      title: "Ping of the Day",
+                    )),
+          ),
           label: "Ping of the Day",
-          value: "\"${pingOfTheDayValue.text}\""),
+          value: "\"${pingOfTheDayValue.text}\"",
+        ),
       _ => SizedBox.shrink()
     };
   }

@@ -3,7 +3,6 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/resizing_text.dart';
-import 'package:practice/components/resonant_ping.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_loader.dart';
@@ -23,7 +22,11 @@ class PingSlides extends ConsumerWidget {
           cardsCount: pingsValue.length,
           numberOfCardsDisplayed: 2,
           backCardOffset: const Offset(0, 0),
-          padding: const EdgeInsets.all(spacingFour),
+          padding: EdgeInsets.only(
+              top: spacingFour,
+              left: spacingFour,
+              right: spacingFour,
+              bottom: spacingEight + MediaQuery.of(context).padding.bottom),
           cardBuilder: (
             context,
             i,
@@ -48,17 +51,13 @@ class PingSlides extends ConsumerWidget {
                               child: ResizingText(
                                 text: ping.text,
                               )),
-                          Align(
-                              alignment: Alignment.topRight,
-                              child: Padding(
-                                  padding: EdgeInsets.all(spacingFour),
-                                  child: ResonantPing(ping: ping)))
                         ]))),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetailsPage(ping: ping)),
+                            builder: (context) =>
+                                DetailsPage(ping: ping, title: "Slides")),
                       );
                     }));
           },
