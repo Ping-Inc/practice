@@ -35,7 +35,6 @@ class BrowseModePage extends ConsumerWidget {
               SystemDivider(),
               Expanded(
                   child: BrowsePage(
-                      title: "Test",
                       asyncPings: asyncPings,
                       scroll: () => ref
                           .read(modeFilteredPingsProvider(time).notifier)

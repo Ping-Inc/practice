@@ -35,10 +35,11 @@ class _PingSlidesState extends State<PingSlides> {
     return switch (widget.asyncPings) {
       AsyncData(value: final pingsValue) => SafeArea(
             child: Column(children: [
-          Padding(
-            padding: EdgeInsets.all(spacingFour),
-            child: SystemText(text: "$index/${widget.count}"),
-          ),
+          if (widget.count != 0)
+            Padding(
+              padding: EdgeInsets.all(spacingFour),
+              child: SystemText(text: "$index/${widget.count}"),
+            ),
           Expanded(
               child: pingsValue.isEmpty
                   ? Center(child: SystemText(text: 'No pings for this time'))

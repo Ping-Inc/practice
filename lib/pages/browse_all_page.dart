@@ -30,7 +30,6 @@ class BrowseAllPage extends ConsumerWidget {
               SystemDivider(),
               Expanded(
                   child: BrowsePage(
-                      title: "Test",
                       asyncPings: asyncPings,
                       scroll: () => ref.read(pingsProvider.notifier).scroll(),
                       count: count))

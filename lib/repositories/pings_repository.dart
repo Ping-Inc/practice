@@ -10,6 +10,47 @@ class PingsRepository {
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
+  static Future<int> countMonth(DateTime monthTime) async {
+    final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
+    final endOfMonth =
+        DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
+
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ?', [
+      startOfMonth.millisecondsSinceEpoch,
+      endOfMonth.millisecondsSinceEpoch
+    ]);
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<int> countYear(DateTime yearTime) async {
+    final startOfYear = DateTime(yearTime.year, 1, 1);
+    final endOfYear = DateTime(yearTime.year, 12, 31, 23, 59, 59);
+
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ?',
+        [startOfYear.millisecondsSinceEpoch, endOfYear.millisecondsSinceEpoch]);
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<int> countDayOfWeek(DateTime dayOfWeekTime) async {
+    final dayOfWeek = dayOfWeekTime.weekday;
+
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE strftime("%w", datetime(time / 1000, "unixepoch")) = ?',
+        [(dayOfWeek % 7).toString()]);
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<int> countDayOfMonth(DateTime dayOfMonthTime) async {
+    final dayOfMonth = dayOfMonthTime.day;
+
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE strftime("%d", datetime(time / 1000, "unixepoch")) = ?',
+        [dayOfMonth.toString().padLeft(2, '0')]);
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   static Future<List<Map<String, Object?>>> latest() async {
     return db.query('pings', orderBy: 'time desc', limit: 1);
   }

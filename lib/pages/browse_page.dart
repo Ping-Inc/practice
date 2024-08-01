@@ -11,12 +11,10 @@ import 'package:practice/providers/browse_provider.dart';
 class BrowsePage extends ConsumerStatefulWidget {
   const BrowsePage(
       {super.key,
-      required this.title,
       required this.asyncPings,
       required this.scroll,
       required this.count});
 
-  final String title;
   final AsyncValue<List<Ping>> asyncPings;
   final VoidCallback scroll;
 
