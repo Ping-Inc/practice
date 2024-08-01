@@ -15,7 +15,7 @@ class CurrentPeriodOfDayNavigationCell extends ConsumerWidget {
 
     return switch (time) {
       AsyncData(value: final timeValue) =>
-        PeriodOfDayNavigationCell(title: title, time: timeValue),
+        PeriodOfDayNavigationCell(time: timeValue),
       _ => SizedBox.shrink()
     };
   }

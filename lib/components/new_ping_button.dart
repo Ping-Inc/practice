@@ -74,7 +74,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
                   .read(pingsProvider.notifier)
                   .addPing(widget.textEditingController.text, replyId(replyOn));
               ref.read(currentPingProvider.notifier).reset();
-              ref.read(replyOnProvider.notifier).toggle();
+              ref.read(replyOnProvider.notifier).reset();
               ref.invalidate(pingsCountProvider);
               Timer(const Duration(milliseconds: 132), () {
                 HapticFeedback.selectionClick();

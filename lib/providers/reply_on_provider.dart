@@ -12,4 +12,8 @@ class ReplyOn extends _$ReplyOn {
   void toggle() {
     state = !state;
   }
+
+  void reset() {
+    state = false;
+  }
 }

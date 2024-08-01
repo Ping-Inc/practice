@@ -6,7 +6,7 @@ part of 'ping_of_the_day_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pingOfTheDayHash() => r'73c13f6fcb8e48726ee2c2e6eaad77e8a3a96fcd';
+String _$pingOfTheDayHash() => r'3b42c32c8d310e9198e59d935b1fb18a4c41fb85';
 
 /// See also [pingOfTheDay].
 @ProviderFor(pingOfTheDay)

@@ -84,8 +84,7 @@ class DetailsPage extends ConsumerWidget {
                         value: "5"),
                   ]),
                   NavigationCellCluster(title: "This Ping's Time", children: [
-                    PeriodOfDayNavigationCell(
-                        title: "Period of Day", time: ping.time),
+                    PeriodOfDayNavigationCell(time: ping.time),
                     DayOfWeekNavigationCell(time: ping.time),
                     MonthNavigationCell(time: ping.time),
                     DayOfMonthNavigationCell(time: ping.time),

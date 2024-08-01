@@ -6,7 +6,7 @@ part of 'reply_on_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$replyOnHash() => r'68b248f83f1dd0971a1332e70e496b634486b956';
+String _$replyOnHash() => r'07c136c74c8d139d1215f67f37f60d997c4ae2ef';
 
 /// See also [ReplyOn].
 @ProviderFor(ReplyOn)

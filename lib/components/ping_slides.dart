@@ -45,7 +45,7 @@ class _PingSlidesState extends State<PingSlides> {
                   : CardSwiper(
                       controller: widget.swipeController,
                       cardsCount: pingsValue.length,
-                      numberOfCardsDisplayed: 2,
+                      numberOfCardsDisplayed: pingsValue.length == 1 ? 1 : 2,
                       backCardOffset: const Offset(0, 0),
                       onSwipe: (pi, ni, direction) {
                         if (ni != null) {

@@ -35,6 +35,48 @@ class PingsRepository {
     return db.query('pings', orderBy: 'time desc', limit: fetchLimit);
   }
 
+  static Future<List<Map<String, Object?>>> fetchHourRange(
+      int startHour, int endHour) async {
+    List<Map<String, Object?>> results = [];
+
+    if (startHour > endHour) {
+      // Query for hours from startHour to 23:59
+      final part1 = await db.query(
+        'pings',
+        where: 'strftime("%H", time / 1000, "unixepoch") >= ?',
+        whereArgs: [startHour.toString().padLeft(2, '0')],
+        orderBy: 'time desc',
+        limit: fetchLimit,
+      );
+
+      // Query for hours from 00:00 to endHour
+      final part2 = await db.query(
+        'pings',
+        where: 'strftime("%H", time / 1000, "unixepoch") <= ?',
+        whereArgs: [endHour.toString().padLeft(2, '0')],
+        orderBy: 'time desc',
+        limit: fetchLimit,
+      );
+
+      results.addAll(part1);
+      results.addAll(part2);
+    } else {
+      // Query for hours within the same day
+      results = await db.query(
+        'pings',
+        where: 'strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ?',
+        whereArgs: [
+          startHour.toString().padLeft(2, '0'),
+          endHour.toString().padLeft(2, '0')
+        ],
+        orderBy: 'time desc',
+        limit: fetchLimit,
+      );
+    }
+
+    return results;
+  }
+
   static Future<List<Map<String, Object?>>> fetchMonth(
       DateTime monthTime) async {
     final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
@@ -115,6 +157,56 @@ class PingsRepository {
         where: 'time < ?',
         whereArgs: [time.millisecondsSinceEpoch],
         limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchHourRangeBeforeTime(
+      DateTime time, int startHour, int endHour) async {
+    List<Map<String, Object?>> results = [];
+
+    if (startHour > endHour) {
+      // Query for hours from startHour to 23:59
+      final part1 = await db.query(
+        'pings',
+        where: 'strftime("%H", time / 1000, "unixepoch") >= ? AND time < ?',
+        whereArgs: [
+          startHour.toString().padLeft(2, '0'),
+          time.millisecondsSinceEpoch
+        ],
+        orderBy: 'time desc',
+        limit: fetchLimit,
+      );
+
+      // Query for hours from 00:00 to endHour
+      final part2 = await db.query(
+        'pings',
+        where: 'strftime("%H", time / 1000, "unixepoch") <= ? AND time < ?',
+        whereArgs: [
+          endHour.toString().padLeft(2, '0'),
+          time.millisecondsSinceEpoch
+        ],
+        orderBy: 'time desc',
+        limit: fetchLimit,
+      );
+
+      results.addAll(part1);
+      results.addAll(part2);
+    } else {
+      // Query for hours within the same day
+      results = await db.query(
+        'pings',
+        where:
+            'strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ? AND time < ?',
+        whereArgs: [
+          startHour.toString().padLeft(2, '0'),
+          endHour.toString().padLeft(2, '0'),
+          time.millisecondsSinceEpoch
+        ],
+        orderBy: 'time desc',
+        limit: fetchLimit,
+      );
+    }
+
+    return results;
   }
 
   static Future<List<Map<String, Object?>>> fetchMonthBeforeTime(
