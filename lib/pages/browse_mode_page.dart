@@ -8,6 +8,7 @@ import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/mode_filtered_pings_provider.dart';
+import 'package:practice/providers/theme_mode_pings_count_provider.dart';
 
 class BrowseModePage extends ConsumerWidget {
   const BrowseModePage({super.key, required this.time});
@@ -17,6 +18,7 @@ class BrowseModePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncPings = ref.watch(modeFilteredPingsProvider(time));
+    final count = ref.watch(themeModePingsCountProvider(time));
 
     return Scaffold(
         body: SafeArea(
@@ -34,12 +36,15 @@ class BrowseModePage extends ConsumerWidget {
               ),
               SystemDivider(),
               Expanded(
-                  child: BrowsePage(
-                      asyncPings: asyncPings,
-                      scroll: () => ref
-                          .read(modeFilteredPingsProvider(time).notifier)
-                          .scroll(),
-                      count: 1))
+                  child: switch (count) {
+                AsyncData(value: final countValue) => BrowsePage(
+                    asyncPings: asyncPings,
+                    scroll: () => ref
+                        .read(modeFilteredPingsProvider(time).notifier)
+                        .scroll(),
+                    count: countValue),
+                _ => SizedBox.shrink()
+              }),
             ])));
   }
 }

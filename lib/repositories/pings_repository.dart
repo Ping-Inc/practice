@@ -51,6 +51,31 @@ class PingsRepository {
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
+  static Future<int> countHourRangeBeforeTime(
+      int startHour, int endHour) async {
+    if (startHour > endHour) {
+      final count1 = await db.rawQuery(
+          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") >= ?',
+          [startHour.toString().padLeft(2, '0')]);
+
+      final count2 = await db.rawQuery(
+          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") <= ?',
+          [endHour.toString().padLeft(2, '0')]);
+
+      return (Sqflite.firstIntValue(count1) ?? 0) +
+          (Sqflite.firstIntValue(count2) ?? 0);
+    } else {
+      final result = await db.rawQuery(
+          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ?',
+          [
+            startHour.toString().padLeft(2, '0'),
+            endHour.toString().padLeft(2, '0')
+          ]);
+
+      return Sqflite.firstIntValue(result) ?? 0;
+    }
+  }
+
   static Future<List<Map<String, Object?>>> latest() async {
     return db.query('pings', orderBy: 'time desc', limit: 1);
   }
