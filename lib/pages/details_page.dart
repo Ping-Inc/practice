@@ -17,15 +17,33 @@ import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/providers/unviewed_pings_count_provider.dart';
+import 'package:practice/repositories/pings_repository.dart';
 
-class DetailsPage extends ConsumerWidget {
+class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.ping, required this.title});
 
   final Ping ping;
   final String title;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends ConsumerState<DetailsPage> {
+  @override
+  void initState() {
+    super.initState();
+    _incrementViewCount();
+  }
+
+  Future<void> _incrementViewCount() async {
+    await PingsRepository.incrementViewCount(widget.ping.id!);
+    ref.invalidate(unviewedPingsCountProvider);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
             bottom: false,
@@ -35,7 +53,7 @@ class DetailsPage extends ConsumerWidget {
                   child: SystemButton(
                       onTap: () => Navigator.pop(context),
                       icon: PhosphorIcons.caret_left,
-                      text: title),
+                      text: widget.title),
                 ),
                 SystemDivider(),
                 Expanded(
@@ -51,7 +69,7 @@ class DetailsPage extends ConsumerWidget {
                                   alignment: Alignment.topLeft,
                                   fit: BoxFit.scaleDown,
                                   child: SystemText(
-                                    text: "\"${ping.text}\"",
+                                    text: "\"${widget.ping.text}\"",
                                     font: FontEnum.garamond,
                                     size: TextSizeEnum.thirtySix,
                                   ))),
@@ -66,7 +84,7 @@ class DetailsPage extends ConsumerWidget {
                                     child: SystemText(
                                       text:
                                           DateFormat('EEE MMM d, yyyy · h:mma')
-                                              .format(ping.time),
+                                              .format(widget.ping.time),
                                       color: gray,
                                     ),
                                   ),
@@ -84,11 +102,11 @@ class DetailsPage extends ConsumerWidget {
                         value: "5"),
                   ]),
                   NavigationCellCluster(title: "This Ping's Time", children: [
-                    PeriodOfDayNavigationCell(time: ping.time),
-                    DayOfWeekNavigationCell(time: ping.time),
-                    MonthNavigationCell(time: ping.time),
-                    DayOfMonthNavigationCell(time: ping.time),
-                    YearNavigationCell(time: ping.time),
+                    PeriodOfDayNavigationCell(time: widget.ping.time),
+                    DayOfWeekNavigationCell(time: widget.ping.time),
+                    MonthNavigationCell(time: widget.ping.time),
+                    DayOfMonthNavigationCell(time: widget.ping.time),
+                    YearNavigationCell(time: widget.ping.time),
                   ]),
                   SizedBox(height: MediaQuery.of(context).padding.bottom)
                 ]))),

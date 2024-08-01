@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/bottom_nav.dart';
-import 'package:practice/pages/filters_page.dart';
+import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/search_page.dart';
 import 'package:practice/pages/settings_page.dart';
 import 'package:practice/providers/tab_provider.dart';
@@ -53,7 +53,7 @@ class _SystemHomeState extends ConsumerState<HomePage> {
                       return SizedBox.shrink();
                     case 0:
                     default:
-                      return FiltersPage(controller: browseController);
+                      return ExplorePage(controller: browseController);
                   }
                 })),
         BottomNav(

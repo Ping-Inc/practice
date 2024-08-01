@@ -64,6 +64,15 @@ const Map<int, String> migrationScripts = {
   ''',
   5: '''
   ALTER TABLE pings_new RENAME TO pings
+  ''',
+  6: '''
+  ALTER TABLE pings ADD COLUMN view_count INTEGER DEFAULT 0
+  ''',
+  7: '''
+  ALTER TABLE pings ADD COLUMN resonant_count INTEGER DEFAULT 0
+  ''',
+  8: '''
+  ALTER TABLE pings ADD COLUMN hidden BOOLEAN DEFAULT 0
   '''
 };
 

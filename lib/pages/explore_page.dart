@@ -6,11 +6,13 @@ import 'package:practice/components/filters_navigation_cells/current_day/current
 import 'package:practice/components/filters_navigation_cells/current_day/current_month_navigation_cell%20copy.dart';
 import 'package:practice/components/filters_navigation_cells/current_day/current_period_of_day_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/ping_of_the_day_cell.dart';
+import 'package:practice/components/filters_navigation_cells/pings_with_replies_navigation_cell.dart';
+import 'package:practice/components/filters_navigation_cells/unviewed_pings_navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
 
-class FiltersPage extends ConsumerWidget {
-  const FiltersPage({super.key, required this.controller});
+class ExplorePage extends ConsumerWidget {
+  const ExplorePage({super.key, required this.controller});
 
   final ScrollController controller;
 
@@ -27,6 +29,8 @@ class FiltersPage extends ConsumerWidget {
               ]),
               NavigationCellCluster(title: "Browse", children: [
                 AllPingsNavigationCell(),
+                PingsWithRepliesNavigationCell(),
+                UnviewedPingsNavigationCell()
               ]),
               NavigationCellCluster(title: "Current Time", children: [
                 CurrentPeriodOfDayNavigationCell(title: "Period of Day"),

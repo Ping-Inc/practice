@@ -10,6 +10,18 @@ class PingsRepository {
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
+  static Future<int> countReplies() async {
+    final result = await db.rawQuery(
+        'SELECT COUNT(DISTINCT reply_id) as count FROM pings WHERE reply_id IS NOT NULL');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<int> countUnviewed() async {
+    final result = await db
+        .rawQuery('SELECT COUNT(id) as count FROM pings WHERE view_count = 0');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   static Future<int> countMonth(DateTime monthTime) async {
     final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
     final endOfMonth =
@@ -388,6 +400,13 @@ class PingsRepository {
   static Future<Map<String, Object?>> random() async {
     final result = await db.query('pings', orderBy: 'RANDOM()', limit: 1);
     return result.first;
+  }
+
+  static Future<void> incrementViewCount(int pingId) async {
+    await db.rawUpdate(
+      'UPDATE pings SET view_count = view_count + 1 WHERE id = ?',
+      [pingId],
+    );
   }
 
   // static Future<void> exportToCsv() async {
