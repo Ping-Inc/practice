@@ -142,6 +142,24 @@ class PingsRepository {
         limit: fetchLimit);
   }
 
+  static Future<List<Map<String, Object?>>> fetchLastWeek() async {
+    // Calculate the start and end of the last week (Sunday to Saturday)
+    final currentDate = DateTime.now();
+
+    DateTime endOfLastWeek =
+        currentDate.subtract(Duration(days: currentDate.weekday));
+    DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
+
+    return db.query('pings',
+        where: 'time >= ? AND time <= ? AND hidden = 0',
+        whereArgs: [
+          startOfLastWeek.millisecondsSinceEpoch,
+          endOfLastWeek.millisecondsSinceEpoch
+        ],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
   static Future<List<Map<String, Object?>>> fetchHidden() async {
     return db.query('pings',
         where: 'hidden = 1', orderBy: 'time desc', limit: fetchLimit);
@@ -304,6 +322,26 @@ class PingsRepository {
         where:
             'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND time < ? AND hidden = 0)',
         whereArgs: [time.millisecondsSinceEpoch],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchLastWeekBeforeTime(
+      DateTime time) async {
+    // Calculate the start and end of the last week (Sunday to Saturday)
+    final currentDate = DateTime.now();
+
+    DateTime endOfLastWeek =
+        currentDate.subtract(Duration(days: currentDate.weekday));
+    DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
+
+    return db.query('pings',
+        where: 'time >= ? AND time <= ? AND time < ? AND hidden = 0',
+        whereArgs: [
+          startOfLastWeek.millisecondsSinceEpoch,
+          endOfLastWeek.millisecondsSinceEpoch,
+          time.millisecondsSinceEpoch
+        ],
         orderBy: 'time desc',
         limit: fetchLimit);
   }

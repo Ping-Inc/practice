@@ -6,16 +6,16 @@ import 'package:practice/components/top_nav.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/pages/browse_page.dart';
-import 'package:practice/providers/resonated_pings_count_provider.dart';
-import 'package:practice/providers/resonated_pings_provider.dart';
+import 'package:practice/providers/last_week_pings_count_provider.dart';
+import 'package:practice/providers/last_week_pings_provider.dart';
 
-class BrowseResonatedPingsPage extends ConsumerWidget {
-  const BrowseResonatedPingsPage({super.key});
+class BrowseLastWeekPage extends ConsumerWidget {
+  const BrowseLastWeekPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncPings = ref.watch(resonatedPingsProvider);
-    final count = ref.watch(resonatedPingsCountProvider);
+    final asyncPings = ref.watch(lastWeekPingsProvider);
+    final count = ref.watch(lastWeekPingsCountProvider);
 
     return Scaffold(
         body: SafeArea(
@@ -24,7 +24,7 @@ class BrowseResonatedPingsPage extends ConsumerWidget {
               TopNav(
                   child: SystemButton(
                 onTap: () => context.pop(),
-                text: 'Resonated',
+                text: 'Last Week',
                 icon: PhosphorIcons.caret_left,
               )),
               SystemDivider(),
@@ -33,7 +33,7 @@ class BrowseResonatedPingsPage extends ConsumerWidget {
                 AsyncData(value: final countValue) => BrowsePage(
                     asyncPings: asyncPings,
                     scroll: () =>
-                        ref.read(resonatedPingsProvider.notifier).scroll(),
+                        ref.read(lastWeekPingsProvider.notifier).scroll(),
                     count: countValue),
                 _ => SizedBox.shrink()
               }),
