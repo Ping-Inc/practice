@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 
 class ResonantPing extends StatelessWidget {
   const ResonantPing({super.key, required this.ping});
 
-  final Ping ping;
+  final PingData ping;
 
   @override
   Widget build(BuildContext context) {

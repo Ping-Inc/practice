@@ -6,7 +6,7 @@ part of 'time_filtered_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timeFilteredPingsHash() => r'6fbfe44f7d5b5d882656874a5b56a2ad1bb02d9b';
+String _$timeFilteredPingsHash() => r'b9991e3cc643706e31e5bebc82287eda4ce14266';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,11 +30,11 @@ class _SystemHash {
 }
 
 abstract class _$TimeFilteredPings
-    extends BuildlessAutoDisposeAsyncNotifier<List<Ping>> {
+    extends BuildlessAutoDisposeAsyncNotifier<List<PingData>> {
   late final TimeFilterEnum timeFilter;
   late final DateTime currentTime;
 
-  FutureOr<List<Ping>> build(
+  FutureOr<List<PingData>> build(
     TimeFilterEnum timeFilter,
     DateTime currentTime,
   );
@@ -45,7 +45,7 @@ abstract class _$TimeFilteredPings
 const timeFilteredPingsProvider = TimeFilteredPingsFamily();
 
 /// See also [TimeFilteredPings].
-class TimeFilteredPingsFamily extends Family<AsyncValue<List<Ping>>> {
+class TimeFilteredPingsFamily extends Family<AsyncValue<List<PingData>>> {
   /// See also [TimeFilteredPings].
   const TimeFilteredPingsFamily();
 
@@ -87,7 +87,7 @@ class TimeFilteredPingsFamily extends Family<AsyncValue<List<Ping>>> {
 
 /// See also [TimeFilteredPings].
 class TimeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    TimeFilteredPings, List<Ping>> {
+    TimeFilteredPings, List<PingData>> {
   /// See also [TimeFilteredPings].
   TimeFilteredPingsProvider(
     TimeFilterEnum timeFilter,
@@ -124,7 +124,7 @@ class TimeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final DateTime currentTime;
 
   @override
-  FutureOr<List<Ping>> runNotifierBuild(
+  FutureOr<List<PingData>> runNotifierBuild(
     covariant TimeFilteredPings notifier,
   ) {
     return notifier.build(
@@ -153,7 +153,7 @@ class TimeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<TimeFilteredPings, List<Ping>>
+  AutoDisposeAsyncNotifierProviderElement<TimeFilteredPings, List<PingData>>
       createElement() {
     return _TimeFilteredPingsProviderElement(this);
   }
@@ -175,7 +175,8 @@ class TimeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 }
 
-mixin TimeFilteredPingsRef on AutoDisposeAsyncNotifierProviderRef<List<Ping>> {
+mixin TimeFilteredPingsRef
+    on AutoDisposeAsyncNotifierProviderRef<List<PingData>> {
   /// The parameter `timeFilter` of this provider.
   TimeFilterEnum get timeFilter;
 
@@ -185,7 +186,7 @@ mixin TimeFilteredPingsRef on AutoDisposeAsyncNotifierProviderRef<List<Ping>> {
 
 class _TimeFilteredPingsProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<TimeFilteredPings,
-        List<Ping>> with TimeFilteredPingsRef {
+        List<PingData>> with TimeFilteredPingsRef {
   _TimeFilteredPingsProviderElement(super.provider);
 
   @override

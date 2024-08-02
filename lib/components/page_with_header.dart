@@ -18,7 +18,10 @@ class PageWithHeader extends StatelessWidget {
             text: title,
             size: TextSizeEnum.thirtySix,
           )),
-      child
+      child,
+      SizedBox(
+        height: spacingSeven,
+      )
     ]);
   }
 }

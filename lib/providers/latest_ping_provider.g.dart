@@ -6,11 +6,11 @@ part of 'latest_ping_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$latestPingHash() => r'1bc232a37b8ffb891aa60a8ff04797394ac39067';
+String _$latestPingHash() => r'c1b5e91422df20c8a685beb31a6df0256d1f4719';
 
 /// See also [latestPing].
 @ProviderFor(latestPing)
-final latestPingProvider = AutoDisposeFutureProvider<Ping?>.internal(
+final latestPingProvider = AutoDisposeFutureProvider<PingData?>.internal(
   latestPing,
   name: r'latestPingProvider',
   debugGetCreateSourceHash:
@@ -19,6 +19,6 @@ final latestPingProvider = AutoDisposeFutureProvider<Ping?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef LatestPingRef = AutoDisposeFutureProviderRef<Ping?>;
+typedef LatestPingRef = AutoDisposeFutureProviderRef<PingData?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,5 +1,5 @@
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PingsRepository {
@@ -31,7 +31,7 @@ class PingsRepository {
   static Future<int> countLastWeek() async {
     // Calculate the start and end of the last week (Sunday to Saturday)
     final currentDate = DateTime.now();
-    
+
     DateTime endOfLastWeek =
         currentDate.subtract(Duration(days: currentDate.weekday));
     DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
@@ -133,6 +133,14 @@ class PingsRepository {
 
   static Future<List<Map<String, Object?>>> fetch() async {
     return db.query('pings', orderBy: 'time desc', limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchById(int id) async {
+    return db.query(
+      'pings',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchHourRange(
@@ -396,7 +404,7 @@ class PingsRepository {
     });
   }
 
-  static Future<void> insertAll(List<Ping> pings) async {
+  static Future<void> insertAll(List<PingData> pings) async {
     Batch batch = db.batch();
 
     for (var ping in pings) {
@@ -410,7 +418,7 @@ class PingsRepository {
     await db.delete('pings', where: 'id = ?', whereArgs: [id]);
   }
 
-  static Future<void> update(Ping ping) async {
+  static Future<void> update(PingData ping) async {
     await db
         .update('pings', ping.toJson(), where: 'id = ?', whereArgs: [ping.id]);
   }

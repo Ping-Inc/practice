@@ -5,7 +5,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/repositories/pings_repository.dart';
 
 class BackupUtils {
@@ -24,7 +24,8 @@ class BackupUtils {
       final File file = File(path);
 
       final pings = await PingsRepository.fetchAll();
-      final pingsList = pings.map<Ping>((data) => Ping.fromJson(data)).toList();
+      final pingsList =
+          pings.map<PingData>((data) => PingData.fromJson(data)).toList();
       final csvContent = convertPingsToCSV(pingsList);
 
       await file.writeAsString(csvContent);
@@ -49,7 +50,7 @@ class BackupUtils {
     }
   }
 
-  static String convertPingsToCSV(List<Ping> pings) {
+  static String convertPingsToCSV(List<PingData> pings) {
     final buffer = StringBuffer();
     buffer.writeln('time,text');
     for (final ping in pings) {

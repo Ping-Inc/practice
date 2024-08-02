@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/providers/mode_filter_increment_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
@@ -10,13 +10,13 @@ part 'mode_filtered_pings_provider.g.dart';
 @riverpod
 class ModeFilteredPings extends _$ModeFilteredPings {
   @override
-  Future<List<Ping>> build(DateTime time) async {
+  Future<List<PingData>> build(DateTime time) async {
     final mode = ref.watch(modeFilterIncrementProvider(time));
 
     final pingsList = await PingsRepository.fetchHourRange(
         mode.startingHour(), mode.endingHour());
 
-    return pingsList.map<Ping>((data) => Ping.fromJson(data)).toList();
+    return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
 
   Future<void> scroll() async {
@@ -31,7 +31,7 @@ class ModeFilteredPings extends _$ModeFilteredPings {
           lastPing.time, mode.startingHour(), mode.endingHour());
 
       final newPings =
-          pingsList.map<Ping>((data) => Ping.fromJson(data)).toList();
+          pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
 
       pings.addAll(newPings);
 

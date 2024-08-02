@@ -2,13 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:practice/data/converters/boolean_converter.dart';
 import 'package:practice/data/converters/date_time_converter.dart';
 
-part 'ping.freezed.dart';
-part 'ping.g.dart';
+part 'ping_data.freezed.dart';
+part 'ping_data.g.dart';
 
 @freezed
-class Ping with _$Ping {
+class PingData with _$PingData {
   @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory Ping(
+  const factory PingData(
       {int? id,
       @DateTimeConverter() required DateTime time,
       required String text,
@@ -17,5 +17,6 @@ class Ping with _$Ping {
       @BooleanConverter() required bool hidden,
       int? replyId}) = _Ping;
 
-  factory Ping.fromJson(Map<String, dynamic> json) => _$PingFromJson(json);
+  factory PingData.fromJson(Map<String, dynamic> json) =>
+      _$PingDataFromJson(json);
 }

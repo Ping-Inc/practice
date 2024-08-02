@@ -12,7 +12,7 @@ import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -24,7 +24,7 @@ import 'package:practice/repositories/pings_repository.dart';
 class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.ping, required this.title});
 
-  final Ping ping;
+  final PingData ping;
   final String title;
 
   @override

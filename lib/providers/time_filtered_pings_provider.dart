@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/providers/time_filter_increment_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
@@ -10,7 +10,7 @@ part 'time_filtered_pings_provider.g.dart';
 @riverpod
 class TimeFilteredPings extends _$TimeFilteredPings {
   @override
-  Future<List<Ping>> build(
+  Future<List<PingData>> build(
       TimeFilterEnum timeFilter, DateTime currentTime) async {
     final time = ref.watch(timeFilterIncrementProvider(currentTime));
 
@@ -31,7 +31,7 @@ class TimeFilteredPings extends _$TimeFilteredPings {
         break;
     }
 
-    return pingsList.map<Ping>((data) => Ping.fromJson(data)).toList();
+    return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
 
   Future<void> scroll() async {
@@ -64,7 +64,7 @@ class TimeFilteredPings extends _$TimeFilteredPings {
       }
 
       final newPings =
-          pingsList.map<Ping>((data) => Ping.fromJson(data)).toList();
+          pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
 
       pings.addAll(newPings);
 

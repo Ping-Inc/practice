@@ -6,7 +6,7 @@ part of 'mode_filtered_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$modeFilteredPingsHash() => r'3892d69e0a00554877f9a1ceacd1836d9c4842cc';
+String _$modeFilteredPingsHash() => r'ab14b5075b1753196fc3094ff263e38ecc8ad1b7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,10 +30,10 @@ class _SystemHash {
 }
 
 abstract class _$ModeFilteredPings
-    extends BuildlessAutoDisposeAsyncNotifier<List<Ping>> {
+    extends BuildlessAutoDisposeAsyncNotifier<List<PingData>> {
   late final DateTime time;
 
-  FutureOr<List<Ping>> build(
+  FutureOr<List<PingData>> build(
     DateTime time,
   );
 }
@@ -43,7 +43,7 @@ abstract class _$ModeFilteredPings
 const modeFilteredPingsProvider = ModeFilteredPingsFamily();
 
 /// See also [ModeFilteredPings].
-class ModeFilteredPingsFamily extends Family<AsyncValue<List<Ping>>> {
+class ModeFilteredPingsFamily extends Family<AsyncValue<List<PingData>>> {
   /// See also [ModeFilteredPings].
   const ModeFilteredPingsFamily();
 
@@ -82,7 +82,7 @@ class ModeFilteredPingsFamily extends Family<AsyncValue<List<Ping>>> {
 
 /// See also [ModeFilteredPings].
 class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    ModeFilteredPings, List<Ping>> {
+    ModeFilteredPings, List<PingData>> {
   /// See also [ModeFilteredPings].
   ModeFilteredPingsProvider(
     DateTime time,
@@ -113,7 +113,7 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final DateTime time;
 
   @override
-  FutureOr<List<Ping>> runNotifierBuild(
+  FutureOr<List<PingData>> runNotifierBuild(
     covariant ModeFilteredPings notifier,
   ) {
     return notifier.build(
@@ -138,7 +138,7 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<ModeFilteredPings, List<Ping>>
+  AutoDisposeAsyncNotifierProviderElement<ModeFilteredPings, List<PingData>>
       createElement() {
     return _ModeFilteredPingsProviderElement(this);
   }
@@ -157,14 +157,15 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 }
 
-mixin ModeFilteredPingsRef on AutoDisposeAsyncNotifierProviderRef<List<Ping>> {
+mixin ModeFilteredPingsRef
+    on AutoDisposeAsyncNotifierProviderRef<List<PingData>> {
   /// The parameter `time` of this provider.
   DateTime get time;
 }
 
 class _ModeFilteredPingsProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<ModeFilteredPings,
-        List<Ping>> with ModeFilteredPingsRef {
+        List<PingData>> with ModeFilteredPingsRef {
   _ModeFilteredPingsProviderElement(super.provider);
 
   @override

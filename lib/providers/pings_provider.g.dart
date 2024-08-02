@@ -6,12 +6,12 @@ part of 'pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pingsHash() => r'e46ef2033452531d15317a79ea4a7962032ab719';
+String _$pingsHash() => r'2115a79008b0841a93bf06e47d5e333bf1c40236';
 
 /// See also [Pings].
 @ProviderFor(Pings)
 final pingsProvider =
-    AutoDisposeAsyncNotifierProvider<Pings, List<Ping>>.internal(
+    AutoDisposeAsyncNotifierProvider<Pings, List<PingData>>.internal(
   Pings.new,
   name: r'pingsProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final pingsProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Pings = AutoDisposeAsyncNotifier<List<Ping>>;
+typedef _$Pings = AutoDisposeAsyncNotifier<List<PingData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

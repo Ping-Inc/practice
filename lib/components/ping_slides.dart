@@ -5,12 +5,13 @@ import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/resizing_text.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/details_page.dart';
+import 'package:practice/providers/ping_provider.dart';
 
-class PingSlides extends StatefulWidget {
+class PingSlides extends ConsumerStatefulWidget {
   const PingSlides(
       {super.key,
       required this.swipeController,
@@ -20,14 +21,14 @@ class PingSlides extends StatefulWidget {
 
   final CardSwiperController swipeController;
   final VoidCallback scroll;
-  final AsyncValue<List<Ping>> asyncPings;
+  final AsyncValue<List<PingData>> asyncPings;
   final int count;
 
   @override
-  State<PingSlides> createState() => _PingSlidesState();
+  ConsumerState<PingSlides> createState() => _PingSlidesState();
 }
 
-class _PingSlidesState extends State<PingSlides> {
+class _PingSlidesState extends ConsumerState<PingSlides> {
   int index = 1;
 
   @override
@@ -68,7 +69,7 @@ class _PingSlidesState extends State<PingSlides> {
                         horizontalThresholdPercentage,
                         verticalThresholdPercentage,
                       ) {
-                        final ping = pingsValue[i];
+                        final ping = ref.watch(pingProvider(pingsValue[i]));
 
                         if (i == pingsValue.length - 1 &&
                             pingsValue.length % fetchLimit == 0) {

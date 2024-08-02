@@ -5,7 +5,7 @@ import 'package:practice/components/browse_mode_selector.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/components/ping_slides.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/browse_provider.dart';
 
 class BrowsePage extends ConsumerStatefulWidget {
@@ -15,7 +15,7 @@ class BrowsePage extends ConsumerStatefulWidget {
       required this.scroll,
       required this.count});
 
-  final AsyncValue<List<Ping>> asyncPings;
+  final AsyncValue<List<PingData>> asyncPings;
   final VoidCallback scroll;
 
   final int count;

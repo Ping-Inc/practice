@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
+import 'package:practice/providers/ping_provider.dart';
 
 class PingActionRow extends ConsumerWidget {
   const PingActionRow({super.key, required this.ping});
 
-  final Ping ping;
+  final PingData ping;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    PingData reactivePing = ref.watch(pingProvider(ping));
+
     return Padding(
         padding:
             EdgeInsets.symmetric(horizontal: spacingFive, vertical: spacingTwo),
@@ -32,9 +35,11 @@ class PingActionRow extends ConsumerWidget {
               ],
             )),
             SystemButton(
-                onTap: () {},
+                onTap: () {
+                  ref.read(pingProvider(ping).notifier).increaseResonance();
+                },
                 icon: PhosphorIcons.sparkle,
-                text: ping.resonantCount.toString()),
+                text: reactivePing.resonantCount.toString()),
           ],
         ));
   }

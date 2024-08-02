@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:practice/constants.dart';
 import 'dart:io';
-import 'package:practice/data/ping.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/pings_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,7 +23,7 @@ class ImportPingsButton extends ConsumerWidget {
               File file = File(result.files.single.path!);
               List<String> lines = await file.readAsLines();
 
-              List<Ping> pings = [];
+              List<PingData> pings = [];
               late int textIndex;
               late int timeIndex;
 
@@ -33,7 +33,7 @@ class ImportPingsButton extends ConsumerWidget {
                   textIndex = columns.indexOf('text');
                   timeIndex = columns.indexOf('time');
                 } else {
-                  pings.add(Ping(
+                  pings.add(PingData(
                       resonantCount: 0,
                       viewCount: 0,
                       hidden: false,

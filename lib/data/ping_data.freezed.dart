@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'ping.dart';
+part of 'ping_data.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Ping _$PingFromJson(Map<String, dynamic> json) {
+PingData _$PingDataFromJson(Map<String, dynamic> json) {
   return _Ping.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Ping {
+mixin _$PingData {
   int? get id => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime get time => throw _privateConstructorUsedError;
@@ -32,13 +32,14 @@ mixin _$Ping {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PingCopyWith<Ping> get copyWith => throw _privateConstructorUsedError;
+  $PingDataCopyWith<PingData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PingCopyWith<$Res> {
-  factory $PingCopyWith(Ping value, $Res Function(Ping) then) =
-      _$PingCopyWithImpl<$Res, Ping>;
+abstract class $PingDataCopyWith<$Res> {
+  factory $PingDataCopyWith(PingData value, $Res Function(PingData) then) =
+      _$PingDataCopyWithImpl<$Res, PingData>;
   @useResult
   $Res call(
       {int? id,
@@ -51,9 +52,9 @@ abstract class $PingCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PingCopyWithImpl<$Res, $Val extends Ping>
-    implements $PingCopyWith<$Res> {
-  _$PingCopyWithImpl(this._value, this._then);
+class _$PingDataCopyWithImpl<$Res, $Val extends PingData>
+    implements $PingDataCopyWith<$Res> {
+  _$PingDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -105,7 +106,7 @@ class _$PingCopyWithImpl<$Res, $Val extends Ping>
 }
 
 /// @nodoc
-abstract class _$$PingImplCopyWith<$Res> implements $PingCopyWith<$Res> {
+abstract class _$$PingImplCopyWith<$Res> implements $PingDataCopyWith<$Res> {
   factory _$$PingImplCopyWith(
           _$PingImpl value, $Res Function(_$PingImpl) then) =
       __$$PingImplCopyWithImpl<$Res>;
@@ -123,7 +124,7 @@ abstract class _$$PingImplCopyWith<$Res> implements $PingCopyWith<$Res> {
 
 /// @nodoc
 class __$$PingImplCopyWithImpl<$Res>
-    extends _$PingCopyWithImpl<$Res, _$PingImpl>
+    extends _$PingDataCopyWithImpl<$Res, _$PingImpl>
     implements _$$PingImplCopyWith<$Res> {
   __$$PingImplCopyWithImpl(_$PingImpl _value, $Res Function(_$PingImpl) _then)
       : super(_value, _then);
@@ -207,7 +208,7 @@ class _$PingImpl implements _Ping {
 
   @override
   String toString() {
-    return 'Ping(id: $id, time: $time, text: $text, resonantCount: $resonantCount, viewCount: $viewCount, hidden: $hidden, replyId: $replyId)';
+    return 'PingData(id: $id, time: $time, text: $text, resonantCount: $resonantCount, viewCount: $viewCount, hidden: $hidden, replyId: $replyId)';
   }
 
   @override
@@ -245,7 +246,7 @@ class _$PingImpl implements _Ping {
   }
 }
 
-abstract class _Ping implements Ping {
+abstract class _Ping implements PingData {
   const factory _Ping(
       {final int? id,
       @DateTimeConverter() required final DateTime time,

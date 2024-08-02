@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ping.dart';
+part of 'ping_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
