@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/resizing_text.dart';
 import 'package:practice/components/system_tap.dart';
@@ -76,26 +77,36 @@ class _PingSlidesState extends ConsumerState<PingSlides> {
                           widget.scroll();
                         }
 
-                        return Center(
-                            child: SystemTap(
-                                child: AspectRatio(
-                                    aspectRatio: 1.0,
-                                    child: PingBackground(
-                                        child: Stack(children: [
-                                      Padding(
-                                          padding: EdgeInsets.all(spacingFive),
-                                          child: ResizingText(
-                                            text: ping.text,
-                                          )),
-                                    ]))),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailsPage(
-                                            ping: ping, title: "Slides")),
-                                  );
-                                }));
+                        return Expanded(
+                            child: Center(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                              SystemTap(
+                                  child: AspectRatio(
+                                      aspectRatio: 1.0,
+                                      child: PingBackground(
+                                          child: Stack(children: [
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.all(spacingFive),
+                                            child: ResizingText(
+                                              text: ping.text,
+                                            )),
+                                      ]))),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DetailsPage(
+                                              ping: ping, title: "Slides")),
+                                    );
+                                  }),
+                              Container(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: PingActionRow(ping: ping)),
+                            ])));
                       },
                     ))
         ])),
