@@ -6,8 +6,8 @@ import 'package:practice/components/filters_navigation_cells/day_of_month_naviga
 import 'package:practice/components/filters_navigation_cells/day_of_week_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/month_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/period_of_day_navigation_cell.dart';
+import 'package:practice/components/filters_navigation_cells/replies_to_ping_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/year_navigation_cell.dart';
-import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/top_nav.dart';
@@ -74,12 +74,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   PingActionRow(ping: widget.ping),
                   SystemDivider(),
                   NavigationCellCluster(title: "Metadata", children: [
-                    NavigationCell(
-                        onTap: () {
-                          // Go to replies filter
-                        },
-                        label: "Replies",
-                        value: "5"),
+                    RepliesToPingNavigationCell(ping: widget.ping)
                   ]),
                   NavigationCellCluster(title: "This Ping's Time", children: [
                     PeriodOfDayNavigationCell(time: widget.ping.time),

@@ -33,6 +33,7 @@ class PingCell extends StatelessWidget {
               font: FontEnum.garamond,
               size: TextSizeEnum.twenty,
             )),
+            SystemText(text: ping.replyId == null ? 'no reply' : 'reply')
           ]),
         )),
         onTap: () {

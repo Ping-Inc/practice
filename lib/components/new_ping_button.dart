@@ -11,6 +11,7 @@ import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/replies_to_ping_count_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
 class NewPingButton extends ConsumerStatefulWidget {
@@ -28,7 +29,6 @@ class _PingEntryState extends ConsumerState<NewPingButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  int? replyId;
 
   @override
   void initState() {
@@ -46,10 +46,6 @@ class _PingEntryState extends ConsumerState<NewPingButton>
           _controller.reverse();
         }
       });
-
-    if (widget.replyPing != null) {
-      replyId == widget.replyPing!.id;
-    }
   }
 
   @override
@@ -60,24 +56,18 @@ class _PingEntryState extends ConsumerState<NewPingButton>
 
   @override
   Widget build(BuildContext context) {
-    if (replyId == null) {
-      if (ref.watch(replyOnProvider)) {
-        final latestPing = ref.read(latestPingProvider).value;
-
-        if (latestPing != null) {
-          replyId = latestPing.id;
-        }
-      }
-    }
-
     return SystemTap(
       onTap: ref.watch(currentPingProvider).isEmpty
           ? null
           : () {
               _controller.forward();
-              ref
-                  .read(pingsProvider.notifier)
-                  .addPing(widget.textEditingController.text, replyId);
+              ref.read(pingsProvider.notifier).addPing(
+                  widget.textEditingController.text,
+                  widget.replyPing == null
+                      ? ref.watch(replyOnProvider)
+                          ? ref.read(latestPingProvider).value?.id
+                          : null
+                      : widget.replyPing!.id);
               ref.read(currentPingProvider.notifier).reset();
               ref.read(replyOnProvider.notifier).reset();
               ref.invalidate(pingsCountProvider);
@@ -86,6 +76,8 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               });
 
               if (widget.replyPing != null) {
+                ref.invalidate(
+                    repliesToPingCountProvider(widget.replyPing!.id!));
                 context.pop();
               }
             },

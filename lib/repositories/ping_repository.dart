@@ -1,4 +1,5 @@
 import 'package:practice/constants.dart';
+import 'package:sqflite/sqflite.dart';
 
 class PingRepository {
   PingRepository._();
@@ -15,5 +16,13 @@ class PingRepository {
       'UPDATE pings SET hidden = ? WHERE id = ?',
       [hide, id],
     );
+  }
+
+  static Future<int> countReplies(int id) async {
+    final result = await db.rawQuery(
+      'SELECT COUNT(id) as count FROM pings WHERE reply_id = ?',
+      [id],
+    );
+    return Sqflite.firstIntValue(result) ?? 0;
   }
 }
