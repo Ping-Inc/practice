@@ -18,6 +18,7 @@ import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 
@@ -41,6 +42,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   Future<void> _incrementViewCount() async {
     await PingsRepository.incrementViewCount(widget.ping.id!);
     ref.invalidate(unviewedPingsCountProvider);
+    ref.invalidate(neverVisitedPingsProvider);
   }
 
   @override
@@ -62,15 +64,17 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         child: Column(children: [
                   AspectRatio(
                       aspectRatio: 1.0,
-                      child: FittedBox(
-                        alignment: Alignment.topLeft,
-                        fit: BoxFit.scaleDown,
-                        child: SystemText(
-                          text: "\"${widget.ping.text}\"",
-                          font: FontEnum.garamond,
-                          size: TextSizeEnum.thirtySix,
-                        ),
-                      )),
+                      child: Padding(
+                          padding: EdgeInsets.all(spacingFour),
+                          child: FittedBox(
+                            alignment: Alignment.topLeft,
+                            fit: BoxFit.scaleDown,
+                            child: SystemText(
+                              text: "\"${widget.ping.text}\"",
+                              font: FontEnum.garamond,
+                              size: TextSizeEnum.thirtySix,
+                            ),
+                          ))),
                   PingActionRow(ping: widget.ping),
                   SystemDivider(),
                   NavigationCellCluster(title: "Metadata", children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_cell.dart';
 import 'package:practice/providers/ping_of_the_day_provider.dart';
+import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class PingOfTheDayCell extends ConsumerWidget {
@@ -22,7 +23,7 @@ class PingOfTheDayCell extends ConsumerWidget {
 
     return switch (pingOfTheDay) {
       AsyncData(value: final pingOfTheDayValue) =>
-        PingCell(ping: pingOfTheDayValue),
+        PingCell(ping: ref.watch(pingProvider(pingOfTheDayValue))),
       _ => SizedBox.shrink()
     };
   }

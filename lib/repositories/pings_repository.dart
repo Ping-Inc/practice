@@ -13,7 +13,7 @@ class PingsRepository {
 
   static Future<int> countReplies() async {
     final result = await db.rawQuery(
-        'SELECT COUNT(DISTINCT reply_id) as count FROM pings WHERE reply_id IS NOT NULL AND hidden = 0');
+        'SELECT count(*) FROM pings WHERE id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL)');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -127,17 +127,31 @@ class PingsRepository {
     return db.query('pings', orderBy: 'time desc');
   }
 
+  static Future<List<Map<String, Object?>>> fetchReplies() async {
+    return db.query('pings',
+        where:
+            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND hidden = 0)',
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchNeverVisited() async {
+    return db.query('pings',
+        where: 'view_count = 0 AND hidden = 0',
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
   static Future<List<Map<String, Object?>>> fetchDay() async {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
     final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
 
-    return db.query(
-      'pings',
-      where: 'time >= ? AND time <= ? AND hidden = 0',
-      whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
-      orderBy: 'time desc',
-    );
+    return db.query('pings',
+        where: 'time >= ? AND time <= ? AND hidden = 0',
+        whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
+        orderBy: 'time desc',
+        limit: fetchLimit);
   }
 
   static Future<List<Map<String, Object?>>> fetch() async {
@@ -269,6 +283,25 @@ class PingsRepository {
         orderBy: 'time desc',
         where: 'time < ? AND hidden = 0',
         whereArgs: [time.millisecondsSinceEpoch],
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchRepliesBeforeTime(
+      DateTime time) async {
+    return db.query('pings',
+        where:
+            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND time < ? AND hidden = 0)',
+        whereArgs: [time.millisecondsSinceEpoch],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchNeverVisitedBeforeTime(
+      DateTime time) async {
+    return db.query('pings',
+        where: 'view_count = 0  AND time < ? AND hidden = 0)',
+        whereArgs: [time.millisecondsSinceEpoch],
+        orderBy: 'time desc',
         limit: fetchLimit);
   }
 

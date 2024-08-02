@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/navigation_cell.dart';
-import 'package:practice/pages/browse_all_page.dart';
+import 'package:practice/pages/browse_never_visited_page.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 
 class UnviewedPingsNavigationCell extends ConsumerWidget {
@@ -16,7 +16,7 @@ class UnviewedPingsNavigationCell extends ConsumerWidget {
           onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BrowseAllPage(count: countValue)),
+                    builder: (context) => BrowseNeverVisitedPage()),
               ),
           label: "Never Visited",
           value: countValue.toString()),
