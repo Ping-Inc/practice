@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/resonant_ping.dart';
 import 'package:practice/components/system_tap.dart';
@@ -10,9 +11,10 @@ import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/pages/details_page.dart';
 
 class PingCell extends StatelessWidget {
-  const PingCell({super.key, required this.ping});
+  const PingCell({super.key, required this.ping, this.showDate = false});
 
   final PingData ping;
+  final bool showDate;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +29,25 @@ class PingCell extends StatelessWidget {
               width: spacingFive,
             ),
             Expanded(
-                child: SystemText(
-              text: ping.text,
-              color: Theme.of(context).colorScheme.primary,
-              font: FontEnum.garamond,
-              size: TextSizeEnum.twenty,
-            )),
-            SystemText(text: ping.replyId == null ? 'no reply' : 'reply')
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                  SystemText(
+                    text: ping.text,
+                    color: Theme.of(context).colorScheme.primary,
+                    font: FontEnum.garamond,
+                    size: TextSizeEnum.twenty,
+                  ),
+                  if (showDate)
+                    SystemText(
+                      size: TextSizeEnum.twelve,
+                      text: DateFormat('EEE MMM d, yyyy · h:mma')
+                          .format(ping.time),
+                      color: gray,
+                    )
+                ])),
           ]),
         )),
         onTap: () {
