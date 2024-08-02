@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/pings_count_provider.dart';
@@ -12,9 +14,11 @@ import 'package:practice/providers/pings_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
 class NewPingButton extends ConsumerStatefulWidget {
-  const NewPingButton({super.key, required this.textEditingController});
+  const NewPingButton(
+      {super.key, required this.textEditingController, this.replyPing});
 
   final TextEditingController textEditingController;
+  final PingData? replyPing;
 
   @override
   ConsumerState<NewPingButton> createState() => _PingEntryState();
@@ -24,6 +28,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  int? replyId;
 
   @override
   void initState() {
@@ -41,6 +46,10 @@ class _PingEntryState extends ConsumerState<NewPingButton>
           _controller.reverse();
         }
       });
+
+    if (widget.replyPing != null) {
+      replyId == widget.replyPing!.id;
+    }
   }
 
   @override
@@ -49,21 +58,17 @@ class _PingEntryState extends ConsumerState<NewPingButton>
     super.dispose();
   }
 
-  int? replyId(bool replyOn) {
-    if (replyOn) {
-      final latestPing = ref.read(latestPingProvider).value;
-
-      if (latestPing != null) {
-        return latestPing.id;
-      }
-    }
-
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final replyOn = ref.watch(replyOnProvider);
+    if (replyId == null) {
+      if (ref.watch(replyOnProvider)) {
+        final latestPing = ref.read(latestPingProvider).value;
+
+        if (latestPing != null) {
+          replyId = latestPing.id;
+        }
+      }
+    }
 
     return SystemTap(
       onTap: ref.watch(currentPingProvider).isEmpty
@@ -72,13 +77,17 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               _controller.forward();
               ref
                   .read(pingsProvider.notifier)
-                  .addPing(widget.textEditingController.text, replyId(replyOn));
+                  .addPing(widget.textEditingController.text, replyId);
               ref.read(currentPingProvider.notifier).reset();
               ref.read(replyOnProvider.notifier).reset();
               ref.invalidate(pingsCountProvider);
               Timer(const Duration(milliseconds: 132), () {
                 HapticFeedback.selectionClick();
               });
+
+              if (widget.replyPing != null) {
+                context.pop();
+              }
             },
       child: SizedBox(
         height: pingButtonWidth,

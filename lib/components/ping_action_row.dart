@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
+import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingActionRow extends ConsumerWidget {
@@ -35,7 +36,13 @@ class PingActionRow extends ConsumerWidget {
                   width: spacingThree,
                 ),
                 SystemButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewPingPage(replyPing: ping)),
+                      );
+                    },
                     icon: PhosphorIcons.arrow_arc_left,
                     text: "Reply"),
               ],

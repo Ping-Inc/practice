@@ -7,6 +7,7 @@ import 'package:practice/components/ping_reply_text.dart';
 import 'package:practice/components/reply_ping_button.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/enums/font_enum.dart';
@@ -15,7 +16,9 @@ import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 
 class NewPingPage extends ConsumerStatefulWidget {
-  const NewPingPage({super.key});
+  const NewPingPage({super.key, this.replyPing});
+
+  final PingData? replyPing;
 
   @override
   ConsumerState<NewPingPage> createState() => _HomePageState();
@@ -47,7 +50,9 @@ class _HomePageState extends ConsumerState<NewPingPage> {
           TopNav(
               child: SystemButton(
             onTap: () => context.pop(),
-            text: "Home",
+            text: widget.replyPing != null
+                ? "\"${widget.replyPing!.text}\""
+                : "Home",
             icon: PhosphorIcons.caret_left,
           )),
           SystemDivider(),
@@ -79,11 +84,15 @@ class _HomePageState extends ConsumerState<NewPingPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ReplyPingButton(),
+              widget.replyPing != null
+                  ? SizedBox(
+                      width: pingButtonWidth,
+                    )
+                  : ReplyPingButton(),
               SizedBox(
                 width: spacingFive,
               ),
-              NewPingButton(textEditingController: controller),
+              NewPingButton(textEditingController: controller, replyPing: widget.replyPing),
               SizedBox(
                 width: spacingFive,
               ),
