@@ -15,8 +15,7 @@ class OneWeekOldPingsNavigationCell extends ConsumerWidget {
       AsyncData(value: final countValue) => NavigationCell(
           onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => BrowseAllPage(count: countValue)),
+                MaterialPageRoute(builder: (context) => BrowseAllPage()),
               ),
           label: "Last Week",
           value: countValue.toString()),

@@ -5,6 +5,8 @@ import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/pages/new_ping_page.dart';
+import 'package:practice/providers/hidden_pings_count_provider.dart';
+import 'package:practice/providers/hidden_pings_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/resonated_pings_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
@@ -29,6 +31,8 @@ class PingActionRow extends ConsumerWidget {
                 SystemButton(
                     onTap: () {
                       ref.read(pingProvider(ping).notifier).toggleVisibility();
+                      ref.invalidate(hiddenPingsCountProvider);
+                      ref.invalidate(hiddenPingsProvider);
                     },
                     icon: reactivePing.hidden
                         ? PhosphorIcons.eye

@@ -6,16 +6,16 @@ import 'package:practice/components/top_nav.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/pages/browse_page.dart';
-import 'package:practice/providers/pings_count_provider.dart';
-import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/hidden_pings_count_provider.dart';
+import 'package:practice/providers/hidden_pings_provider.dart';
 
-class BrowseAllPage extends ConsumerWidget {
-  const BrowseAllPage({super.key});
+class BrowseHiddenPage extends ConsumerWidget {
+  const BrowseHiddenPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncPings = ref.watch(pingsProvider);
-    final count = ref.watch(pingsCountProvider);
+    final asyncPings = ref.watch(hiddenPingsProvider);
+    final count = ref.watch(hiddenPingsCountProvider);
 
     return Scaffold(
         body: SafeArea(
@@ -24,7 +24,7 @@ class BrowseAllPage extends ConsumerWidget {
               TopNav(
                   child: SystemButton(
                 onTap: () => context.pop(),
-                text: "All Pings",
+                text: 'Hidden',
                 icon: PhosphorIcons.caret_left,
               )),
               SystemDivider(),
@@ -32,7 +32,8 @@ class BrowseAllPage extends ConsumerWidget {
                   child: switch (count) {
                 AsyncData(value: final countValue) => BrowsePage(
                     asyncPings: asyncPings,
-                    scroll: () => ref.read(pingsProvider.notifier).scroll(),
+                    scroll: () =>
+                        ref.read(hiddenPingsProvider.notifier).scroll(),
                     count: countValue),
                 _ => SizedBox.shrink()
               }),

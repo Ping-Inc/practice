@@ -142,6 +142,11 @@ class PingsRepository {
         limit: fetchLimit);
   }
 
+  static Future<List<Map<String, Object?>>> fetchHidden() async {
+    return db.query('pings',
+        where: 'hidden = 1', orderBy: 'time desc', limit: fetchLimit);
+  }
+
   static Future<List<Map<String, Object?>>> fetchResonated() async {
     return db.query('pings',
         where: 'resonant_count > 0 AND hidden = 0',
@@ -306,7 +311,16 @@ class PingsRepository {
   static Future<List<Map<String, Object?>>> fetchNeverVisitedBeforeTime(
       DateTime time) async {
     return db.query('pings',
-        where: 'view_count = 0  AND time < ? AND hidden = 0)',
+        where: 'view_count = 0 AND time < ? AND hidden = 0)',
+        whereArgs: [time.millisecondsSinceEpoch],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchHiddenBeforeTime(
+      DateTime time) async {
+    return db.query('pings',
+        where: 'hidden = 1 AND time < ?',
         whereArgs: [time.millisecondsSinceEpoch],
         orderBy: 'time desc',
         limit: fetchLimit);
