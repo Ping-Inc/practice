@@ -1,0 +1,26 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'last_week_pings_count_provider.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$lastWeekPingsCountHash() =>
+    r'6b66aba3e48649853fd1de728663cd1c4a30a019';
+
+/// See also [lastWeekPingsCount].
+@ProviderFor(lastWeekPingsCount)
+final lastWeekPingsCountProvider = AutoDisposeFutureProvider<int>.internal(
+  lastWeekPingsCount,
+  name: r'lastWeekPingsCountProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$lastWeekPingsCountHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LastWeekPingsCountRef = AutoDisposeFutureProviderRef<int>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

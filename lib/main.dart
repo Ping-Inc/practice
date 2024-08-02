@@ -8,6 +8,7 @@ import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/providers/current_day_of_month_provider.dart';
 import 'package:practice/providers/current_day_of_week_provider.dart';
 import 'package:practice/providers/current_month_provider.dart';
+import 'package:practice/providers/current_week_provider.dart';
 import 'package:practice/providers/current_year_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/providers/theme_mode_provider.dart';
@@ -90,6 +91,14 @@ class PingPractice extends ConsumerWidget {
           next.value != null &&
           previous.value!.month != next.value!.month) {
         ref.invalidate(currentMonthProvider);
+      }
+
+      if (previous != null &&
+          previous.value != null &&
+          next.value != null &&
+          next.value!.weekday == 7 &&
+          previous.value!.weekday == 6) {
+        ref.invalidate(currentWeekProvider);
       }
     });
 

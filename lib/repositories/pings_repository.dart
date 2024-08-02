@@ -22,6 +22,28 @@ class PingsRepository {
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
+  static Future<int> countResonated() async {
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE resonant_count > 0');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<int> countLastWeek() async {
+    // Calculate the start and end of the last week (Sunday to Saturday)
+    final currentDate = DateTime.now();
+    
+    DateTime endOfLastWeek =
+        currentDate.subtract(Duration(days: currentDate.weekday));
+    DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
+
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ?', [
+      startOfLastWeek.millisecondsSinceEpoch,
+      endOfLastWeek.millisecondsSinceEpoch
+    ]);
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   static Future<int> countMonth(DateTime monthTime) async {
     final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
     final endOfMonth =
