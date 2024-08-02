@@ -6,6 +6,8 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/ping_provider.dart';
+import 'package:practice/providers/resonated_pings_count_provider.dart';
+import 'package:practice/providers/resonated_pings_provider.dart';
 
 class PingActionRow extends ConsumerWidget {
   const PingActionRow({super.key, required this.ping});
@@ -50,6 +52,8 @@ class PingActionRow extends ConsumerWidget {
             SystemButton(
                 onTap: () {
                   ref.read(pingProvider(ping).notifier).increaseResonance();
+                  ref.invalidate(resonatedPingsCountProvider);
+                  ref.invalidate(resonatedPingsProvider);
                 },
                 icon: PhosphorIcons.sparkle,
                 text: reactivePing.resonantCount.toString()),

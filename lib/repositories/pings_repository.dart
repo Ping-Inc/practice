@@ -142,6 +142,13 @@ class PingsRepository {
         limit: fetchLimit);
   }
 
+  static Future<List<Map<String, Object?>>> fetchResonated() async {
+    return db.query('pings',
+        where: 'resonant_count > 0 AND hidden = 0',
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
   static Future<List<Map<String, Object?>>> fetchDay() async {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
@@ -300,6 +307,15 @@ class PingsRepository {
       DateTime time) async {
     return db.query('pings',
         where: 'view_count = 0  AND time < ? AND hidden = 0)',
+        whereArgs: [time.millisecondsSinceEpoch],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchResonatedBeforeTime(
+      DateTime time) async {
+    return db.query('pings',
+        where: 'resonant_count > 0 AND time < ? AND hidden = 0',
         whereArgs: [time.millisecondsSinceEpoch],
         orderBy: 'time desc',
         limit: fetchLimit);
