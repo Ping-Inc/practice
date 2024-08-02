@@ -5,6 +5,7 @@ import 'package:practice/components/filters_navigation_cells/current_day/current
 import 'package:practice/components/filters_navigation_cells/current_day/current_day_of_week_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/current_day/current_month_navigation_cell%20copy.dart';
 import 'package:practice/components/filters_navigation_cells/current_day/current_period_of_day_navigation_cell.dart';
+import 'package:practice/components/filters_navigation_cells/hidden_pings_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/one_week_old_pings_navigation_cell.dart';
 import 'package:practice/components/filters_navigation_cells/ping_of_the_day_cell.dart';
 import 'package:practice/components/filters_navigation_cells/pings_with_replies_navigation_cell.dart';
@@ -43,6 +44,9 @@ class ExplorePage extends ConsumerWidget {
               ]),
               NavigationCellCluster(title: "Past Time", children: [
                 OneWeekOldPingsNavigationCell(),
+              ]),
+              NavigationCellCluster(title: "Sensitive", children: [
+                HiddenPingsNavigationCell(),
               ]),
             ])));
   }

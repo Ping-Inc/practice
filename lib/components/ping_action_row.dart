@@ -24,7 +24,13 @@ class PingActionRow extends ConsumerWidget {
                 child: Row(
               children: [
                 SystemButton(
-                    onTap: () {}, icon: PhosphorIcons.eye_closed, text: "Hide"),
+                    onTap: () {
+                      ref.read(pingProvider(ping).notifier).toggleVisibility();
+                    },
+                    icon: reactivePing.hidden
+                        ? PhosphorIcons.eye
+                        : PhosphorIcons.eye_closed,
+                    text: reactivePing.hidden ? "Show" : "Hide"),
                 SizedBox(
                   width: spacingThree,
                 ),

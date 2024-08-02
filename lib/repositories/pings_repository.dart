@@ -6,25 +6,32 @@ class PingsRepository {
   PingsRepository._();
 
   static Future<int> count() async {
-    final result = await db.rawQuery('SELECT COUNT(id) as count FROM pings');
+    final result = await db
+        .rawQuery('SELECT COUNT(id) as count FROM pings WHERE hidden = 0');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
   static Future<int> countReplies() async {
     final result = await db.rawQuery(
-        'SELECT COUNT(DISTINCT reply_id) as count FROM pings WHERE reply_id IS NOT NULL');
+        'SELECT COUNT(DISTINCT reply_id) as count FROM pings WHERE reply_id IS NOT NULL AND hidden = 0');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
   static Future<int> countUnviewed() async {
+    final result = await db.rawQuery(
+        'SELECT COUNT(id) as count FROM pings WHERE view_count = 0 AND hidden = 0');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<int> countHidden() async {
     final result = await db
-        .rawQuery('SELECT COUNT(id) as count FROM pings WHERE view_count = 0');
+        .rawQuery('SELECT COUNT(id) as count FROM pings WHERE hidden = 1');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
   static Future<int> countResonated() async {
     final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE resonant_count > 0');
+        'SELECT COUNT(id) as count FROM pings WHERE resonant_count > 0 AND hidden = 0');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -37,10 +44,11 @@ class PingsRepository {
     DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
 
     final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ?', [
-      startOfLastWeek.millisecondsSinceEpoch,
-      endOfLastWeek.millisecondsSinceEpoch
-    ]);
+        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ? AND hidden = 0',
+        [
+          startOfLastWeek.millisecondsSinceEpoch,
+          endOfLastWeek.millisecondsSinceEpoch
+        ]);
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -50,10 +58,11 @@ class PingsRepository {
         DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
 
     final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ?', [
-      startOfMonth.millisecondsSinceEpoch,
-      endOfMonth.millisecondsSinceEpoch
-    ]);
+        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ? AND hidden = 0',
+        [
+          startOfMonth.millisecondsSinceEpoch,
+          endOfMonth.millisecondsSinceEpoch
+        ]);
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -62,7 +71,7 @@ class PingsRepository {
     final endOfYear = DateTime(yearTime.year, 12, 31, 23, 59, 59);
 
     final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ?',
+        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ? AND hidden = 0',
         [startOfYear.millisecondsSinceEpoch, endOfYear.millisecondsSinceEpoch]);
     return Sqflite.firstIntValue(result) ?? 0;
   }
@@ -71,7 +80,7 @@ class PingsRepository {
     final dayOfWeek = dayOfWeekTime.weekday;
 
     final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE strftime("%w", datetime(time / 1000, "unixepoch")) = ?',
+        'SELECT COUNT(id) as count FROM pings WHERE strftime("%w", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
         [(dayOfWeek % 7).toString()]);
     return Sqflite.firstIntValue(result) ?? 0;
   }
@@ -80,7 +89,7 @@ class PingsRepository {
     final dayOfMonth = dayOfMonthTime.day;
 
     final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE strftime("%d", datetime(time / 1000, "unixepoch")) = ?',
+        'SELECT COUNT(id) as count FROM pings WHERE strftime("%d", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
         [dayOfMonth.toString().padLeft(2, '0')]);
     return Sqflite.firstIntValue(result) ?? 0;
   }
@@ -89,18 +98,18 @@ class PingsRepository {
       int startHour, int endHour) async {
     if (startHour > endHour) {
       final count1 = await db.rawQuery(
-          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") >= ?',
+          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") >= ? AND hidden = 0',
           [startHour.toString().padLeft(2, '0')]);
 
       final count2 = await db.rawQuery(
-          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") <= ?',
+          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") <= ? AND hidden = 0',
           [endHour.toString().padLeft(2, '0')]);
 
       return (Sqflite.firstIntValue(count1) ?? 0) +
           (Sqflite.firstIntValue(count2) ?? 0);
     } else {
       final result = await db.rawQuery(
-          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ?',
+          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ? AND hidden = 0',
           [
             startHour.toString().padLeft(2, '0'),
             endHour.toString().padLeft(2, '0')
@@ -125,22 +134,15 @@ class PingsRepository {
 
     return db.query(
       'pings',
-      where: 'time >= ? AND time <= ?',
+      where: 'time >= ? AND time <= ? AND hidden = 0',
       whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
       orderBy: 'time desc',
     );
   }
 
   static Future<List<Map<String, Object?>>> fetch() async {
-    return db.query('pings', orderBy: 'time desc', limit: fetchLimit);
-  }
-
-  static Future<List<Map<String, Object?>>> fetchById(int id) async {
-    return db.query(
-      'pings',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    return db.query('pings',
+        orderBy: 'time desc', where: 'hidden = 0', limit: fetchLimit);
   }
 
   static Future<List<Map<String, Object?>>> fetchHourRange(
@@ -151,7 +153,7 @@ class PingsRepository {
       // Query for hours from startHour to 23:59
       final part1 = await db.query(
         'pings',
-        where: 'strftime("%H", time / 1000, "unixepoch") >= ?',
+        where: 'strftime("%H", time / 1000, "unixepoch") >= ? AND hidden = 0',
         whereArgs: [startHour.toString().padLeft(2, '0')],
         orderBy: 'time desc',
         limit: fetchLimit,
@@ -160,7 +162,7 @@ class PingsRepository {
       // Query for hours from 00:00 to endHour
       final part2 = await db.query(
         'pings',
-        where: 'strftime("%H", time / 1000, "unixepoch") <= ?',
+        where: 'strftime("%H", time / 1000, "unixepoch") <= ? AND hidden = 0',
         whereArgs: [endHour.toString().padLeft(2, '0')],
         orderBy: 'time desc',
         limit: fetchLimit,
@@ -172,7 +174,8 @@ class PingsRepository {
       // Query for hours within the same day
       results = await db.query(
         'pings',
-        where: 'strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ?',
+        where:
+            'strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ? AND hidden = 0',
         whereArgs: [
           startHour.toString().padLeft(2, '0'),
           endHour.toString().padLeft(2, '0')
@@ -192,7 +195,7 @@ class PingsRepository {
         DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
 
     return db.query('pings',
-        where: 'time >= ? AND time <= ?',
+        where: 'time >= ? AND time <= ? AND hidden = 0',
         whereArgs: [
           startOfMonth.millisecondsSinceEpoch,
           endOfMonth.millisecondsSinceEpoch
@@ -207,7 +210,7 @@ class PingsRepository {
 
     return db.query(
       'pings',
-      where: 'time >= ? AND time <= ?',
+      where: 'time >= ? AND time <= ? AND hidden = 0',
       whereArgs: [
         startOfYear.millisecondsSinceEpoch,
         endOfYear.millisecondsSinceEpoch
@@ -223,7 +226,8 @@ class PingsRepository {
 
     return db.query(
       'pings',
-      where: 'strftime("%w", datetime(time / 1000, "unixepoch")) = ?',
+      where:
+          'strftime("%w", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
       whereArgs: [
         (dayOfWeek % 7).toString()
       ], // SQLite uses 0 for Sunday, 1 for Monday, etc.
@@ -238,7 +242,8 @@ class PingsRepository {
 
     return db.query(
       'pings',
-      where: 'strftime("%d", datetime(time / 1000, "unixepoch")) = ?',
+      where:
+          'strftime("%d", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
       whereArgs: [
         dayOfMonth.toString().padLeft(2, '0')
       ], // Pad single digits with a leading zero
@@ -251,7 +256,7 @@ class PingsRepository {
     return db.query(
       'pings',
       where:
-          'text LIKE ?', // Assuming the column you want to search is named 'content'
+          'text LIKE ? AND hidden = 0', // Assuming the column you want to search is named 'content'
       whereArgs: ['%$search%'],
       orderBy: 'time desc',
       limit: fetchLimit,
@@ -262,7 +267,7 @@ class PingsRepository {
       DateTime time) async {
     return db.query('pings',
         orderBy: 'time desc',
-        where: 'time < ?',
+        where: 'time < ? AND hidden = 0',
         whereArgs: [time.millisecondsSinceEpoch],
         limit: fetchLimit);
   }
@@ -275,7 +280,8 @@ class PingsRepository {
       // Query for hours from startHour to 23:59
       final part1 = await db.query(
         'pings',
-        where: 'strftime("%H", time / 1000, "unixepoch") >= ? AND time < ?',
+        where:
+            'strftime("%H", time / 1000, "unixepoch") >= ? AND time < ? AND hidden = 0',
         whereArgs: [
           startHour.toString().padLeft(2, '0'),
           time.millisecondsSinceEpoch
@@ -287,7 +293,8 @@ class PingsRepository {
       // Query for hours from 00:00 to endHour
       final part2 = await db.query(
         'pings',
-        where: 'strftime("%H", time / 1000, "unixepoch") <= ? AND time < ?',
+        where:
+            'strftime("%H", time / 1000, "unixepoch") <= ? AND time < ? AND hidden = 0',
         whereArgs: [
           endHour.toString().padLeft(2, '0'),
           time.millisecondsSinceEpoch
@@ -303,7 +310,7 @@ class PingsRepository {
       results = await db.query(
         'pings',
         where:
-            'strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ? AND time < ?',
+            'strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ? AND time < ? AND hidden = 0',
         whereArgs: [
           startHour.toString().padLeft(2, '0'),
           endHour.toString().padLeft(2, '0'),
@@ -325,7 +332,7 @@ class PingsRepository {
 
     return db.query(
       'pings',
-      where: 'time >= ? AND time <= ? AND time < ?',
+      where: 'time >= ? AND time <= ? AND time < ? AND hidden = 0',
       whereArgs: [
         startOfMonth.millisecondsSinceEpoch,
         endOfMonth.millisecondsSinceEpoch,
@@ -343,7 +350,7 @@ class PingsRepository {
 
     return db.query(
       'pings',
-      where: 'time >= ? AND time <= ? AND time < ?',
+      where: 'time >= ? AND time <= ? AND time < ? AND hidden = 0',
       whereArgs: [
         startOfYear.millisecondsSinceEpoch,
         endOfYear.millisecondsSinceEpoch,
@@ -361,7 +368,7 @@ class PingsRepository {
     return db.query(
       'pings',
       where:
-          'strftime("%w", datetime(time / 1000, "unixepoch")) = ? AND time < ?',
+          'strftime("%w", datetime(time / 1000, "unixepoch")) = ? AND time < ? AND hidden = 0',
       whereArgs: [
         (dayOfWeek % 7).toString(),
         time.millisecondsSinceEpoch
@@ -378,7 +385,7 @@ class PingsRepository {
     return db.query(
       'pings',
       where:
-          'strftime("%d", datetime(time / 1000, "unixepoch")) = ? AND time < ?',
+          'strftime("%d", datetime(time / 1000, "unixepoch")) = ? AND time < ? AND hidden = 0',
       whereArgs: [
         dayOfMonth.toString().padLeft(2, '0'),
         time.millisecondsSinceEpoch
