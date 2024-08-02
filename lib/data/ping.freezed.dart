@@ -24,7 +24,11 @@ mixin _$Ping {
   @DateTimeConverter()
   DateTime get time => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  int? get reply_id => throw _privateConstructorUsedError;
+  int get resonantCount => throw _privateConstructorUsedError;
+  int get viewCount => throw _privateConstructorUsedError;
+  @BooleanConverter()
+  bool get hidden => throw _privateConstructorUsedError;
+  int? get replyId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +44,10 @@ abstract class $PingCopyWith<$Res> {
       {int? id,
       @DateTimeConverter() DateTime time,
       String text,
-      int? reply_id});
+      int resonantCount,
+      int viewCount,
+      @BooleanConverter() bool hidden,
+      int? replyId});
 }
 
 /// @nodoc
@@ -59,7 +66,10 @@ class _$PingCopyWithImpl<$Res, $Val extends Ping>
     Object? id = freezed,
     Object? time = null,
     Object? text = null,
-    Object? reply_id = freezed,
+    Object? resonantCount = null,
+    Object? viewCount = null,
+    Object? hidden = null,
+    Object? replyId = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -74,9 +84,21 @@ class _$PingCopyWithImpl<$Res, $Val extends Ping>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      reply_id: freezed == reply_id
-          ? _value.reply_id
-          : reply_id // ignore: cast_nullable_to_non_nullable
+      resonantCount: null == resonantCount
+          ? _value.resonantCount
+          : resonantCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      viewCount: null == viewCount
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      hidden: null == hidden
+          ? _value.hidden
+          : hidden // ignore: cast_nullable_to_non_nullable
+              as bool,
+      replyId: freezed == replyId
+          ? _value.replyId
+          : replyId // ignore: cast_nullable_to_non_nullable
               as int?,
     ) as $Val);
   }
@@ -93,7 +115,10 @@ abstract class _$$PingImplCopyWith<$Res> implements $PingCopyWith<$Res> {
       {int? id,
       @DateTimeConverter() DateTime time,
       String text,
-      int? reply_id});
+      int resonantCount,
+      int viewCount,
+      @BooleanConverter() bool hidden,
+      int? replyId});
 }
 
 /// @nodoc
@@ -109,7 +134,10 @@ class __$$PingImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? time = null,
     Object? text = null,
-    Object? reply_id = freezed,
+    Object? resonantCount = null,
+    Object? viewCount = null,
+    Object? hidden = null,
+    Object? replyId = freezed,
   }) {
     return _then(_$PingImpl(
       id: freezed == id
@@ -124,22 +152,38 @@ class __$$PingImplCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      reply_id: freezed == reply_id
-          ? _value.reply_id
-          : reply_id // ignore: cast_nullable_to_non_nullable
+      resonantCount: null == resonantCount
+          ? _value.resonantCount
+          : resonantCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      viewCount: null == viewCount
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      hidden: null == hidden
+          ? _value.hidden
+          : hidden // ignore: cast_nullable_to_non_nullable
+              as bool,
+      replyId: freezed == replyId
+          ? _value.replyId
+          : replyId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$PingImpl implements _Ping {
   const _$PingImpl(
       {this.id,
       @DateTimeConverter() required this.time,
       required this.text,
-      this.reply_id});
+      required this.resonantCount,
+      required this.viewCount,
+      @BooleanConverter() required this.hidden,
+      this.replyId});
 
   factory _$PingImpl.fromJson(Map<String, dynamic> json) =>
       _$$PingImplFromJson(json);
@@ -152,11 +196,18 @@ class _$PingImpl implements _Ping {
   @override
   final String text;
   @override
-  final int? reply_id;
+  final int resonantCount;
+  @override
+  final int viewCount;
+  @override
+  @BooleanConverter()
+  final bool hidden;
+  @override
+  final int? replyId;
 
   @override
   String toString() {
-    return 'Ping(id: $id, time: $time, text: $text, reply_id: $reply_id)';
+    return 'Ping(id: $id, time: $time, text: $text, resonantCount: $resonantCount, viewCount: $viewCount, hidden: $hidden, replyId: $replyId)';
   }
 
   @override
@@ -167,13 +218,18 @@ class _$PingImpl implements _Ping {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.text, text) || other.text == text) &&
-            (identical(other.reply_id, reply_id) ||
-                other.reply_id == reply_id));
+            (identical(other.resonantCount, resonantCount) ||
+                other.resonantCount == resonantCount) &&
+            (identical(other.viewCount, viewCount) ||
+                other.viewCount == viewCount) &&
+            (identical(other.hidden, hidden) || other.hidden == hidden) &&
+            (identical(other.replyId, replyId) || other.replyId == replyId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, time, text, reply_id);
+  int get hashCode => Object.hash(
+      runtimeType, id, time, text, resonantCount, viewCount, hidden, replyId);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +250,10 @@ abstract class _Ping implements Ping {
       {final int? id,
       @DateTimeConverter() required final DateTime time,
       required final String text,
-      final int? reply_id}) = _$PingImpl;
+      required final int resonantCount,
+      required final int viewCount,
+      @BooleanConverter() required final bool hidden,
+      final int? replyId}) = _$PingImpl;
 
   factory _Ping.fromJson(Map<String, dynamic> json) = _$PingImpl.fromJson;
 
@@ -206,7 +265,14 @@ abstract class _Ping implements Ping {
   @override
   String get text;
   @override
-  int? get reply_id;
+  int get resonantCount;
+  @override
+  int get viewCount;
+  @override
+  @BooleanConverter()
+  bool get hidden;
+  @override
+  int? get replyId;
   @override
   @JsonKey(ignore: true)
   _$$PingImplCopyWith<_$PingImpl> get copyWith =>

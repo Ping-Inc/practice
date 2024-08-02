@@ -34,6 +34,9 @@ class ImportPingsButton extends ConsumerWidget {
                   timeIndex = columns.indexOf('time');
                 } else {
                   pings.add(Ping(
+                      resonantCount: 0,
+                      viewCount: 0,
+                      hidden: false,
                       time: DateTime.fromMillisecondsSinceEpoch(
                           columns[timeIndex]),
                       text: columns[textIndex]));

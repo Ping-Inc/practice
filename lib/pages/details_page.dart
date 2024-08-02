@@ -9,6 +9,7 @@ import 'package:practice/components/filters_navigation_cells/period_of_day_navig
 import 'package:practice/components/filters_navigation_cells/year_navigation_cell.dart';
 import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
+import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping.dart';
@@ -61,37 +62,16 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         child: Column(children: [
                   AspectRatio(
                       aspectRatio: 1.0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                              child: FittedBox(
-                                  alignment: Alignment.topLeft,
-                                  fit: BoxFit.scaleDown,
-                                  child: SystemText(
-                                    text: "\"${widget.ping.text}\"",
-                                    font: FontEnum.garamond,
-                                    size: TextSizeEnum.thirtySix,
-                                  ))),
-                          Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: spacingFour,
-                                  vertical: spacingFour),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: SystemText(
-                                      text:
-                                          DateFormat('EEE MMM d, yyyy · h:mma')
-                                              .format(widget.ping.time),
-                                      color: gray,
-                                    ),
-                                  ),
-                                ],
-                              ))
-                        ],
+                      child: FittedBox(
+                        alignment: Alignment.topLeft,
+                        fit: BoxFit.scaleDown,
+                        child: SystemText(
+                          text: "\"${widget.ping.text}\"",
+                          font: FontEnum.garamond,
+                          size: TextSizeEnum.thirtySix,
+                        ),
                       )),
+                  PingActionRow(ping: widget.ping),
                   SystemDivider(),
                   NavigationCellCluster(title: "Metadata", children: [
                     NavigationCell(
@@ -108,6 +88,22 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     DayOfMonthNavigationCell(time: widget.ping.time),
                     YearNavigationCell(time: widget.ping.time),
                   ]),
+                  SizedBox(height: spacingFour),
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: spacingFour, vertical: spacingFour),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: SystemText(
+                              text: DateFormat('EEE MMM d, yyyy · h:mma')
+                                  .format(widget.ping.time),
+                              color: gray,
+                            ),
+                          ),
+                        ],
+                      )),
                   SizedBox(height: MediaQuery.of(context).padding.bottom)
                 ]))),
               ],

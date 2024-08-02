@@ -40,7 +40,16 @@ class Pings extends _$Pings {
 
     final pings = await future;
 
-    pings.insert(0, Ping(time: now, text: pingText, id: id, reply_id: replyId));
+    pings.insert(
+        0,
+        Ping(
+            time: now,
+            text: pingText,
+            id: id,
+            replyId: replyId,
+            resonantCount: 0,
+            viewCount: 0,
+            hidden: false));
 
     state = AsyncData(pings);
   }
