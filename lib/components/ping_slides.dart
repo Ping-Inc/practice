@@ -77,11 +77,10 @@ class _PingSlidesState extends ConsumerState<PingSlides> {
                           widget.scroll();
                         }
 
-                        return Expanded(
-                            child: Center(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
                               SystemTap(
                                   child: AspectRatio(
                                       aspectRatio: 1.0,
@@ -106,7 +105,7 @@ class _PingSlidesState extends ConsumerState<PingSlides> {
                                   color:
                                       Theme.of(context).scaffoldBackgroundColor,
                                   child: PingActionRow(ping: ping)),
-                            ])));
+                            ]);
                       },
                     ))
         ])),
