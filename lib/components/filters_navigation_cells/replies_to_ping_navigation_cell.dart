@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/pages/browse_all_page.dart';
+import 'package:practice/pages/browse_ping_replies_page.dart';
 import 'package:practice/providers/replies_to_ping_count_provider.dart';
 
 class RepliesToPingNavigationCell extends ConsumerWidget {
@@ -18,7 +18,9 @@ class RepliesToPingNavigationCell extends ConsumerWidget {
       AsyncData(value: final countValue) => NavigationCell(
           onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BrowseAllPage()),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        BrowsePingRepliesPage(pingData: ping)),
               ),
           label: "Replies",
           value: countValue.toString()),

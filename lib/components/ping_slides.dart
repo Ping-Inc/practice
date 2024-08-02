@@ -43,71 +43,67 @@ class _PingSlidesState extends ConsumerState<PingSlides> {
               child: SystemText(text: "$index/${widget.count}"),
             ),
           Expanded(
-              child: pingsValue.isEmpty
-                  ? Center(child: SystemText(text: 'No pings for this time'))
-                  : CardSwiper(
-                      controller: widget.swipeController,
-                      cardsCount: pingsValue.length,
-                      numberOfCardsDisplayed: pingsValue.length == 1 ? 1 : 2,
-                      backCardOffset: const Offset(0, 0),
-                      onSwipe: (pi, ni, direction) {
-                        if (ni != null) {
-                          setState(() {
-                            index = ni + 1;
-                          });
-                        }
+              child: CardSwiper(
+            controller: widget.swipeController,
+            cardsCount: pingsValue.length,
+            numberOfCardsDisplayed: pingsValue.length == 1 ? 1 : 2,
+            backCardOffset: const Offset(0, 0),
+            onSwipe: (pi, ni, direction) {
+              if (ni != null) {
+                setState(() {
+                  index = ni + 1;
+                });
+              }
 
-                        return true;
-                      },
-                      padding: EdgeInsets.only(
-                          top: spacingFour,
-                          left: spacingFour,
-                          right: spacingFour,
-                          bottom: spacingNine),
-                      cardBuilder: (
-                        context,
-                        i,
-                        horizontalThresholdPercentage,
-                        verticalThresholdPercentage,
-                      ) {
-                        final ping = ref.watch(pingProvider(pingsValue[i]));
+              return true;
+            },
+            padding: EdgeInsets.only(
+                top: spacingFour,
+                left: spacingFour,
+                right: spacingFour,
+                bottom: spacingNine),
+            cardBuilder: (
+              context,
+              i,
+              horizontalThresholdPercentage,
+              verticalThresholdPercentage,
+            ) {
+              final ping = ref.watch(pingProvider(pingsValue[i]));
 
-                        if (i == pingsValue.length - 1 &&
-                            pingsValue.length % fetchLimit == 0) {
-                          widget.scroll();
-                        }
+              if (i == pingsValue.length - 1 &&
+                  pingsValue.length % fetchLimit == 0) {
+                widget.scroll();
+              }
 
-                        return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SystemTap(
-                                  child: AspectRatio(
-                                      aspectRatio: 1.0,
-                                      child: PingBackground(
-                                          child: Stack(children: [
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.all(spacingFive),
-                                            child: ResizingText(
-                                              text: ping.text,
-                                            )),
-                                      ]))),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DetailsPage(
-                                              ping: ping, title: "Slides")),
-                                    );
-                                  }),
-                              Container(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  child: PingActionRow(ping: ping)),
-                            ]);
-                      },
-                    ))
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SystemTap(
+                        child: AspectRatio(
+                            aspectRatio: 1.0,
+                            child: PingBackground(
+                                child: Stack(children: [
+                              Padding(
+                                  padding: EdgeInsets.all(spacingFive),
+                                  child: ResizingText(
+                                    text: ping.text,
+                                  )),
+                            ]))),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailsPage(ping: ping, title: "Slides")),
+                          );
+                        }),
+                    Container(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        child: PingActionRow(ping: ping)),
+                  ]);
+            },
+          ))
         ])),
       AsyncError() => SystemText(text: "Error"),
       _ => SystemLoader()

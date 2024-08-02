@@ -20,9 +20,26 @@ class PingRepository {
 
   static Future<int> countReplies(int id) async {
     final result = await db.rawQuery(
-      'SELECT COUNT(id) as count FROM pings WHERE reply_id = ?',
+      'SELECT COUNT(id) as count FROM pings WHERE reply_id = ? AND hidden = 0',
       [id],
     );
     return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<List<Map<String, Object?>>> fetchReplies(int id) async {
+    return db.query('pings',
+        where: 'reply_id = ? AND hidden = 0',
+        whereArgs: [id],
+        orderBy: 'time desc',
+        limit: fetchLimit);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchRepliesBeforeTime(
+      int id, DateTime time) async {
+    return db.query('pings',
+        where: 'reply_id = ? AND time < ? AND hidden = 0',
+        whereArgs: [id, time.millisecondsSinceEpoch],
+        orderBy: 'time desc',
+        limit: fetchLimit);
   }
 }
