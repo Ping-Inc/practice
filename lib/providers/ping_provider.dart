@@ -1,5 +1,4 @@
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/providers/hidden_pings_count_provider.dart';
 import 'package:practice/providers/hidden_pings_provider.dart';
 import 'package:practice/providers/last_week_pings_count_provider.dart';
@@ -17,7 +16,6 @@ import 'package:practice/providers/resonated_pings_provider.dart';
 import 'package:practice/providers/theme_mode_pings_count_provider.dart';
 import 'package:practice/providers/time_filtered_pings_provider.dart';
 import 'package:practice/providers/time_of_day_pings_count_provider.dart';
-import 'package:practice/providers/time_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/ping_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
