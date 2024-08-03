@@ -13,7 +13,7 @@ class PingsRepository {
 
   static Future<int> countReplies() async {
     final result = await db.rawQuery(
-        'SELECT count(*) FROM pings WHERE id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL)');
+        'SELECT count(*) FROM pings WHERE id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL) AND hidden = 0');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -130,7 +130,7 @@ class PingsRepository {
   static Future<List<Map<String, Object?>>> fetchReplies() async {
     return db.query('pings',
         where:
-            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND hidden = 0)',
+            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL) AND hidden = 0',
         orderBy: 'time desc',
         limit: fetchLimit);
   }
@@ -320,7 +320,7 @@ class PingsRepository {
       DateTime time) async {
     return db.query('pings',
         where:
-            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND time < ? AND hidden = 0)',
+            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND time < ?) AND hidden = 0',
         whereArgs: [time.millisecondsSinceEpoch],
         orderBy: 'time desc',
         limit: fetchLimit);

@@ -1,12 +1,17 @@
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/hidden_pings_count_provider.dart';
+import 'package:practice/providers/hidden_pings_provider.dart';
 import 'package:practice/providers/last_week_pings_count_provider.dart';
+import 'package:practice/providers/last_week_pings_provider.dart';
+import 'package:practice/providers/never_visited_pings_provider.dart';
+import 'package:practice/providers/ping_replies_provider.dart';
 import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 import 'package:practice/providers/pings_with_replies_count_provider.dart';
+import 'package:practice/providers/replied_to_pings_provider.dart';
+import 'package:practice/providers/replies_to_ping_count_provider.dart';
 import 'package:practice/providers/resonated_pings_count_provider.dart';
-import 'package:practice/providers/theme_mode_pings_count_provider.dart';
-import 'package:practice/providers/time_of_day_pings_count_provider.dart';
+import 'package:practice/providers/resonated_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/ping_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -31,18 +36,28 @@ class Ping extends _$Ping {
   Future<void> toggleVisibility() async {
     await PingRepository.toggleVisibility(state.id!, !state.hidden);
 
-    // TODO: Make sure all providers which depend on the visibility of this ping are invalidated
-    ref.invalidate(pingsCountProvider);
     ref.invalidate(pingsProvider);
+    ref.invalidate(pingsCountProvider);
 
+    ref.invalidate(repliedToPingsProvider);
     ref.invalidate(pingsWithRepliesCountProvider);
-    ref.invalidate(unviewedPingsCountProvider);
-    ref.invalidate(resonatedPingsCountProvider);
-    ref.invalidate(themeModePingsCountProvider);
-    ref.invalidate(timeOfDayPingsCountProvider);
 
+    ref.invalidate(neverVisitedPingsProvider);
+    ref.invalidate(unviewedPingsCountProvider);
+
+    ref.invalidate(resonatedPingsProvider);
+    ref.invalidate(resonatedPingsCountProvider);
+
+    // Invalid the time of day pings
+
+    ref.invalidate(lastWeekPingsProvider);
     ref.invalidate(lastWeekPingsCountProvider);
+
+    ref.invalidate(hiddenPingsProvider);
     ref.invalidate(hiddenPingsCountProvider);
+
+    ref.invalidate(pingRepliesProvider(state.id!));
+    ref.invalidate(repliesToPingCountProvider(state.id!));
 
     state = state.copyWith(hidden: !state.hidden);
   }
