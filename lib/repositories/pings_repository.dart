@@ -536,7 +536,8 @@ class PingsRepository {
   }
 
   static Future<Map<String, Object?>> random() async {
-    final result = await db.query('pings', orderBy: 'RANDOM()', limit: 1);
+    final result = await db.query('pings',
+        where: 'hidden = 0', orderBy: 'RANDOM()', limit: 1);
     return result.first;
   }
 

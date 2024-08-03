@@ -5,6 +5,7 @@ import 'package:practice/providers/last_week_pings_count_provider.dart';
 import 'package:practice/providers/last_week_pings_provider.dart';
 import 'package:practice/providers/mode_filtered_pings_provider.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
+import 'package:practice/providers/ping_of_the_day_provider.dart';
 import 'package:practice/providers/ping_replies_provider.dart';
 import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
