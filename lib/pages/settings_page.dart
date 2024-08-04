@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/navigation_cell.dart';
 import 'package:practice/components/navigation_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
@@ -25,6 +26,7 @@ class SettingsPage extends ConsumerWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               NavigationCellCluster(title: "Backups", children: [
+                ImportPingsButton(),
                 NavigationCell(
                     label: 'Local',
                     value: 'Off',

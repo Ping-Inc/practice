@@ -1,5 +1,5 @@
 {
-    "import_pings": "import\npings",
+    "import_pings": "import pings",
     "pings_imported": "{count} pings imported",
     "loading": "loading",
     "setup_location_alert": "Please allow location for a better experience"
