@@ -32,27 +32,41 @@ class ImportPingsButton extends ConsumerWidget {
                     late int timeIndex;
 
                     for (var line in lines) {
-                      var columns = CsvToListConverter().convert(line).first;
-                      if (columns.contains('text') &&
-                          columns.contains('time')) {
-                        textIndex = columns.indexOf('text');
-                        timeIndex = columns.indexOf('time');
-                      } else {
-                        dynamic time = columns[timeIndex];
-                        late final int timeInt;
+                      if (line.trim().isEmpty) {
+                        continue;
+                      }
 
-                        if (time is String) {
-                          timeInt = int.parse(time);
+                      try {
+                        var columns = CsvToListConverter().convert(line).first;
+                        if (columns.contains('text') &&
+                            columns.contains('time')) {
+                          textIndex = columns.indexOf('text');
+                          timeIndex = columns.indexOf('time');
                         } else {
-                          timeInt = time;
-                        }
+                          dynamic time = columns[timeIndex];
+                          if (time == null) continue;
 
-                        pings.add(PingData(
-                            resonantCount: 0,
-                            viewCount: 0,
-                            hidden: false,
-                            time: DateTime.fromMillisecondsSinceEpoch(timeInt),
-                            text: columns[textIndex]));
+                          String? text = columns[textIndex];
+                          if (text == null) continue;
+
+                          late final int timeInt;
+
+                          if (time is String) {
+                            timeInt = int.parse(time);
+                          } else {
+                            timeInt = time;
+                          }
+
+                          pings.add(PingData(
+                              resonantCount: 0,
+                              viewCount: 0,
+                              hidden: false,
+                              time:
+                                  DateTime.fromMillisecondsSinceEpoch(timeInt),
+                              text: text));
+                        }
+                      } catch (e) {
+                        continue;
                       }
                     }
 
