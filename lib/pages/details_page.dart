@@ -65,16 +65,13 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   AspectRatio(
                       aspectRatio: 1.0,
                       child: Padding(
-                          padding: EdgeInsets.all(spacingFour),
-                          child: FittedBox(
-                            alignment: Alignment.topLeft,
-                            fit: BoxFit.scaleDown,
-                            child: SystemText(
-                              text: "\"${widget.ping.text}\"",
-                              font: FontEnum.garamond,
-                              size: TextSizeEnum.thirtySix,
-                            ),
-                          ))),
+                        padding: EdgeInsets.all(spacingFour),
+                        child: SystemText(
+                          text: "\"${widget.ping.text}\"",
+                          font: FontEnum.garamond,
+                          size: TextSizeEnum.thirtySix,
+                        ),
+                      )),
                   PingActionRow(ping: widget.ping),
                   SystemDivider(),
                   NavigationCellCluster(title: "Metadata", children: [
