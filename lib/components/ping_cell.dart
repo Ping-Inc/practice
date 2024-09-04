@@ -21,35 +21,27 @@ class PingCell extends StatelessWidget {
     return SystemTap(
         child: PingBackground(
             child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: spacingFour, vertical: spacingFour),
-          child: Row(children: [
-            ResonantPing(ping: ping),
-            SizedBox(
-              width: spacingFive,
-            ),
-            Expanded(
+                padding: EdgeInsets.symmetric(
+                    horizontal: spacingFour, vertical: spacingFour),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                  SystemText(
-                    text: ping.text,
-                    color: Theme.of(context).colorScheme.primary,
-                    font: FontEnum.garamond,
-                    size: TextSizeEnum.twenty,
-                  ),
-                  if (showDate)
-                    SystemText(
-                      size: TextSizeEnum.twelve,
-                      text: DateFormat('EEE MMM d, yyyy · h:mma')
-                          .format(ping.time),
-                      color: gray,
-                    )
-                ])),
-          ]),
-        )),
+                      SystemText(
+                        text: ping.text,
+                        color: Theme.of(context).colorScheme.primary,
+                        font: FontEnum.garamond,
+                        size: TextSizeEnum.twenty,
+                      ),
+                      if (showDate)
+                        SystemText(
+                          size: TextSizeEnum.twelve,
+                          text: DateFormat('EEE MMM d, yyyy · h:mma')
+                              .format(ping.time),
+                          color: gray,
+                        )
+                    ]))),
         onTap: () {
           Navigator.push(
             context,
