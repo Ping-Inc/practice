@@ -16,22 +16,15 @@ class BrowseModePage extends ConsumerWidget {
     final asyncPings = ref.watch(modeFilteredPingsProvider(time));
     final count = ref.watch(themeModePingsCountProvider(time));
 
-    return Column(children: [
-      ModeFilterIncrementer(
-        time: time,
-      ),
-      SystemDivider(),
-      Expanded(
-          child: switch (count) {
-        AsyncData(value: final countValue) => BrowsePage(
-            asyncPings: asyncPings,
-            scroll: () =>
-                ref.read(modeFilteredPingsProvider(time).notifier).scroll(),
-            count: countValue),
-        _ => SliverToBoxAdapter(
-            child: SizedBox.shrink(),
-          )
-      }),
-    ]);
+    return switch (count) {
+      AsyncData(value: final countValue) => BrowsePage(
+          asyncPings: asyncPings,
+          scroll: () =>
+              ref.read(modeFilteredPingsProvider(time).notifier).scroll(),
+          count: countValue),
+      _ => SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        )
+    };
   }
 }

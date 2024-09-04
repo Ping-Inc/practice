@@ -18,27 +18,16 @@ class BrowseTimePage extends ConsumerWidget {
     final asyncPings = ref.watch(timeFilteredPingsProvider(timeEnum, time));
     final count = ref.watch(timeOfDayPingsCountProvider(timeEnum, time));
 
-    return Scaffold(
-        body: SafeArea(
-            bottom: false,
-            child: Column(children: [
-              SystemDivider(),
-              TimeFilterIncrementer(
-                time: time,
-                timeEnum: timeEnum,
-              ),
-              SystemDivider(),
-              Expanded(
-                  child: switch (count) {
-                AsyncData(value: final countValue) => BrowsePage(
-                    asyncPings: asyncPings,
-                    scroll: () => ref
-                        .read(
-                            timeFilteredPingsProvider(timeEnum, time).notifier)
-                        .scroll(),
-                    count: countValue),
-                _ => SizedBox.shrink()
-              }),
-            ])));
+    return switch (count) {
+      AsyncData(value: final countValue) => BrowsePage(
+          asyncPings: asyncPings,
+          scroll: () => ref
+              .read(timeFilteredPingsProvider(timeEnum, time).notifier)
+              .scroll(),
+          count: countValue),
+      _ => SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        )
+    };
   }
 }
