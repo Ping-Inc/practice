@@ -50,9 +50,10 @@ class _HomePageState extends ConsumerState<HomePage>
                         floating: true,
                         pinned: false,
                         snap: true,
-                        backgroundColor: Colors
-                            .transparent, // Make the background transparent
-                        toolbarHeight: 0.0, // Remove the unused top area
+                        backgroundColor: Theme.of(context)
+                            .scaffoldBackgroundColor, // Make the background transparent
+                        toolbarHeight:
+                            spacingFour, // Remove the unused top area
                         bottom: TabBar(
                           controller: _tabController,
                           indicator: BoxDecoration(),
