@@ -5,42 +5,42 @@ import 'package:practice/constants.dart';
 import 'package:practice/providers/search_string_provider.dart';
 
 class SearchPage extends ConsumerWidget {
-  const SearchPage({super.key, required this.focusNode});
-
-  final FocusNode focusNode;
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-        padding: EdgeInsets.all(spacingFour),
-        child: Column(
-          children: [
-            TextField(
-              focusNode: focusNode,
-              decoration: InputDecoration(
-                hintText: 'Search',
-                hintStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(spacingFour),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-              onChanged: (value) =>
-                  ref.read(searchStringProvider.notifier).setSearch(value),
-            ),
-            SizedBox(
-              height: spacingFive,
-            ),
-            Expanded(child: PingSearchList())
-          ],
-        ));
+    return Scaffold(
+        body: SafeArea(
+            child: Padding(
+                padding: EdgeInsets.all(spacingFour),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.surface,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(spacingFour),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      onChanged: (value) => ref
+                          .read(searchStringProvider.notifier)
+                          .setSearch(value),
+                    ),
+                    SizedBox(
+                      height: spacingFive,
+                    ),
+                    Expanded(child: PingSearchList())
+                  ],
+                ))));
   }
 }

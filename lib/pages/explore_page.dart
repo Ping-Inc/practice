@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/enums/filters_enum.dart';
+import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
+import 'package:practice/extensions/font_enum_extensions.dart';
 
 class ExplorePage extends ConsumerWidget {
   const ExplorePage({super.key});
@@ -20,6 +23,7 @@ class ExplorePage extends ConsumerWidget {
                 snap: false,
                 backgroundColor:
                     Colors.transparent, // Make the background transparent
+                toolbarHeight: spacingFour,
                 bottom: TabBar(
                   indicator: BoxDecoration(),
                   isScrollable: true,
@@ -28,7 +32,10 @@ class ExplorePage extends ConsumerWidget {
                   labelColor: Theme.of(context).colorScheme.primary,
                   unselectedLabelColor: Theme.of(context).colorScheme.secondary,
                   tabs: FiltersEnum.values.map((filter) {
-                    return Text(filter.title(), style: TextStyle(fontSize: 28));
+                    return Text(filter.title(),
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontFamily: FontEnum.sfpro.toFontFamily()));
                   }).toList(),
                 ),
               ),

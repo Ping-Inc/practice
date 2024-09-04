@@ -13,81 +13,90 @@ import 'package:practice/pages/settings/settings_layout_page.dart';
 import 'package:practice/pages/settings/settings_theme_page.dart';
 
 class SettingsPage extends ConsumerWidget {
-  const SettingsPage({super.key, required this.controller});
-
-  final ScrollController controller;
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SingleChildScrollView(
-        controller: controller,
-        child: PageWithHeader(
-            title: "Settings",
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              NavigationCellCluster(title: "Backups", children: [
-                ImportPingsButton(),
-                NavigationCell(
-                    label: 'Local',
-                    value: 'Off',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsBackupLocalPage()),
-                        )),
-                NavigationCell(
-                    label: 'Cloud',
-                    value: 'Off',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsBackupCloudPage()),
-                        )),
-              ]),
-              NavigationCellCluster(title: "Layout", children: [
-                NavigationCell(
-                    label: 'Home',
-                    value: 'All Pings',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsLayoutPage()),
-                        )),
-                NavigationCell(
-                    label: 'Default Browse Mode',
-                    value: 'List',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsBrowsePage()),
-                        )),
-              ]),
-              NavigationCellCluster(title: "Customization", children: [
-                NavigationCell(
-                    label: 'Theme',
-                    value: 'Time of Day',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsThemePage()),
-                        )),
-                NavigationCell(
-                    label: 'Contrast',
-                    value: 'Standard',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsContrastPage()),
-                        )),
-                NavigationCell(
-                    label: 'Font Size',
-                    value: 'Standard',
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsFontSizePage()),
-                        )),
-              ])
-            ])));
+    return Scaffold(
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: PageWithHeader(
+                    title: "Settings",
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          NavigationCellCluster(title: "Backups", children: [
+                            ImportPingsButton(),
+                            NavigationCell(
+                                label: 'Local',
+                                value: 'Off',
+                                onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsBackupLocalPage()),
+                                    )),
+                            NavigationCell(
+                                label: 'Cloud',
+                                value: 'Off',
+                                onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsBackupCloudPage()),
+                                    )),
+                          ]),
+                          NavigationCellCluster(title: "Layout", children: [
+                            NavigationCell(
+                                label: 'Home',
+                                value: 'All Pings',
+                                onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsLayoutPage()),
+                                    )),
+                            NavigationCell(
+                                label: 'Default Browse Mode',
+                                value: 'List',
+                                onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsBrowsePage()),
+                                    )),
+                          ]),
+                          NavigationCellCluster(
+                              title: "Customization",
+                              children: [
+                                NavigationCell(
+                                    label: 'Theme',
+                                    value: 'Time of Day',
+                                    onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SettingsThemePage()),
+                                        )),
+                                NavigationCell(
+                                    label: 'Contrast',
+                                    value: 'Standard',
+                                    onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SettingsContrastPage()),
+                                        )),
+                                NavigationCell(
+                                    label: 'Font Size',
+                                    value: 'Standard',
+                                    onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SettingsFontSizePage()),
+                                        )),
+                              ])
+                        ])))));
   }
 }
