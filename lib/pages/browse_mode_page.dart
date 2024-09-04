@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/mode_filter_incrementer.dart';
-import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/mode_filtered_pings_provider.dart';
 import 'package:practice/providers/theme_mode_pings_count_provider.dart';
