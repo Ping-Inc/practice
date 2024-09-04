@@ -17,7 +17,9 @@ class BrowseNeverVisitedPage extends ConsumerWidget {
           asyncPings: asyncPings,
           scroll: () => ref.read(neverVisitedPingsProvider.notifier).scroll(),
           count: countValue),
-      _ => SizedBox.shrink()
+      _ => SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        )
     };
   }
 }

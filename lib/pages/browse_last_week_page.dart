@@ -17,7 +17,9 @@ class BrowseLastWeekPage extends ConsumerWidget {
           asyncPings: asyncPings,
           scroll: () => ref.read(lastWeekPingsProvider.notifier).scroll(),
           count: countValue),
-      _ => SizedBox.shrink()
+      _ => SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        )
     };
   }
 }

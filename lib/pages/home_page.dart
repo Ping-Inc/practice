@@ -49,7 +49,7 @@ class _HomePageState extends ConsumerState<HomePage>
                       SliverAppBar(
                         floating: true,
                         pinned: false,
-                        snap: false,
+                        snap: true,
                         backgroundColor: Colors
                             .transparent, // Make the background transparent
                         toolbarHeight: 0.0, // Remove the unused top area
@@ -77,18 +77,7 @@ class _HomePageState extends ConsumerState<HomePage>
                     children: FiltersEnum.values.map((filter) {
                       return CustomScrollView(
                         slivers: [
-                          SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                                return Container(
-                                  height: 50,
-                                  color: Colors.teal[100 * ((index % 8) + 1)],
-                                  child: Center(child: Text('Item #$index')),
-                                );
-                              },
-                              childCount: 20,
-                            ),
-                          ),
+                          filter.page(DateTime.now()),
                         ],
                       );
                     }).toList(),

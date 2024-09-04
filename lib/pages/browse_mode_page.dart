@@ -28,7 +28,9 @@ class BrowseModePage extends ConsumerWidget {
             scroll: () =>
                 ref.read(modeFilteredPingsProvider(time).notifier).scroll(),
             count: countValue),
-        _ => SizedBox.shrink()
+        _ => SliverToBoxAdapter(
+            child: SizedBox.shrink(),
+          )
       }),
     ]);
   }

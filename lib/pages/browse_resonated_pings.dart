@@ -17,7 +17,9 @@ class BrowseResonatedPingsPage extends ConsumerWidget {
           asyncPings: asyncPings,
           scroll: () => ref.read(resonatedPingsProvider.notifier).scroll(),
           count: countValue),
-      _ => SizedBox.shrink()
+      _ => SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        )
     };
   }
 }

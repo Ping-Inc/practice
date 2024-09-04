@@ -17,7 +17,9 @@ class BrowseHiddenPage extends ConsumerWidget {
           asyncPings: asyncPings,
           scroll: () => ref.read(hiddenPingsProvider.notifier).scroll(),
           count: countValue),
-      _ => SizedBox.shrink()
+      _ => SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        )
     };
   }
 }
