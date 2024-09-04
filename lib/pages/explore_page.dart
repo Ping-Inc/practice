@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/filters_enum.dart';
-import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
 
 class ExplorePage extends ConsumerWidget {
@@ -38,7 +36,7 @@ class ExplorePage extends ConsumerWidget {
           },
           body: TabBarView(
             children: FiltersEnum.values.map((filter) {
-              return filter.page();
+              return filter.page(DateTime.now());
             }).toList(),
           ),
         ),
