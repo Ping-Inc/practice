@@ -15,7 +15,6 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _SystemHomeState extends ConsumerState<HomePage> {
   late final PageController pageController;
-  late final ScrollController browseController;
   late final ScrollController settingsController;
   final focusNode = FocusNode();
 
@@ -24,7 +23,6 @@ class _SystemHomeState extends ConsumerState<HomePage> {
     super.initState();
 
     pageController = PageController(initialPage: ref.read(tabProvider).index);
-    browseController = ScrollController();
     settingsController = ScrollController();
   }
 
@@ -53,13 +51,12 @@ class _SystemHomeState extends ConsumerState<HomePage> {
                       return SizedBox.shrink();
                     case 0:
                     default:
-                      return ExplorePage(controller: browseController);
+                      return ExplorePage();
                   }
                 })),
         BottomNav(
           focusNode: focusNode,
           pageController: pageController,
-          browseController: browseController,
           settingsController: settingsController,
         )
       ],

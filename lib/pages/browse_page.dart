@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/browse_mode_selector.dart';
 import 'package:practice/components/ping_list.dart';
 import 'package:practice/components/ping_slides.dart';
-import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/browse_provider.dart';
@@ -57,36 +55,19 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
                   itemBuilder: (_, i) {
                     switch (i) {
                       case 1:
-                        return PingList(
-                            controller: listController,
-                            asyncPings: widget.asyncPings,
-                            scroll: widget.scroll);
-                      case 0:
-                      default:
                         return PingSlides(
                             swipeController: swipeController,
                             count: widget.count,
                             asyncPings: widget.asyncPings,
                             scroll: widget.scroll);
+                      case 0:
+                      default:
+                        return PingList(
+                            controller: listController,
+                            asyncPings: widget.asyncPings,
+                            scroll: widget.scroll);
                     }
                   }),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(
-                          bottom: spacingFive +
-                              MediaQuery.of(context).padding.bottom),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BrowseModeSelector(
-                                scrollController: listController,
-                                browseController: browseController,
-                                swipeController: swipeController)
-                          ]))
-                ],
-              ),
             ],
           );
   }

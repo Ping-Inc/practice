@@ -9,12 +9,10 @@ class BottomNav extends ConsumerWidget {
   const BottomNav(
       {super.key,
       required this.pageController,
-      required this.browseController,
       required this.settingsController,
       required this.focusNode});
 
   final PageController pageController;
-  final ScrollController browseController;
   final ScrollController settingsController;
   final FocusNode focusNode;
 
@@ -29,7 +27,6 @@ class BottomNav extends ConsumerWidget {
             NavBarButton(
                 focusNode: focusNode,
                 page: SubPagesEnum.browse,
-                scrollController: browseController,
                 pageController: pageController),
             NavBarButton(
                 focusNode: focusNode,
