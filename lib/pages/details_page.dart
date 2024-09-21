@@ -134,7 +134,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                             NewPingPage(replyPing: widget.ping)),
                   );
                 },
-                icon: PhosphorIcons.arrow_u_right_up,
+                icon: PhosphorIcons.arrow_arc_right,
                 text: 'respond',
               ),
               HidePingButton(ping: widget.ping),
