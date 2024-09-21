@@ -30,12 +30,15 @@ class ReplyPingButton extends ConsumerWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(PhosphorIcons.arrow_arc_right,
-                          color: replyOn
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.secondary),
+                      Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.identity()..scale(1.0, -1.0),
+                          child: Icon(PhosphorIcons.arrow_arc_right,
+                              color: replyOn
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.secondary)),
                       SizedBox(
-                        width: spacingThree,
+                        width: spacingFour,
                       ),
                       SystemText(
                           text: 'respond',
