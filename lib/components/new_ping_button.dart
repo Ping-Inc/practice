@@ -30,6 +30,8 @@ class _PingEntryState extends ConsumerState<NewPingButton>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  final double pingButtonWidth = 64;
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +39,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
       duration: const Duration(milliseconds: 66),
       vsync: this,
     );
-    _animation = Tween<double>(begin: 50, end: 45).animate(_controller)
+    _animation = Tween<double>(begin: 52, end: 46).animate(_controller)
       ..addListener(() {
         setState(() {});
       })
@@ -94,7 +96,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
                   color: ref.watch(currentPingProvider).isEmpty
                       ? Colors.grey
                       : Theme.of(context).colorScheme.primary,
-                  width: 1.5,
+                  width: 4,
                 ),
                 shape: BoxShape.circle,
               ),

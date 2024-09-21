@@ -28,8 +28,8 @@ class PingReplyText extends ConsumerWidget {
     if (replyOn) {
       return switch (latestPing) {
         AsyncData(value: final latestPing) => Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: spacingFive, vertical: spacingThree),
+            padding: EdgeInsets.only(
+                left: spacingFive, right: spacingFive, bottom: spacingThree),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
