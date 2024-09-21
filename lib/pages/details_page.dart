@@ -22,6 +22,7 @@ import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.ping, required this.title});
@@ -116,7 +117,9 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
             crossAxisSpacing: spacingSix,
             children: [
               SystemActionIcon(
-                onTap: () {},
+                onTap: () {
+                  Share.share(widget.ping.text); // Share the text
+                },
                 icon: PhosphorIcons.share,
                 text: 'share',
               ),

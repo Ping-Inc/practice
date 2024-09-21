@@ -53,6 +53,7 @@ dependencies:
   open_file: ^3.3.2
   go_router: ^14.0.0
   flutter_card_swiper: ^7.0.1
+  share_plus: ^10.0.2
 
 dev_dependencies:
   flutter_test:
