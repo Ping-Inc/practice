@@ -51,7 +51,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
             onTap: () => context.pop(),
             icon: PhosphorIcons.caret_left,
           )),
-          PingReplyText(),
+          PingReplyText(replyPing: widget.replyPing),
           Expanded(
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: spacingFive),
@@ -83,7 +83,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ReplyPingButton(),
+              if (widget.replyPing == null) ReplyPingButton(),
               SizedBox(
                 width: spacingFive,
               ),
@@ -93,12 +93,13 @@ class _HomePageState extends ConsumerState<NewPingPage> {
               SizedBox(
                 width: spacingFive,
               ),
-              Visibility(
-                  visible: false,
-                  maintainAnimation: true,
-                  maintainSize: true,
-                  maintainState: true,
-                  child: ReplyPingButton()),
+              if (widget.replyPing == null)
+                Visibility(
+                    visible: false,
+                    maintainAnimation: true,
+                    maintainSize: true,
+                    maintainState: true,
+                    child: ReplyPingButton()),
             ],
           ),
           SizedBox(
