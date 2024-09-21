@@ -107,7 +107,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage>
                           MaterialPageRoute(
                               builder: (context) => NewPingPage()),
                         ),
-                    child: Icon(PhosphorIcons.circle_fill, size: 72)),
+                    child: Icon(PhosphorIcons.circle_fill, size: 85)),
                 SystemTap(
                     onTap: () => Navigator.push(
                           context,

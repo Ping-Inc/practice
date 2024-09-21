@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/meta_data_text.dart';
+import 'package:intl/intl.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/design_system/system_divider.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
 class PingReplyText extends ConsumerWidget {
   const PingReplyText({Key? key}) : super(key: key);
+
+  String _formatTimestamp(DateTime timestamp) {
+    final now = DateTime.now();
+    final difference = now.difference(timestamp).inDays;
+
+    if (difference == 0) {
+      return 'TODAY, ${DateFormat('h:mm a').format(timestamp)}';
+    } else {
+      return '$difference DAYS AGO, ${DateFormat('h:mm a').format(timestamp)}';
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,16 +27,27 @@ class PingReplyText extends ConsumerWidget {
 
     if (replyOn) {
       return switch (latestPing) {
-        AsyncData(value: final latestPing) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: spacingFive, vertical: spacingFour),
-                  child: MetaDataText(text: "\"${latestPing!.text}\"")),
-              SystemDivider()
-            ],
-          ),
+        AsyncData(value: final latestPing) => Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: spacingFive, vertical: spacingThree),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SystemText(
+                        text: _formatTimestamp(latestPing!.time),
+                        color: Theme.of(context).colorScheme.secondary)
+                  ],
+                ),
+                SizedBox(height: spacingTwo),
+                SystemText(
+                    text: latestPing.text,
+                    color: Theme.of(context).colorScheme.secondary)
+              ],
+            )),
         _ => SizedBox.shrink()
       };
     } else {

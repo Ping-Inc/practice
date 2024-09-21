@@ -9,7 +9,6 @@ import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
-import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/current_ping_provider.dart';
@@ -50,12 +49,8 @@ class _HomePageState extends ConsumerState<NewPingPage> {
           TopNav(
               child: SystemButton(
             onTap: () => context.pop(),
-            text: widget.replyPing != null
-                ? "\"${widget.replyPing!.text}\""
-                : "Home",
             icon: PhosphorIcons.caret_left,
           )),
-          SystemDivider(),
           PingReplyText(),
           Expanded(
             child: Padding(
@@ -70,6 +65,10 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                     ref.read(currentPingProvider.notifier).set(value.trim())
                   },
                   decoration: InputDecoration(
+                    hintText: "Listening for pings...",
+                    hintStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary),
+
                     // Add this line
                     border: InputBorder.none, // And this one
                   ),
@@ -84,21 +83,22 @@ class _HomePageState extends ConsumerState<NewPingPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              widget.replyPing != null
-                  ? SizedBox(
-                      width: pingButtonWidth,
-                    )
-                  : ReplyPingButton(),
+              ReplyPingButton(),
               SizedBox(
                 width: spacingFive,
               ),
-              NewPingButton(textEditingController: controller, replyPing: widget.replyPing),
+              NewPingButton(
+                  textEditingController: controller,
+                  replyPing: widget.replyPing),
               SizedBox(
                 width: spacingFive,
               ),
-              SizedBox(
-                width: pingButtonWidth,
-              )
+              Visibility(
+                  visible: false,
+                  maintainAnimation: true,
+                  maintainSize: true,
+                  maintainState: true,
+                  child: ReplyPingButton()),
             ],
           ),
           SizedBox(

@@ -3,6 +3,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
@@ -16,37 +17,35 @@ class ReplyPingButton extends ConsumerWidget {
 
     return switch (latestPing) {
       AsyncData(value: final latestPing) => latestPing == null
-          ? SizedBox(
-              width: pingButtonWidth,
-            )
+          ? SizedBox.shrink()
           : SystemTap(
               onTap: () => ref.read(replyOnProvider.notifier).toggle(),
-              child: SizedBox(
-                height: pingButtonWidth,
-                width: pingButtonWidth,
-                child: Stack(
-                  children: [
-                    Container(
-                      height: pingButtonWidth,
-                      width: pingButtonWidth,
-                      decoration: BoxDecoration(
-                        color: replyOn ? Colors.grey : Colors.transparent,
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1.5,
-                        ),
-                        shape: BoxShape.circle,
+              child: Container(
+                  padding: EdgeInsets.all(spacingFive),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(spacingFour),
+                      color: replyOn
+                          ? Theme.of(context).colorScheme.surface
+                          : null),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(PhosphorIcons.arrow_arc_right,
+                          color: replyOn
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.secondary),
+                      SizedBox(
+                        width: spacingThree,
                       ),
-                    ),
-                    Center(
-                      child: Icon(PhosphorIcons.arrow_arc_left,
-                          color: replyOn ? Colors.white : Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
+                      SystemText(
+                          text: 'respond',
+                          color: replyOn
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.secondary)
+                    ],
+                  )),
             ),
-      _ => SizedBox(width: 57)
+      _ => SizedBox.shrink()
     };
   }
 }

@@ -20,7 +20,7 @@ class PingList extends ConsumerWidget {
           padding: EdgeInsets.only(
               left: spacingFour,
               right: spacingFour,
-              top: spacingFour,
+              top: spacingSix,
               bottom: spacingFour +
                   MediaQuery.of(context).padding.bottom), // Add padding here
           sliver: SliverList.separated(
