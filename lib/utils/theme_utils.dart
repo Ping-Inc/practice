@@ -81,7 +81,7 @@ class ThemeUtils {
       case ThemeModeEnum.evening:
         return gray;
       case ThemeModeEnum.night:
-        return themeWhiteSecondary;
+        return gray;
     }
   }
 

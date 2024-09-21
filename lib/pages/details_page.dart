@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:practice/components/filters_navigation_cells/day_of_month_navigation_cell.dart';
-import 'package:practice/components/filters_navigation_cells/day_of_week_navigation_cell.dart';
-import 'package:practice/components/filters_navigation_cells/month_navigation_cell.dart';
-import 'package:practice/components/filters_navigation_cells/period_of_day_navigation_cell.dart';
-import 'package:practice/components/filters_navigation_cells/replies_to_ping_navigation_cell.dart';
-import 'package:practice/components/filters_navigation_cells/year_navigation_cell.dart';
-import 'package:practice/components/navigation_cell_cluster.dart';
-import 'package:practice/components/ping_action_row.dart';
+import 'package:practice/components/detail_cell.dart';
+import 'package:practice/components/detail_cell_cluster.dart';
+import 'package:practice/components/hide_ping_button.dart';
+import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
+import 'package:practice/design_system/system_action_icon.dart';
 import 'package:practice/design_system/system_button.dart';
-import 'package:practice/design_system/system_divider.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/enums/time_filter_enum.dart';
+import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
+import 'package:practice/extensions/time_filter_enum_extensions.dart';
+import 'package:practice/extensions/date_time_extensions.dart';
+import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.ping, required this.title});
@@ -49,60 +50,108 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                TopNav(
-                  child: SystemButton(
-                      onTap: () => Navigator.pop(context),
-                      icon: PhosphorIcons.caret_left,
-                      text: widget.title),
-                ),
-                SystemDivider(),
-                Expanded(
-                    child: SingleChildScrollView(
-                        child: Column(children: [
-                  AspectRatio(
-                      aspectRatio: 1.0,
+            child: Stack(fit: StackFit.expand, children: [
+      Column(
+        children: [
+          TopNav(
+            child: SystemButton(
+                onTap: () => Navigator.pop(context),
+                icon: PhosphorIcons.caret_left),
+          ),
+          Expanded(
+              child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                Padding(
+                  padding: EdgeInsets.all(spacingFour),
+                  child: PingBackground(
                       child: Padding(
-                        padding: EdgeInsets.all(spacingFour),
-                        child: SystemText(
-                          text: "\"${widget.ping.text}\"",
-                          font: FontEnum.garamond,
-                          size: TextSizeEnum.thirtySix,
-                        ),
-                      )),
-                  PingActionRow(ping: widget.ping),
-                  SystemDivider(),
-                  NavigationCellCluster(title: "Metadata", children: [
-                    RepliesToPingNavigationCell(ping: widget.ping)
-                  ]),
-                  NavigationCellCluster(title: "This Ping's Time", children: [
-                    PeriodOfDayNavigationCell(time: widget.ping.time),
-                    DayOfWeekNavigationCell(time: widget.ping.time),
-                    MonthNavigationCell(time: widget.ping.time),
-                    DayOfMonthNavigationCell(time: widget.ping.time),
-                    YearNavigationCell(time: widget.ping.time),
-                  ]),
-                  SizedBox(height: spacingFour),
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: spacingFour, vertical: spacingFour),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: SystemText(
-                              text: DateFormat('EEE MMM d, yyyy · h:mma')
-                                  .format(widget.ping.time),
-                              color: gray,
-                            ),
-                          ),
-                        ],
-                      )),
-                  SizedBox(height: MediaQuery.of(context).padding.bottom)
-                ]))),
-              ],
-            )));
+                          padding: EdgeInsets.symmetric(
+                              vertical: spacingFour, horizontal: spacingFive),
+                          child: SystemText(
+                            text: widget.ping.text,
+                            font: FontEnum.garamond,
+                            size: TextSizeEnum.twentyNine,
+                          ))),
+                ),
+                DetailCellCluster(title: "DATE", children: [
+                  DetailCell(
+                    title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
+                        .format(widget.ping.time),
+                    onClick: () {},
+                  ),
+                  DetailCell(
+                    title: DateFormat(TimeFilterEnum.month.toDateFormat())
+                        .format(widget.ping.time),
+                    onClick: () {},
+                  ),
+                  DetailCell(
+                    title: DateFormat(TimeFilterEnum.dayOfMonth.toDateFormat())
+                        .format(widget.ping.time),
+                    onClick: () {},
+                  ),
+                  DetailCell(
+                    title: DateFormat(TimeFilterEnum.year.toDateFormat())
+                        .format(widget.ping.time),
+                    onClick: () {},
+                  )
+                ]),
+                DetailCellCluster(title: "TIME", children: [
+                  DetailCell(
+                    title: widget.ping.time.themeMode().toTitle(),
+                    onClick: () {},
+                  ),
+                ]),
+                SizedBox(height: MediaQuery.of(context).padding.bottom)
+              ]))),
+        ],
+      ),
+      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        Padding(
+          padding: EdgeInsets.all(spacingFive),
+          child: GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            crossAxisSpacing: spacingSix,
+            children: [
+              SystemActionIcon(
+                onTap: () {},
+                icon: PhosphorIcons.share,
+                text: 'share',
+              ),
+              SystemActionIcon(
+                onTap: () {},
+                icon: PhosphorIcons.sun,
+                text: 're-ping',
+              ),
+              SystemActionIcon(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            NewPingPage(replyPing: widget.ping)),
+                  );
+                },
+                icon: PhosphorIcons.arrow_u_right_up,
+                text: 'respond',
+              ),
+              HidePingButton(ping: widget.ping),
+              SystemActionIcon(
+                onTap: () {},
+                icon: PhosphorIcons.info,
+                text: 'information',
+              ),
+              SystemActionIcon(
+                onTap: () {},
+                icon: PhosphorIcons.dice_four,
+                text: 'random',
+              ),
+            ],
+          ),
+        )
+      ]),
+    ])));
   }
 }

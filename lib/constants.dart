@@ -85,6 +85,7 @@ const Color themeWhiteSecondary = Color.fromRGBO(255, 255, 255, 0.2);
 const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
 
 const Color gray = Color.fromRGBO(255, 255, 255, 0.40);
+const Color gray2 = Color.fromRGBO(255, 255, 255, 0.60);
 
 const Color whiteSecondary = Color.fromRGBO(242, 242, 242, 1);
 const Color yellowSecondary = Color.fromRGBO(240, 234, 216, 1);
