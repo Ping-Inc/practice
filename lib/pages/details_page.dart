@@ -64,18 +64,21 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                Padding(
-                  padding: EdgeInsets.all(spacingFour),
-                  child: PingBackground(
+                Row(mainAxisSize: MainAxisSize.max, children: [
+                  Expanded(
                       child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: spacingFour, horizontal: spacingFive),
-                          child: SystemText(
-                            text: widget.ping.text,
-                            font: FontEnum.garamond,
-                            size: TextSizeEnum.twentyNine,
-                          ))),
-                ),
+                    padding: EdgeInsets.all(spacingFour),
+                    child: PingBackground(
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: spacingFour, horizontal: spacingFive),
+                            child: SystemText(
+                              text: widget.ping.text,
+                              font: FontEnum.garamond,
+                              size: TextSizeEnum.twentyNine,
+                            ))),
+                  ))
+                ]),
                 DetailCellCluster(title: "DATE", children: [
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
