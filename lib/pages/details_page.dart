@@ -17,6 +17,9 @@ import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
+import 'package:practice/providers/ping_provider.dart';
+import 'package:practice/providers/resonated_pings_count_provider.dart';
+import 'package:practice/providers/resonated_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
@@ -35,10 +38,13 @@ class DetailsPage extends ConsumerStatefulWidget {
 }
 
 class _DetailsPageState extends ConsumerState<DetailsPage> {
+  int rePingCount = 0;
+
   @override
   void initState() {
     super.initState();
     _incrementViewCount();
+    rePingCount = widget.ping.resonantCount;
   }
 
   Future<void> _incrementViewCount() async {
@@ -107,6 +113,15 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     onClick: () {},
                   ),
                 ]),
+                if (rePingCount > 0)
+                  DetailCellCluster(title: "PRACTICE", children: [
+                    if (rePingCount > 0)
+                      DetailCell(
+                        title:
+                            "${rePingCount} Re-Ping${rePingCount == 1 ? "" : "s"}",
+                        onClick: () {},
+                      ),
+                  ]),
                 SizedBox(height: MediaQuery.of(context).padding.bottom)
               ]))),
         ],
@@ -127,7 +142,17 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                 text: 'share',
               ),
               SystemActionIcon(
-                onTap: () {},
+                onTap: () {
+                  ref
+                      .read(pingProvider(widget.ping).notifier)
+                      .increaseResonance();
+                  ref.invalidate(resonatedPingsCountProvider);
+                  ref.invalidate(resonatedPingsProvider);
+
+                  setState(() {
+                    rePingCount += 1;
+                  });
+                },
                 icon: PhosphorIcons.sun,
                 text: 're-ping',
               ),

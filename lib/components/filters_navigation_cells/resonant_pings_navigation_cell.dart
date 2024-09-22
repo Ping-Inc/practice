@@ -18,7 +18,7 @@ class ResonantPingsNavigationCell extends ConsumerWidget {
                 MaterialPageRoute(
                     builder: (context) => BrowseResonatedPingsPage()),
               ),
-          label: "Resonated",
+          label: "Re-Pinged",
           value: countValue.toString()),
       _ => SizedBox.shrink()
     };

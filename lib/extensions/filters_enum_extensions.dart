@@ -20,7 +20,7 @@ extension StringParsing on FiltersEnum {
       case FiltersEnum.pings_with_replies:
         return "Pings With Replies";
       case FiltersEnum.resonated:
-        return "Resonated";
+        return "Re-Pinged";
       case FiltersEnum.period_of_day:
         return "Period of Day";
       case FiltersEnum.day_of_week:
