@@ -5,6 +5,15 @@ import 'package:sqflite/sqflite.dart';
 class PingsRepository {
   PingsRepository._();
 
+  static Future<int> viewCount(int pingId) async {
+    final result = await db.rawQuery(
+      'SELECT view_count FROM pings WHERE id = ?',
+      [pingId],
+    );
+
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   static Future<int> count() async {
     final result = await db
         .rawQuery('SELECT COUNT(id) as count FROM pings WHERE hidden = 0');

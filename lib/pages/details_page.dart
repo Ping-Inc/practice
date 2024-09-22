@@ -7,6 +7,7 @@ import 'package:practice/components/detail_cell_cluster.dart';
 import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/top_nav.dart';
+import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_icon.dart';
@@ -113,15 +114,15 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     onClick: () {},
                   ),
                 ]),
-                if (rePingCount > 0)
-                  DetailCellCluster(title: "PRACTICE", children: [
-                    if (rePingCount > 0)
-                      DetailCell(
-                        title:
-                            "${rePingCount} Re-Ping${rePingCount == 1 ? "" : "s"}",
-                        onClick: () {},
-                      ),
-                  ]),
+                DetailCellCluster(title: "PRACTICE", children: [
+                  if (rePingCount > 0)
+                    DetailCell(
+                      title:
+                          "${rePingCount} Re-Ping${rePingCount == 1 ? "" : "s"}",
+                      onClick: () {},
+                    ),
+                  ViewCountCell(pingId: widget.ping.id!),
+                ]),
                 SizedBox(height: MediaQuery.of(context).padding.bottom)
               ]))),
         ],
