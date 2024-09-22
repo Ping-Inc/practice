@@ -14,6 +14,15 @@ class PingsRepository {
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
+  static Future<int> repingedCount(int pingId) async {
+    final result = await db.rawQuery(
+      'SELECT resonant_count FROM pings WHERE id = ?',
+      [pingId],
+    );
+
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   static Future<int> count() async {
     final result = await db
         .rawQuery('SELECT COUNT(id) as count FROM pings WHERE hidden = 0');

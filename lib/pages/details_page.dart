@@ -6,6 +6,7 @@ import 'package:practice/components/detail_cell.dart';
 import 'package:practice/components/detail_cell_cluster.dart';
 import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/components/ping_background.dart';
+import 'package:practice/components/repinged_cell.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
@@ -19,6 +20,7 @@ import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
+import 'package:practice/providers/repinged_count_provider.dart';
 import 'package:practice/providers/resonated_pings_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
@@ -39,13 +41,10 @@ class DetailsPage extends ConsumerStatefulWidget {
 }
 
 class _DetailsPageState extends ConsumerState<DetailsPage> {
-  int rePingCount = 0;
-
   @override
   void initState() {
     super.initState();
     _incrementViewCount();
-    rePingCount = widget.ping.resonantCount;
   }
 
   Future<void> _incrementViewCount() async {
@@ -116,12 +115,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                 ]),
                 DetailCellCluster(title: "PRACTICE", children: [
                   ViewCountCell(pingId: widget.ping.id!),
-                  if (rePingCount > 0)
-                    DetailCell(
-                      title:
-                          "${rePingCount} Re-Ping${rePingCount == 1 ? "" : "s"}",
-                      onClick: () {},
-                    )
+                  RepingedCell(pingId: widget.ping.id!)
                 ]),
                 SizedBox(height: MediaQuery.of(context).padding.bottom)
               ]))),
@@ -149,10 +143,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                       .increaseResonance();
                   ref.invalidate(resonatedPingsCountProvider);
                   ref.invalidate(resonatedPingsProvider);
-
-                  setState(() {
-                    rePingCount += 1;
-                  });
+                  ref.invalidate(repingedCountProvider(widget.ping.id!));
                 },
                 icon: PhosphorIcons.sun,
                 text: 're-ping',
