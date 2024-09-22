@@ -115,13 +115,13 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   ),
                 ]),
                 DetailCellCluster(title: "PRACTICE", children: [
+                  ViewCountCell(pingId: widget.ping.id!),
                   if (rePingCount > 0)
                     DetailCell(
                       title:
                           "${rePingCount} Re-Ping${rePingCount == 1 ? "" : "s"}",
                       onClick: () {},
-                    ),
-                  ViewCountCell(pingId: widget.ping.id!),
+                    )
                 ]),
                 SizedBox(height: MediaQuery.of(context).padding.bottom)
               ]))),
