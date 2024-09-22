@@ -38,7 +38,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
       duration: const Duration(milliseconds: 66),
       vsync: this,
     );
-    _animation = Tween<double>(begin: 54, end: 40).animate(_controller)
+    _animation = Tween<double>(begin: 54, end: 50).animate(_controller)
       ..addListener(() {
         setState(() {});
       })
