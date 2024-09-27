@@ -44,8 +44,7 @@ class PingCell extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => DetailsPage(ping: ping, title: "Home")),
+            MaterialPageRoute(builder: (context) => DetailsPage(ping: ping)),
           );
         });
   }

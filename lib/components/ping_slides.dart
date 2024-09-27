@@ -94,8 +94,7 @@ class _PingSlidesState extends ConsumerState<PingSlides> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailsPage(ping: ping, title: "Slides")),
+                                builder: (context) => DetailsPage(ping: ping)),
                           );
                         }),
                     Container(

@@ -31,10 +31,9 @@ import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
-  const DetailsPage({super.key, required this.ping, required this.title});
+  const DetailsPage({super.key, required this.ping});
 
   final PingData ping;
-  final String title;
 
   @override
   ConsumerState<DetailsPage> createState() => _DetailsPageState();
@@ -48,6 +47,19 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   }
 
   Future<void> _incrementViewCount() async {
+    await PingsRepository.incrementViewCount(widget.ping.id!);
+    ref.invalidate(unviewedPingsCountProvider);
+    ref.invalidate(neverVisitedPingsProvider);
+  }
+
+  Future<void> _randomPage() async {
+    final pingData = await PingsRepository.fetchRandom();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => DetailsPage(ping: PingData.fromJson(pingData))),
+    );
+
     await PingsRepository.incrementViewCount(widget.ping.id!);
     ref.invalidate(unviewedPingsCountProvider);
     ref.invalidate(neverVisitedPingsProvider);
@@ -167,7 +179,9 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                 text: 'information',
               ),
               SystemActionIcon(
-                onTap: () {},
+                onTap: () {
+                  _randomPage();
+                },
                 icon: PhosphorIcons.dice_four,
                 text: 'random',
               ),

@@ -178,6 +178,13 @@ class PingsRepository {
         limit: fetchLimit);
   }
 
+  static Future<Map<String, Object?>> fetchRandom() async {
+    final List<Map<String, Object?>> results = await db.query('pings',
+        where: 'hidden = 0', orderBy: 'random()', limit: 1);
+
+    return results.first;
+  }
+
   static Future<List<Map<String, Object?>>> fetchHidden() async {
     return db.query('pings',
         where: 'hidden = 1', orderBy: 'time desc', limit: fetchLimit);

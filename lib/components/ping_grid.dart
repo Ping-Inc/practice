@@ -44,10 +44,7 @@ class PingGrid extends ConsumerWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailsPage(
-                              ping: ping,
-                              title: "Home",
-                            )),
+                        builder: (context) => DetailsPage(ping: ping)),
                   );
                 });
           },
