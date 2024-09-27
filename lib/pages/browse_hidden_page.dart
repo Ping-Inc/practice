@@ -5,7 +5,9 @@ import 'package:practice/providers/hidden_pings_count_provider.dart';
 import 'package:practice/providers/hidden_pings_provider.dart';
 
 class BrowseHiddenPage extends ConsumerWidget {
-  const BrowseHiddenPage({super.key});
+  const BrowseHiddenPage({super.key, required this.sliver});
+
+  final bool sliver;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,12 +16,15 @@ class BrowseHiddenPage extends ConsumerWidget {
 
     return switch (count) {
       AsyncData(value: final countValue) => BrowsePage(
+          sliver: sliver,
           asyncPings: asyncPings,
           scroll: () => ref.read(hiddenPingsProvider.notifier).scroll(),
           count: countValue),
-      _ => SliverToBoxAdapter(
-          child: SizedBox.shrink(),
-        )
+      _ => sliver
+          ? SliverToBoxAdapter(
+              child: SizedBox.shrink(),
+            )
+          : SizedBox.shrink()
     };
   }
 }

@@ -7,6 +7,7 @@ enum FiltersEnum {
   day_of_week,
   current_month,
   day_of_month,
+  year,
   one_week_old,
   hidden
 }

@@ -15,16 +15,17 @@ class DetailCell extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(right: spacingFive),
         child: SystemTap(
+            onTap: onClick,
             child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SystemText(text: title),
-            SizedBox(width: spacingTwo),
-            Icon(
-              PhosphorIcons.caret_right,
-              size: 16,
-            )
-          ],
-        )));
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SystemText(text: title),
+                SizedBox(width: spacingTwo),
+                Icon(
+                  PhosphorIcons.caret_right,
+                  size: 16,
+                )
+              ],
+            )));
   }
 }

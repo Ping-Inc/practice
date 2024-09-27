@@ -6,10 +6,15 @@ import 'package:practice/providers/time_filtered_pings_provider.dart';
 import 'package:practice/providers/time_of_day_pings_count_provider.dart';
 
 class BrowseTimePage extends ConsumerWidget {
-  const BrowseTimePage({super.key, required this.timeEnum, required this.time});
+  const BrowseTimePage(
+      {super.key,
+      required this.timeEnum,
+      required this.time,
+      required this.sliver});
 
   final TimeFilterEnum timeEnum;
   final DateTime time;
+  final bool sliver;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,14 +23,17 @@ class BrowseTimePage extends ConsumerWidget {
 
     return switch (count) {
       AsyncData(value: final countValue) => BrowsePage(
+          sliver: sliver,
           asyncPings: asyncPings,
           scroll: () => ref
               .read(timeFilteredPingsProvider(timeEnum, time).notifier)
               .scroll(),
           count: countValue),
-      _ => SliverToBoxAdapter(
-          child: SizedBox.shrink(),
-        )
+      _ => sliver
+          ? SliverToBoxAdapter(
+              child: SizedBox.shrink(),
+            )
+          : SizedBox.shrink()
     };
   }
 }

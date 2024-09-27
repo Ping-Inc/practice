@@ -11,12 +11,13 @@ class BrowsePage extends ConsumerStatefulWidget {
       {super.key,
       required this.asyncPings,
       required this.scroll,
-      required this.count});
+      required this.count,
+      required this.sliver});
 
   final AsyncValue<List<PingData>> asyncPings;
   final VoidCallback scroll;
-
   final int count;
+  final bool sliver;
 
   @override
   ConsumerState<BrowsePage> createState() => _BrowserPageState();
@@ -40,10 +41,15 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
   @override
   Widget build(BuildContext contex) {
     return widget.count == 0
-        ? SliverToBoxAdapter(
-            child:
-                Center(child: SystemText(text: 'No pings match this filter')),
-          )
-        : PingList(scroll: widget.scroll, asyncPings: widget.asyncPings);
+        ? widget.sliver
+            ? SliverToBoxAdapter(
+                child: Center(
+                    child: SystemText(text: 'No pings match this filter')),
+              )
+            : Center(child: SystemText(text: 'No pings match this filter'))
+        : PingList(
+            sliver: widget.sliver,
+            scroll: widget.scroll,
+            asyncPings: widget.asyncPings);
   }
 }

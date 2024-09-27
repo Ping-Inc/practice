@@ -78,7 +78,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage>
                     children: FiltersEnum.values.map((filter) {
                       return CustomScrollView(
                         slivers: [
-                          filter.page(DateTime.now()),
+                          filter.page(DateTime.now(), true),
                         ],
                       );
                     }).toList(),

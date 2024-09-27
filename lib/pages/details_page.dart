@@ -8,15 +8,18 @@ import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/repinged_cell.dart';
 import 'package:practice/components/top_nav.dart';
+import 'package:practice/components/traversal_shell.dart';
 import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_icon.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/filters_enum.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
+import 'package:practice/extensions/filters_enum_extensions.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
@@ -101,28 +104,68 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
                         .format(widget.ping.time),
-                    onClick: () {},
+                    onClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraversalShell(
+                                child: FiltersEnum.day_of_month
+                                    .page(widget.ping.time, false))),
+                      );
+                    },
                   ),
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.month.toDateFormat())
                         .format(widget.ping.time),
-                    onClick: () {},
+                    onClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraversalShell(
+                                child: FiltersEnum.current_month
+                                    .page(widget.ping.time, false))),
+                      );
+                    },
                   ),
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.dayOfMonth.toDateFormat())
                         .format(widget.ping.time),
-                    onClick: () {},
+                    onClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraversalShell(
+                                child: FiltersEnum.day_of_month
+                                    .page(widget.ping.time, false))),
+                      );
+                    },
                   ),
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.year.toDateFormat())
                         .format(widget.ping.time),
-                    onClick: () {},
+                    onClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraversalShell(
+                                child: FiltersEnum.year
+                                    .page(widget.ping.time, false))),
+                      );
+                    },
                   )
                 ]),
                 DetailCellCluster(title: "TIME", children: [
                   DetailCell(
                     title: widget.ping.time.themeMode().toTitle(),
-                    onClick: () {},
+                    onClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraversalShell(
+                                child: FiltersEnum.period_of_day
+                                    .page(widget.ping.time, false))),
+                      );
+                    },
                   ),
                 ]),
                 DetailCellCluster(title: "PRACTICE", children: [

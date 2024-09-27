@@ -8,38 +8,72 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingList extends ConsumerWidget {
-  const PingList({super.key, required this.scroll, required this.asyncPings});
+  const PingList(
+      {super.key,
+      required this.scroll,
+      required this.asyncPings,
+      this.sliver = true});
 
   final VoidCallback scroll;
   final AsyncValue<List<PingData>> asyncPings;
+  final bool sliver;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (asyncPings) {
-      AsyncData(value: final pingsValue) => SliverPadding(
-          padding: EdgeInsets.only(
-              left: spacingFour,
-              right: spacingFour,
-              top: spacingSix,
-              bottom: spacingFour +
-                  MediaQuery.of(context).padding.bottom), // Add padding here
-          sliver: SliverList.separated(
-              itemCount: pingsValue.length,
-              separatorBuilder: (context, index) => SizedBox(
-                    height: spacingThree,
-                  ),
-              itemBuilder: (context, i) {
-                final ping = ref.watch(pingProvider(pingsValue[i]));
+      AsyncData(value: final pingsValue) => sliver
+          ? SliverPadding(
+              padding: EdgeInsets.only(
+                  left: spacingFour,
+                  right: spacingFour,
+                  top: spacingSix,
+                  bottom: spacingFour +
+                      MediaQuery.of(context)
+                          .padding
+                          .bottom), // Add padding here
+              sliver: SliverList.separated(
+                  itemCount: pingsValue.length,
+                  separatorBuilder: (context, index) => SizedBox(
+                        height: spacingThree,
+                      ),
+                  itemBuilder: (context, i) {
+                    final ping = ref.watch(pingProvider(pingsValue[i]));
 
-                if (i == pingsValue.length - 1 &&
-                    pingsValue.length % fetchLimit == 0) {
-                  scroll();
-                }
+                    if (i == pingsValue.length - 1 &&
+                        pingsValue.length % fetchLimit == 0) {
+                      scroll();
+                    }
 
-                return PingCell(ping: ping);
-              })),
-      AsyncError() => SliverToBoxAdapter(child: SystemText(text: "Error")),
-      _ => SliverToBoxAdapter(child: SystemLoader())
+                    return PingCell(ping: ping);
+                  }))
+          : Padding(
+              padding: EdgeInsets.only(
+                  left: spacingFour,
+                  right: spacingFour,
+                  top: spacingSix,
+                  bottom: spacingFour +
+                      MediaQuery.of(context)
+                          .padding
+                          .bottom), // Add padding here
+              child: ListView.separated(
+                  itemCount: pingsValue.length,
+                  separatorBuilder: (context, index) => SizedBox(
+                        height: spacingThree,
+                      ),
+                  itemBuilder: (context, i) {
+                    final ping = ref.watch(pingProvider(pingsValue[i]));
+
+                    if (i == pingsValue.length - 1 &&
+                        pingsValue.length % fetchLimit == 0) {
+                      scroll();
+                    }
+
+                    return PingCell(ping: ping);
+                  })),
+      AsyncError() => sliver
+          ? SliverToBoxAdapter(child: SystemText(text: "Error"))
+          : SystemText(text: "Error"),
+      _ => sliver ? SliverToBoxAdapter(child: SystemLoader()) : SystemLoader()
     };
   }
 }
