@@ -174,11 +174,6 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
               ),
               HidePingButton(ping: widget.ping),
               SystemActionIcon(
-                onTap: () {},
-                icon: PhosphorIcons.info,
-                text: 'information',
-              ),
-              SystemActionIcon(
                 onTap: () {
                   _randomPage();
                 },
