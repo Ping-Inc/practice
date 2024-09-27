@@ -54,7 +54,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
 
   Future<void> _randomPage() async {
     final pingData = await PingsRepository.fetchRandom();
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => DetailsPage(ping: PingData.fromJson(pingData))),
