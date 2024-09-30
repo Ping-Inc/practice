@@ -5,7 +5,6 @@ import 'package:path/path.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/theme_mode_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
-import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/providers/current_day_of_month_provider.dart';
 import 'package:practice/providers/current_day_of_week_provider.dart';
 import 'package:practice/providers/current_month_provider.dart';
