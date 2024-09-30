@@ -38,7 +38,7 @@ class PingCell extends StatelessWidget {
                           size: TextSizeEnum.twelve,
                           text: DateFormat('EEE MMM d, yyyy · h:mma')
                               .format(ping.time),
-                          color: gray,
+                          color: Theme.of(context).colorScheme.secondary,
                         )
                     ]))),
         onTap: () {

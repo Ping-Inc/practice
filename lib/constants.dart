@@ -74,23 +74,12 @@ const Map<int, String> migrationScripts = {
   '''
 };
 
-const Color themeBlack = Color.fromRGBO(0, 0, 0, 1);
-const Color themeWhite = Color.fromRGBO(255, 255, 255, 1);
-const Color themeBlue = Color.fromRGBO(0, 20, 73, 1);
-const Color themeYellow = Color.fromRGBO(253, 246, 227, 1);
-
-const Color themeBlackSecondary = Color.fromRGBO(0, 0, 0, 0.15);
-const Color themeWhiteSecondary = Color.fromRGBO(255, 255, 255, 0.2);
-
-const Color pureRed = Color.fromRGBO(255, 0, 0, 1);
-
-const Color gray = Color.fromRGBO(255, 255, 255, 0.40);
-const Color gray2 = Color.fromRGBO(255, 255, 255, 0.60);
-
-const Color whiteSecondary = Color.fromRGBO(242, 242, 242, 1);
-const Color yellowSecondary = Color.fromRGBO(240, 234, 216, 1);
-const Color blueSecondary = Color.fromRGBO(0, 29, 107, 1);
-const Color darkSecondary = Color.fromRGBO(26, 26, 26, 1);
+const Color themeUIBackgroundBlue = Color.fromRGBO(0, 20, 73, 1);
+const Color themeCardBackgroundBlue = Color.fromRGBO(0, 29, 107, 1);
+const Color themeTextActiveBlue = Color.fromRGBO(217, 217, 217, 1);
+const Color themeTextInactiveBlue = Color.fromRGBO(102, 114, 146, 1);
+const Color themePingIDInnerBlue = Color.fromRGBO(81, 113, 198, 1);
+const Color themePingIDOuterBlue = Color.fromRGBO(81, 113, 198, 0.25);
 
 late SharedPreferences prefs;
 const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";

@@ -25,7 +25,7 @@ class NavigationCell extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SystemText(
-                color: gray,
+                color: Theme.of(context).colorScheme.secondary,
                 text: label,
               ),
               Expanded(

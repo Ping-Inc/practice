@@ -33,7 +33,7 @@ class ReplyPingButton extends ConsumerWidget {
                       Icon(PhosphorIcons.arrow_arc_right,
                           color: replyOn
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.secondary),
+                              : Theme.of(context).colorScheme.primary),
                       SizedBox(
                         width: spacingFour,
                       ),
@@ -41,7 +41,7 @@ class ReplyPingButton extends ConsumerWidget {
                           text: 'respond',
                           color: replyOn
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.secondary)
+                              : Theme.of(context).colorScheme.primary)
                     ],
                   )),
             ),
