@@ -1,4 +1,4 @@
-package com.ping.practice
+package com.pingfoundation.practice
 
 import io.flutter.embedding.android.FlutterActivity
 
