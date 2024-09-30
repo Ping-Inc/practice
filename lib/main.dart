@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/enums/theme_mode_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/providers/current_day_of_month_provider.dart';
@@ -13,6 +14,7 @@ import 'package:practice/providers/current_year_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/providers/theme_mode_provider.dart';
 import 'package:practice/providers/time_provider.dart';
+import 'package:practice/utils/theme_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -104,7 +106,8 @@ class PingPractice extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ref.watch(themeModeProvider).data(),
+      theme:
+          ThemeUtils.themeForThemeEnum(Brightness.dark, ThemeModeEnum.evening),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
