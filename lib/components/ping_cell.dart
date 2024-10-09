@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
@@ -17,40 +16,26 @@ class PingCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SystemText(
-            size: TextSizeEnum.fifteen,
-            text: DateFormat('h:mma').format(ping.time),
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          SizedBox(
-            height: spacingThree,
-          ),
-          SystemTap(
-              child: Row(mainAxisSize: MainAxisSize.max, children: [
-                Expanded(
-                    child: PingBackground(
-                        child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: spacingFour, vertical: spacingFour),
-                  child: SystemText(
-                    text: ping.text,
-                    color: Theme.of(context).colorScheme.primary,
-                    font: FontEnum.garamond,
-                    size: TextSizeEnum.twenty,
-                  ),
-                )))
-              ]),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailsPage(ping: ping)),
-                );
-              })
-        ]);
+    return SystemTap(
+        child: Row(mainAxisSize: MainAxisSize.max, children: [
+          Expanded(
+              child: PingBackground(
+                  child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: spacingFour, vertical: spacingFour),
+            child: SystemText(
+              text: ping.text,
+              color: Theme.of(context).colorScheme.primary,
+              font: FontEnum.garamond,
+              size: TextSizeEnum.twenty,
+            ),
+          )))
+        ]),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DetailsPage(ping: ping)),
+          );
+        });
   }
 }
