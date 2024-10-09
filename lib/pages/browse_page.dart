@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_list.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/browse_provider.dart';
@@ -44,7 +45,9 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
         ? widget.sliver
             ? SliverToBoxAdapter(
                 child: Center(
-                    child: SystemText(text: 'No pings match this filter')),
+                    child: Padding(
+                        padding: EdgeInsets.only(top: spacingSix),
+                        child: SystemText(text: 'No pings match this filter'))),
               )
             : Center(child: SystemText(text: 'No pings match this filter'))
         : PingList(
