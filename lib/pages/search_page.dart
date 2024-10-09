@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_search_list.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/design_system/system_button.dart';
 import 'package:practice/providers/search_string_provider.dart';
 
 class SearchPage extends ConsumerWidget {
@@ -15,6 +17,13 @@ class SearchPage extends ConsumerWidget {
                 padding: EdgeInsets.all(spacingFour),
                 child: Column(
                   children: [
+                    SystemButton(
+                      onTap: () => Navigator.pop(context),
+                      icon: PhosphorIcons.caret_left,
+                    ),
+                    SizedBox(
+                      height: spacingFour,
+                    ),
                     TextField(
                       decoration: InputDecoration(
                         hintText: 'Search',

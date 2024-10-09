@@ -34,7 +34,7 @@ class PingList extends ConsumerWidget {
               sliver: SliverList.separated(
                   itemCount: pingsValue.length,
                   separatorBuilder: (context, index) => SizedBox(
-                        height: spacingThree,
+                        height: spacingFour,
                       ),
                   itemBuilder: (context, i) {
                     final ping = ref.watch(pingProvider(pingsValue[i]));

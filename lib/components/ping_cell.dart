@@ -17,35 +17,40 @@ class PingCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SystemTap(
-        child: PingBackground(
-            child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: spacingFour, vertical: spacingFour),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SystemText(
-                        text: ping.text,
-                        color: Theme.of(context).colorScheme.primary,
-                        font: FontEnum.garamond,
-                        size: TextSizeEnum.twenty,
-                      ),
-                      if (showDate)
-                        SystemText(
-                          size: TextSizeEnum.twelve,
-                          text: DateFormat('EEE MMM d, yyyy · h:mma')
-                              .format(ping.time),
-                          color: Theme.of(context).colorScheme.secondary,
-                        )
-                    ]))),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DetailsPage(ping: ping)),
-          );
-        });
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SystemText(
+            size: TextSizeEnum.fifteen,
+            text: DateFormat('h:mma').format(ping.time),
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          SizedBox(
+            height: spacingThree,
+          ),
+          SystemTap(
+              child: Row(mainAxisSize: MainAxisSize.max, children: [
+                Expanded(
+                    child: PingBackground(
+                        child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: spacingFour, vertical: spacingFour),
+                  child: SystemText(
+                    text: ping.text,
+                    color: Theme.of(context).colorScheme.primary,
+                    font: FontEnum.garamond,
+                    size: TextSizeEnum.twenty,
+                  ),
+                )))
+              ]),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailsPage(ping: ping)),
+                );
+              })
+        ]);
   }
 }

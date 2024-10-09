@@ -1,4 +1,5 @@
 enum FiltersEnum {
+  one_week_old,
   all_pings,
   pings_with_replies,
   never_visited,
@@ -8,6 +9,5 @@ enum FiltersEnum {
   current_month,
   day_of_month,
   year,
-  one_week_old,
   hidden
 }

@@ -17,7 +17,7 @@ class PingSearchList extends ConsumerWidget {
       AsyncData(value: final pingsValue) => ListView.separated(
           itemCount: pingsValue.length,
           separatorBuilder: (context, index) => SizedBox(
-            height: spacingThree,
+            height: spacingFour,
           ),
           itemBuilder: (context, i) {
             final ping = pingsValue[i];
