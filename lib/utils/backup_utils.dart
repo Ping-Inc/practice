@@ -23,7 +23,7 @@ class BackupUtils {
           .gather(containerId: iCloudContainerId);
 
       if (backups.isNotEmpty) {
-        backups.where((e) => e.relativePath.contains('.csv')).forEach((backup) {
+        backups.forEach((backup) {
           IcloudStorageSyncPlatform.instance.download(
               containerId: iCloudContainerId,
               relativePath: backup.relativePath,
