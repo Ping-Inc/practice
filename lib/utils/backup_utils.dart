@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:icloud_storage_sync/icloud_storage_sync_platform_interface.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,6 +10,45 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/repositories/pings_repository.dart';
 
 class BackupUtils {
+  static String _practiceDb = 'practice.db';
+  static String _downloadHasRun = 'download_has_run';
+
+  static Future<void> download() async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    if (prefs.getBool(_downloadHasRun) == true) {
+      return;
+    }
+
+    try {
+      final backups = await IcloudStorageSyncPlatform.instance
+          .gather(containerId: iCloudContainerId);
+
+      if (backups.any((e) => e.relativePath == _practiceDb)) {
+        await IcloudStorageSyncPlatform.instance.download(
+            containerId: iCloudContainerId,
+            relativePath: _practiceDb,
+            destinationFilePath: '${directory.path}/$_practiceDb');
+      }
+
+      await prefs.setBool(_downloadHasRun, true);
+    } catch (e) {}
+  }
+
+  static Future<void> upload() async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    if (!await File('${directory.path}/$_practiceDb').exists()) {
+      return;
+    }
+
+    await IcloudStorageSyncPlatform.instance.upload(
+      containerId: iCloudContainerId,
+      filePath: '${directory.path}/$_practiceDb',
+      destinationRelativePath: _practiceDb,
+    );
+  }
+
   static Future<void> backupPings() async {
     final directory = await getApplicationDocumentsDirectory();
 

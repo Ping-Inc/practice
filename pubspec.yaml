@@ -54,6 +54,7 @@ dependencies:
   go_router: ^14.0.0
   flutter_card_swiper: ^7.0.1
   share_plus: ^10.0.2
+  icloud_storage_sync: ^0.0.1
 
 dev_dependencies:
   flutter_test:

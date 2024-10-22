@@ -13,6 +13,7 @@ import 'package:practice/providers/current_year_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/providers/theme_mode_provider.dart';
 import 'package:practice/providers/time_provider.dart';
+import 'package:practice/utils/backup_utils.dart';
 import 'package:practice/utils/theme_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -51,7 +52,8 @@ Future<Database> initDatabase() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  prefs = await SharedPreferences.getInstance();
+  await initializeSharedPrefs();
+  await downloadBackup();
   db = await initDatabase();
 
   runApp(
@@ -59,6 +61,14 @@ void main() async {
       child: PingPractice(),
     ),
   );
+}
+
+Future<void> downloadBackup() async {
+  await BackupUtils.download();
+}
+
+Future<void> initializeSharedPrefs() async {
+  prefs = await SharedPreferences.getInstance();
 }
 
 class PingPractice extends ConsumerWidget {

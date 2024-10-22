@@ -40,12 +40,14 @@
 	<string>Some features of the app might need access to the photo library.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.com.pingfoundation.practice</key>
+		<key>iCloud.pingpractice</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
 			<key>NSUbiquitousContainerName</key>
 			<string>practice</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>Any</string>
 		</dict>
 	</dict>
 	<key>NSUbiquitousKeyValueStore</key>

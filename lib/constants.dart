@@ -81,6 +81,8 @@ const Color themeTextInactiveBlue = Color.fromRGBO(102, 114, 146, 1);
 const Color themePingIDInnerBlue = Color.fromRGBO(81, 113, 198, 1);
 const Color themePingIDOuterBlue = Color.fromRGBO(81, 113, 198, 0.25);
 
+final iCloudContainerId = 'iCloud.pingpractice';
+
 late SharedPreferences prefs;
 const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";
 const String sharedPrefsBackupFrequencyKey =
