@@ -2,6 +2,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:practice/constants.dart';
 import 'dart:io';
 import 'package:practice/data/ping_data.dart';
@@ -19,9 +20,13 @@ class ImportPingsButton extends ConsumerWidget {
           child: SystemButton(
               onTap: () async {
                 try {
+                  final directory = await getApplicationDocumentsDirectory();
+
                   FilePickerResult? result = await FilePicker.platform
                       .pickFiles(
-                          type: FileType.custom, allowedExtensions: ['csv']);
+                          initialDirectory: '${directory.path}',
+                          type: FileType.custom,
+                          allowedExtensions: ['csv']);
 
                   if (result != null && result.files.single.path != null) {
                     File file = File(result.files.single.path!);

@@ -544,7 +544,7 @@ class PingsRepository {
       batch.insert('pings', ping.toJson());
     }
 
-    await batch.commit(noResult: true);
+    await batch.commit(noResult: true, continueOnError: true);
   }
 
   static Future<void> delete(int id) async {

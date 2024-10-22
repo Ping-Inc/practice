@@ -71,6 +71,9 @@ const Map<int, String> migrationScripts = {
   ''',
   8: '''
   ALTER TABLE pings ADD COLUMN hidden BOOLEAN DEFAULT 0
+  ''',
+  9: '''
+  CREATE UNIQUE INDEX idx_pings_time ON pings(time)
   '''
 };
 
@@ -89,6 +92,7 @@ const String sharedPrefsBackupFrequencyKey =
     "shared_prefs_backup_frequency_key";
 const String sharedPrefsBackupPathKey = "shared_prefs_backup_path_key";
 const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
+const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
 
 Timer? backupTimer;
 

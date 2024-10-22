@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
@@ -53,8 +55,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeSharedPrefs();
-  await downloadBackup();
   db = await initDatabase();
+
+  if (await prefs.getString(sharedPrefsBackupSha) == null) {
+    await prefs.setString(sharedPrefsBackupSha, generateRandomSha());
+  }
+
+  BackupUtils.download();
 
   runApp(
     ProviderScope(
@@ -63,8 +70,19 @@ void main() async {
   );
 }
 
-Future<void> downloadBackup() async {
-  await BackupUtils.download();
+String generateRandomSha() {
+  final random = Random();
+  final bytes = List<int>.generate(20, (_) => random.nextInt(256));
+  final sha1Hash = sha1.convert(bytes);
+  return sha1Hash.toString().substring(0, 5);
+}
+
+Future<void> initializeDb() async {
+  try {
+    db = await initDatabase();
+  } catch (e) {
+    print('Error initializing database: $e');
+  }
 }
 
 Future<void> initializeSharedPrefs() async {

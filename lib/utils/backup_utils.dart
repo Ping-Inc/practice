@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:icloud_storage_sync/icloud_storage_sync_platform_interface.dart';
-import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,7 +9,6 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/repositories/pings_repository.dart';
 
 class BackupUtils {
-  static String _practiceDb = 'practice.db';
   static String _downloadHasRun = 'download_has_run';
 
   static Future<void> download() async {
@@ -24,43 +22,34 @@ class BackupUtils {
       final backups = await IcloudStorageSyncPlatform.instance
           .gather(containerId: iCloudContainerId);
 
-      if (backups.any((e) => e.relativePath == _practiceDb)) {
-        await IcloudStorageSyncPlatform.instance.download(
-            containerId: iCloudContainerId,
-            relativePath: _practiceDb,
-            destinationFilePath: '${directory.path}/$_practiceDb');
+      if (backups.isNotEmpty) {
+        backups.where((e) => e.relativePath.contains('.csv')).forEach((backup) {
+          IcloudStorageSyncPlatform.instance.download(
+              containerId: iCloudContainerId,
+              relativePath: backup.relativePath,
+              destinationFilePath:
+                  '${directory.path}/backups/${backup.relativePath}');
+        });
       }
 
       await prefs.setBool(_downloadHasRun, true);
     } catch (e) {}
   }
 
-  static Future<void> upload() async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    if (!await File('${directory.path}/$_practiceDb').exists()) {
-      return;
-    }
-
-    await IcloudStorageSyncPlatform.instance.upload(
-      containerId: iCloudContainerId,
-      filePath: '${directory.path}/$_practiceDb',
-      destinationRelativePath: _practiceDb,
-    );
-  }
-
   static Future<void> backupPings() async {
     final directory = await getApplicationDocumentsDirectory();
 
     if (await Permission.storage.request().isGranted) {
+      final sha = await prefs.getString(sharedPrefsBackupSha);
+
       final backupDir = Directory("${directory.path}/backups");
 
       if (!await backupDir.exists()) {
         await backupDir.create(recursive: true);
       }
 
-      final path =
-          "${backupDir.path}/${DateFormat('M_d_y').format(DateTime.now())}.csv";
+      final fileName = 'pings_${sha}.csv';
+      final path = "${backupDir.path}/$fileName";
       final File file = File(path);
 
       final pings = await PingsRepository.fetchAll();
@@ -69,6 +58,12 @@ class BackupUtils {
       final csvContent = convertPingsToCSV(pingsList);
 
       await file.writeAsString(csvContent);
+
+      await IcloudStorageSyncPlatform.instance.upload(
+        containerId: iCloudContainerId,
+        filePath: path,
+        destinationRelativePath: fileName,
+      );
     }
   }
 
