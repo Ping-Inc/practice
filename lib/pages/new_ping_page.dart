@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/new_ping_button.dart';
 import 'package:practice/components/ping_reply_text.dart';
 import 'package:practice/components/reply_ping_button.dart';
@@ -43,18 +44,20 @@ class _HomePageState extends ConsumerState<NewPingPage> {
     return Scaffold(
         body: SafeArea(
             child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-          TopNav(
-              child: SystemButton(
-            onTap: () => context.pop(),
-            icon: PhosphorIcons.caret_left,
-          )),
-          PingReplyText(replyPing: widget.replyPing),
-          Expanded(
-            child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: spacingFive),
+      children: [
+        TopNav(
+            child: SystemButton(
+          onTap: () => context.pop(),
+          icon: PhosphorIcons.caret_left,
+        )),
+        Expanded(
+            child: MainSpacingCell(
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+              PingReplyText(replyPing: widget.replyPing),
+              Expanded(
                 child: TextField(
                   textInputAction: TextInputAction.newline,
                   maxLines: 12,
@@ -75,36 +78,29 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                   style: TextStyle(
                       fontSize: 36,
                       fontFamily: FontEnum.garamond.toFontFamily()),
-                )),
-          ),
-          SizedBox(
-            height: spacingFive,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (widget.replyPing == null) ReplyPingButton(),
-              SizedBox(
-                width: spacingFive,
+                ),
               ),
-              NewPingButton(
-                  textEditingController: controller,
-                  replyPing: widget.replyPing),
               SizedBox(
-                width: spacingFive,
+                height: spacingFive,
               ),
-              if (widget.replyPing == null)
-                Visibility(
-                    visible: false,
-                    maintainAnimation: true,
-                    maintainSize: true,
-                    maintainState: true,
-                    child: ReplyPingButton()),
-            ],
-          ),
-          SizedBox(
-            height: spacingFive,
-          )
-        ])));
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (widget.replyPing == null)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ReplyPingButton(),
+                    ),
+                  NewPingButton(
+                      textEditingController: controller,
+                      replyPing: widget.replyPing),
+                ],
+              ),
+              SizedBox(
+                height: spacingFive,
+              )
+            ])))
+      ],
+    )));
   }
 }

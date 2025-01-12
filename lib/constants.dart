@@ -20,6 +20,8 @@ const double spacingEight = spacingSeven * goldenRatio;
 const double spacingNine = spacingEight * goldenRatio;
 const double spacingTen = spacingNine * goldenRatio;
 
+const double spacingMedium = 36;
+
 const double cornerRadius = spacingFive;
 
 const Duration duration = Duration(milliseconds: 200);
