@@ -17,7 +17,6 @@ class ViewCountCell extends ConsumerWidget {
           ? SizedBox.shrink()
           : DetailCell(
               title: "${viewCountValue} Visit${viewCountValue == 1 ? "" : "s"}",
-              onClick: () {},
             ),
       _ => SizedBox.shrink()
     };

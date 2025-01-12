@@ -23,7 +23,7 @@ class NavigationCellCluster extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: spacingFive, right: spacingFour, bottom: spacingFour),
                 child: SystemText(
-                  text: title.toUpperCase(),
+                  text: title,
                   size: TextSizeEnum.fifteen,
                 )),
             PingBackground(

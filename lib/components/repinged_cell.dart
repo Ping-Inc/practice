@@ -17,8 +17,7 @@ class RepingedCell extends ConsumerWidget {
           ? SizedBox.shrink()
           : DetailCell(
               title:
-                  "${viewCountValue} Re-Ping${viewCountValue == 1 ? "" : "s"}",
-              onClick: () {},
+                  "${viewCountValue} re-ping${viewCountValue == 1 ? "" : "s"}",
             ),
       _ => SizedBox.shrink()
     };

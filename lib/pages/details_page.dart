@@ -12,7 +12,6 @@ import 'package:practice/components/traversal_shell.dart';
 import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/design_system/system_action_icon.dart';
 import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -30,8 +29,6 @@ import 'package:practice/providers/resonated_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
-import 'package:practice/extensions/date_time_extensions.dart';
-import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.ping});
@@ -100,10 +97,11 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                             ))),
                   ))
                 ]),
-                DetailCellCluster(title: "DATE", children: [
+                DetailCellCluster(title: "date", children: [
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
-                        .format(widget.ping.time),
+                        .format(widget.ping.time)
+                        .toLowerCase(),
                     onClick: () {
                       Navigator.push(
                         context,
@@ -116,7 +114,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   ),
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.month.toDateFormat())
-                        .format(widget.ping.time),
+                        .format(widget.ping.time)
+                        .toLowerCase(),
                     onClick: () {
                       Navigator.push(
                         context,
@@ -129,7 +128,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   ),
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.dayOfMonth.toDateFormat())
-                        .format(widget.ping.time),
+                        .format(widget.ping.time)
+                        .toLowerCase(),
                     onClick: () {
                       Navigator.push(
                         context,
@@ -142,7 +142,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   ),
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.year.toDateFormat())
-                        .format(widget.ping.time),
+                        .format(widget.ping.time)
+                        .toLowerCase(),
                     onClick: () {
                       Navigator.push(
                         context,
@@ -154,9 +155,11 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     },
                   )
                 ]),
-                DetailCellCluster(title: "TIME", children: [
+                DetailCellCluster(title: "time", children: [
                   DetailCell(
-                    title: widget.ping.time.themeMode().toTitle(),
+                    title: DateFormat('h:mm a')
+                        .format(widget.ping.time)
+                        .toLowerCase(),
                     onClick: () {
                       Navigator.push(
                         context,
@@ -168,7 +171,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     },
                   ),
                 ]),
-                DetailCellCluster(title: "PRACTICE", children: [
+                DetailCellCluster(title: "practice", children: [
                   ViewCountCell(pingId: widget.ping.id!),
                   RepingedCell(pingId: widget.ping.id!)
                 ]),

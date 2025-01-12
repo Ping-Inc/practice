@@ -21,8 +21,8 @@ class DetailCellCluster extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SystemText(
-              color: Theme.of(context).colorScheme.secondary,
-              text: title.toUpperCase(),
+              color: themePingIDInnerBlue,
+              text: title,
               size: TextSizeEnum.fifteen,
             ),
             Row(children: children)
