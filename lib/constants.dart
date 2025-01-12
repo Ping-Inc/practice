@@ -77,8 +77,9 @@ const Map<int, String> migrationScripts = {
   '''
 };
 
-const Color themeUIBackgroundBlue = Color.fromRGBO(0, 20, 73, 1);
-const Color themeCardBackgroundBlue = Color.fromRGBO(0, 29, 107, 1);
+const Color themeUIBackgroundBlue = Color.fromRGBO(0, 19, 73, 1);
+const Color themeCardBackgroundBlue = Color.fromRGBO(1, 28, 107, 1);
+const Color themeForegroundBlue = Color.fromRGBO(75, 106, 186, 1);
 const Color themeTextActiveBlue = Color.fromRGBO(217, 217, 217, 1);
 const Color themeTextInactiveBlue = Color.fromRGBO(102, 114, 146, 1);
 const Color themePingIDInnerBlue = Color.fromRGBO(81, 113, 198, 1);

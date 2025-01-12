@@ -13,6 +13,7 @@ import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_icon.dart';
+import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/filters_enum.dart';
@@ -31,7 +32,6 @@ import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
-import 'package:share_plus/share_plus.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.ping});
@@ -55,18 +55,18 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
     ref.invalidate(neverVisitedPingsProvider);
   }
 
-  Future<void> _randomPage() async {
-    final pingData = await PingsRepository.fetchRandom();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (context) => DetailsPage(ping: PingData.fromJson(pingData))),
-    );
+  // Future<void> _randomPage() async {
+  //   final pingData = await PingsRepository.fetchRandom();
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //         builder: (context) => DetailsPage(ping: PingData.fromJson(pingData))),
+  //   );
 
-    await PingsRepository.incrementViewCount(widget.ping.id!);
-    ref.invalidate(unviewedPingsCountProvider);
-    ref.invalidate(neverVisitedPingsProvider);
-  }
+  //   await PingsRepository.incrementViewCount(widget.ping.id!);
+  //   ref.invalidate(unviewedPingsCountProvider);
+  //   ref.invalidate(neverVisitedPingsProvider);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -184,14 +184,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
             crossAxisCount: 3,
             crossAxisSpacing: spacingSix,
             children: [
-              SystemActionIcon(
-                onTap: () {
-                  Share.share(widget.ping.text); // Share the text
-                },
-                icon: PhosphorIcons.share,
-                text: 'share',
-              ),
-              SystemActionIcon(
+              HidePingButton(ping: widget.ping),
+              SystemActionImage(
                 onTap: () {
                   ref
                       .read(pingProvider(widget.ping).notifier)
@@ -200,10 +194,11 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   ref.invalidate(resonatedPingsProvider);
                   ref.invalidate(repingedCountProvider(widget.ping.id!));
                 },
-                icon: PhosphorIcons.sun,
+                imagePath: 'images/icons/reping.svg',
+                height: 22,
                 text: 're-ping',
               ),
-              SystemActionIcon(
+              SystemActionImage(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -212,16 +207,9 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                             NewPingPage(replyPing: widget.ping)),
                   );
                 },
-                icon: PhosphorIcons.arrow_arc_right,
-                text: 'respond',
-              ),
-              HidePingButton(ping: widget.ping),
-              SystemActionIcon(
-                onTap: () {
-                  _randomPage();
-                },
-                icon: PhosphorIcons.dice_four,
-                text: 'random',
+                imagePath: 'images/icons/reply.svg',
+                text: 'reply',
+                height: 18,
               ),
             ],
           ),

@@ -5,6 +5,8 @@ import 'package:practice/components/ping_reply_text_static.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/font_enum.dart';
+import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
@@ -18,9 +20,9 @@ class PingReplyText extends ConsumerWidget {
     final difference = now.difference(timestamp).inDays;
 
     if (difference == 0) {
-      return 'TODAY, ${DateFormat('h:mm a').format(timestamp)}';
+      return 'today, ${DateFormat('h:mm a').format(timestamp)}';
     } else {
-      return '$difference DAYS AGO, ${DateFormat('h:mm a').format(timestamp)}';
+      return '$difference days ago, ${DateFormat('h:mm a').format(timestamp)}';
     }
   }
 
@@ -45,13 +47,16 @@ class PingReplyText extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       SystemText(
-                          text: _formatTimestamp(latestPing!.time),
+                          text:
+                              _formatTimestamp(latestPing!.time).toLowerCase(),
                           color: Theme.of(context).colorScheme.secondary)
                     ],
                   ),
                   SizedBox(height: spacingTwo),
                   SystemText(
+                      font: FontEnum.garamond,
                       text: latestPing.text,
+                      size: TextSizeEnum.twenty,
                       color: Theme.of(context).colorScheme.secondary)
                 ],
               )),

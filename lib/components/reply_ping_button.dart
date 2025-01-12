@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -25,22 +25,25 @@ class ReplyPingButton extends ConsumerWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(spacingFour),
                       color: replyOn
-                          ? Theme.of(context).colorScheme.surface
-                          : null),
+                          ? themeForegroundBlue
+                          : Theme.of(context).colorScheme.surface),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(PhosphorIcons.arrow_arc_right,
-                          color: replyOn
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.primary),
+                      SvgPicture.asset(
+                        'images/icons/reply.svg',
+                        height: 18,
+                        color: replyOn
+                            ? Theme.of(context).colorScheme.background
+                            : Theme.of(context).colorScheme.primary,
+                      ),
                       SizedBox(
                         width: spacingFour,
                       ),
                       SystemText(
-                          text: 'respond',
+                          text: 'reply',
                           color: replyOn
-                              ? Theme.of(context).colorScheme.primary
+                              ? Theme.of(context).colorScheme.background
                               : Theme.of(context).colorScheme.primary)
                     ],
                   )),
