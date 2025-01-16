@@ -16,12 +16,13 @@ class DetailCell extends StatelessWidget {
         child: SystemTap(
             onTap: onClick,
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SystemText(
                     text: title,
                     color: onClick == null
-                        ? themeTextInactiveBlue
+                        ? themeGray
                         : Theme.of(context).colorScheme.primary),
               ],
             )));

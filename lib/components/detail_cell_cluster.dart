@@ -5,18 +5,22 @@ import 'package:practice/enums/text_size_enum.dart';
 
 class DetailCellCluster extends StatelessWidget {
   const DetailCellCluster(
-      {super.key, required this.title, required this.children});
+      {super.key,
+      required this.title,
+      required this.children,
+      this.rightPadding = false});
 
   final String title;
   final List<Widget> children;
+  final bool rightPadding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: spacingFour,
-          vertical: spacingFive,
-        ),
+        padding: EdgeInsets.only(
+            top: spacingFive,
+            bottom: spacingFive,
+            right: rightPadding ? spacingFive : 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

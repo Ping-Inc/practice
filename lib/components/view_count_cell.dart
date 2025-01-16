@@ -16,7 +16,7 @@ class ViewCountCell extends ConsumerWidget {
       AsyncData(value: final viewCountValue) => viewCountValue == 0
           ? SizedBox.shrink()
           : DetailCell(
-              title: "${viewCountValue} Visit${viewCountValue == 1 ? "" : "s"}",
+              title: "${viewCountValue} visit${viewCountValue == 1 ? "" : "s"}",
             ),
       _ => SizedBox.shrink()
     };

@@ -5,19 +5,16 @@ import 'package:intl/intl.dart';
 import 'package:practice/components/detail_cell.dart';
 import 'package:practice/components/detail_cell_cluster.dart';
 import 'package:practice/components/hide_ping_button.dart';
-import 'package:practice/components/ping_background.dart';
+import 'package:practice/components/main_spacing_cell.dart';
+import 'package:practice/components/ping_cell_new.dart';
 import 'package:practice/components/repinged_cell.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/components/traversal_shell.dart';
 import 'package:practice/components/view_count_cell.dart';
-import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/design_system/system_button.dart';
-import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/filters_enum.dart';
-import 'package:practice/enums/font_enum.dart';
-import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
 import 'package:practice/pages/new_ping_page.dart';
@@ -52,19 +49,6 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
     ref.invalidate(neverVisitedPingsProvider);
   }
 
-  // Future<void> _randomPage() async {
-  //   final pingData = await PingsRepository.fetchRandom();
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //         builder: (context) => DetailsPage(ping: PingData.fromJson(pingData))),
-  //   );
-
-  //   await PingsRepository.incrementViewCount(widget.ping.id!);
-  //   ref.invalidate(unviewedPingsCountProvider);
-  //   ref.invalidate(neverVisitedPingsProvider);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,24 +63,11 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
           ),
           Expanded(
               child: SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                Row(mainAxisSize: MainAxisSize.max, children: [
-                  Expanded(
-                      child: Padding(
-                    padding: EdgeInsets.all(spacingFour),
-                    child: PingBackground(
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: spacingFour, horizontal: spacingFive),
-                            child: SystemText(
-                              text: widget.ping.text,
-                              font: FontEnum.garamond,
-                              size: TextSizeEnum.twentyNine,
-                            ))),
-                  ))
-                ]),
+                  child: MainSpacingCell(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                PingCellNew(ping: widget.ping),
                 DetailCellCluster(title: "date", children: [
                   DetailCell(
                     title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
@@ -155,38 +126,42 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     },
                   )
                 ]),
-                DetailCellCluster(title: "time", children: [
-                  DetailCell(
-                    title: DateFormat('h:mm a')
-                        .format(widget.ping.time)
-                        .toLowerCase(),
-                    onClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TraversalShell(
-                                child: FiltersEnum.period_of_day
-                                    .page(widget.ping.time, false))),
-                      );
-                    },
-                  ),
-                ]),
-                DetailCellCluster(title: "practice", children: [
-                  ViewCountCell(pingId: widget.ping.id!),
-                  RepingedCell(pingId: widget.ping.id!)
-                ]),
+                Row(
+                  children: [
+                    DetailCellCluster(
+                        rightPadding: true,
+                        title: "time",
+                        children: [
+                          DetailCell(
+                            title: DateFormat('h:mm a')
+                                .format(widget.ping.time)
+                                .toLowerCase(),
+                            onClick: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TraversalShell(
+                                        child: FiltersEnum.period_of_day
+                                            .page(widget.ping.time, false))),
+                              );
+                            },
+                          ),
+                        ]),
+                    DetailCellCluster(title: "practice", children: [
+                      ViewCountCell(pingId: widget.ping.id!),
+                      RepingedCell(pingId: widget.ping.id!)
+                    ]),
+                  ],
+                ),
                 SizedBox(height: MediaQuery.of(context).padding.bottom)
-              ]))),
+              ])))),
         ],
       ),
       Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        Padding(
-          padding: EdgeInsets.all(spacingFive),
-          child: GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            crossAxisSpacing: spacingSix,
-            children: [
+        MainSpacingCell(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
               HidePingButton(ping: widget.ping),
               SystemActionImage(
                 onTap: () {
@@ -214,9 +189,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                 text: 'reply',
                 height: 18,
               ),
-            ],
-          ),
-        )
+            ]))
       ]),
     ])));
   }
