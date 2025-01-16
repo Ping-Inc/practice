@@ -105,14 +105,14 @@ SPEC CHECKSUMS:
   file_picker: 9b3292d7c8bc68c8a7bf8eb78f730e49c8efc517
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   geocoding_ios: bcbdaa6bddd7d3129c9bcb8acddc5d8778689768
-  geolocator_apple: d981750b9f47dbdb02427e1476d9a04397beb8d9
+  geolocator_apple: 1560c3c875af2a412242c7a923e15d0d401966ff
   icloud_storage_sync: 611eaca1f03d1c087da07d9abdd65b163d40aa71
   open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
-  sqflite_darwin: 44bb54cc302bff1fbe5752293aba1820b157cf1c
+  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796

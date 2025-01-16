@@ -35,7 +35,7 @@ class ReplyPingButton extends ConsumerWidget {
                         height: 18,
                         colorFilter: ColorFilter.mode(
                             replyOn
-                                ? Theme.of(context).colorScheme.background
+                                ? Theme.of(context).colorScheme.surface
                                 : Theme.of(context).colorScheme.primary,
                             BlendMode.srcIn),
                       ),
@@ -45,7 +45,7 @@ class ReplyPingButton extends ConsumerWidget {
                       SystemText(
                           text: 'reply',
                           color: replyOn
-                              ? Theme.of(context).colorScheme.background
+                              ? Theme.of(context).colorScheme.surface
                               : Theme.of(context).colorScheme.primary)
                     ],
                   )),

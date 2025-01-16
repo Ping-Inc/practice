@@ -7,7 +7,7 @@ part of 'time_of_day_pings_count_provider.dart';
 // **************************************************************************
 
 String _$timeOfDayPingsCountHash() =>
-    r'09ad06ac4f311269129bd8268f695300fd862b74';
+    r'6124c5a620216d72682de62eb8fcf7ae54f3685c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -155,6 +155,8 @@ class TimeOfDayPingsCountProvider extends AutoDisposeFutureProvider<int> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin TimeOfDayPingsCountRef on AutoDisposeFutureProviderRef<int> {
   /// The parameter `timeFilter` of this provider.
   TimeFilterEnum get timeFilter;
@@ -175,4 +177,4 @@ class _TimeOfDayPingsCountProviderElement
       (origin as TimeOfDayPingsCountProvider).currentTime;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
