@@ -163,33 +163,42 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  HidePingButton(ping: widget.ping),
-                  SystemActionImage(
-                    onTap: () {
-                      ref
-                          .read(pingProvider(widget.ping).notifier)
-                          .increaseResonance();
-                      ref.invalidate(resonatedPingsCountProvider);
-                      ref.invalidate(resonatedPingsProvider);
-                      ref.invalidate(repingedCountProvider(widget.ping.id!));
-                    },
-                    imagePath: 'images/icons/reping.svg',
-                    height: 22,
-                    text: 're-ping',
-                  ),
-                  SystemActionImage(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                NewPingPage(replyPing: widget.ping)),
-                      );
-                    },
-                    imagePath: 'images/icons/reply.svg',
-                    text: 'reply',
-                    height: 18,
-                  ),
+                  Expanded(
+                      flex: 1,
+                      child: Center(child: HidePingButton(ping: widget.ping))),
+                  Expanded(
+                      flex: 1,
+                      child: Center(
+                          child: SystemActionImage(
+                        onTap: () {
+                          ref
+                              .read(pingProvider(widget.ping).notifier)
+                              .increaseResonance();
+                          ref.invalidate(resonatedPingsCountProvider);
+                          ref.invalidate(resonatedPingsProvider);
+                          ref.invalidate(
+                              repingedCountProvider(widget.ping.id!));
+                        },
+                        imagePath: 'images/icons/reping.svg',
+                        height: 22,
+                        text: 're-ping',
+                      ))),
+                  Expanded(
+                      flex: 1,
+                      child: Center(
+                          child: SystemActionImage(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NewPingPage(replyPing: widget.ping)),
+                          );
+                        },
+                        imagePath: 'images/icons/reply.svg',
+                        text: 'reply',
+                        height: 18,
+                      ))),
                 ]))
       ]),
     ])));

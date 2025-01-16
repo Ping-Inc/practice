@@ -20,23 +20,20 @@ class SystemActionImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SystemTap(
-        onTap: onTap,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: spacingThree, vertical: spacingFour),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                imagePath,
-                height: height,
-                semanticsLabel: text, // Accessibility label
-              ),
-              SizedBox(
-                width: spacingFive,
-              ),
-              SystemText(text: text),
-            ],
+      onTap: onTap,
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            imagePath,
+            height: height,
+            semanticsLabel: text, // Accessibility label
           ),
-        ));
+          SizedBox(
+            height: spacingThree,
+          ),
+          SystemText(text: text),
+        ],
+      ),
+    );
   }
 }
