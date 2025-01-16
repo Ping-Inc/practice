@@ -5,18 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/enums/theme_mode_enum.dart';
-import 'package:practice/extensions/date_time_extensions.dart';
-import 'package:practice/providers/current_day_of_month_provider.dart';
-import 'package:practice/providers/current_day_of_week_provider.dart';
-import 'package:practice/providers/current_month_provider.dart';
-import 'package:practice/providers/current_week_provider.dart';
-import 'package:practice/providers/current_year_provider.dart';
 import 'package:practice/providers/router_provider.dart';
-import 'package:practice/providers/theme_mode_provider.dart';
-import 'package:practice/providers/time_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
-import 'package:practice/utils/theme_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -92,49 +82,45 @@ Future<void> initializeSharedPrefs() async {
 class PingPractice extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(timeProvider, (previous, next) {
-      if (previous != null &&
-          previous.value != null &&
-          next.value != null &&
-          previous.value!.themeMode() != next.value!.themeMode()) {
-        ref.invalidate(themeModeProvider);
-      }
-
-      if (previous != null &&
-          previous.value != null &&
-          next.value != null &&
-          previous.value!.weekday != next.value!.weekday) {
-        ref.invalidate(currentDayOfWeekProvider);
-        ref.invalidate(currentDayOfMonthProvider);
-      }
-
-      if (previous != null &&
-          previous.value != null &&
-          next.value != null &&
-          previous.value!.year != next.value!.year) {
-        ref.invalidate(currentYearProvider);
-      }
-
-      if (previous != null &&
-          previous.value != null &&
-          next.value != null &&
-          previous.value!.month != next.value!.month) {
-        ref.invalidate(currentMonthProvider);
-      }
-
-      if (previous != null &&
-          previous.value != null &&
-          next.value != null &&
-          next.value!.weekday == 7 &&
-          previous.value!.weekday == 6) {
-        ref.invalidate(currentWeekProvider);
-      }
-    });
-
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme:
-          ThemeUtils.themeForThemeEnum(Brightness.dark, ThemeModeEnum.evening),
+      theme: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: themeUIBackgroundBlue,
+          colorScheme: ColorScheme(
+            brightness: Brightness.dark,
+            primary: themeTextActiveBlue,
+            onPrimary: themeUIBackgroundBlue,
+            secondary: themeTextInactiveBlue,
+            onSecondary: themeUIBackgroundBlue,
+            error: Color.fromRGBO(255, 0, 0, 1),
+            onError: Colors.white,
+            surface: themeCardBackgroundBlue,
+            onSurface: themeTextActiveBlue,
+            primaryContainer: themeUIBackgroundBlue,
+            onPrimaryContainer: themeTextActiveBlue,
+            secondaryContainer: themeCardBackgroundBlue,
+            onSecondaryContainer: themeTextActiveBlue,
+            tertiary: themePingIDInnerBlue,
+            onTertiary: themeTextActiveBlue,
+            tertiaryContainer: themePingIDOuterBlue,
+            onTertiaryContainer: themeTextActiveBlue,
+            errorContainer: Color.fromRGBO(255, 0, 0, 1),
+            onErrorContainer: Colors.white,
+            surfaceContainerHighest: themePingIDInnerBlue,
+            onSurfaceVariant: themeTextActiveBlue,
+            outline: themePingIDInnerBlue,
+            outlineVariant: themePingIDOuterBlue,
+            shadow: themeTextInactiveBlue,
+            scrim: themeTextInactiveBlue,
+            inverseSurface: themeTextInactiveBlue,
+            onInverseSurface: themeTextInactiveBlue,
+            inversePrimary: themeTextInactiveBlue,
+            surfaceTint: themeTextInactiveBlue,
+          )),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
