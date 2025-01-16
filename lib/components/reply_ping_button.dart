@@ -33,9 +33,11 @@ class ReplyPingButton extends ConsumerWidget {
                       SvgPicture.asset(
                         'images/icons/reply.svg',
                         height: 18,
-                        color: replyOn
-                            ? Theme.of(context).colorScheme.background
-                            : Theme.of(context).colorScheme.primary,
+                        colorFilter: ColorFilter.mode(
+                            replyOn
+                                ? Theme.of(context).colorScheme.background
+                                : Theme.of(context).colorScheme.primary,
+                            BlendMode.srcIn),
                       ),
                       SizedBox(
                         width: spacingFour,

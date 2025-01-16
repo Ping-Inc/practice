@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
@@ -41,7 +42,7 @@ class SystemText extends ConsumerWidget {
             fontWeight: weight,
             decoration: underline ? TextDecoration.underline : null,
             inherit: false,
-            height: 1.6,
+            height: lineHeight,
             fontSize: size.toFontSize(),
             color: color ?? Theme.of(context).colorScheme.primary,
             overflow: overflow));

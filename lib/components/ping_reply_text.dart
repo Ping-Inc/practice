@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:practice/components/ping_reply_text_static.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -28,42 +27,37 @@ class PingReplyText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (replyPing != null) {
-      return PingReplyTextStatic(ping: replyPing!);
-    } else {
-      final latestPing = ref.watch(latestPingProvider);
-      final replyOn = ref.watch(replyOnProvider);
+    final latestPing = ref.watch(latestPingProvider);
 
-      if (replyOn) {
-        return switch (latestPing) {
-          AsyncData(value: final latestPing) => Padding(
-              padding: EdgeInsets.only(bottom: spacingThree),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SystemText(
-                          text:
-                              _formatTimestamp(latestPing!.time).toLowerCase(),
-                          color: Theme.of(context).colorScheme.secondary)
-                    ],
-                  ),
-                  SizedBox(height: spacingTwo),
-                  SystemText(
-                      font: FontEnum.garamond,
-                      text: latestPing.text,
-                      size: TextSizeEnum.twenty,
-                      color: Theme.of(context).colorScheme.secondary)
-                ],
-              )),
-          _ => SizedBox.shrink()
-        };
-      } else {
-        return SizedBox.shrink();
-      }
+    if (replyPing != null || ref.watch(replyOnProvider)) {
+      return switch (latestPing) {
+        AsyncData(value: final latestPing) => Padding(
+            padding: EdgeInsets.only(bottom: spacingThree),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SystemText(
+                        text: _formatTimestamp(latestPing!.time).toLowerCase(),
+                        color: Theme.of(context).colorScheme.secondary)
+                  ],
+                ),
+                SizedBox(height: spacingTwo),
+                SystemText(
+                    maxLines: 3,
+                    font: FontEnum.garamond,
+                    text: latestPing.text,
+                    size: TextSizeEnum.twenty,
+                    color: Theme.of(context).colorScheme.secondary)
+              ],
+            )),
+        _ => SizedBox.shrink()
+      };
+    } else {
+      return SizedBox.shrink();
     }
   }
 }
