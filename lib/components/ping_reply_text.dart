@@ -25,39 +25,70 @@ class PingReplyText extends ConsumerWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final latestPing = ref.watch(latestPingProvider);
-
-    if (replyPing != null || ref.watch(replyOnProvider)) {
-      return switch (latestPing) {
-        AsyncData(value: final latestPing) => Padding(
-            padding: EdgeInsets.only(bottom: spacingThree),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+  Widget pingReplyTextStatic(BuildContext context, PingData ping) {
+    return Padding(
+        padding: EdgeInsets.only(bottom: spacingThree),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SystemText(
-                        text: _formatTimestamp(latestPing!.time).toLowerCase(),
-                        color: Theme.of(context).colorScheme.secondary)
-                  ],
-                ),
-                SizedBox(height: spacingTwo),
                 SystemText(
-                    maxLines: 3,
-                    font: FontEnum.garamond,
-                    text: latestPing.text,
-                    size: TextSizeEnum.twenty,
+                    text: _formatTimestamp(ping.time).toLowerCase(),
                     color: Theme.of(context).colorScheme.secondary)
               ],
-            )),
-        _ => SizedBox.shrink()
-      };
+            ),
+            SizedBox(height: spacingTwo),
+            SystemText(
+                maxLines: 3,
+                font: FontEnum.garamond,
+                text: ping.text,
+                size: TextSizeEnum.twenty,
+                color: Theme.of(context).colorScheme.secondary)
+          ],
+        ));
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (replyPing != null) {
+      return pingReplyTextStatic(context, replyPing!);
     } else {
-      return SizedBox.shrink();
+      final latestPing = ref.watch(latestPingProvider);
+
+      if (ref.watch(replyOnProvider)) {
+        return switch (latestPing) {
+          AsyncData(value: final latestPing) => Padding(
+              padding: EdgeInsets.only(bottom: spacingThree),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SystemText(
+                          text:
+                              _formatTimestamp(latestPing!.time).toLowerCase(),
+                          color: Theme.of(context).colorScheme.secondary)
+                    ],
+                  ),
+                  SizedBox(height: spacingTwo),
+                  SystemText(
+                      maxLines: 3,
+                      font: FontEnum.garamond,
+                      text: latestPing.text,
+                      size: TextSizeEnum.twenty,
+                      color: Theme.of(context).colorScheme.secondary)
+                ],
+              )),
+          _ => SizedBox.shrink()
+        };
+      } else {
+        return SizedBox.shrink();
+      }
     }
   }
 }
