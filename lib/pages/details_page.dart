@@ -8,9 +8,11 @@ import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/ping_cell_new.dart';
 import 'package:practice/components/repinged_cell.dart';
+import 'package:practice/components/replies_grid.dart';
 import 'package:practice/components/top_nav.dart';
 import 'package:practice/components/traversal_shell.dart';
 import 'package:practice/components/view_count_cell.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/design_system/system_button.dart';
@@ -53,8 +55,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Stack(fit: StackFit.expand, children: [
-      Column(
+      child: Column(
         children: [
           TopNav(
             child: SystemButton(
@@ -62,145 +63,186 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                 icon: PhosphorIcons.caret_left),
           ),
           Expanded(
-              child: SingleChildScrollView(
-                  child: MainSpacingCell(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                PingCellNew(ping: widget.ping),
-                DetailCellCluster(title: "date", children: [
-                  DetailCell(
-                    title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
-                        .format(widget.ping.time)
-                        .toLowerCase(),
-                    onClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TraversalShell(
-                                child: FiltersEnum.day_of_month
-                                    .page(widget.ping.time, false))),
-                      );
-                    },
-                  ),
-                  DetailCell(
-                    title: DateFormat(TimeFilterEnum.month.toDateFormat())
-                        .format(widget.ping.time)
-                        .toLowerCase(),
-                    onClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TraversalShell(
-                                child: FiltersEnum.current_month
-                                    .page(widget.ping.time, false))),
-                      );
-                    },
-                  ),
-                  DetailCell(
-                    title: DateFormat(TimeFilterEnum.dayOfMonth.toDateFormat())
-                        .format(widget.ping.time)
-                        .toLowerCase(),
-                    onClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TraversalShell(
-                                child: FiltersEnum.day_of_month
-                                    .page(widget.ping.time, false))),
-                      );
-                    },
-                  ),
-                  DetailCell(
-                    title: DateFormat(TimeFilterEnum.year.toDateFormat())
-                        .format(widget.ping.time)
-                        .toLowerCase(),
-                    onClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TraversalShell(
-                                child: FiltersEnum.year
-                                    .page(widget.ping.time, false))),
-                      );
-                    },
-                  )
-                ]),
-                Row(
-                  children: [
-                    DetailCellCluster(
-                        rightPadding: true,
-                        title: "time",
+              child: Stack(children: [
+            SingleChildScrollView(
+                child: MainSpacingCell(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DetailCell(
-                            title: DateFormat('h:mm a')
-                                .format(widget.ping.time)
-                                .toLowerCase(),
-                            onClick: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TraversalShell(
-                                        child: FiltersEnum.period_of_day
-                                            .page(widget.ping.time, false))),
-                              );
-                            },
-                          ),
-                        ]),
-                    DetailCellCluster(title: "practice", children: [
-                      ViewCountCell(pingId: widget.ping.id!),
-                      RepingedCell(pingId: widget.ping.id!)
-                    ]),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).padding.bottom)
-              ])))),
+                  PingCellNew(ping: widget.ping),
+                  DetailCellCluster(title: "date", children: [
+                    DetailCell(
+                      title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
+                          .format(widget.ping.time)
+                          .toLowerCase(),
+                      onClick: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TraversalShell(
+                                  child: FiltersEnum.day_of_month
+                                      .page(widget.ping.time, false))),
+                        );
+                      },
+                    ),
+                    DetailCell(
+                      title: DateFormat(TimeFilterEnum.month.toDateFormat())
+                          .format(widget.ping.time)
+                          .toLowerCase(),
+                      onClick: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TraversalShell(
+                                  child: FiltersEnum.current_month
+                                      .page(widget.ping.time, false))),
+                        );
+                      },
+                    ),
+                    DetailCell(
+                      title:
+                          DateFormat(TimeFilterEnum.dayOfMonth.toDateFormat())
+                              .format(widget.ping.time)
+                              .toLowerCase(),
+                      onClick: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TraversalShell(
+                                  child: FiltersEnum.day_of_month
+                                      .page(widget.ping.time, false))),
+                        );
+                      },
+                    ),
+                    DetailCell(
+                      title: DateFormat(TimeFilterEnum.year.toDateFormat())
+                          .format(widget.ping.time)
+                          .toLowerCase(),
+                      onClick: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TraversalShell(
+                                  child: FiltersEnum.year
+                                      .page(widget.ping.time, false))),
+                        );
+                      },
+                    )
+                  ]),
+                  Row(
+                    children: [
+                      DetailCellCluster(
+                          rightPadding: true,
+                          title: "time",
+                          children: [
+                            DetailCell(
+                              title: DateFormat('h:mm a')
+                                  .format(widget.ping.time)
+                                  .toLowerCase(),
+                              onClick: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TraversalShell(
+                                          child: FiltersEnum.period_of_day
+                                              .page(widget.ping.time, false))),
+                                );
+                              },
+                            ),
+                          ]),
+                      DetailCellCluster(title: "practice", children: [
+                        ViewCountCell(pingId: widget.ping.id!),
+                        RepingedCell(pingId: widget.ping.id!)
+                      ]),
+                    ],
+                  ),
+                  RepliesGrid(pingId: widget.ping.id!),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom)
+                ]))),
+            // Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Transform(
+            //         transform: Matrix4.identity()
+            //           ..setEntry(3, 2, 0.001) // perspective
+            //           ..rotateX(3.14159), // 180 degrees in radians
+            //         alignment: Alignment.center,
+            //         child: Positioned(
+            //           bottom: 0,
+            //           left: 0,
+            //           right: 0,
+            //           child: Stack(
+            //             children: List.generate(10, (index) {
+            //               return ClipRect(
+            //                 child: Align(
+            //                   alignment: Alignment.bottomCenter,
+            //                   heightFactor: (10 - index) / 10,
+            //                   child: BackdropFilter(
+            //                     filter: ImageFilter.blur(
+            //                       sigmaX: 0,
+            //                       sigmaY: index.toDouble(),
+            //                       tileMode: TileMode.decal,
+            //                     ),
+            //                     child: Container(
+            //                       height: 10,
+            //                       color: Colors.transparent,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               );
+            //             }),
+            //           ),
+            //         )))
+          ])),
+          Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Padding(
+                  padding: EdgeInsets.only(top: spacingFour),
+                  child: MainSpacingCell(
+                      bottomPadding: true,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Center(
+                                    child: HidePingButton(ping: widget.ping))),
+                            Expanded(
+                                flex: 1,
+                                child: Center(
+                                    child: SystemActionImage(
+                                  onTap: () {
+                                    ref
+                                        .read(
+                                            pingProvider(widget.ping).notifier)
+                                        .increaseResonance();
+                                    ref.invalidate(resonatedPingsCountProvider);
+                                    ref.invalidate(resonatedPingsProvider);
+                                    ref.invalidate(
+                                        repingedCountProvider(widget.ping.id!));
+                                  },
+                                  imagePath: 'images/icons/reping.svg',
+                                  height: 22,
+                                  text: 're-ping',
+                                ))),
+                            Expanded(
+                                flex: 1,
+                                child: Center(
+                                    child: SystemActionImage(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NewPingPage(
+                                              replyPing: widget.ping)),
+                                    );
+                                  },
+                                  imagePath: 'images/icons/reply.svg',
+                                  text: 'reply',
+                                  height: 18,
+                                ))),
+                          ]))))
         ],
       ),
-      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        MainSpacingCell(
-            bottomPadding: true,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Center(child: HidePingButton(ping: widget.ping))),
-                  Expanded(
-                      flex: 1,
-                      child: Center(
-                          child: SystemActionImage(
-                        onTap: () {
-                          ref
-                              .read(pingProvider(widget.ping).notifier)
-                              .increaseResonance();
-                          ref.invalidate(resonatedPingsCountProvider);
-                          ref.invalidate(resonatedPingsProvider);
-                          ref.invalidate(
-                              repingedCountProvider(widget.ping.id!));
-                        },
-                        imagePath: 'images/icons/reping.svg',
-                        height: 22,
-                        text: 're-ping',
-                      ))),
-                  Expanded(
-                      flex: 1,
-                      child: Center(
-                          child: SystemActionImage(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    NewPingPage(replyPing: widget.ping)),
-                          );
-                        },
-                        imagePath: 'images/icons/reply.svg',
-                        text: 'reply',
-                        height: 18,
-                      ))),
-                ]))
-      ]),
-    ])));
+    ));
   }
 }

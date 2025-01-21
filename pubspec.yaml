@@ -55,6 +55,7 @@ dependencies:
   flutter_card_swiper: ^7.0.1
   flutter_svg: ^2.0.7
   icloud_storage_sync: ^0.0.1
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -110,3 +111,7 @@ flutter_launcher_icons:
     generate: false
   macos:
     generate: false
+
+flutter_native_splash:
+  color: "#001349"
+  android: false

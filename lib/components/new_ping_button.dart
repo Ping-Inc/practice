@@ -8,6 +8,7 @@ import 'package:practice/components/system_tap.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
+import 'package:practice/providers/ping_replies_provider.dart';
 import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 import 'package:practice/providers/replies_to_ping_count_provider.dart';
@@ -79,6 +80,7 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               if (widget.replyPing != null) {
                 ref.invalidate(
                     repliesToPingCountProvider(widget.replyPing!.id!));
+                ref.invalidate(pingRepliesProvider(widget.replyPing!.id!));
                 context.pop();
               }
             },
