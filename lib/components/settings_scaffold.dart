@@ -16,6 +16,7 @@ class SettingsScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
+            bottom: false,
             child: Padding(
                 padding: EdgeInsets.all(spacingFour),
                 child: Column(

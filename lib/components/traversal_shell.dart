@@ -12,15 +12,16 @@ class TraversalShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
+            bottom: false,
             child: Column(
-      children: [
-        TopNav(
-          child: SystemButton(
-              onTap: () => Navigator.pop(context),
-              icon: PhosphorIcons.caret_left),
-        ),
-        Expanded(child: child)
-      ],
-    )));
+              children: [
+                TopNav(
+                  child: SystemButton(
+                      onTap: () => Navigator.pop(context),
+                      icon: PhosphorIcons.caret_left),
+                ),
+                Expanded(child: child)
+              ],
+            )));
   }
 }

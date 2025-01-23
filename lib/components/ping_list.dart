@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/ping_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
@@ -84,13 +85,10 @@ class PingList extends ConsumerWidget {
       AsyncData(value: final pingsValue) => sliver
           ? SliverPadding(
               padding: EdgeInsets.only(
-                  left: spacingFour,
-                  right: spacingFour,
+                  left: spacingMedium,
+                  right: spacingMedium,
                   top: spacingSix,
-                  bottom: spacingFour +
-                      MediaQuery.of(context)
-                          .padding
-                          .bottom), // Add padding here
+                  bottom: spacingFour), // Add padding here
               sliver: SliverList.separated(
                   itemCount: pingsValue.length,
                   separatorBuilder: (context, index) => SizedBox(
@@ -107,15 +105,7 @@ class PingList extends ConsumerWidget {
 
                     return pingCell(ping, show);
                   }))
-          : Padding(
-              padding: EdgeInsets.only(
-                  left: spacingFour,
-                  right: spacingFour,
-                  top: spacingSix,
-                  bottom: spacingFour +
-                      MediaQuery.of(context)
-                          .padding
-                          .bottom), // Add padding here
+          : MainSpacingCell(
               child: ListView.separated(
                   itemCount: pingsValue.length,
                   separatorBuilder: (context, index) => SizedBox(

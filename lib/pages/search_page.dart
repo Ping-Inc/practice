@@ -13,6 +13,7 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         body: SafeArea(
+            bottom: false,
             child: Padding(
                 padding: EdgeInsets.all(spacingFour),
                 child: Column(
