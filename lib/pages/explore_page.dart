@@ -8,6 +8,7 @@ import 'package:practice/extensions/filters_enum_extensions.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/pages/search_page.dart';
 import 'package:practice/pages/settings_page.dart';
+import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
 
 class ExplorePage extends ConsumerStatefulWidget {
@@ -42,7 +43,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage>
       case AppLifecycleState.resumed:
         break;
       case AppLifecycleState.inactive:
-        BackupUtils.backupPings();
+        if (ref.read(localBackupOnProvider)) BackupUtils.backupPings();
         break;
       case AppLifecycleState.paused:
         break;
