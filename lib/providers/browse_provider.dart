@@ -1,3 +1,4 @@
+import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -7,10 +8,15 @@ part 'browse_provider.g.dart';
 class Browse extends _$Browse {
   @override
   BrowseEnum build() {
-    return BrowseEnum.slides;
+    String? mode = prefs.getString(sharedPrefsBrowseMode);
+
+    return mode == null
+        ? BrowseEnum.focus
+        : BrowseEnum.values.firstWhere((e) => e.toString() == mode);
   }
 
-  void setTab(BrowseEnum browse) {
+  void setMode(BrowseEnum browse) {
+    prefs.setString(sharedPrefsBrowseMode, browse.toString());
     state = browse;
   }
 }

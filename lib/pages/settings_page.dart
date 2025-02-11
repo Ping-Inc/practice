@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/active_development.dart';
+import 'package:practice/components/browse_activation_cell.dart';
+import 'package:practice/components/cloud_backup_activation_cell.dart';
 import 'package:practice/components/import_pings_button.dart';
+import 'package:practice/components/local_backup_activation_cell.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/nav_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
-import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/settings_activation_cell.dart';
-import 'package:practice/components/settings_navigation_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,27 +26,15 @@ class SettingsPage extends ConsumerWidget {
                     child: Column(
                       children: [
                         NavCellCluster(text: 'Backups', children: [
-                          SettingsNavigationCell(
-                            text: 'Local',
-                            state: 'Off',
-                            onTap: () {},
-                          ),
-                          SettingsNavigationCell(
-                            text: 'Cloud',
-                            state: 'Off',
-                            onTap: () {},
-                          ),
+                          LocalBackupActivationCell(),
+                          CloudBackupActivationCell(),
                           ImportPingsButton()
                         ]),
                         SizedBox(
                           height: spacingMedium,
                         ),
                         NavCellCluster(text: 'Layout', children: [
-                          SettingsNavigationCell(
-                            text: 'Default Browse Mode',
-                            state: 'Focus',
-                            onTap: () {},
-                          ),
+                          BrowseActivationCell(),
                         ]),
                         SizedBox(
                           height: spacingMedium,
@@ -65,7 +53,7 @@ class SettingsPage extends ConsumerWidget {
                           SettingsActivationCell(
                             text: 'Contact',
                             onTap: () => launchUrl(
-                                Uri.parse('mailto:contact@pingpractice.org')),
+                                Uri.parse('everyone@pingpractice.org')),
                           )
                         ])
                       ],

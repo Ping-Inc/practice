@@ -100,6 +100,7 @@ const String sharedPrefsBackupFrequencyKey =
 const String sharedPrefsBackupPathKey = "shared_prefs_backup_path_key";
 const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
 const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
+const String sharedPrefsBrowseMode = "shared_prefs_browse_mode";
 
 Timer? backupTimer;
 

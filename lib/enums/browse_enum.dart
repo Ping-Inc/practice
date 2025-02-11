@@ -1,1 +1,1 @@
-enum BrowseEnum { slides, list }
+enum BrowseEnum { focus, grid }
