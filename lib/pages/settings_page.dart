@@ -45,7 +45,7 @@ class SettingsPage extends ConsumerWidget {
                           SettingsActivationCell(
                             text: 'Ping Practice Method',
                             onTap: () => launchUrl(
-                                Uri.parse('https://pingpractice.org/about')),
+                                Uri.parse('https://pingpractice.org/method')),
                           ),
                           SettingsActivationCell(
                             text: 'Transmissions',
@@ -55,7 +55,7 @@ class SettingsPage extends ConsumerWidget {
                           SettingsActivationCell(
                             text: 'Contact',
                             onTap: () => launchUrl(
-                                Uri.parse('everyone@pingpractice.org')),
+                                Uri.parse('mailto:everyone@pingpractice.org')),
                           )
                         ])
                       ],
