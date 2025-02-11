@@ -7,7 +7,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/repositories/pings_repository.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BackupUtils {
   static Future<void> download() async {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/design_system/system_button.dart';
-import 'package:practice/design_system/system_switch.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/settings/settings_scaffold.dart';
 import 'package:url_launcher/url_launcher.dart';

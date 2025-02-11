@@ -9,7 +9,7 @@ import 'package:practice/components/nav_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
 import 'package:practice/components/settings_activation_cell.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/utils/backup_utils.dart';
+import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -28,7 +28,8 @@ class SettingsPage extends ConsumerWidget {
                       children: [
                         NavCellCluster(text: 'Backups', children: [
                           LocalBackupActivationCell(),
-                          CloudBackupActivationCell(),
+                          if (ref.watch(localBackupOnProvider))
+                            CloudBackupActivationCell(),
                           ImportPingsButton(),
                         ]),
                         SizedBox(
