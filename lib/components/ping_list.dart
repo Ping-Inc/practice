@@ -28,14 +28,10 @@ class PingList extends ConsumerWidget {
     return switch (asyncPings) {
       AsyncData(value: final pingsValue) => sliver
           ? browseMode == BrowseEnum.focus
-              ? SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: Padding(
-                        padding: EdgeInsets.only(top: spacingMedium),
-                        child:
-                            PingFocusList(pings: pingsValue, scroll: scroll)),
-                  ),
+              ? SliverFillRemaining(
+                  child: Padding(
+                      padding: EdgeInsets.only(top: spacingMedium),
+                      child: PingFocusList(pings: pingsValue, scroll: scroll)),
                 )
               : SliverPadding(
                   padding: EdgeInsets.only(
