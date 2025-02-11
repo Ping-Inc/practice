@@ -27,7 +27,11 @@ class SystemRadioButton extends StatelessWidget {
     return SystemTap(
         onTap: () => enabled ? onChanged(value) : null,
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          CupertinoRadio(value: value, groupValue: groupValue, onChanged: null),
+          Radio(
+              fillColor: WidgetStatePropertyAll(Colors.white),
+              value: value,
+              groupValue: groupValue,
+              onChanged: null),
           SizedBox(width: spacingTwo),
           SystemText(text: title)
         ]));
