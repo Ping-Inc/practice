@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/system_tap.dart';
@@ -11,25 +12,28 @@ import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/details_page.dart';
+import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/utils/date_format_utils.dart';
 
-class PingCell extends StatelessWidget {
+class PingCell extends ConsumerWidget {
   const PingCell(
       {super.key,
-      required this.ping,
+      required this.inputPing,
       this.showDate = false,
       this.showId = false,
       this.tappable = true,
       this.showActions = false});
 
-  final PingData ping;
+  final PingData inputPing;
   final bool showDate;
   final bool showId;
   final bool tappable;
   final bool showActions;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ping = ref.watch(pingProvider(inputPing));
+
     return Column(mainAxisSize: MainAxisSize.min, children: [
       if (showDate)
         Padding(

@@ -64,7 +64,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                   PingCell(
-                    ping: widget.ping,
+                    inputPing: widget.ping,
                     showId: true,
                     tappable: false,
                   ),
