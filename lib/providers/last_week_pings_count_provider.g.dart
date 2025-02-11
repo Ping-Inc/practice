@@ -7,7 +7,7 @@ part of 'last_week_pings_count_provider.dart';
 // **************************************************************************
 
 String _$lastWeekPingsCountHash() =>
-    r'6b66aba3e48649853fd1de728663cd1c4a30a019';
+    r'26533c697d7a5f7d055f047784a4f04a4a671791';
 
 /// See also [lastWeekPingsCount].
 @ProviderFor(lastWeekPingsCount)

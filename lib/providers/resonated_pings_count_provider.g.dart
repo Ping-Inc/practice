@@ -7,7 +7,7 @@ part of 'resonated_pings_count_provider.dart';
 // **************************************************************************
 
 String _$resonatedPingsCountHash() =>
-    r'befb5505eb59a276d2f3cf1e4d42ab9b89565d52';
+    r'a42fd8ec4bea88ccdaec0330e2009a51f8615d12';
 
 /// See also [resonatedPingsCount].
 @ProviderFor(resonatedPingsCount)

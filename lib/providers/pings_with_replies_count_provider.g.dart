@@ -7,7 +7,7 @@ part of 'pings_with_replies_count_provider.dart';
 // **************************************************************************
 
 String _$pingsWithRepliesCountHash() =>
-    r'956335a61a363693527cb3b434706dc4ef163727';
+    r'd0c531a9132eaf41d65479036552a80dc1e2e625';
 
 /// See also [pingsWithRepliesCount].
 @ProviderFor(pingsWithRepliesCount)

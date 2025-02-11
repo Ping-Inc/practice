@@ -6,7 +6,7 @@ part of 'current_year_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentYearHash() => r'e2c383bf084476f98a1b81584c6d4570ef0d23ee';
+String _$currentYearHash() => r'20b02b2e472048550f1b8746e45503c42aac02d6';
 
 /// See also [currentYear].
 @ProviderFor(currentYear)

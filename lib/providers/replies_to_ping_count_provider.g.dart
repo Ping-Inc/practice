@@ -7,7 +7,7 @@ part of 'replies_to_ping_count_provider.dart';
 // **************************************************************************
 
 String _$repliesToPingCountHash() =>
-    r'2dd9f01a8e6882ee51489b01c6afd088cdf1e442';
+    r'505df4a892c74056fce4c3b7b86536b7534adf4d';
 
 /// Copied from Dart SDK
 class _SystemHash {

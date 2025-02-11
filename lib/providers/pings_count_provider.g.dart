@@ -6,7 +6,7 @@ part of 'pings_count_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pingsCountHash() => r'2eb2598433794ab5cec71f269e4e65dff0b7cfbc';
+String _$pingsCountHash() => r'6f5d42b57084205b96b28fbeec6f32e334f0b88e';
 
 /// See also [pingsCount].
 @ProviderFor(pingsCount)

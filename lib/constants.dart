@@ -20,6 +20,8 @@ const double spacingEight = spacingSeven * goldenRatio;
 const double spacingNine = spacingEight * goldenRatio;
 const double spacingTen = spacingNine * goldenRatio;
 
+const double spacingXSmall = 10;
+const double spacingSmall = 15;
 const double spacingMedium = 30;
 
 const double cornerRadius = spacingFive;

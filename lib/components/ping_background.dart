@@ -10,7 +10,7 @@ class PingBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: themeCardBackgroundBlue,
         borderRadius: BorderRadius.circular(spacingFour),
       ),
       child: child,

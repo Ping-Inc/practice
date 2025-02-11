@@ -6,7 +6,7 @@ part of 'latest_ping_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$latestPingHash() => r'c1b5e91422df20c8a685beb31a6df0256d1f4719';
+String _$latestPingHash() => r'8e2418d5da96aeac2615da06f18e96829c336c18';
 
 /// See also [latestPing].
 @ProviderFor(latestPing)
