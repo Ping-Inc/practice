@@ -50,6 +50,13 @@
 				<string>Any</string>
 			</dict>
 		</dict>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+		 	<string>app-settings</string>
+			<string>Prefs</string>
+			<string>App-Prefs</string>
+			<string>prefs</string>
+		</array>
 		<key>NSUbiquitousKeyValueStore</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>

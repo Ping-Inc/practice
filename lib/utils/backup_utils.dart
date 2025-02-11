@@ -7,32 +7,31 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/repositories/pings_repository.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BackupUtils {
-  static String _downloadHasRun = 'download_has_run';
-
   static Future<void> download() async {
     final directory = await getApplicationDocumentsDirectory();
-
-    if (prefs.getBool(_downloadHasRun) == true) {
-      return;
-    }
 
     try {
       final backups = await IcloudStorageSyncPlatform.instance
           .gather(containerId: iCloudContainerId);
 
       if (backups.isNotEmpty) {
-        backups.forEach((backup) {
-          IcloudStorageSyncPlatform.instance.download(
+        for (final backup in backups) {
+          final destinationFilePath =
+              '${directory.path}/backups/${backup.relativePath}';
+          final file = File(destinationFilePath);
+
+          if (!await file.exists()) {
+            await IcloudStorageSyncPlatform.instance.download(
               containerId: iCloudContainerId,
               relativePath: backup.relativePath,
-              destinationFilePath:
-                  '${directory.path}/backups/${backup.relativePath}');
-        });
+              destinationFilePath: destinationFilePath,
+            );
+          }
+        }
       }
-
-      await prefs.setBool(_downloadHasRun, true);
     } catch (e) {}
   }
 

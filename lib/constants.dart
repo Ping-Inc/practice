@@ -95,9 +95,7 @@ final iCloudContainerId = 'iCloud.pingpractice';
 
 late SharedPreferences prefs;
 const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";
-const String sharedPrefsBackupFrequencyKey =
-    "shared_prefs_backup_frequency_key";
-const String sharedPrefsBackupPathKey = "shared_prefs_backup_path_key";
+
 const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
 const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
 const String sharedPrefsBrowseMode = "shared_prefs_browse_mode";

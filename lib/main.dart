@@ -51,7 +51,7 @@ void main() async {
     await prefs.setString(sharedPrefsBackupSha, generateRandomSha());
   }
 
-  BackupUtils.download();
+  await BackupUtils.download();
 
   runApp(
     ProviderScope(
