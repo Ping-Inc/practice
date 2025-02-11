@@ -3,11 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/ping_cell.dart';
+import 'package:practice/components/ping_focus_list.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/browse_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/providers/browse_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingList extends ConsumerWidget {
@@ -48,10 +51,11 @@ class PingList extends ConsumerWidget {
     }
   }
 
-  Widget pingCell(PingData ping, bool showHeader) {
+  Widget pingCell(PingData ping, bool showHeader,
+      MainAxisAlignment dateTimeAlignment, bool square) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
             padding: EdgeInsets.only(
@@ -63,16 +67,18 @@ class PingList extends ConsumerWidget {
                   SystemText(
                       size: TextSizeEnum.twenty, text: getHeader(ping.time)),
                 Expanded(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                      SystemText(
-                          size: TextSizeEnum.twelve,
-                          text: DateFormat('h:mm a').format(ping.time))
-                    ])),
+                    child: Row(mainAxisAlignment: dateTimeAlignment, children: [
+                  SystemText(
+                      size: TextSizeEnum.twelve,
+                      text: square
+                          ? "${getHeader(ping.time)}, ${DateFormat('h:mm a').format(ping.time)}"
+                          : DateFormat('h:mm a').format(ping.time))
+                ])),
               ],
             )),
-        PingCell(ping: ping)
+        PingCell(
+          ping: ping,
+        )
       ],
     );
   }
@@ -80,48 +86,62 @@ class PingList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<DateTime> headeredDays = List.empty(growable: true);
+    final BrowseEnum browseMode = ref.watch(browseProvider);
 
     return switch (asyncPings) {
       AsyncData(value: final pingsValue) => sliver
-          ? SliverPadding(
-              padding: EdgeInsets.only(
-                  left: spacingMedium,
-                  right: spacingMedium,
-                  top: spacingSix,
-                  bottom: spacingFour), // Add padding here
-              sliver: SliverList.separated(
-                  itemCount: pingsValue.length,
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: spacingFour,
-                      ),
-                  itemBuilder: (context, i) {
-                    final ping = ref.watch(pingProvider(pingsValue[i]));
-                    final show = showHeader(headeredDays, ping.time);
+          ? browseMode == BrowseEnum.focus
+              ? SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: Padding(
+                        padding: EdgeInsets.only(top: spacingMedium),
+                        child: PingFocusList(pings: pingsValue)),
+                  ),
+                )
+              : SliverPadding(
+                  padding: EdgeInsets.only(
+                      left: spacingMedium,
+                      right: spacingMedium,
+                      top: spacingSix,
+                      bottom: spacingFour), // Add padding here
+                  sliver: SliverList.separated(
+                      itemCount: pingsValue.length,
+                      separatorBuilder: (context, index) => SizedBox(
+                            height: spacingFour,
+                          ),
+                      itemBuilder: (context, i) {
+                        final ping = ref.watch(pingProvider(pingsValue[i]));
+                        final show = showHeader(headeredDays, ping.time);
 
-                    if (i == pingsValue.length - 1 &&
-                        pingsValue.length % fetchLimit == 0) {
-                      scroll();
-                    }
+                        if (i == pingsValue.length - 1 &&
+                            pingsValue.length % fetchLimit == 0) {
+                          scroll();
+                        }
 
-                    return pingCell(ping, show);
-                  }))
-          : MainSpacingCell(
-              child: ListView.separated(
-                  itemCount: pingsValue.length,
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: spacingThree,
-                      ),
-                  itemBuilder: (context, i) {
-                    final ping = ref.watch(pingProvider(pingsValue[i]));
-                    final show = showHeader(headeredDays, ping.time);
+                        return pingCell(
+                            ping, show, MainAxisAlignment.end, false);
+                      }))
+          : browseMode == BrowseEnum.focus
+              ? PingFocusList(pings: pingsValue)
+              : MainSpacingCell(
+                  child: ListView.separated(
+                      itemCount: pingsValue.length,
+                      separatorBuilder: (context, index) => SizedBox(
+                            height: spacingThree,
+                          ),
+                      itemBuilder: (context, i) {
+                        final ping = ref.watch(pingProvider(pingsValue[i]));
+                        final show = showHeader(headeredDays, ping.time);
 
-                    if (i == pingsValue.length - 1 &&
-                        pingsValue.length % fetchLimit == 0) {
-                      scroll();
-                    }
+                        if (i == pingsValue.length - 1 &&
+                            pingsValue.length % fetchLimit == 0) {
+                          scroll();
+                        }
 
-                    return pingCell(ping, show);
-                  })),
+                        return pingCell(
+                            ping, show, MainAxisAlignment.end, false);
+                      })),
       AsyncError() => sliver
           ? SliverToBoxAdapter(child: SystemText(text: "Error"))
           : SystemText(text: "Error"),

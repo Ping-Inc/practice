@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/detail_cell.dart';
 import 'package:practice/components/detail_cell_cluster.dart';
-import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/components/main_spacing_cell.dart';
-import 'package:practice/components/ping_cell_new.dart';
+import 'package:practice/components/ping_action_row.dart';
+import 'package:practice/components/ping_cell.dart';
 import 'package:practice/components/repinged_cell.dart';
 import 'package:practice/components/replies_grid.dart';
 import 'package:practice/components/top_nav.dart';
@@ -14,17 +14,11 @@ import 'package:practice/components/traversal_shell.dart';
 import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/filters_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
-import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
-import 'package:practice/providers/ping_provider.dart';
-import 'package:practice/providers/repinged_count_provider.dart';
-import 'package:practice/providers/resonated_pings_count_provider.dart';
-import 'package:practice/providers/resonated_pings_provider.dart';
 import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
@@ -69,7 +63,11 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                  PingCellNew(ping: widget.ping),
+                  PingCell(
+                    ping: widget.ping,
+                    showId: true,
+                    tappable: false,
+                  ),
                   DetailCellCluster(title: "date", children: [
                     DetailCell(
                       title: DateFormat(TimeFilterEnum.dayOfWeek.toDateFormat())
@@ -199,48 +197,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   padding: EdgeInsets.only(top: spacingFour),
                   child: MainSpacingCell(
                       bottomPadding: true,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Center(
-                                    child: HidePingButton(ping: widget.ping))),
-                            Expanded(
-                                flex: 1,
-                                child: Center(
-                                    child: SystemActionImage(
-                                  onTap: () {
-                                    ref
-                                        .read(
-                                            pingProvider(widget.ping).notifier)
-                                        .increaseResonance();
-                                    ref.invalidate(resonatedPingsCountProvider);
-                                    ref.invalidate(resonatedPingsProvider);
-                                    ref.invalidate(
-                                        repingedCountProvider(widget.ping.id!));
-                                  },
-                                  imagePath: 'images/icons/reping.svg',
-                                  height: 22,
-                                  text: 're-ping',
-                                ))),
-                            Expanded(
-                                flex: 1,
-                                child: Center(
-                                    child: SystemActionImage(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NewPingPage(
-                                              replyPing: widget.ping)),
-                                    );
-                                  },
-                                  imagePath: 'images/icons/reply.svg',
-                                  text: 'reply',
-                                  height: 18,
-                                ))),
-                          ]))))
+                      child: PingActionRow(ping: widget.ping))))
         ],
       ),
     ));

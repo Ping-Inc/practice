@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/constants.dart';
+import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/design_system/system_button.dart';
+import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/ping_provider.dart';
+import 'package:practice/providers/repinged_count_provider.dart';
 import 'package:practice/providers/resonated_pings_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
 
@@ -16,48 +16,37 @@ class PingActionRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    PingData reactivePing = ref.watch(pingProvider(ping));
-
-    return Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: spacingFive, vertical: spacingTwo),
-        child: Row(
-          children: [
-            Expanded(
-                child: Row(
-              children: [
-                SystemButton(
-                    onTap: () {
-                      ref.read(pingProvider(ping).notifier).toggleVisibility();
-                    },
-                    icon: reactivePing.hidden
-                        ? PhosphorIcons.eye
-                        : PhosphorIcons.eye_closed,
-                    text: reactivePing.hidden ? "Show" : "Hide"),
-                SizedBox(
-                  width: spacingThree,
-                ),
-                SystemButton(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NewPingPage(replyPing: ping)),
-                      );
-                    },
-                    icon: PhosphorIcons.arrow_arc_left,
-                    text: "Reply"),
-              ],
-            )),
-            SystemButton(
-                onTap: () {
-                  ref.read(pingProvider(ping).notifier).increaseResonance();
-                  ref.invalidate(resonatedPingsCountProvider);
-                  ref.invalidate(resonatedPingsProvider);
-                },
-                icon: PhosphorIcons.sparkle,
-                text: reactivePing.resonantCount.toString()),
-          ],
-        ));
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      Expanded(flex: 1, child: Center(child: HidePingButton(ping: ping))),
+      Expanded(
+          flex: 1,
+          child: Center(
+              child: SystemActionImage(
+            onTap: () {
+              ref.read(pingProvider(ping).notifier).increaseResonance();
+              ref.invalidate(resonatedPingsCountProvider);
+              ref.invalidate(resonatedPingsProvider);
+              ref.invalidate(repingedCountProvider(ping.id!));
+            },
+            imagePath: 'images/icons/reping.svg',
+            height: 22,
+            text: 're-ping',
+          ))),
+      Expanded(
+          flex: 1,
+          child: Center(
+              child: SystemActionImage(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NewPingPage(replyPing: ping)),
+              );
+            },
+            imagePath: 'images/icons/reply.svg',
+            text: 'reply',
+            height: 18,
+          ))),
+    ]);
   }
 }

@@ -14,27 +14,27 @@ extension StringParsing on FiltersEnum {
   String title() {
     switch (this) {
       case FiltersEnum.all_pings:
-        return "All Pings";
+        return "all pings";
       case FiltersEnum.never_visited:
-        return "Never Visited";
+        return "never visited";
       case FiltersEnum.pings_with_replies:
-        return "Pings With Replies";
+        return "pings with replies";
       case FiltersEnum.resonated:
-        return "Re-Pinged";
+        return "re-pinged";
       case FiltersEnum.period_of_day:
-        return "Period of Day";
+        return "period of day";
       case FiltersEnum.day_of_week:
-        return "Day of Week";
+        return "day of week";
       case FiltersEnum.current_month:
-        return "Current Month";
+        return "current month";
       case FiltersEnum.day_of_month:
-        return "Day of Month";
+        return "day of month";
       case FiltersEnum.year:
-        return "Current Year";
+        return "current year";
       case FiltersEnum.one_week_old:
-        return "One Week Old";
+        return "one week old";
       case FiltersEnum.hidden:
-        return "Hidden";
+        return "hidden";
     }
   }
 }
