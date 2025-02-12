@@ -14,24 +14,8 @@ class PingGrid extends StatelessWidget {
   final VoidCallback scroll;
   final bool sliver;
 
-  bool _showHeader(List<DateTime> headeredDays, DateTime pingDateDetailed) {
-    final pingDate = DateTime(
-        pingDateDetailed.year, pingDateDetailed.month, pingDateDetailed.day);
-
-    for (final date in headeredDays) {
-      if (date.year == pingDate.year && date.day == pingDate.day) {
-        return false;
-      }
-    }
-
-    headeredDays.add(pingDate);
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
-    List<DateTime> _headeredDays = List.empty(growable: true);
-
     return sliver
         ? SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -10,16 +10,14 @@ import 'package:practice/components/ping_cell.dart';
 import 'package:practice/components/repinged_cell.dart';
 import 'package:practice/components/replies_grid.dart';
 import 'package:practice/components/top_nav.dart';
-import 'package:practice/components/traversal_shell.dart';
 import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
-import 'package:practice/enums/filters_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
-import 'package:practice/extensions/filters_enum_extensions.dart';
+import 'package:practice/extensions/date_time_extensions.dart';
+import 'package:practice/pages/traversal/traversal_mode_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
-import 'package:practice/providers/unviewed_pings_count_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
 
@@ -41,7 +39,6 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
 
   Future<void> _incrementViewCount() async {
     await PingsRepository.incrementViewCount(widget.ping.id!);
-    ref.invalidate(unviewedPingsCountProvider);
     ref.invalidate(neverVisitedPingsProvider);
   }
 
@@ -77,9 +74,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalShell(
-                                  child: FiltersEnum.day_of_month
-                                      .page(widget.ping.time, false))),
+                              builder: (context) => TraversalModePage(
+                                  inputMode: widget.ping.time.themeMode())),
                         );
                       },
                     ),
@@ -91,9 +87,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalShell(
-                                  child: FiltersEnum.current_month
-                                      .page(widget.ping.time, false))),
+                              builder: (context) => TraversalModePage(
+                                  inputMode: widget.ping.time.themeMode())),
                         );
                       },
                     ),
@@ -106,9 +101,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalShell(
-                                  child: FiltersEnum.day_of_month
-                                      .page(widget.ping.time, false))),
+                              builder: (context) => TraversalModePage(
+                                  inputMode: widget.ping.time.themeMode())),
                         );
                       },
                     ),
@@ -120,9 +114,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalShell(
-                                  child: FiltersEnum.year
-                                      .page(widget.ping.time, false))),
+                              builder: (context) => TraversalModePage(
+                                  inputMode: widget.ping.time.themeMode())),
                         );
                       },
                     )
@@ -141,9 +134,9 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => TraversalShell(
-                                          child: FiltersEnum.period_of_day
-                                              .page(widget.ping.time, false))),
+                                      builder: (context) => TraversalModePage(
+                                          inputMode:
+                                              widget.ping.time.themeMode())),
                                 );
                               },
                             ),
@@ -157,39 +150,6 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                   RepliesGrid(pingId: widget.ping.id!),
                   SizedBox(height: MediaQuery.of(context).padding.bottom)
                 ]))),
-            // Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: Transform(
-            //         transform: Matrix4.identity()
-            //           ..setEntry(3, 2, 0.001) // perspective
-            //           ..rotateX(3.14159), // 180 degrees in radians
-            //         alignment: Alignment.center,
-            //         child: Positioned(
-            //           bottom: 0,
-            //           left: 0,
-            //           right: 0,
-            //           child: Stack(
-            //             children: List.generate(10, (index) {
-            //               return ClipRect(
-            //                 child: Align(
-            //                   alignment: Alignment.bottomCenter,
-            //                   heightFactor: (10 - index) / 10,
-            //                   child: BackdropFilter(
-            //                     filter: ImageFilter.blur(
-            //                       sigmaX: 0,
-            //                       sigmaY: index.toDouble(),
-            //                       tileMode: TileMode.decal,
-            //                     ),
-            //                     child: Container(
-            //                       height: 10,
-            //                       color: Colors.transparent,
-            //                     ),
-            //                   ),
-            //                 ),
-            //               );
-            //             }),
-            //           ),
-            //         )))
           ])),
           Container(
               color: Theme.of(context).scaffoldBackgroundColor,

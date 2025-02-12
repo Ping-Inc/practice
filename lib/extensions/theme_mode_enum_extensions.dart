@@ -1,7 +1,7 @@
 import 'package:practice/enums/theme_mode_enum.dart';
 
 extension StringParsingExtensions on ThemeModeEnum {
-  String toTitle() {
+  String title() {
     switch (this) {
       case ThemeModeEnum.morning:
         return "Morning";

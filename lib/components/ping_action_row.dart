@@ -6,7 +6,6 @@ import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/repinged_count_provider.dart';
-import 'package:practice/providers/resonated_pings_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
 
 class PingActionRow extends ConsumerWidget {
@@ -24,7 +23,6 @@ class PingActionRow extends ConsumerWidget {
               child: SystemActionImage(
             onTap: () {
               ref.read(pingProvider(ping).notifier).increaseResonance();
-              ref.invalidate(resonatedPingsCountProvider);
               ref.invalidate(resonatedPingsProvider);
               ref.invalidate(repingedCountProvider(ping.id!));
             },

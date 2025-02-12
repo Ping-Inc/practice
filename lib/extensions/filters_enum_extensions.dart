@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practice/enums/filters_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
+import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/pages/browse_all_page.dart';
 import 'package:practice/pages/browse_hidden_page.dart';
 import 'package:practice/pages/browse_last_week_page.dart';
@@ -40,46 +41,30 @@ extension StringParsing on FiltersEnum {
 }
 
 extension WidgetParsing on FiltersEnum {
-  Widget page(DateTime time, bool sliver) {
+  Widget page(DateTime time) {
     switch (this) {
       case FiltersEnum.all_pings:
-        return BrowseAllPage(
-          sliver: sliver,
-        );
+        return BrowseAllPage();
       case FiltersEnum.never_visited:
-        return BrowseNeverVisitedPage(
-          sliver: sliver,
-        );
+        return BrowseNeverVisitedPage();
       case FiltersEnum.pings_with_replies:
-        return BrowseRepliedToPage(
-          sliver: sliver,
-        );
+        return BrowseRepliedToPage();
       case FiltersEnum.resonated:
-        return BrowseResonatedPingsPage(
-          sliver: sliver,
-        );
+        return BrowseResonatedPingsPage();
       case FiltersEnum.period_of_day:
-        return BrowseModePage(sliver: sliver, time: time);
+        return BrowseModePage(mode: time.themeMode());
       case FiltersEnum.day_of_week:
-        return BrowseTimePage(
-            sliver: sliver, time: time, timeEnum: TimeFilterEnum.dayOfWeek);
+        return BrowseTimePage(time: time, timeEnum: TimeFilterEnum.dayOfWeek);
       case FiltersEnum.current_month:
-        return BrowseTimePage(
-            sliver: sliver, time: time, timeEnum: TimeFilterEnum.month);
+        return BrowseTimePage(time: time, timeEnum: TimeFilterEnum.month);
       case FiltersEnum.day_of_month:
-        return BrowseTimePage(
-            sliver: sliver, time: time, timeEnum: TimeFilterEnum.dayOfMonth);
+        return BrowseTimePage(time: time, timeEnum: TimeFilterEnum.dayOfMonth);
       case FiltersEnum.year:
-        return BrowseTimePage(
-            sliver: sliver, time: time, timeEnum: TimeFilterEnum.year);
+        return BrowseTimePage(time: time, timeEnum: TimeFilterEnum.year);
       case FiltersEnum.one_week_old:
-        return BrowseLastWeekPage(
-          sliver: sliver,
-        );
+        return BrowseLastWeekPage();
       case FiltersEnum.hidden:
-        return BrowseHiddenPage(
-          sliver: sliver,
-        );
+        return BrowseHiddenPage();
     }
   }
 }

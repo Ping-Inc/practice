@@ -11,7 +11,6 @@ import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/ping_replies_provider.dart';
 import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
-import 'package:practice/providers/replies_to_ping_count_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
 class NewPingButton extends ConsumerStatefulWidget {
@@ -78,8 +77,6 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               });
 
               if (widget.replyPing != null) {
-                ref.invalidate(
-                    repliesToPingCountProvider(widget.replyPing!.id!));
                 ref.invalidate(pingRepliesProvider(widget.replyPing!.id!));
                 context.pop();
               }

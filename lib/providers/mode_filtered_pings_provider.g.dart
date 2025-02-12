@@ -6,7 +6,7 @@ part of 'mode_filtered_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$modeFilteredPingsHash() => r'ab14b5075b1753196fc3094ff263e38ecc8ad1b7';
+String _$modeFilteredPingsHash() => r'4968ebe93a18b87c171a798ab27bbb4ef31c1568';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,10 +31,10 @@ class _SystemHash {
 
 abstract class _$ModeFilteredPings
     extends BuildlessAutoDisposeAsyncNotifier<List<PingData>> {
-  late final DateTime time;
+  late final ThemeModeEnum mode;
 
   FutureOr<List<PingData>> build(
-    DateTime time,
+    ThemeModeEnum mode,
   );
 }
 
@@ -49,10 +49,10 @@ class ModeFilteredPingsFamily extends Family<AsyncValue<List<PingData>>> {
 
   /// See also [ModeFilteredPings].
   ModeFilteredPingsProvider call(
-    DateTime time,
+    ThemeModeEnum mode,
   ) {
     return ModeFilteredPingsProvider(
-      time,
+      mode,
     );
   }
 
@@ -61,7 +61,7 @@ class ModeFilteredPingsFamily extends Family<AsyncValue<List<PingData>>> {
     covariant ModeFilteredPingsProvider provider,
   ) {
     return call(
-      provider.time,
+      provider.mode,
     );
   }
 
@@ -85,9 +85,9 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
     ModeFilteredPings, List<PingData>> {
   /// See also [ModeFilteredPings].
   ModeFilteredPingsProvider(
-    DateTime time,
+    ThemeModeEnum mode,
   ) : this._internal(
-          () => ModeFilteredPings()..time = time,
+          () => ModeFilteredPings()..mode = mode,
           from: modeFilteredPingsProvider,
           name: r'modeFilteredPingsProvider',
           debugGetCreateSourceHash:
@@ -97,7 +97,7 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
           dependencies: ModeFilteredPingsFamily._dependencies,
           allTransitiveDependencies:
               ModeFilteredPingsFamily._allTransitiveDependencies,
-          time: time,
+          mode: mode,
         );
 
   ModeFilteredPingsProvider._internal(
@@ -107,17 +107,17 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.time,
+    required this.mode,
   }) : super.internal();
 
-  final DateTime time;
+  final ThemeModeEnum mode;
 
   @override
   FutureOr<List<PingData>> runNotifierBuild(
     covariant ModeFilteredPings notifier,
   ) {
     return notifier.build(
-      time,
+      mode,
     );
   }
 
@@ -126,13 +126,13 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
     return ProviderOverride(
       origin: this,
       override: ModeFilteredPingsProvider._internal(
-        () => create()..time = time,
+        () => create()..mode = mode,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        time: time,
+        mode: mode,
       ),
     );
   }
@@ -145,13 +145,13 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
   @override
   bool operator ==(Object other) {
-    return other is ModeFilteredPingsProvider && other.time == time;
+    return other is ModeFilteredPingsProvider && other.mode == mode;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, time.hashCode);
+    hash = _SystemHash.combine(hash, mode.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -161,8 +161,8 @@ class ModeFilteredPingsProvider extends AutoDisposeAsyncNotifierProviderImpl<
 // ignore: unused_element
 mixin ModeFilteredPingsRef
     on AutoDisposeAsyncNotifierProviderRef<List<PingData>> {
-  /// The parameter `time` of this provider.
-  DateTime get time;
+  /// The parameter `mode` of this provider.
+  ThemeModeEnum get mode;
 }
 
 class _ModeFilteredPingsProviderElement
@@ -171,7 +171,7 @@ class _ModeFilteredPingsProviderElement
   _ModeFilteredPingsProviderElement(super.provider);
 
   @override
-  DateTime get time => (origin as ModeFilteredPingsProvider).time;
+  ThemeModeEnum get mode => (origin as ModeFilteredPingsProvider).mode;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
