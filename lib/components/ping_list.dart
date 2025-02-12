@@ -7,6 +7,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
+import 'package:practice/enums/font_enum.dart';
 import 'package:practice/providers/browse_provider.dart';
 
 class PingList extends ConsumerWidget {
@@ -24,8 +25,11 @@ class PingList extends ConsumerWidget {
           ? SliverToBoxAdapter(
               child: Center(
                   child: Padding(
-                      padding: EdgeInsets.only(top: spacingSix),
-                      child: SystemText(text: 'No pings match this filter'))),
+                      padding: EdgeInsets.only(top: spacingMedium),
+                      child: SystemText(
+                        text: 'No pings match this filter',
+                        font: FontEnum.sfmono,
+                      ))),
             )
           : browseMode == BrowseEnum.focus
               ? SliverFillRemaining(
