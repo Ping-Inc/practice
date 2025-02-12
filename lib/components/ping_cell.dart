@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
@@ -21,14 +20,12 @@ class PingCell extends ConsumerWidget {
       required this.inputPing,
       this.showDate = false,
       this.showId = false,
-      this.tappable = true,
-      this.showActions = false});
+      this.tappable = true});
 
   final PingData inputPing;
   final bool showDate;
   final bool showId;
   final bool tappable;
-  final bool showActions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -68,10 +65,6 @@ class PingCell extends ConsumerWidget {
                         builder: (context) => DetailsPage(ping: ping)),
                   )
               : null),
-      if (showActions)
-        Padding(
-            padding: EdgeInsets.only(top: spacingMedium),
-            child: PingActionRow(ping: ping))
     ]);
   }
 }
