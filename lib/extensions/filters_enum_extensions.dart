@@ -21,7 +21,7 @@ extension StringParsing on FiltersEnum {
       case FiltersEnum.pings_with_replies:
         return "pings with replies";
       case FiltersEnum.resonated:
-        return "re-pinged";
+        return "re-pings";
       case FiltersEnum.period_of_day:
         return "period of day";
       case FiltersEnum.day_of_week:
@@ -33,7 +33,7 @@ extension StringParsing on FiltersEnum {
       case FiltersEnum.year:
         return "current year";
       case FiltersEnum.one_week_old:
-        return "one week old";
+        return "last week";
       case FiltersEnum.hidden:
         return "hidden";
     }

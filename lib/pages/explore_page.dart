@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -36,8 +38,9 @@ class ExplorePage extends StatelessWidget {
               tabs: tabs.map((tab) {
                 return Text(
                   tab,
-                  style:
-                      TextStyle(fontSize: TextSizeEnum.twentyNine.toFontSize()),
+                  style: TextStyle(
+                      fontSize: TextSizeEnum.twentyNine.toFontSize(),
+                      fontFamily: FontEnum.sfpro.toFontFamily()),
                 );
               }).toList(),
             ),
