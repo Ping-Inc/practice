@@ -17,22 +17,15 @@ class ExplorePage extends StatelessWidget {
   final List<Widget> children;
 
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            floating: true,
-            pinned: false,
-            snap: true,
-            backgroundColor: Theme.of(context)
-                .scaffoldBackgroundColor, // Make the background transparent
-            toolbarHeight: spacingFour, // Remove the unused top area
-            bottom: TabBar(
+    return Column(children: [
+      Container(
+          padding: EdgeInsets.symmetric(vertical: spacingSmall),
+          child: TabBar(
               controller: tabController,
               indicator: BoxDecoration(),
               isScrollable: true,
-              dividerColor: Colors.transparent, // Remove the divider color
-              splashFactory: NoSplash.splashFactory, // Remove splash effect
+              splashFactory: NoSplash.splashFactory,
+              dividerColor: Colors.transparent,
               labelColor: Theme.of(context).colorScheme.primary,
               unselectedLabelColor: Theme.of(context).colorScheme.secondary,
               tabs: tabs.map((tab) {
@@ -42,15 +35,8 @@ class ExplorePage extends StatelessWidget {
                       fontSize: TextSizeEnum.twentyNine.toFontSize(),
                       fontFamily: FontEnum.sfpro.toFontFamily()),
                 );
-              }).toList(),
-            ),
-          ),
-        ];
-      },
-      body: TabBarView(
-        controller: tabController,
-        children: children,
-      ),
-    );
+              }).toList())),
+      Expanded(child: TabBarView(controller: tabController, children: children))
+    ]);
   }
 }

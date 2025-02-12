@@ -49,13 +49,9 @@ class _TraversalYearPagePostFetchState
             return filter.toString();
           }).toList(),
           children: widget.years.map((filter) {
-            return CustomScrollView(
-              slivers: [
-                BrowseTimePage(
-                  timeEnum: TimeFilterEnum.year,
-                  time: DateTime(filter),
-                )
-              ],
+            return BrowseTimePage(
+              timeEnum: TimeFilterEnum.year,
+              time: DateTime(filter),
             );
           }).toList(),
         ),

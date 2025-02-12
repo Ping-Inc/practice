@@ -60,13 +60,9 @@ class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
             DateTime.november,
             DateTime.december
           ].map((filter) {
-            return CustomScrollView(
-              slivers: [
-                BrowseTimePage(
-                  timeEnum: TimeFilterEnum.month,
-                  time: DateTime(DateTime.now().year, filter),
-                )
-              ],
+            return BrowseTimePage(
+              timeEnum: TimeFilterEnum.month,
+              time: DateTime(DateTime.now().year, filter),
             );
           }).toList(),
         ),

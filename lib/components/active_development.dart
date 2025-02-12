@@ -6,7 +6,7 @@ import 'package:practice/enums/font_enum.dart';
 class ActiveDevelopment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(spacingEight),
+        padding: EdgeInsets.symmetric(horizontal: spacingEight),
         child: Center(
           child: SystemText(
               align: TextAlign.center,

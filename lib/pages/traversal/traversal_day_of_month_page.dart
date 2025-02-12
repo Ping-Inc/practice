@@ -79,13 +79,9 @@ class _TraversalDayOfMonthState extends ConsumerState<TraversalDayOfMonthPage>
             return filter.toString();
           }).toList(),
           children: daysOfMonth.map((filter) {
-            return CustomScrollView(
-              slivers: [
-                BrowseTimePage(
-                  timeEnum: TimeFilterEnum.dayOfMonth,
-                  time: DateTime(DateTime.now().year, 1, filter),
-                )
-              ],
+            return BrowseTimePage(
+              timeEnum: TimeFilterEnum.dayOfMonth,
+              time: DateTime(DateTime.now().year, 1, filter),
             );
           }).toList(),
         ),

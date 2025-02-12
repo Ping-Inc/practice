@@ -12,6 +12,7 @@ class PingFocusList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      reverse: true,
       controller: PageController(viewportFraction: 0.9),
       itemCount: pings.length,
       itemBuilder: (context, i) {

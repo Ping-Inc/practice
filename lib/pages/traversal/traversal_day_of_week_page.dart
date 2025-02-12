@@ -55,14 +55,10 @@ class _TraversalDayOfWeekState extends ConsumerState<TraversalDayOfWeekPage>
             DateTime.saturday,
             DateTime.sunday
           ].map((filter) {
-            return CustomScrollView(
-              slivers: [
-                BrowseTimePage(
-                  timeEnum: TimeFilterEnum.dayOfWeek,
-                  time: DateTime.now()
-                      .add(Duration(days: filter - DateTime.now().weekday)),
-                )
-              ],
+            return BrowseTimePage(
+              timeEnum: TimeFilterEnum.dayOfWeek,
+              time: DateTime.now()
+                  .add(Duration(days: filter - DateTime.now().weekday)),
             );
           }).toList(),
         ),

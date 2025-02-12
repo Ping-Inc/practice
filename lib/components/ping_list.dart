@@ -22,31 +22,22 @@ class PingList extends ConsumerWidget {
 
     return switch (asyncPings) {
       AsyncData(value: final pingsValue) => pingsValue.isEmpty
-          ? SliverToBoxAdapter(
-              child: Center(
-                  child: Padding(
-                      padding: EdgeInsets.only(top: spacingMedium),
-                      child: SystemText(
-                        text: 'No pings match this filter',
-                        font: FontEnum.sfmono,
-                      ))),
-            )
+          ? Center(
+              child: SystemText(
+              text: 'No pings match this filter',
+              font: FontEnum.sfmono,
+            ))
           : browseMode == BrowseEnum.focus
-              ? SliverFillRemaining(
-                  child: Padding(
-                      padding: EdgeInsets.only(top: spacingMedium),
-                      child: PingFocusList(pings: pingsValue, scroll: scroll)),
-                )
-              : SliverPadding(
-                  padding: EdgeInsets.only(
-                      left: spacingMedium,
-                      right: spacingMedium,
-                      top: spacingSix,
-                      bottom: spacingFour), // Add padding here
-                  sliver: PingGrid(
-                      pings: pingsValue, scroll: scroll, sliver: true)),
-      AsyncError() => SliverToBoxAdapter(child: SystemText(text: "Error")),
-      _ => SliverToBoxAdapter(child: SystemLoader())
+              ? Padding(
+                  padding: EdgeInsets.only(top: spacingMedium),
+                  child: PingFocusList(pings: pingsValue, scroll: scroll))
+              : Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: spacingMedium,
+                  ), // Add padding here
+                  child: PingGrid(pings: pingsValue, scroll: scroll)),
+      AsyncError() => SystemText(text: "Error"),
+      _ => SystemLoader()
     };
   }
 }

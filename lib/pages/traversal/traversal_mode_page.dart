@@ -46,9 +46,7 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
             return filter.title();
           }).toList(),
           children: ThemeModeEnum.values.map((filter) {
-            return CustomScrollView(
-              slivers: [BrowseModePage(mode: filter)],
-            );
+            return BrowseModePage(mode: filter);
           }).toList(),
         ),
       ),

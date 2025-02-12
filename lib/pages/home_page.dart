@@ -58,65 +58,58 @@ class _ExplorePageState extends ConsumerState<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: DefaultTabController(
-                length: FiltersEnum.values.length,
-                child: ExplorePage(
-                  tabController: _tabController,
-                  tabs: FiltersEnum.values.map((filter) {
-                    return filter.title();
-                  }).toList(),
-                  children: FiltersEnum.values.map((filter) {
-                    return CustomScrollView(
-                      slivers: [
-                        filter.page(DateTime.now()),
-                      ],
-                    );
-                  }).toList(),
-                ),
+        body: SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: DefaultTabController(
+              length: FiltersEnum.values.length,
+              child: ExplorePage(
+                tabController: _tabController,
+                tabs: FiltersEnum.values.map((filter) {
+                  return filter.title();
+                }).toList(),
+                children: FiltersEnum.values.map((filter) {
+                  return filter.page(DateTime.now());
+                }).toList(),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SystemTap(
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SearchPage()),
-                        ),
-                    child: SizedBox(
-                        height: tapTarget,
-                        width: tapTarget,
-                        child: Center(
-                            child: Icon(PhosphorIcons.magnifying_glass,
-                                size: 34)))),
-                SystemTap(
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NewPingPage()),
-                        ),
-                    child: Icon(PhosphorIcons.circle_fill, size: 85)),
-                SystemTap(
-                    onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsPage()),
-                        ),
-                    child: SizedBox(
-                        height: tapTarget,
-                        width: tapTarget,
-                        child:
-                            Center(child: Icon(PhosphorIcons.gear, size: 34)))),
-              ],
-            )
-          ],
-        ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SystemTap(
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      ),
+                  child: SizedBox(
+                      height: tapTarget,
+                      width: tapTarget,
+                      child: Center(
+                          child:
+                              Icon(PhosphorIcons.magnifying_glass, size: 34)))),
+              SystemTap(
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NewPingPage()),
+                      ),
+                  child: Icon(PhosphorIcons.circle_fill, size: 85)),
+              SystemTap(
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SettingsPage()),
+                      ),
+                  child: SizedBox(
+                      height: tapTarget,
+                      width: tapTarget,
+                      child:
+                          Center(child: Icon(PhosphorIcons.gear, size: 34)))),
+            ],
+          )
+        ],
       ),
-    );
+    ));
   }
 }
