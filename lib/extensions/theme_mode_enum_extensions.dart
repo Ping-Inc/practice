@@ -4,13 +4,13 @@ extension StringParsingExtensions on ThemeModeEnum {
   String title() {
     switch (this) {
       case ThemeModeEnum.morning:
-        return "Morning";
+        return "morning";
       case ThemeModeEnum.afternoon:
-        return "Afternoon";
+        return "afternoon";
       case ThemeModeEnum.evening:
-        return "Evening";
+        return "evening";
       case ThemeModeEnum.night:
-        return "Night";
+        return "night";
     }
   }
 }

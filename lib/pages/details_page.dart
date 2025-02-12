@@ -16,7 +16,10 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
+import 'package:practice/pages/traversal/traversal_day_of_month_page.dart';
+import 'package:practice/pages/traversal/traversal_day_of_week_page.dart';
 import 'package:practice/pages/traversal/traversal_mode_page.dart';
+import 'package:practice/pages/traversal/traversal_month_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
@@ -74,8 +77,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalModePage(
-                                  inputMode: widget.ping.time.themeMode())),
+                              builder: (context) => TraversalDayOfWeekPage(
+                                  dayOfWeek: widget.ping.time.weekday)),
                         );
                       },
                     ),
@@ -87,8 +90,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalModePage(
-                                  inputMode: widget.ping.time.themeMode())),
+                              builder: (context) => TraversalMonthPage(
+                                  month: widget.ping.time.month)),
                         );
                       },
                     ),
@@ -101,8 +104,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalModePage(
-                                  inputMode: widget.ping.time.themeMode())),
+                              builder: (context) => TraversalDayOfMonthPage(
+                                  dayOfMonth: widget.ping.time.day)),
                         );
                       },
                     ),

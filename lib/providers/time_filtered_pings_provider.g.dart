@@ -6,7 +6,7 @@ part of 'time_filtered_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timeFilteredPingsHash() => r'b9991e3cc643706e31e5bebc82287eda4ce14266';
+String _$timeFilteredPingsHash() => r'c199ba2e83bdedfea8a600b973d98fd97562f6df';
 
 /// Copied from Dart SDK
 class _SystemHash {

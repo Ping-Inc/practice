@@ -4,6 +4,7 @@ import 'package:practice/enums/theme_mode_enum.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/browse_mode_page.dart';
 import 'package:practice/pages/explore_page.dart';
+import 'package:practice/pages/traversal/traversal_scaffold.dart';
 
 class TraversalModePage extends ConsumerStatefulWidget {
   const TraversalModePage({super.key, required this.inputMode});
@@ -36,8 +37,7 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
+    return TraversalScaffold(
       child: DefaultTabController(
         length: ThemeModeEnum.values.length,
         child: ExplorePage(
@@ -52,6 +52,6 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
           }).toList(),
         ),
       ),
-    ));
+    );
   }
 }

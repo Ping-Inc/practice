@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/time_filter_enum.dart';
-import 'package:practice/providers/time_filter_increment_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,22 +11,20 @@ class TimeFilteredPings extends _$TimeFilteredPings {
   @override
   Future<List<PingData>> build(
       TimeFilterEnum timeFilter, DateTime currentTime) async {
-    final time = ref.watch(timeFilterIncrementProvider(currentTime));
-
     late final pingsList;
 
     switch (timeFilter) {
       case TimeFilterEnum.year:
-        pingsList = await PingsRepository.fetchYear(time);
+        pingsList = await PingsRepository.fetchYear(currentTime);
         break;
       case TimeFilterEnum.month:
-        pingsList = await PingsRepository.fetchMonth(time);
+        pingsList = await PingsRepository.fetchMonth(currentTime);
         break;
       case TimeFilterEnum.dayOfWeek:
-        pingsList = await PingsRepository.fetchDayOfWeek(time);
+        pingsList = await PingsRepository.fetchDayOfWeek(currentTime);
         break;
       case TimeFilterEnum.dayOfMonth:
-        pingsList = await PingsRepository.fetchDayOfMonth(time);
+        pingsList = await PingsRepository.fetchDayOfMonth(currentTime);
         break;
     }
 
@@ -35,8 +32,6 @@ class TimeFilteredPings extends _$TimeFilteredPings {
   }
 
   Future<void> scroll() async {
-    final time = ref.read(timeFilterIncrementProvider(currentTime));
-
     final pings = await future;
 
     if (pings.isNotEmpty) {
@@ -46,20 +41,20 @@ class TimeFilteredPings extends _$TimeFilteredPings {
 
       switch (timeFilter) {
         case TimeFilterEnum.year:
-          pingsList =
-              await PingsRepository.fetchYearBeforeTime(lastPing.time, time);
+          pingsList = await PingsRepository.fetchYearBeforeTime(
+              lastPing.time, currentTime);
           break;
         case TimeFilterEnum.month:
-          pingsList =
-              await PingsRepository.fetchMonthBeforeTime(lastPing.time, time);
+          pingsList = await PingsRepository.fetchMonthBeforeTime(
+              lastPing.time, currentTime);
           break;
         case TimeFilterEnum.dayOfWeek:
           pingsList = await PingsRepository.fetchDayOfWeekBeforeTime(
-              lastPing.time, time);
+              lastPing.time, currentTime);
           break;
         case TimeFilterEnum.dayOfMonth:
           pingsList = await PingsRepository.fetchDayOfMonthBeforeTime(
-              lastPing.time, time);
+              lastPing.time, currentTime);
           break;
       }
 
