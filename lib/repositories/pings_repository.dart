@@ -29,116 +29,13 @@ class PingsRepository {
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
-  static Future<int> countReplies() async {
-    final result = await db.rawQuery(
-        'SELECT count(*) FROM pings WHERE id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL) AND hidden = 0');
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countUnviewed() async {
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE view_count = 0 AND hidden = 0');
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countHidden() async {
-    final result = await db
-        .rawQuery('SELECT COUNT(id) as count FROM pings WHERE hidden = 1');
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countResonated() async {
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE resonant_count > 0 AND hidden = 0');
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countLastWeek() async {
-    // Calculate the start and end of the last week (Sunday to Saturday)
-    final currentDate = DateTime.now();
-
-    DateTime endOfLastWeek =
-        currentDate.subtract(Duration(days: currentDate.weekday));
-    DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
-
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ? AND hidden = 0',
-        [
-          startOfLastWeek.millisecondsSinceEpoch,
-          endOfLastWeek.millisecondsSinceEpoch
-        ]);
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countMonth(DateTime monthTime) async {
-    final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
-    final endOfMonth =
-        DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
-
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ? AND hidden = 0',
-        [
-          startOfMonth.millisecondsSinceEpoch,
-          endOfMonth.millisecondsSinceEpoch
-        ]);
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countYear(DateTime yearTime) async {
-    final startOfYear = DateTime(yearTime.year, 1, 1);
-    final endOfYear = DateTime(yearTime.year, 12, 31, 23, 59, 59);
-
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE time >= ? AND time <= ? AND hidden = 0',
-        [startOfYear.millisecondsSinceEpoch, endOfYear.millisecondsSinceEpoch]);
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countDayOfWeek(DateTime dayOfWeekTime) async {
-    final dayOfWeek = dayOfWeekTime.weekday;
-
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE strftime("%w", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
-        [(dayOfWeek % 7).toString()]);
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countDayOfMonth(DateTime dayOfMonthTime) async {
-    final dayOfMonth = dayOfMonthTime.day;
-
-    final result = await db.rawQuery(
-        'SELECT COUNT(id) as count FROM pings WHERE strftime("%d", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
-        [dayOfMonth.toString().padLeft(2, '0')]);
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
-  static Future<int> countHourRangeBeforeTime(
-      int startHour, int endHour) async {
-    if (startHour > endHour) {
-      final count1 = await db.rawQuery(
-          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") >= ? AND hidden = 0',
-          [startHour.toString().padLeft(2, '0')]);
-
-      final count2 = await db.rawQuery(
-          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") <= ? AND hidden = 0',
-          [endHour.toString().padLeft(2, '0')]);
-
-      return (Sqflite.firstIntValue(count1) ?? 0) +
-          (Sqflite.firstIntValue(count2) ?? 0);
-    } else {
-      final result = await db.rawQuery(
-          'SELECT COUNT(id) as count FROM pings WHERE strftime("%H", time / 1000, "unixepoch") BETWEEN ? AND ? AND hidden = 0',
-          [
-            startHour.toString().padLeft(2, '0'),
-            endHour.toString().padLeft(2, '0')
-          ]);
-
-      return Sqflite.firstIntValue(result) ?? 0;
-    }
-  }
-
   static Future<List<Map<String, Object?>>> latest() async {
     return db.query('pings', orderBy: 'time desc', limit: 1);
+  }
+
+  static Future<List<Map<String, Object?>>> fetchYears() async {
+    return db.rawQuery(
+        'SELECT DISTINCT strftime("%Y", datetime(time / 1000, "unixepoch")) as year FROM pings ORDER BY year DESC');
   }
 
   static Future<List<Map<String, Object?>>> fetchAll() async {

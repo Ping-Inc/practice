@@ -20,6 +20,7 @@ import 'package:practice/pages/traversal/traversal_day_of_month_page.dart';
 import 'package:practice/pages/traversal/traversal_day_of_week_page.dart';
 import 'package:practice/pages/traversal/traversal_mode_page.dart';
 import 'package:practice/pages/traversal/traversal_month_page.dart';
+import 'package:practice/pages/traversal/traversal_year_page.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/repositories/pings_repository.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
@@ -117,8 +118,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TraversalModePage(
-                                  inputMode: widget.ping.time.themeMode())),
+                              builder: (context) => TraversalYearPage(
+                                  year: widget.ping.time.year)),
                         );
                       },
                     )

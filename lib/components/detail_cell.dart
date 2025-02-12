@@ -11,10 +11,10 @@ class DetailCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(right: spacingFive),
-        child: SystemTap(
-            onTap: onClick,
+    return SystemTap(
+        onTap: onClick,
+        child: Padding(
+            padding: EdgeInsets.only(right: spacingFive),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
