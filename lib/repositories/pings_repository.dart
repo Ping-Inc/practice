@@ -156,18 +156,16 @@ class PingsRepository {
 
   static Future<List<Map<String, Object?>>> fetchMonth(
       DateTime monthTime) async {
-    final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
-    final endOfMonth =
-        DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
+    final month = monthTime.month;
 
-    return db.query('pings',
-        where: 'time >= ? AND time <= ? AND hidden = 0',
-        whereArgs: [
-          startOfMonth.millisecondsSinceEpoch,
-          endOfMonth.millisecondsSinceEpoch
-        ],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where:
+          'strftime("%m", datetime(time / 1000, "unixepoch")) = ? AND hidden = 0',
+      whereArgs: [month.toString().padLeft(2, '0')],
+      orderBy: 'time desc',
+      limit: fetchLimit,
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchYear(DateTime yearTime) async {
@@ -348,17 +346,13 @@ class PingsRepository {
   }
 
   static Future<List<Map<String, Object?>>> fetchMonthBeforeTime(
-      DateTime time, DateTime monthTime) async {
-    final startOfMonth = DateTime(monthTime.year, monthTime.month, 1);
-    final endOfMonth =
-        DateTime(monthTime.year, monthTime.month + 1, 0, 23, 59, 59);
-
+      DateTime time, int month) async {
     return db.query(
       'pings',
-      where: 'time >= ? AND time <= ? AND time < ? AND hidden = 0',
+      where:
+          'strftime("%m", datetime(time / 1000, "unixepoch")) = ? AND time < ? AND hidden = 0',
       whereArgs: [
-        startOfMonth.millisecondsSinceEpoch,
-        endOfMonth.millisecondsSinceEpoch,
+        month.toString().padLeft(2, '0'),
         time.millisecondsSinceEpoch
       ],
       orderBy: 'time desc',

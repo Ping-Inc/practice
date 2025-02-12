@@ -46,7 +46,7 @@ class TimeFilteredPings extends _$TimeFilteredPings {
           break;
         case TimeFilterEnum.month:
           pingsList = await PingsRepository.fetchMonthBeforeTime(
-              lastPing.time, currentTime);
+              lastPing.time, currentTime.month);
           break;
         case TimeFilterEnum.dayOfWeek:
           pingsList = await PingsRepository.fetchDayOfWeekBeforeTime(
