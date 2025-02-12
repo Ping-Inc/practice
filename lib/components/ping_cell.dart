@@ -12,7 +12,6 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/ping_provider.dart';
-import 'package:practice/utils/date_format_utils.dart';
 
 class PingCell extends ConsumerWidget {
   const PingCell(

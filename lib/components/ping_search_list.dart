@@ -27,7 +27,7 @@ class PingSearchList extends ConsumerWidget {
               ref.read(pingsProvider.notifier).scroll();
             }
 
-            return PingCell(inputPing: ping, showDate: true);
+            return PingCell(inputPing: ping);
           },
         ),
       AsyncError() => SystemText(text: "Error"),
