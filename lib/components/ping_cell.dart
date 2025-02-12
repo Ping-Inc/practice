@@ -18,12 +18,10 @@ class PingCell extends ConsumerWidget {
   const PingCell(
       {super.key,
       required this.inputPing,
-      this.showDate = false,
       this.showId = false,
       this.tappable = true});
 
   final PingData inputPing;
-  final bool showDate;
   final bool showId;
   final bool tappable;
 
@@ -32,10 +30,6 @@ class PingCell extends ConsumerWidget {
     final ping = ref.watch(pingProvider(inputPing));
 
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      if (showDate)
-        Padding(
-            padding: EdgeInsets.only(bottom: spacingSmall),
-            child: SystemText(text: DateFormatUtils.formatForPing(ping.time))),
       SystemTap(
           child: PingBackground(
               child: Padding(
