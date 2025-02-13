@@ -65,10 +65,9 @@ class _ExplorePageState extends ConsumerState<HomePage>
     return Scaffold(
         body: SafeArea(
       child: Stack(children: [
-        Column(children: [
-          Expanded(
-            child: Stack(children: [
-              DefaultTabController(
+        Padding(
+            padding: EdgeInsets.only(bottom: pingButtonSize),
+            child: DefaultTabController(
                 length: FiltersEnum.values.length,
                 child: ExplorePage(
                   tabController: _tabController,
@@ -78,71 +77,71 @@ class _ExplorePageState extends ConsumerState<HomePage>
                   children: FiltersEnum.values.map((filter) {
                     return filter.page(DateTime.now());
                   }).toList(),
-                ),
-              ),
-              Fade()
-            ]),
-          ),
-          GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onHorizontalDragUpdate: (details) {
-                if (details.primaryDelta != null &&
-                    details.primaryDelta!.abs() > 8) {
-                  final browseNotifier = ref.read(browseTempProvider.notifier);
-                  final currentMode = ref.read(browseTempProvider);
+                ))),
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onHorizontalDragUpdate: (details) {
+                  if (details.primaryDelta != null &&
+                      details.primaryDelta!.abs() > 8) {
+                    final browseNotifier =
+                        ref.read(browseTempProvider.notifier);
+                    final currentMode = ref.read(browseTempProvider);
 
-                  if (details.primaryDelta! > 0 &&
-                      (currentMode == null ||
-                          currentMode == BrowseEnum.focus)) {
-                    HapticFeedback.lightImpact();
-                    browseNotifier.setMode(BrowseEnum.grid);
-                  } else if (details.primaryDelta! < 0 &&
-                      (currentMode == null || currentMode == BrowseEnum.grid)) {
-                    HapticFeedback.lightImpact();
-                    browseNotifier.setMode(BrowseEnum.focus);
+                    if (details.primaryDelta! > 0 &&
+                        (currentMode == null ||
+                            currentMode == BrowseEnum.focus)) {
+                      HapticFeedback.lightImpact();
+                      browseNotifier.setMode(BrowseEnum.grid);
+                    } else if (details.primaryDelta! < 0 &&
+                        (currentMode == null ||
+                            currentMode == BrowseEnum.grid)) {
+                      HapticFeedback.lightImpact();
+                      browseNotifier.setMode(BrowseEnum.focus);
+                    }
                   }
-                }
-              },
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SystemTap(
-                        onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchPage()),
-                            ),
-                        child: SizedBox(
-                            height: tapTarget,
-                            width: tapTarget,
-                            child: Center(
-                                child: Icon(PhosphorIcons.magnifying_glass,
-                                    size: 34)))),
-                    SystemTap(
-                        onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NewPingPage()),
-                            ),
-                        child: Icon(PhosphorIcons.circle_fill,
-                            size: pingButtonSize)),
-                    SystemTap(
-                        onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SettingsPage()),
-                            ),
-                        child: SizedBox(
-                            height: tapTarget,
-                            width: tapTarget,
-                            child: Center(
-                                child: Icon(PhosphorIcons.gear, size: 34)))),
-                  ],
-                )
-              ]))
-        ]),
+                },
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  Fade(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SystemTap(
+                          onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchPage()),
+                              ),
+                          child: SizedBox(
+                              height: tapTarget,
+                              width: tapTarget,
+                              child: Center(
+                                  child: Icon(PhosphorIcons.magnifying_glass,
+                                      size: 34)))),
+                      SystemTap(
+                          onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NewPingPage()),
+                              ),
+                          child: Icon(PhosphorIcons.circle_fill,
+                              size: pingButtonSize)),
+                      SystemTap(
+                          onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingsPage()),
+                              ),
+                          child: SizedBox(
+                              height: tapTarget,
+                              width: tapTarget,
+                              child: Center(
+                                  child: Icon(PhosphorIcons.gear, size: 34)))),
+                    ],
+                  )
+                ]))),
         Dial()
       ]),
     ));

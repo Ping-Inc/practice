@@ -14,7 +14,7 @@ class Fade extends StatelessWidget {
         child: Align(
             alignment: topDown ? Alignment.topCenter : Alignment.bottomCenter,
             child: Container(
-              height: 70,
+              height: fadeHeight,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
