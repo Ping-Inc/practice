@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/dial.dart';
+import 'package:practice/components/fade.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
@@ -66,18 +67,21 @@ class _ExplorePageState extends ConsumerState<HomePage>
       child: Stack(children: [
         Column(children: [
           Expanded(
-            child: DefaultTabController(
-              length: FiltersEnum.values.length,
-              child: ExplorePage(
-                tabController: _tabController,
-                tabs: FiltersEnum.values.map((filter) {
-                  return filter.title();
-                }).toList(),
-                children: FiltersEnum.values.map((filter) {
-                  return filter.page(DateTime.now());
-                }).toList(),
+            child: Stack(children: [
+              DefaultTabController(
+                length: FiltersEnum.values.length,
+                child: ExplorePage(
+                  tabController: _tabController,
+                  tabs: FiltersEnum.values.map((filter) {
+                    return filter.title();
+                  }).toList(),
+                  children: FiltersEnum.values.map((filter) {
+                    return filter.page(DateTime.now());
+                  }).toList(),
+                ),
               ),
-            ),
+              Fade()
+            ]),
           ),
           GestureDetector(
               behavior: HitTestBehavior.opaque,

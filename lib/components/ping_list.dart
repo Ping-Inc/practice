@@ -30,9 +30,7 @@ class PingList extends ConsumerWidget {
               font: FontEnum.sfmono,
             ))
           : browseMode == BrowseEnum.focus
-              ? Padding(
-                  padding: EdgeInsets.only(top: spacingXSmall),
-                  child: PingFocusList(pings: pingsValue, scroll: scroll))
+              ? PingFocusList(pings: pingsValue, scroll: scroll)
               : Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: spacingMedium,
