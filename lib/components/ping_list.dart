@@ -9,6 +9,7 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/providers/browse_provider.dart';
+import 'package:practice/providers/browse_temp_provider.dart';
 
 class PingList extends ConsumerWidget {
   const PingList({super.key, required this.scroll, required this.asyncPings});
@@ -18,7 +19,8 @@ class PingList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final BrowseEnum browseMode = ref.watch(browseProvider);
+    final BrowseEnum browseMode =
+        ref.watch(browseTempProvider) ?? ref.watch(browseProvider);
 
     return switch (asyncPings) {
       AsyncData(value: final pingsValue) => pingsValue.isEmpty
@@ -29,7 +31,7 @@ class PingList extends ConsumerWidget {
             ))
           : browseMode == BrowseEnum.focus
               ? Padding(
-                  padding: EdgeInsets.only(top: spacingSmall),
+                  padding: EdgeInsets.only(top: spacingXSmall),
                   child: PingFocusList(pings: pingsValue, scroll: scroll))
               : Padding(
                   padding: EdgeInsets.symmetric(

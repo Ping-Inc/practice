@@ -24,6 +24,9 @@ const double spacingXSmall = 10;
 const double spacingSmall = 15;
 const double spacingMedium = 30;
 
+const double pingButtonSize = 85;
+const double modeDialHeight = 20;
+
 const double cornerRadius = spacingFive;
 
 const Duration duration = Duration(milliseconds: 200);

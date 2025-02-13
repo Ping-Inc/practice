@@ -16,7 +16,9 @@ class Browse extends _$Browse {
   }
 
   void setMode(BrowseEnum browse) {
-    prefs.setString(sharedPrefsBrowseMode, browse.toString());
-    state = browse;
+    if (state != browse) {
+      prefs.setString(sharedPrefsBrowseMode, browse.toString());
+      state = browse;
+    }
   }
 }
