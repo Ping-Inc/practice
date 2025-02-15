@@ -12,7 +12,13 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<Database> initDatabase() async {
+Future<void> setBackupSha() async {
+  if (await prefs.getString(sharedPrefsBackupSha) == null) {
+    await prefs.setString(sharedPrefsBackupSha, generateRandomSha());
+  }
+}
+
+Future<Database> _initDatabase() async {
   // count the number of scripts to define the version of the database
   int nbrMigrationScripts = migrationScripts.length;
   return openDatabase(
@@ -44,14 +50,10 @@ Future<Database> initDatabase() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await initializeSharedPrefs();
-  db = await initDatabase();
+  await Future.wait(
+      [initializeSharedPrefs(), initializeDb(), BackupUtils.download()]);
 
-  if (await prefs.getString(sharedPrefsBackupSha) == null) {
-    await prefs.setString(sharedPrefsBackupSha, generateRandomSha());
-  }
-
-  await BackupUtils.download();
+  await setBackupSha();
 
   runApp(
     ProviderScope(
@@ -69,7 +71,7 @@ String generateRandomSha() {
 
 Future<void> initializeDb() async {
   try {
-    db = await initDatabase();
+    db = await _initDatabase();
   } catch (e) {
     print('Error initializing database: $e');
   }

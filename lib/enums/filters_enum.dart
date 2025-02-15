@@ -1,14 +1,13 @@
 enum FiltersEnum {
-  resonated,
-  one_week_old,
-  all_pings,
-  pings_with_replies,
-  never_visited,
-
-  period_of_day,
-  day_of_week,
-  current_month,
-  day_of_month,
+  hidden,
   year,
-  hidden
+  day_of_month,
+  current_month,
+  day_of_week,
+  period_of_day,
+  never_visited,
+  pings_with_replies,
+  all_pings,
+  one_week_old,
+  resonated
 }

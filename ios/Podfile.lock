@@ -40,7 +40,7 @@ PODS:
     - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
-  - icloud_storage_sync (0.0.1):
+  - icloud_storage_sync (0.0.2):
     - Flutter
   - open_file_ios (0.0.1):
     - Flutter
@@ -117,7 +117,7 @@ SPEC CHECKSUMS:
   flutter_native_splash: 6cad9122ea0fad137d23137dd14b937f3e90b145
   geocoding_ios: bcbdaa6bddd7d3129c9bcb8acddc5d8778689768
   geolocator_apple: 1560c3c875af2a412242c7a923e15d0d401966ff
-  icloud_storage_sync: 611eaca1f03d1c087da07d9abdd65b163d40aa71
+  icloud_storage_sync: 280709abe2f8966d1ae48ec3330d21f4fbf7331d
   open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d

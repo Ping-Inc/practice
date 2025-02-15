@@ -32,8 +32,10 @@ class _ExplorePageState extends ConsumerState<HomePage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _tabController =
-        TabController(length: FiltersEnum.values.length, vsync: this);
+    _tabController = TabController(
+        initialIndex: FiltersEnum.values.length - 1,
+        length: FiltersEnum.values.length,
+        vsync: this);
   }
 
   @override

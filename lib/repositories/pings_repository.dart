@@ -35,7 +35,7 @@ class PingsRepository {
 
   static Future<List<Map<String, Object?>>> fetchYears() async {
     return db.rawQuery(
-        'SELECT DISTINCT strftime("%Y", datetime(time / 1000, "unixepoch")) as year FROM pings ORDER BY year DESC');
+        'SELECT DISTINCT strftime("%Y", time / 1000, "unixepoch") as year FROM pings ORDER BY year ASC');
   }
 
   static Future<List<Map<String, Object?>>> fetchAll() async {

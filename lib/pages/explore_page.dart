@@ -21,6 +21,7 @@ class ExplorePage extends StatelessWidget {
       Container(
           padding: EdgeInsets.symmetric(vertical: spacingSmall),
           child: TabBar(
+              padding: EdgeInsets.only(right: spacingMedium, left: 0),
               controller: tabController,
               indicator: BoxDecoration(),
               isScrollable: true,
@@ -28,6 +29,9 @@ class ExplorePage extends StatelessWidget {
               dividerColor: Colors.transparent,
               labelColor: Theme.of(context).colorScheme.primary,
               unselectedLabelColor: Theme.of(context).colorScheme.secondary,
+              onTap: (value) {
+                
+              },
               tabs: tabs.map((tab) {
                 return Text(
                   tab,

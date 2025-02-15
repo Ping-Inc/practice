@@ -53,7 +53,7 @@ class BackupUtils {
       final pings = await PingsRepository.fetchAll();
       final pingsList =
           pings.map<PingData>((data) => PingData.fromJson(data)).toList();
-      final csvContent = convertPingsToCSV(pingsList);
+      final csvContent = _convertPingsToCSV(pingsList);
 
       await file.writeAsString(csvContent);
 
@@ -83,27 +83,12 @@ class BackupUtils {
     }
   }
 
-  static String convertPingsToCSV(List<PingData> pings) {
+  static String _convertPingsToCSV(List<PingData> pings) {
     final buffer = StringBuffer();
     buffer.writeln('time,text');
     for (final ping in pings) {
       buffer.writeln('${ping.time.millisecondsSinceEpoch},${ping.text}');
     }
     return buffer.toString();
-  }
-
-  void startTimer() {
-    stopTimer();
-
-    backupTimer = Timer.periodic(
-      const Duration(seconds: 10),
-      (timer) async {
-        await backupPings();
-      },
-    );
-  }
-
-  void stopTimer() {
-    backupTimer?.cancel();
   }
 }
