@@ -7,7 +7,7 @@ part 'time_provider.g.dart';
 Stream<DateTime> time(Ref ref) async* {
   yield DateTime.now();
 
-  await for (var _ in Stream.periodic(Duration(seconds: 1))) {
+  await for (var _ in Stream.periodic(Duration(minutes: 1))) {
     yield DateTime.now();
   }
 }
