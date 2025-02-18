@@ -9,7 +9,7 @@ class PingBackground extends ConsumerWidget {
   final Widget child;
   final DateTime? time;
 
-  Color calculateBackgroundColor() {
+  Color calculateBackgroundColor(WidgetRef ref) {
     if (time == null) {
       return themeCardBackgroundBlueOldest;
     }
@@ -22,6 +22,8 @@ class PingBackground extends ConsumerWidget {
       return themeCardBackgroundBlueOldest;
     }
 
+    ref.watch(timeProvider);
+
     final percentage = difference / totalMinutesIn24Hours;
     return Color.lerp(themeCardBackgroundBlueNewest,
         themeCardBackgroundBlueOldest, percentage)!;
@@ -29,13 +31,9 @@ class PingBackground extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (time != null) {
-      ref.watch(timeProvider);
-    }
-
     return Container(
       decoration: BoxDecoration(
-        color: calculateBackgroundColor(),
+        color: calculateBackgroundColor(ref),
         borderRadius: BorderRadius.circular(spacingFour),
       ),
       child: child,
