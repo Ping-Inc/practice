@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
@@ -27,7 +27,21 @@ class RepingButton extends ConsumerWidget {
 
     return SystemActionImage(
       onTap: isRepinged
-          ? null
+          ? () {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: Text('Already Re-Pinged'),
+                  content: Text('You can re-ping this again tomorrow.'),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: Text('Okay'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
+            }
           : () {
               ref.read(pingProvider(ping).notifier).increaseResonance();
               ref.invalidate(resonatedPingsProvider);

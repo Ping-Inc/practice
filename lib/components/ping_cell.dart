@@ -26,12 +26,11 @@ class PingCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ping = ref.watch(pingProvider(inputPing));
-
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SystemTap(
           child: PingBackground(
-              time: ping.resonantTime ?? ping.time,
+              time: ref
+                  .watch(pingProvider(inputPing).select((p) => p.resonantTime)),
               child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: spacingFour, vertical: spacingFour),
@@ -42,7 +41,7 @@ class PingCell extends ConsumerWidget {
                           padding: EdgeInsets.all(spacingXSmall),
                           child: AutoSizeText(
                             minFontSize: 1,
-                            ping.text,
+                            inputPing.text,
                             style: TextStyle(
                                 // height: lineHeight,
                                 fontSize: TextSizeEnum.twentyNine.toFontSize(),
@@ -50,13 +49,14 @@ class PingCell extends ConsumerWidget {
                           )),
                     ),
                     if (showId)
-                      SystemText(text: ping.id!.toString(), color: themeGray)
+                      SystemText(
+                          text: inputPing.id!.toString(), color: themeGray)
                   ]))),
           onTap: tappable
               ? () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailsPage(ping: ping)),
+                        builder: (context) => DetailsPage(ping: inputPing)),
                   )
               : null),
     ]);
