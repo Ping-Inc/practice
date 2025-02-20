@@ -84,6 +84,9 @@ const Map<int, String> migrationScripts = {
   ''',
   9: '''
   CREATE UNIQUE INDEX idx_pings_time ON pings(time)
+  ''',
+  10: '''
+  ALTER TABLE pings ADD COLUMN resonant_time INTEGER
   '''
 };
 

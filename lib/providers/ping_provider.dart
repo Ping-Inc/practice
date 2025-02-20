@@ -24,7 +24,8 @@ class Ping extends _$Ping {
   Future<void> increaseResonance() async {
     await PingRepository.incrementResonantCount(state.id!);
 
-    state = state.copyWith(resonantCount: state.resonantCount + 1);
+    state = state.copyWith(
+        resonantCount: state.resonantCount + 1, resonantTime: DateTime.now());
   }
 
   Future<void> toggleVisibility() async {

@@ -31,7 +31,7 @@ class PingCell extends ConsumerWidget {
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SystemTap(
           child: PingBackground(
-              time: ping.time,
+              time: ping.resonantTime ?? ping.time,
               child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: spacingFour, vertical: spacingFour),

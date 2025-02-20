@@ -48,6 +48,7 @@ class Pings extends _$Pings {
             id: id,
             replyId: replyId,
             resonantCount: 0,
+            resonantTime: null,
             viewCount: 0,
             hidden: false));
 

@@ -10,12 +10,14 @@ class SystemActionImage extends StatelessWidget {
       required this.onTap,
       required this.imagePath,
       required this.text,
-      required this.height});
+      required this.height,
+      this.color});
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String imagePath;
   final String text;
   final double height;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,9 @@ class SystemActionImage extends StatelessWidget {
       child: Column(
         children: [
           SvgPicture.asset(
+            colorFilter: color != null
+                ? ColorFilter.mode(color!, BlendMode.srcIn)
+                : null,
             imagePath,
             height: height,
             semanticsLabel: text, // Accessibility label
@@ -31,7 +36,10 @@ class SystemActionImage extends StatelessWidget {
           SizedBox(
             height: spacingThree,
           ),
-          SystemText(text: text),
+          SystemText(
+            text: text,
+            color: color ?? null,
+          ),
         ],
       ),
     );

@@ -60,6 +60,7 @@ class ImportPingsButton extends ConsumerWidget {
                     pings.add(PingData(
                         resonantCount: 0,
                         viewCount: 0,
+                        resonantTime: null,
                         hidden: false,
                         time: DateTime.fromMillisecondsSinceEpoch(timeInt),
                         text: text));
