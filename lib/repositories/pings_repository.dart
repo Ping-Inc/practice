@@ -43,18 +43,20 @@ class PingsRepository {
   }
 
   static Future<List<Map<String, Object?>>> fetchReplies() async {
-    return db.query('pings',
-        where:
-            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL) AND hidden = 0',
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where:
+          'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL) AND hidden = 0',
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchNeverVisited() async {
-    return db.query('pings',
-        where: 'view_count = 0 AND hidden = 0',
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'view_count = 0 AND hidden = 0',
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchLastWeek() async {
@@ -65,14 +67,15 @@ class PingsRepository {
         currentDate.subtract(Duration(days: currentDate.weekday));
     DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
 
-    return db.query('pings',
-        where: 'time >= ? AND time <= ? AND hidden = 0',
-        whereArgs: [
-          startOfLastWeek.millisecondsSinceEpoch,
-          endOfLastWeek.millisecondsSinceEpoch
-        ],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ? AND hidden = 0',
+      whereArgs: [
+        startOfLastWeek.millisecondsSinceEpoch,
+        endOfLastWeek.millisecondsSinceEpoch
+      ],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<Map<String, Object?>> fetchRandom() async {
@@ -83,15 +86,19 @@ class PingsRepository {
   }
 
   static Future<List<Map<String, Object?>>> fetchHidden() async {
-    return db.query('pings',
-        where: 'hidden = 1', orderBy: 'time desc', limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'hidden = 1',
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchResonated() async {
-    return db.query('pings',
-        where: 'resonant_count > 0 AND hidden = 0',
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'resonant_count > 0 AND hidden = 0',
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchDay() async {
@@ -99,16 +106,20 @@ class PingsRepository {
     final startOfDay = DateTime(now.year, now.month, now.day);
     final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
 
-    return db.query('pings',
-        where: 'time >= ? AND time <= ? AND hidden = 0',
-        whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ? AND hidden = 0',
+      whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetch() async {
-    return db.query('pings',
-        orderBy: 'time desc', where: 'hidden = 0', limit: fetchLimit);
+    return db.query(
+      'pings',
+      orderBy: 'time desc',
+      where: 'hidden = 0',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchHourRange(
@@ -123,7 +134,6 @@ class PingsRepository {
             'strftime("%H", time / 1000, "unixepoch", "localtime") >= ? AND hidden = 0',
         whereArgs: [startHour.toString().padLeft(2, '0')],
         orderBy: 'time desc',
-        limit: fetchLimit,
       );
 
       // Query for hours from 00:00 to endHour
@@ -133,7 +143,6 @@ class PingsRepository {
             'strftime("%H", time / 1000, "unixepoch", "localtime") <= ? AND hidden = 0',
         whereArgs: [endHour.toString().padLeft(2, '0')],
         orderBy: 'time desc',
-        limit: fetchLimit,
       );
 
       results.addAll(part1);
@@ -149,7 +158,6 @@ class PingsRepository {
           endHour.toString().padLeft(2, '0')
         ],
         orderBy: 'time desc',
-        limit: fetchLimit,
       );
     }
 
@@ -166,7 +174,6 @@ class PingsRepository {
           'strftime("%m", datetime(time / 1000, "unixepoch", "localtime")) = ? AND hidden = 0',
       whereArgs: [month.toString().padLeft(2, '0')],
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -182,7 +189,6 @@ class PingsRepository {
         endOfYear.millisecondsSinceEpoch
       ],
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -198,7 +204,6 @@ class PingsRepository {
         (dayOfWeek % 7).toString()
       ], // SQLite uses 0 for Sunday, 1 for Monday, etc.
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -214,7 +219,6 @@ class PingsRepository {
         dayOfMonth.toString().padLeft(2, '0')
       ], // Pad single digits with a leading zero
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -225,27 +229,28 @@ class PingsRepository {
           'text LIKE ? AND hidden = 0', // Assuming the column you want to search is named 'content'
       whereArgs: ['%$search%'],
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
   static Future<List<Map<String, Object?>>> fetchBeforeTime(
       DateTime time) async {
-    return db.query('pings',
-        orderBy: 'time desc',
-        where: 'time < ? AND hidden = 0',
-        whereArgs: [time.millisecondsSinceEpoch],
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      orderBy: 'time desc',
+      where: 'time < ? AND hidden = 0',
+      whereArgs: [time.millisecondsSinceEpoch],
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchRepliesBeforeTime(
       DateTime time) async {
-    return db.query('pings',
-        where:
-            'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND time < ?) AND hidden = 0',
-        whereArgs: [time.millisecondsSinceEpoch],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where:
+          'id IN (SELECT DISTINCT reply_id FROM pings WHERE reply_id IS NOT NULL AND time < ?) AND hidden = 0',
+      whereArgs: [time.millisecondsSinceEpoch],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchLastWeekBeforeTime(
@@ -257,42 +262,46 @@ class PingsRepository {
         currentDate.subtract(Duration(days: currentDate.weekday));
     DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
 
-    return db.query('pings',
-        where: 'time >= ? AND time <= ? AND time < ? AND hidden = 0',
-        whereArgs: [
-          startOfLastWeek.millisecondsSinceEpoch,
-          endOfLastWeek.millisecondsSinceEpoch,
-          time.millisecondsSinceEpoch
-        ],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'time >= ? AND time <= ? AND time < ? AND hidden = 0',
+      whereArgs: [
+        startOfLastWeek.millisecondsSinceEpoch,
+        endOfLastWeek.millisecondsSinceEpoch,
+        time.millisecondsSinceEpoch
+      ],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchNeverVisitedBeforeTime(
       DateTime time) async {
-    return db.query('pings',
-        where: 'view_count = 0 AND time < ? AND hidden = 0)',
-        whereArgs: [time.millisecondsSinceEpoch],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'view_count = 0 AND time < ? AND hidden = 0)',
+      whereArgs: [time.millisecondsSinceEpoch],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchHiddenBeforeTime(
       DateTime time) async {
-    return db.query('pings',
-        where: 'hidden = 1 AND time < ?',
-        whereArgs: [time.millisecondsSinceEpoch],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'hidden = 1 AND time < ?',
+      whereArgs: [time.millisecondsSinceEpoch],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchResonatedBeforeTime(
       DateTime time) async {
-    return db.query('pings',
-        where: 'resonant_count > 0 AND time < ? AND hidden = 0',
-        whereArgs: [time.millisecondsSinceEpoch],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.query(
+      'pings',
+      where: 'resonant_count > 0 AND time < ? AND hidden = 0',
+      whereArgs: [time.millisecondsSinceEpoch],
+      orderBy: 'time desc',
+    );
   }
 
   static Future<List<Map<String, Object?>>> fetchHourRangeBeforeTime(
@@ -310,7 +319,6 @@ class PingsRepository {
           time.millisecondsSinceEpoch
         ],
         orderBy: 'time desc',
-        limit: fetchLimit,
       );
 
       // Query for hours from 00:00 to endHour
@@ -323,7 +331,6 @@ class PingsRepository {
           time.millisecondsSinceEpoch
         ],
         orderBy: 'time desc',
-        limit: fetchLimit,
       );
 
       results.addAll(part1);
@@ -340,7 +347,6 @@ class PingsRepository {
           time.millisecondsSinceEpoch
         ],
         orderBy: 'time desc',
-        limit: fetchLimit,
       );
     }
 
@@ -358,7 +364,6 @@ class PingsRepository {
         time.millisecondsSinceEpoch
       ],
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -376,7 +381,6 @@ class PingsRepository {
         time.millisecondsSinceEpoch
       ],
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -393,7 +397,6 @@ class PingsRepository {
         time.millisecondsSinceEpoch
       ], // SQLite uses 0 for Sunday, 1 for Monday, etc.
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 
@@ -410,7 +413,6 @@ class PingsRepository {
         time.millisecondsSinceEpoch
       ], // Pad single digits with a leading zero
       orderBy: 'time desc',
-      limit: fetchLimit,
     );
   }
 

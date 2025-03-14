@@ -34,9 +34,9 @@ class PingGrid extends StatelessWidget {
           ),
           itemCount: pings.length,
           itemBuilder: (context, i) {
-            if (i == pings.length - 1 && pings.length % fetchLimit == 0) {
-              scroll();
-            }
+            // if (i == pings.length - 1 && pings.length % fetchLimit == 0) {
+            //   scroll();
+            // }
 
             return PingCell(inputPing: pings[i], showId: showId);
           },

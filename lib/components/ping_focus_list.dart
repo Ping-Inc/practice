@@ -73,10 +73,10 @@ class _PingFocusListState extends State<PingFocusList> {
                   controller: _pageController,
                   itemCount: widget.pings.length,
                   itemBuilder: (context, i) {
-                    if (i == widget.pings.length - 1 &&
-                        widget.pings.length % fetchLimit == 0) {
-                      widget.scroll();
-                    }
+                    // if (i == widget.pings.length - 1 &&
+                    //     widget.pings.length % fetchLimit == 0) {
+                    //   widget.scroll();
+                    // }
 
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: spacingThree),
