@@ -14,12 +14,13 @@ class SearchTextField extends ConsumerStatefulWidget {
 
 class _PingEntryState extends ConsumerState<SearchTextField> {
   final controller = TextEditingController();
-
+  final focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     final searchString = ref.watch(searchStringProvider);
 
     return TextField(
+      focusNode: focusNode,
       autofocus: true,
       controller: controller,
       decoration: InputDecoration(
@@ -39,6 +40,7 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
                   HapticFeedback.selectionClick();
                   ref.read(searchStringProvider.notifier).setSearch('');
                   controller.clear();
+                  focusNode.requestFocus();
                 },
               ),
         filled: true,
