@@ -16,22 +16,30 @@ class PingGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.only(bottom: spacingMedium),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: spacingFour,
-        crossAxisSpacing: spacingFour,
-        childAspectRatio: 1,
-      ),
-      itemCount: pings.length,
-      itemBuilder: (context, i) {
-        if (i == pings.length - 1 && pings.length % fetchLimit == 0) {
-          scroll();
-        }
+    return NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollUpdateNotification &&
+              FocusScope.of(context).hasFocus) {
+            FocusScope.of(context).unfocus();
+          }
+          return true;
+        },
+        child: GridView.builder(
+          padding: EdgeInsets.only(bottom: spacingMedium),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: spacingFour,
+            crossAxisSpacing: spacingFour,
+            childAspectRatio: 1,
+          ),
+          itemCount: pings.length,
+          itemBuilder: (context, i) {
+            if (i == pings.length - 1 && pings.length % fetchLimit == 0) {
+              scroll();
+            }
 
-        return PingCell(inputPing: pings[i], showId: showId);
-      },
-    );
+            return PingCell(inputPing: pings[i], showId: showId);
+          },
+        ));
   }
 }
