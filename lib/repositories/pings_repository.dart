@@ -97,7 +97,7 @@ class PingsRepository {
     return db.query(
       'pings',
       where: 'resonant_count > 0 AND hidden = 0',
-      orderBy: 'time desc',
+      orderBy: 'resonant_time desc',
     );
   }
 
