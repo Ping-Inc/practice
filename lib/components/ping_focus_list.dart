@@ -51,7 +51,8 @@ class _PingFocusListState extends State<PingFocusList> {
           while (newI == i) {
             newI = Random().nextInt(widget.pings.length);
           }
-          _pageController.jumpToPage(newI);
+          _pageController.animateToPage(newI,
+              duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
         },
         child: SingleChildScrollView(
           // Wrap Column in SingleChildScrollView to enable scrolling
