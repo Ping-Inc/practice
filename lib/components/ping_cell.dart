@@ -38,19 +38,42 @@ class PingCell extends ConsumerWidget {
                     AspectRatio(
                       aspectRatio: 1,
                       child: Padding(
-                          padding: EdgeInsets.all(spacingXSmall),
-                          child: AutoSizeText(
-                            minFontSize: 1,
-                            inputPing.text,
-                            style: TextStyle(
-                                // height: lineHeight,
-                                fontSize: TextSizeEnum.twentyNine.toFontSize(),
-                                fontFamily: FontEnum.garamond.toFontFamily()),
-                          )),
+                          padding: EdgeInsets.only(
+                              left: spacingXSmall,
+                              right: spacingXSmall,
+                              top: spacingXSmall),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                    child: AutoSizeText(
+                                  minFontSize: 1,
+                                  inputPing.text,
+                                  style: TextStyle(
+                                      // height: lineHeight,
+                                      fontSize:
+                                          TextSizeEnum.twentyNine.toFontSize(),
+                                      fontFamily:
+                                          FontEnum.garamond.toFontFamily()),
+                                )),
+                                showId
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                            Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: spacingXSmall,
+                                                    bottom: 4),
+                                                child: SystemText(
+                                                    align: TextAlign.center,
+                                                    text: inputPing.id!
+                                                        .toString(),
+                                                    color: themeGray))
+                                          ])
+                                    : SizedBox(height: spacingXSmall)
+                              ])),
                     ),
-                    if (showId)
-                      SystemText(
-                          text: inputPing.id!.toString(), color: themeGray)
                   ]))),
           onTap: tappable
               ? () => Navigator.push(

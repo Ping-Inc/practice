@@ -35,6 +35,7 @@ class RepliesGrid extends ConsumerWidget {
                       children: repliesValue.map((reply) {
                         return PingCell(
                           inputPing: reply,
+                          showId: true,
                         );
                       }).toList()))
             ])
