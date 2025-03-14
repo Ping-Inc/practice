@@ -34,7 +34,7 @@ class _ExplorePageState extends ConsumerState<HomePage>
     FiltersEnum.day_of_week,
     FiltersEnum.period_of_day,
     FiltersEnum.all_pings,
-    FiltersEnum.pings_with_replies
+    FiltersEnum.resonated
   ];
 
   @override
