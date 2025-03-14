@@ -1,5 +1,4 @@
 import 'package:practice/constants.dart';
-import 'package:sqflite/sqflite.dart';
 
 class PingRepository {
   PingRepository._();
@@ -18,28 +17,68 @@ class PingRepository {
     );
   }
 
-  static Future<int> countReplies(int id) async {
-    final result = await db.rawQuery(
-      'SELECT COUNT(id) as count FROM pings WHERE reply_id = ? AND hidden = 0',
-      [id],
-    );
-    return Sqflite.firstIntValue(result) ?? 0;
-  }
-
   static Future<List<Map<String, Object?>>> fetchReplies(int id) async {
-    return db.query('pings',
-        where: 'reply_id = ? AND hidden = 0',
-        whereArgs: [id],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.rawQuery('''
+      WITH RECURSIVE
+        replies_up AS (
+          SELECT * FROM pings WHERE id = ?
+          UNION ALL
+          SELECT p.* FROM pings p
+          INNER JOIN replies_up ru ON p.reply_id = ru.id
+          WHERE p.hidden = 0
+        ),
+        replies_down AS (
+          SELECT * FROM pings WHERE id = ?
+          UNION ALL
+          SELECT p.* FROM pings p
+          INNER JOIN replies_down rd ON rd.reply_id = p.id
+          WHERE p.hidden = 0
+        )
+      SELECT DISTINCT * FROM (
+        SELECT * FROM replies_up
+        UNION
+        SELECT * FROM replies_down
+      )
+      WHERE id != ?
+      ORDER BY id DESC
+      LIMIT ?
+    ''', [id, id, id, fetchLimit]);
   }
 
   static Future<List<Map<String, Object?>>> fetchRepliesBeforeTime(
       int id, DateTime time) async {
-    return db.query('pings',
-        where: 'reply_id = ? AND time < ? AND hidden = 0',
-        whereArgs: [id, time.millisecondsSinceEpoch],
-        orderBy: 'time desc',
-        limit: fetchLimit);
+    return db.rawQuery('''
+      WITH RECURSIVE
+        replies_up AS (
+          SELECT * FROM pings WHERE id = ? AND time < ?
+          UNION ALL
+          SELECT p.* FROM pings p
+          INNER JOIN replies_up ru ON p.reply_id = ru.id
+          WHERE p.hidden = 0 AND p.time < ?
+        ),
+        replies_down AS (
+          SELECT * FROM pings WHERE id = ? AND time < ?
+          UNION ALL
+          SELECT p.* FROM pings p
+          INNER JOIN replies_down rd ON rd.reply_id = p.id
+          WHERE p.hidden = 0 AND p.time < ?
+        )
+      SELECT DISTINCT * FROM (
+        SELECT * FROM replies_up
+        UNION
+        SELECT * FROM replies_down
+      )
+      WHERE id != ?
+      ORDER BY id DESC
+      LIMIT ?
+    ''', [
+      id,
+      time.millisecondsSinceEpoch,
+      time.millisecondsSinceEpoch,
+      id,
+      time.millisecondsSinceEpoch,
+      time.millisecondsSinceEpoch,
+      fetchLimit
+    ]);
   }
 }
