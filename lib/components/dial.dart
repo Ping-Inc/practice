@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
+import 'package:practice/extensions/browse_enum_extensions.dart';
 import 'package:practice/providers/browse_provider.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
 
@@ -27,7 +28,7 @@ class Dial extends ConsumerWidget {
                           offset: Offset(0, -(pingButtonSize / 2 + 20)),
                           child: Column(children: [
                             SystemText(
-                              text: mode == BrowseEnum.focus ? 'Focus' : 'Grid',
+                              text: mode!.title(),
                             ),
                             SizedBox(
                               height: 8,
