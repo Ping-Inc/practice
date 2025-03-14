@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/ping_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
+import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/utils/date_format_utils.dart';
 
@@ -39,40 +43,56 @@ class _PingFocusListState extends State<PingFocusList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-            padding: EdgeInsets.only(bottom: spacingSmall),
-            child: SystemText(
-                text: DateFormatUtils.formatForPing(widget.pings[i].time))),
-        SizedBox(
-          height: MediaQuery.of(context).size.width,
-          child: PageView.builder(
-            reverse: true,
-            controller: _pageController,
-            itemCount: widget.pings.length,
-            itemBuilder: (context, i) {
-              if (i == widget.pings.length - 1 &&
-                  widget.pings.length % fetchLimit == 0) {
-                widget.scroll();
-              }
+    return SystemRefresh(
+        edgeOffset: -spacingSmall,
+        onRefresh: () async {
+          HapticFeedback.lightImpact();
+          int newI = i;
+          while (newI == i) {
+            newI = Random().nextInt(widget.pings.length);
+          }
+          _pageController.jumpToPage(newI);
+        },
+        child: SingleChildScrollView(
+          // Wrap Column in SingleChildScrollView to enable scrolling
+          physics:
+              const AlwaysScrollableScrollPhysics(), // Disable bounce effect while keeping scrollable
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                  padding: EdgeInsets.only(bottom: spacingSmall),
+                  child: SystemText(
+                      text:
+                          DateFormatUtils.formatForPing(widget.pings[i].time))),
+              SizedBox(
+                height: MediaQuery.of(context).size.width,
+                child: PageView.builder(
+                  reverse: true,
+                  controller: _pageController,
+                  itemCount: widget.pings.length,
+                  itemBuilder: (context, i) {
+                    if (i == widget.pings.length - 1 &&
+                        widget.pings.length % fetchLimit == 0) {
+                      widget.scroll();
+                    }
 
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: spacingThree),
-                child: PingCell(
-                  inputPing: widget.pings[i],
-                  showId: true,
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: spacingThree),
+                      child: PingCell(
+                        inputPing: widget.pings[i],
+                        showId: true,
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+              SizedBox(
+                height: spacingSmall,
+              ),
+              PingActionRow(ping: widget.pings[i]),
+            ],
           ),
-        ),
-        SizedBox(
-          height: spacingSmall,
-        ),
-        PingActionRow(ping: widget.pings[i]),
-      ],
-    );
+        ));
   }
 }
