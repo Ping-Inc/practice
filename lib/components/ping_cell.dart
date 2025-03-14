@@ -29,6 +29,7 @@ class PingCell extends ConsumerWidget {
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SystemTap(
           child: PingBackground(
+              hidden: inputPing.hidden,
               time: ref
                   .watch(pingProvider(inputPing).select((p) => p.resonantTime)),
               child: Padding(

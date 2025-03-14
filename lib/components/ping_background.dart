@@ -4,12 +4,18 @@ import 'package:practice/constants.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class PingBackground extends ConsumerWidget {
-  const PingBackground({super.key, required this.child, this.time});
+  const PingBackground(
+      {super.key, required this.child, this.time, this.hidden = false});
 
   final Widget child;
   final DateTime? time;
+  final bool hidden;
 
   Color calculateBackgroundColor(WidgetRef ref) {
+    if (hidden) {
+      return Colors.transparent;
+    }
+
     if (time == null) {
       return themeCardBackgroundBlueOldest;
     }
@@ -35,6 +41,7 @@ class PingBackground extends ConsumerWidget {
       decoration: BoxDecoration(
         color: calculateBackgroundColor(ref),
         borderRadius: BorderRadius.circular(spacingFour),
+        border: hidden ? Border.all(color: Colors.white, width: 0.5) : null,
       ),
       child: child,
     );
