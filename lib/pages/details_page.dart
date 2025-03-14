@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/components/detail_cell.dart';
 import 'package:practice/components/detail_cell_cluster.dart';
 import 'package:practice/components/fade.dart';
+import 'package:practice/components/header_min.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/ping_cell.dart';
 import 'package:practice/components/repinged_cell.dart';
 import 'package:practice/components/replies_grid.dart';
-import 'package:practice/components/top_nav.dart';
 import 'package:practice/components/view_count_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/pages/traversal/traversal_day_of_month_page.dart';
@@ -185,11 +183,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
         Fade(
           topDown: true,
         ),
-        TopNav(
-          child: SystemButton(
-              onTap: () => Navigator.pop(context),
-              icon: PhosphorIcons.caret_left),
-        ),
+        HeaderMin(),
       ]),
     ));
   }

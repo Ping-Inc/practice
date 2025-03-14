@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/search_text_field.dart';
 import 'package:practice/components/ping_search_list.dart';
+import 'package:practice/components/header_min.dart';
+import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/design_system/system_button.dart';
-import 'package:practice/providers/search_string_provider.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
@@ -14,43 +14,20 @@ class SearchPage extends ConsumerWidget {
     return Scaffold(
         body: SafeArea(
             bottom: false,
-            child: Padding(
-                padding: EdgeInsets.all(spacingFour),
-                child: Column(
-                  children: [
-                    SystemButton(
-                      onTap: () => Navigator.pop(context),
-                      icon: PhosphorIcons.caret_left,
-                    ),
-                    SizedBox(
-                      height: spacingFour,
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        hintStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.surface,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(spacingFour),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      onChanged: (value) => ref
-                          .read(searchStringProvider.notifier)
-                          .setSearch(value),
-                    ),
-                    SizedBox(
-                      height: spacingFive,
-                    ),
-                    Expanded(child: PingSearchList())
-                  ],
-                ))));
+            child: Column(children: [
+              HeaderMin(),
+              Expanded(
+                  child: MainSpacingCell(
+                      bottomPadding: false,
+                      child: Column(
+                        children: [
+                          SearchTextField(),
+                          SizedBox(
+                            height: spacingMedium,
+                          ),
+                          Expanded(child: PingSearchList())
+                        ],
+                      )))
+            ])));
   }
 }
