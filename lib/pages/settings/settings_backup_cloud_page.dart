@@ -14,7 +14,7 @@ class SettingsBackupCloudPage extends ConsumerWidget {
     return SettingsScaffold(
         title: "Cloud Backup",
         subtitle:
-            "This app automatically tries to save Local Backups to your iCloud account. \n\nUnfortunately Apple provides no way for you to turn the setting on and off from within this app, so it is up to you to make sure the cloud settings on your device reflect your interests.\n\nTo do that, tap the button below to go to your Settings app, and then follow:\n\nYour Name/ Apple Account →\niCloud →\nSaved to iCloud (See All) →\nScroll down and verify 'ping practice' is toggled on",
+            "Ping Practice automatically tries to save Local Backups of the Pings you capture to your iCloud account.\n\nTo adjust this setting, you need to visit your iPhone's Settings app and follow these steps:\n\n1. Tap your name / Apple account\n2. Tap \"iCloud\"\n3. Scroll to \"Saved to iCloud\"\n4. Tap \"See All\"\n5. Scroll down and verify \"ping practice\" is toggled on",
         child: ElevatedButton(
           onPressed: () {
             launch('App-Prefs:root=General');

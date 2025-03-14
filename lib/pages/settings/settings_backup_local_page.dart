@@ -14,8 +14,8 @@ class SettingsBackupLocalPage extends ConsumerWidget {
     return SettingsScaffold(
         title: "Local Backup",
         subtitle: localOn
-            ? 'Pings you capture are automatically backed up to a CSV file stored in the Files app on this device. They may or may not be backed up to iCloud dependant on your device settings.'
-            : 'The Pings you capture from this point forward are not being backed up locally or to the cloud. These Pings will be lost if/when you uninstall the Ping Practice app.',
+            ? 'Pings you capture are automatically backed up to a CSV file stored in the Files app on this device. To save a copy to your iCloud account, visit the "Cloud" section within Settings.'
+            : 'The Pings you capture from this point forward will not be backed up locally or to the cloud. These Ping will be lost if/when you choose to uninstall the Ping Practice app.',
         child: SystemSwitch(
             value: localOn,
             onChanged: (val) =>
