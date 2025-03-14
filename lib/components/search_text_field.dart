@@ -20,6 +20,7 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
     final searchString = ref.watch(searchStringProvider);
 
     return TextField(
+      autofocus: true,
       controller: controller,
       decoration: InputDecoration(
         hintText: 'Search',
