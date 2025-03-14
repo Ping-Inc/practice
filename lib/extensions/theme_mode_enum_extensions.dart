@@ -21,11 +21,11 @@ extension intParsing on ThemeModeEnum {
       case ThemeModeEnum.morning:
         return 6;
       case ThemeModeEnum.afternoon:
-        return 11;
+        return 12;
       case ThemeModeEnum.evening:
-        return 17;
+        return 18;
       case ThemeModeEnum.night:
-        return 22;
+        return 23;
     }
   }
 
@@ -38,7 +38,7 @@ extension intParsing on ThemeModeEnum {
       case ThemeModeEnum.evening:
         return 22;
       case ThemeModeEnum.night:
-        return 6;
+        return 5;
     }
   }
 }
