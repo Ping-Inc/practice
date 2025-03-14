@@ -29,20 +29,20 @@ class _ExplorePageState extends ConsumerState<HomePage>
   late TabController _tabController;
 
   static final List<FiltersEnum> filters = [
-    FiltersEnum.pings_with_replies,
-    FiltersEnum.all_pings,
-    FiltersEnum.period_of_day,
-    FiltersEnum.day_of_week,
+    FiltersEnum.hidden,
     FiltersEnum.one_week_old,
-    FiltersEnum.hidden
+    FiltersEnum.day_of_week,
+    FiltersEnum.period_of_day,
+    FiltersEnum.all_pings,
+    FiltersEnum.pings_with_replies
   ];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _tabController =
-        TabController(initialIndex: 0, length: filters.length, vsync: this);
+    _tabController = TabController(
+        initialIndex: filters.length - 1, length: filters.length, vsync: this);
   }
 
   @override
