@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:practice/enums/filters_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
+import 'package:practice/extensions/day_of_week_enum_extensions.dart';
+import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/browse_all_page.dart';
 import 'package:practice/pages/browse_hidden_page.dart';
 import 'package:practice/pages/browse_last_week_page.dart';
@@ -12,7 +14,7 @@ import 'package:practice/pages/browse_resonated_pings.dart';
 import 'package:practice/pages/browse_time_page.dart';
 
 extension StringParsing on FiltersEnum {
-  String title() {
+  String title(DateTime time) {
     switch (this) {
       case FiltersEnum.all_pings:
         return "all pings";
@@ -23,9 +25,9 @@ extension StringParsing on FiltersEnum {
       case FiltersEnum.resonated:
         return "re-pings";
       case FiltersEnum.period_of_day:
-        return "period of day";
+        return "${time.themeMode().title()}s";
       case FiltersEnum.day_of_week:
-        return "day of week";
+        return "${time.dayOfWeek().title()}s";
       case FiltersEnum.current_month:
         return "current month";
       case FiltersEnum.day_of_month:

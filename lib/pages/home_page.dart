@@ -8,6 +8,7 @@ import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
 import 'package:practice/enums/filters_enum.dart';
+import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
 import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/new_ping_page.dart';
@@ -27,6 +28,7 @@ class HomePage extends ConsumerStatefulWidget {
 class _ExplorePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late TabController _tabController;
+  DateTime currentTime = DateTime.now();
 
   static final List<FiltersEnum> filters = [
     FiltersEnum.hidden,
@@ -56,6 +58,12 @@ class _ExplorePageState extends ConsumerState<HomePage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
+        final newTime = DateTime.now();
+        if (currentTime.themeMode() != newTime.themeMode()) {
+          setState(() {
+            currentTime = newTime;
+          });
+        }
         break;
       case AppLifecycleState.inactive:
         if (ref.read(localBackupOnProvider)) BackupUtils.backupPings();
@@ -81,10 +89,10 @@ class _ExplorePageState extends ConsumerState<HomePage>
                 child: ExplorePage(
                   tabController: _tabController,
                   tabs: filters.map((filter) {
-                    return filter.title();
+                    return filter.title(currentTime);
                   }).toList(),
                   children: filters.map((filter) {
-                    return filter.page(DateTime.now());
+                    return filter.page(currentTime);
                   }).toList(),
                 ))),
         Align(
