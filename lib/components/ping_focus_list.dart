@@ -46,12 +46,15 @@ class _PingFocusListState extends State<PingFocusList> {
         edgeOffset: -spacingSmall,
         onRefresh: () async {
           HapticFeedback.lightImpact();
-          int newI = i;
-          while (newI == i) {
-            newI = Random().nextInt(widget.pings.length);
+
+          if (widget.pings.isNotEmpty && widget.pings.length > 1) {
+            int newI = i;
+            while (newI == i) {
+              newI = Random().nextInt(widget.pings.length);
+            }
+            _pageController.animateToPage(newI,
+                duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
           }
-          _pageController.animateToPage(newI,
-              duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
         },
         child: SingleChildScrollView(
           // Wrap Column in SingleChildScrollView to enable scrolling
