@@ -6,7 +6,7 @@ part of 'ping_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pingHash() => r'4c276e65ec2823bd9ea2f07175733c7462f82b51';
+String _$pingHash() => r'391ceee6205f35e0beca04f5a5856a58afda0e3d';
 
 /// Copied from Dart SDK
 class _SystemHash {

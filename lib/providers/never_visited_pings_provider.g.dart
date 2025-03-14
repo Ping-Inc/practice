@@ -6,7 +6,7 @@ part of 'never_visited_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$neverVisitedPingsHash() => r'bd3609603aeaa4e066b094f067a83134bfbc1484';
+String _$neverVisitedPingsHash() => r'b0db2ed9f8f3d5b35e232fc8a68f1fe21013e3ef';
 
 /// See also [NeverVisitedPings].
 @ProviderFor(NeverVisitedPings)

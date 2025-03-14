@@ -16,22 +16,4 @@ class ModeFilteredPings extends _$ModeFilteredPings {
 
     return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
-
-  Future<void> scroll() async {
-    final pings = await future;
-
-    if (pings.isNotEmpty) {
-      final lastPing = pings.last;
-
-      final pingsList = await PingsRepository.fetchHourRangeBeforeTime(
-          lastPing.time, mode.startingHour(), mode.endingHour());
-
-      final newPings =
-          pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
-
-      pings.addAll(newPings);
-
-      state = AsyncData(pings);
-    }
-  }
 }

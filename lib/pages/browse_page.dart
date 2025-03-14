@@ -6,10 +6,9 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/browse_provider.dart';
 
 class BrowsePage extends ConsumerStatefulWidget {
-  const BrowsePage({super.key, required this.asyncPings, required this.scroll});
+  const BrowsePage({super.key, required this.asyncPings});
 
   final AsyncValue<List<PingData>> asyncPings;
-  final VoidCallback scroll;
 
   @override
   ConsumerState<BrowsePage> createState() => _BrowserPageState();
@@ -32,6 +31,6 @@ class _BrowserPageState extends ConsumerState<BrowsePage> {
 
   @override
   Widget build(BuildContext contex) {
-    return PingList(scroll: widget.scroll, asyncPings: widget.asyncPings);
+    return PingList(asyncPings: widget.asyncPings);
   }
 }

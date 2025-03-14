@@ -11,9 +11,6 @@ class BrowseModePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BrowsePage(
-      asyncPings: ref.watch(modeFilteredPingsProvider(mode)),
-      scroll: () => ref.read(modeFilteredPingsProvider(mode).notifier).scroll(),
-    );
+    return BrowsePage(asyncPings: ref.watch(modeFilteredPingsProvider(mode)));
   }
 }

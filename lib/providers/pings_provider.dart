@@ -14,23 +14,6 @@ class Pings extends _$Pings {
     return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
 
-  Future<void> scroll() async {
-    final pings = await future;
-
-    if (pings.isNotEmpty) {
-      final lastPing = pings.last;
-
-      final pingsList = await PingsRepository.fetchBeforeTime(lastPing.time);
-
-      final newPings =
-          pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
-
-      pings.addAll(newPings);
-
-      state = AsyncData(pings);
-    }
-  }
-
   void addPing(String pingText, int? replyId) async {
     final now = DateTime.now();
 

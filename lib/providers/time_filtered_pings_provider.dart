@@ -30,40 +30,4 @@ class TimeFilteredPings extends _$TimeFilteredPings {
 
     return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
-
-  Future<void> scroll() async {
-    final pings = await future;
-
-    if (pings.isNotEmpty) {
-      final lastPing = pings.last;
-
-      late final pingsList;
-
-      switch (timeFilter) {
-        case TimeFilterEnum.year:
-          pingsList = await PingsRepository.fetchYearBeforeTime(
-              lastPing.time, currentTime);
-          break;
-        case TimeFilterEnum.month:
-          pingsList = await PingsRepository.fetchMonthBeforeTime(
-              lastPing.time, currentTime.month);
-          break;
-        case TimeFilterEnum.dayOfWeek:
-          pingsList = await PingsRepository.fetchDayOfWeekBeforeTime(
-              lastPing.time, currentTime);
-          break;
-        case TimeFilterEnum.dayOfMonth:
-          pingsList = await PingsRepository.fetchDayOfMonthBeforeTime(
-              lastPing.time, currentTime);
-          break;
-      }
-
-      final newPings =
-          pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
-
-      pings.addAll(newPings);
-
-      state = AsyncData(pings);
-    }
-  }
 }

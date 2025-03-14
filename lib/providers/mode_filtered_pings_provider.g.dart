@@ -6,7 +6,7 @@ part of 'mode_filtered_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$modeFilteredPingsHash() => r'4968ebe93a18b87c171a798ab27bbb4ef31c1568';
+String _$modeFilteredPingsHash() => r'aad6f7fa4b94573fb6c0ffd588f9b0c784ec2f37';
 
 /// Copied from Dart SDK
 class _SystemHash {

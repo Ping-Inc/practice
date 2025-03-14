@@ -41,8 +41,7 @@ class PingRepository {
       )
       WHERE id != ?
       ORDER BY id DESC
-      LIMIT ?
-    ''', [id, id, id, fetchLimit]);
+    ''', [id, id, id]);
   }
 
   static Future<List<Map<String, Object?>>> fetchRepliesBeforeTime(
@@ -70,15 +69,13 @@ class PingRepository {
       )
       WHERE id != ?
       ORDER BY id DESC
-      LIMIT ?
     ''', [
       id,
       time.millisecondsSinceEpoch,
       time.millisecondsSinceEpoch,
       id,
       time.millisecondsSinceEpoch,
-      time.millisecondsSinceEpoch,
-      fetchLimit
+      time.millisecondsSinceEpoch
     ]);
   }
 }

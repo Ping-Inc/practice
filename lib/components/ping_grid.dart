@@ -4,14 +4,9 @@ import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 
 class PingGrid extends StatelessWidget {
-  const PingGrid(
-      {super.key,
-      required this.pings,
-      required this.scroll,
-      this.showId = false});
+  const PingGrid({super.key, required this.pings, this.showId = false});
 
   final List<PingData> pings;
-  final VoidCallback scroll;
   final bool showId;
 
   @override
@@ -34,10 +29,6 @@ class PingGrid extends StatelessWidget {
           ),
           itemCount: pings.length,
           itemBuilder: (context, i) {
-            // if (i == pings.length - 1 && pings.length % fetchLimit == 0) {
-            //   scroll();
-            // }
-
             return PingCell(inputPing: pings[i], showId: showId);
           },
         ));

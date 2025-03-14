@@ -11,10 +11,9 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/utils/date_format_utils.dart';
 
 class PingFocusList extends StatefulWidget {
-  const PingFocusList({super.key, required this.pings, required this.scroll});
+  const PingFocusList({super.key, required this.pings});
 
   final List<PingData> pings;
-  final VoidCallback scroll;
 
   @override
   State<PingFocusList> createState() => _PingFocusListState();
@@ -73,11 +72,6 @@ class _PingFocusListState extends State<PingFocusList> {
                   controller: _pageController,
                   itemCount: widget.pings.length,
                   itemBuilder: (context, i) {
-                    // if (i == widget.pings.length - 1 &&
-                    //     widget.pings.length % fetchLimit == 0) {
-                    //   widget.scroll();
-                    // }
-
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: spacingThree),
                       child: PingCell(

@@ -12,9 +12,8 @@ import 'package:practice/providers/browse_provider.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
 
 class PingList extends ConsumerWidget {
-  const PingList({super.key, required this.scroll, required this.asyncPings});
+  const PingList({super.key, required this.asyncPings});
 
-  final VoidCallback scroll;
   final AsyncValue<List<PingData>> asyncPings;
 
   @override
@@ -30,12 +29,12 @@ class PingList extends ConsumerWidget {
               font: FontEnum.sfmono,
             ))
           : browseMode == BrowseEnum.focus
-              ? PingFocusList(pings: pingsValue, scroll: scroll)
+              ? PingFocusList(pings: pingsValue)
               : Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: spacingMedium,
                   ), // Add padding here
-                  child: PingGrid(pings: pingsValue, scroll: scroll)),
+                  child: PingGrid(pings: pingsValue)),
       AsyncError() => SystemText(text: "Error"),
       _ => SystemLoader()
     };

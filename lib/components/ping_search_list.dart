@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_grid.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/providers/pings_provider.dart';
 import 'package:practice/providers/search_provider.dart';
 
 class PingSearchList extends ConsumerWidget {
@@ -13,10 +12,8 @@ class PingSearchList extends ConsumerWidget {
     final pings = ref.watch(searchProvider);
 
     return switch (pings) {
-      AsyncData(value: final pingsValue) => PingGrid(
-          showId: true,
-          pings: pingsValue,
-          scroll: () => ref.read(pingsProvider.notifier).scroll()),
+      AsyncData(value: final pingsValue) =>
+        PingGrid(showId: true, pings: pingsValue),
       AsyncError() => SystemText(text: "Error"),
       _ => SizedBox.shrink()
     };

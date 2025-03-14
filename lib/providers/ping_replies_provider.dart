@@ -13,22 +13,4 @@ class PingReplies extends _$PingReplies {
 
     return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
-
-  Future<void> scroll() async {
-    final pings = await future;
-
-    if (pings.isNotEmpty) {
-      final lastPing = pings.last;
-
-      final pingsList =
-          await PingRepository.fetchRepliesBeforeTime(id, lastPing.time);
-
-      final newPings =
-          pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
-
-      pings.addAll(newPings);
-
-      state = AsyncData(pings);
-    }
-  }
 }

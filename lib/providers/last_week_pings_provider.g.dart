@@ -6,7 +6,7 @@ part of 'last_week_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$lastWeekPingsHash() => r'5696ec935dd804c8ba67efaf1d884681be5423cc';
+String _$lastWeekPingsHash() => r'c8526b3ae9c72a1b5b3e7c1253aa7e443769f65b';
 
 /// See also [LastWeekPings].
 @ProviderFor(LastWeekPings)

@@ -8,9 +8,6 @@ class BrowseHiddenPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BrowsePage(
-      asyncPings: ref.watch(hiddenPingsProvider),
-      scroll: () => ref.read(hiddenPingsProvider.notifier).scroll(),
-    );
+    return BrowsePage(asyncPings: ref.watch(hiddenPingsProvider));
   }
 }

@@ -8,9 +8,6 @@ class BrowseAllPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BrowsePage(
-      asyncPings: ref.watch(pingsProvider),
-      scroll: () => ref.read(pingsProvider.notifier).scroll(),
-    );
+    return BrowsePage(asyncPings: ref.watch(pingsProvider));
   }
 }

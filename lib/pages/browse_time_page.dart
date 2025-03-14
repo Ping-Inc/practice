@@ -13,9 +13,6 @@ class BrowseTimePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BrowsePage(
-        asyncPings: ref.watch(timeFilteredPingsProvider(timeEnum, time)),
-        scroll: () => ref
-            .read(timeFilteredPingsProvider(timeEnum, time).notifier)
-            .scroll());
+        asyncPings: ref.watch(timeFilteredPingsProvider(timeEnum, time)));
   }
 }

@@ -6,7 +6,7 @@ part of 'hidden_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hiddenPingsHash() => r'dfb0559885289b64d2934539d4582d9ba9e07a6b';
+String _$hiddenPingsHash() => r'b3c1e9c60ae6e3330c3ac896349df6f123715253';
 
 /// See also [HiddenPings].
 @ProviderFor(HiddenPings)

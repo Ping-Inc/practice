@@ -8,9 +8,6 @@ class BrowseLastWeekPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BrowsePage(
-      asyncPings: ref.watch(lastWeekPingsProvider),
-      scroll: () => ref.read(lastWeekPingsProvider.notifier).scroll(),
-    );
+    return BrowsePage(asyncPings: ref.watch(lastWeekPingsProvider));
   }
 }
