@@ -9,8 +9,8 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/latest_ping_provider.dart';
 import 'package:practice/providers/ping_replies_provider.dart';
-import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/replied_to_pings_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
 class NewPingButton extends ConsumerStatefulWidget {
@@ -65,16 +65,19 @@ class _PingEntryState extends ConsumerState<NewPingButton>
               ref.read(pingsProvider.notifier).addPing(
                   widget.textEditingController.text,
                   widget.replyPing == null
-                      ? ref.watch(replyOnProvider)
+                      ? ref.read(replyOnProvider)
                           ? ref.read(latestPingProvider).value?.id
                           : null
                       : widget.replyPing!.id);
               ref.read(currentPingProvider.notifier).reset();
-              ref.read(replyOnProvider.notifier).reset();
-              ref.invalidate(pingsCountProvider);
               Timer(const Duration(milliseconds: 132), () {
                 HapticFeedback.selectionClick();
               });
+
+              if (ref.read(replyOnProvider)) {
+                ref.invalidate(repliedToPingsProvider);
+                ref.read(replyOnProvider.notifier).reset();
+              }
 
               if (widget.replyPing != null) {
                 ref.invalidate(pingRepliesProvider(widget.replyPing!.id!));

@@ -4,7 +4,6 @@ import 'package:practice/providers/last_week_pings_provider.dart';
 import 'package:practice/providers/mode_filtered_pings_provider.dart';
 import 'package:practice/providers/never_visited_pings_provider.dart';
 import 'package:practice/providers/ping_replies_provider.dart';
-import 'package:practice/providers/pings_count_provider.dart';
 import 'package:practice/providers/pings_provider.dart';
 import 'package:practice/providers/replied_to_pings_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
@@ -32,7 +31,6 @@ class Ping extends _$Ping {
     await PingRepository.toggleVisibility(state.id!, !state.hidden);
 
     ref.invalidate(pingsProvider);
-    ref.invalidate(pingsCountProvider);
 
     ref.invalidate(repliedToPingsProvider);
     ref.invalidate(neverVisitedPingsProvider);
