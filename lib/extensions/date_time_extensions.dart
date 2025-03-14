@@ -4,11 +4,11 @@ import 'package:practice/enums/theme_mode_enum.dart';
 extension ThemeModesEnumExtension on DateTime {
   ThemeModeEnum themeMode() {
     final hour = this.hour;
-    if (hour >= 6 && hour < 11) {
+    if (hour >= 6 && hour < 12) {
       return ThemeModeEnum.morning;
-    } else if (hour >= 11 && hour < 17) {
+    } else if (hour >= 12 && hour < 18) {
       return ThemeModeEnum.afternoon;
-    } else if (hour >= 17 && hour < 22) {
+    } else if (hour >= 18 && hour < 23) {
       return ThemeModeEnum.evening;
     } else {
       return ThemeModeEnum.night;
