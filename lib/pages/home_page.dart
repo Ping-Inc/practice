@@ -59,7 +59,7 @@ class _ExplorePageState extends ConsumerState<HomePage>
     switch (state) {
       case AppLifecycleState.resumed:
         final newTime = DateTime.now();
-        if (currentTime.themeMode() != newTime.themeMode()) {
+        if (currentTime.hour != newTime.hour) {
           setState(() {
             currentTime = newTime;
           });
