@@ -28,14 +28,21 @@ class _ExplorePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late TabController _tabController;
 
+  static final List<FiltersEnum> filters = [
+    FiltersEnum.hidden,
+    FiltersEnum.one_week_old,
+    FiltersEnum.day_of_week,
+    FiltersEnum.period_of_day,
+    FiltersEnum.all_pings,
+    FiltersEnum.pings_with_replies
+  ];
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _tabController = TabController(
-        initialIndex: FiltersEnum.values.length - 1,
-        length: FiltersEnum.values.length,
-        vsync: this);
+        initialIndex: filters.length - 1, length: filters.length, vsync: this);
   }
 
   @override
@@ -70,13 +77,13 @@ class _ExplorePageState extends ConsumerState<HomePage>
         Padding(
             padding: EdgeInsets.only(bottom: pingButtonSize),
             child: DefaultTabController(
-                length: FiltersEnum.values.length,
+                length: filters.length,
                 child: ExplorePage(
                   tabController: _tabController,
-                  tabs: FiltersEnum.values.map((filter) {
+                  tabs: filters.map((filter) {
                     return filter.title();
                   }).toList(),
-                  children: FiltersEnum.values.map((filter) {
+                  children: filters.map((filter) {
                     return filter.page(DateTime.now());
                   }).toList(),
                 ))),
