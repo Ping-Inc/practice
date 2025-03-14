@@ -4,9 +4,9 @@ extension StringParsing on BrowseEnum {
   String title() {
     switch (this) {
       case BrowseEnum.focus:
-        return "Focus";
+        return "focus";
       case BrowseEnum.grid:
-        return "Grid";
+        return "grid";
     }
   }
 }

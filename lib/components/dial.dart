@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
-import 'package:practice/enums/font_enum.dart';
-import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/providers/browse_provider.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
 
@@ -30,8 +28,6 @@ class Dial extends ConsumerWidget {
                           child: Column(children: [
                             SystemText(
                               text: mode == BrowseEnum.focus ? 'Focus' : 'Grid',
-                              font: FontEnum.garamond,
-                              size: TextSizeEnum.twenty,
                             ),
                             SizedBox(
                               height: 8,
