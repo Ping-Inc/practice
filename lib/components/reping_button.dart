@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_image.dart';
+import 'package:practice/providers/any_resonated_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/repinged_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
@@ -46,6 +47,9 @@ class RepingButton extends ConsumerWidget {
               ref.read(pingProvider(ping).notifier).increaseResonance();
               ref.invalidate(resonatedPingsProvider);
               ref.invalidate(repingedCountProvider(ping.id!));
+              if (ref.read(anyResonatedProvider).value == false) {
+                ref.invalidate(anyResonatedProvider);
+              }
             },
       color: isRepinged ? themeGray : null,
       imagePath: 'images/icons/reping.svg',

@@ -106,6 +106,7 @@ const String sharedPrefsBackupOnKey = "shared_prefs_backup_on_key";
 const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
 const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
 const String sharedPrefsBrowseMode = "shared_prefs_browse_mode";
+const String sharedPrefsResonated = "shared_prefs_resonated";
 
 Timer? backupTimer;
 

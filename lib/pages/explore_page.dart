@@ -29,9 +29,7 @@ class ExplorePage extends StatelessWidget {
               dividerColor: Colors.transparent,
               labelColor: Theme.of(context).colorScheme.primary,
               unselectedLabelColor: Theme.of(context).colorScheme.secondary,
-              onTap: (value) {
-                
-              },
+              onTap: (value) {},
               tabs: tabs.map((tab) {
                 return Text(
                   tab,

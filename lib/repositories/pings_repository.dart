@@ -93,6 +93,24 @@ class PingsRepository {
     );
   }
 
+  static Future<bool> anyResonated() async {
+    final result = await db.rawQuery(
+      'SELECT COUNT(*) FROM pings WHERE resonant_count > 0 AND hidden = 0',
+    );
+    return (Sqflite.firstIntValue(result) ?? 0) > 0;
+  }
+
+  static Future<bool> anyLastWeek() async {
+    final result = await db.rawQuery(
+      'SELECT COUNT(*) FROM pings WHERE datetime(time/1000, "unixepoch", "localtime") >= datetime(?/1000, "unixepoch", "localtime") AND datetime(time/1000, "unixepoch", "localtime") <= datetime(?/1000, "unixepoch", "localtime") AND hidden = 0',
+      [
+        DateTime.now().subtract(Duration(days: 7)).millisecondsSinceEpoch,
+        DateTime.now().millisecondsSinceEpoch
+      ],
+    );
+    return (Sqflite.firstIntValue(result) ?? 0) > 0;
+  }
+
   static Future<List<Map<String, Object?>>> fetchResonated() async {
     return db.query(
       'pings',

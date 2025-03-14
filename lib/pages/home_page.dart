@@ -7,10 +7,7 @@ import 'package:practice/components/fade.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/browse_enum.dart';
-import 'package:practice/enums/filters_enum.dart';
-import 'package:practice/extensions/date_time_extensions.dart';
-import 'package:practice/extensions/filters_enum_extensions.dart';
-import 'package:practice/pages/explore_page.dart';
+import 'package:practice/pages/home_page_explore.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/pages/search_page.dart';
 import 'package:practice/pages/settings_page.dart';
@@ -26,31 +23,16 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _ExplorePageState extends ConsumerState<HomePage>
-    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
-  late TabController _tabController;
-  DateTime currentTime = DateTime.now();
-
-  static final List<FiltersEnum> filters = [
-    FiltersEnum.hidden,
-    FiltersEnum.one_week_old,
-    FiltersEnum.day_of_week,
-    FiltersEnum.period_of_day,
-    FiltersEnum.all_pings,
-    FiltersEnum.resonated
-  ];
-
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _tabController = TabController(
-        initialIndex: filters.length - 1, length: filters.length, vsync: this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -58,12 +40,6 @@ class _ExplorePageState extends ConsumerState<HomePage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        final newTime = DateTime.now();
-        if (currentTime.hour != newTime.hour) {
-          setState(() {
-            currentTime = newTime;
-          });
-        }
         break;
       case AppLifecycleState.inactive:
         if (ref.read(localBackupOnProvider)) BackupUtils.backupPings();
@@ -84,17 +60,7 @@ class _ExplorePageState extends ConsumerState<HomePage>
       child: Stack(children: [
         Padding(
             padding: EdgeInsets.only(bottom: pingButtonSize),
-            child: DefaultTabController(
-                length: filters.length,
-                child: ExplorePage(
-                  tabController: _tabController,
-                  tabs: filters.map((filter) {
-                    return filter.title(currentTime);
-                  }).toList(),
-                  children: filters.map((filter) {
-                    return filter.page(currentTime);
-                  }).toList(),
-                ))),
+            child: HomePageExplore()),
         Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
