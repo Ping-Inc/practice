@@ -37,8 +37,8 @@ dependencies:
   riverpod_annotation: ^2.3.5
   sqflite: ^2.3.3+1
   path: ^1.9.0
-  freezed: ^2.5.2
-  freezed_annotation: ^2.4.1
+  freezed: ^3.0.3
+  freezed_annotation: ^3.0.0
   flutter_phosphor_icons: ^0.0.1+6
   flutter_launcher_icons: ^0.14.1
   file_picker: ^9.0.0
@@ -114,5 +114,5 @@ flutter_launcher_icons:
     generate: false
 
 flutter_native_splash:
-  color: "#001349"
+  color: "#011C6B"
   android: false

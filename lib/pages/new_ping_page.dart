@@ -42,65 +42,66 @@ class _HomePageState extends ConsumerState<NewPingPage> {
     });
 
     return Scaffold(
+        backgroundColor: themeCardBackgroundBlueOldest,
         body: SafeArea(
             child: Column(
-      children: [
-        TopNav(
-            child: SystemButton(
-          onTap: () => context.pop(),
-          icon: PhosphorIcons.caret_left,
-        )),
-        Expanded(
-            child: MainSpacingCell(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-              PingReplyText(replyPing: widget.replyPing),
-              Expanded(
-                child: TextField(
-                  textInputAction: TextInputAction.newline,
-                  maxLines: 12,
-                  focusNode: focusNode,
-                  autofocus: true,
-                  controller: controller,
-                  onChanged: (value) => {
-                    ref.read(currentPingProvider.notifier).set(value.trim())
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Listening for pings...",
-                    hintStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
+          children: [
+            TopNav(
+                child: SystemButton(
+              onTap: () => context.pop(),
+              icon: PhosphorIcons.caret_left,
+            )),
+            Expanded(
+                child: MainSpacingCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                  PingReplyText(replyPing: widget.replyPing),
+                  Expanded(
+                    child: TextField(
+                      textInputAction: TextInputAction.newline,
+                      maxLines: 12,
+                      focusNode: focusNode,
+                      autofocus: true,
+                      controller: controller,
+                      onChanged: (value) => {
+                        ref.read(currentPingProvider.notifier).set(value.trim())
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Listening for pings...",
+                        hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
 
-                    // Add this line
-                    border: InputBorder.none, // And this one
-                  ),
-                  style: TextStyle(
-                      fontSize: 36,
-                      fontFamily: FontEnum.garamond.toFontFamily()),
-                ),
-              ),
-              SizedBox(
-                height: spacingFive,
-              ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  if (widget.replyPing == null)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: ReplyPingButton(),
+                        // Add this line
+                        border: InputBorder.none, // And this one
+                      ),
+                      style: TextStyle(
+                          fontSize: 36,
+                          fontFamily: FontEnum.garamond.toFontFamily()),
                     ),
-                  NewPingButton(
-                      textEditingController: controller,
-                      replyPing: widget.replyPing),
-                ],
-              ),
-              SizedBox(
-                height: spacingFive,
-              )
-            ])))
-      ],
-    )));
+                  ),
+                  SizedBox(
+                    height: spacingFive,
+                  ),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (widget.replyPing == null)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ReplyPingButton(),
+                        ),
+                      NewPingButton(
+                          textEditingController: controller,
+                          replyPing: widget.replyPing),
+                    ],
+                  ),
+                  SizedBox(
+                    height: spacingFive,
+                  )
+                ])))
+          ],
+        )));
   }
 }
