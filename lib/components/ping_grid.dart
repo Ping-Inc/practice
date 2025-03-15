@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practice/components/ping_cell.dart';
-import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
+import 'package:practice/design_system/system_grid.dart';
 
 class PingGrid extends StatelessWidget {
   const PingGrid({super.key, required this.pings, this.showId = false});
@@ -19,18 +18,6 @@ class PingGrid extends StatelessWidget {
           }
           return true;
         },
-        child: GridView.builder(
-          padding: EdgeInsets.only(bottom: spacingMedium),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: spacingFour,
-            crossAxisSpacing: spacingFour,
-            childAspectRatio: 1,
-          ),
-          itemCount: pings.length,
-          itemBuilder: (context, i) {
-            return PingCell(inputPing: pings[i], showId: showId);
-          },
-        ));
+        child: SystemGrid(pings: pings, showId: showId));
   }
 }
