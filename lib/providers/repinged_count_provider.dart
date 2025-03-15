@@ -12,4 +12,10 @@ class RepingedCount extends _$RepingedCount {
 
     return repingedCount;
   }
+
+  Future<void> increment() async {
+    final repingedCount = await PingsRepository.repingedCount(pingId);
+
+    state = AsyncData(repingedCount + 1);
+  }
 }

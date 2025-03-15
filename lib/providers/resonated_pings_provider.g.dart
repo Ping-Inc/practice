@@ -6,7 +6,7 @@ part of 'resonated_pings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$resonatedPingsHash() => r'7576ca2e4505302e7916ab41f634e562a90244d9';
+String _$resonatedPingsHash() => r'b29788ccac99eae3b54622089335ef5930bb0ae0';
 
 /// See also [ResonatedPings].
 @ProviderFor(ResonatedPings)

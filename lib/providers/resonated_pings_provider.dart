@@ -13,4 +13,12 @@ class ResonatedPings extends _$ResonatedPings {
 
     return pingsList.map<PingData>((data) => PingData.fromJson(data)).toList();
   }
+
+  Future<void> insert(PingData ping) async {
+    final pings = await future;
+
+    pings.insert(0, ping);
+
+    state = AsyncData(pings);
+  }
 }

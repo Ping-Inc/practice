@@ -45,10 +45,11 @@ class RepingButton extends ConsumerWidget {
             }
           : () {
               ref.read(pingProvider(ping).notifier).increaseResonance();
-              ref.invalidate(resonatedPingsProvider);
-              ref.invalidate(repingedCountProvider(ping.id!));
+              ref.read(resonatedPingsProvider.notifier).insert(ping);
+              ref.read(repingedCountProvider(ping.id!).notifier).increment();
+
               if (ref.read(anyResonatedProvider).value == false) {
-                ref.invalidate(anyResonatedProvider);
+                ref.read(anyResonatedProvider.notifier).resonancePresent();
               }
             },
       color: isRepinged ? themeGray : null,

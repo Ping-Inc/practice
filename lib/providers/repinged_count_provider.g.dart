@@ -6,7 +6,7 @@ part of 'repinged_count_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$repingedCountHash() => r'2660c8267d04a6ba62c5f8e340b2c80033385719';
+String _$repingedCountHash() => r'4395be985a74ab358232cdefb2b2cd1aae5a9350';
 
 /// Copied from Dart SDK
 class _SystemHash {
