@@ -322,28 +322,4 @@ class PingsRepository {
       [pingId],
     );
   }
-
-  // static Future<void> exportToCsv() async {
-  //   final List<Map<String, Object?>> data = await fetch();
-
-  //   List<List<dynamic>> rows = [];
-
-  //   rows.add(data[0].keys.toList());
-
-  //   for (var map in data) {
-  //     rows.add(map.values.toList());
-  //   }
-
-  //   String csvData = const ListToCsvConverter().convert(rows);
-
-  //   // Get the directory to store the file in
-  //   final directory = await getApplicationDocumentsDirectory();
-
-  //   // Create a file in the directory
-  //   final File file = File(
-  //       '${directory.path}/pings_${DateTime.now().millisecondsSinceEpoch}.csv');
-
-  //   // Write the CSV data to the file
-  //   await file.writeAsString(csvData);
-  // }
 }
