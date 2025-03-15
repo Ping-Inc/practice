@@ -8,6 +8,9 @@ class BrowseResonatedPingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BrowsePage(asyncPings: ref.watch(resonatedPingsProvider));
+    return BrowsePage(
+      asyncPings: ref.watch(resonatedPingsProvider),
+      sortByResonance: true,
+    );
   }
 }

@@ -12,10 +12,14 @@ import 'package:practice/providers/browse_provider.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
 
 class BrowsePage extends ConsumerWidget {
-  const BrowsePage({super.key, required this.asyncPings});
+  const BrowsePage({
+    super.key,
+    required this.asyncPings,
+    this.sortByResonance = false,
+  });
 
   final AsyncValue<List<PingData>> asyncPings;
-
+  final bool sortByResonance;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final BrowseEnum browseMode =
@@ -34,7 +38,10 @@ class BrowsePage extends ConsumerWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: spacingMedium,
                   ), // Add padding here
-                  child: PingGrid(pings: pingsValue)),
+                  child: PingGrid(
+                    pings: pingsValue,
+                    sortByResonance: sortByResonance,
+                  )),
       AsyncError() => SystemText(text: "Error"),
       _ => SystemLoader()
     };

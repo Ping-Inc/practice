@@ -23,10 +23,16 @@ class DateGroup {
 }
 
 class SystemGrid extends StatelessWidget {
-  const SystemGrid({super.key, required this.pings, this.showId = false});
+  const SystemGrid({
+    super.key,
+    required this.pings,
+    this.showId = false,
+    this.sortByResonance = false,
+  });
 
   final List<PingData> pings;
   final bool showId;
+  final bool sortByResonance;
 
   @override
   Widget build(BuildContext context) {
@@ -110,11 +116,22 @@ class SystemGrid extends StatelessWidget {
 
     // Group pings by date category
     for (final ping in pings) {
-      final pingDate = DateTime(
-        ping.time.year,
-        ping.time.month,
-        ping.time.day,
-      );
+      final DateTime pingDate;
+
+      // Use resonantTime if sortByResonance is true and resonantTime exists
+      if (sortByResonance && ping.resonantTime != null) {
+        pingDate = DateTime(
+          ping.resonantTime!.year,
+          ping.resonantTime!.month,
+          ping.resonantTime!.day,
+        );
+      } else {
+        pingDate = DateTime(
+          ping.time.year,
+          ping.time.month,
+          ping.time.day,
+        );
+      }
 
       // Determine category based on date
       DateCategory category;
