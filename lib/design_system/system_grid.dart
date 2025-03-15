@@ -7,6 +7,21 @@ import 'package:intl/intl.dart';
 
 enum DateCategory { today, yesterday, thisWeek, thisYear, pastYear }
 
+// Class to hold group information
+class DateGroup {
+  final DateCategory category;
+  final DateTime date;
+  final String header;
+  final List<PingData> pings;
+
+  DateGroup({
+    required this.category,
+    required this.date,
+    required this.header,
+    required this.pings,
+  });
+}
+
 class SystemGrid extends StatelessWidget {
   const SystemGrid({super.key, required this.pings, this.showId = false});
 
@@ -15,27 +30,23 @@ class SystemGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Group pings by date category and subgroups
-    Map<String, List<PingData>> groupedPings = _groupPingsByDate(pings);
-
-    // Create a list of date headers in order
-    List<String> dateHeaders =
-        _getOrderedDateHeaders(groupedPings.keys.toList());
+    // Group pings by date category
+    List<DateGroup> dateGroups = _groupPingsByDate(pings);
 
     return CustomScrollView(
       slivers: [
-        // Generate sliver sections for each date header
-        for (final header in dateHeaders) ...[
+        // Generate sliver sections for each date group
+        for (int i = 0; i < dateGroups.length; i++) ...[
           // Header for this date
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(
-                top: header == dateHeaders.first ? 0 : spacingMedium,
+                top: i == 0 ? 0 : spacingMedium,
                 bottom: spacingSmall,
               ),
               child: SystemText(
                 align: TextAlign.center,
-                text: header.toLowerCase(),
+                text: dateGroups[i].header.toLowerCase(),
               ),
             ),
           ),
@@ -50,10 +61,10 @@ class SystemGrid extends StatelessWidget {
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final ping = groupedPings[header]![index];
+                final ping = dateGroups[i].pings[index];
                 return PingCell(inputPing: ping, showId: showId);
               },
-              childCount: groupedPings[header]!.length,
+              childCount: dateGroups[i].pings.length,
             ),
           ),
         ],
@@ -66,6 +77,7 @@ class SystemGrid extends StatelessWidget {
     );
   }
 
+  // Format date header based on category
   String _formatDateHeader(DateTime date, DateCategory category) {
     final monthAbbr = DateFormat('MMM').format(date);
     final dayOfMonth = date.day.toString();
@@ -84,15 +96,19 @@ class SystemGrid extends StatelessWidget {
     }
   }
 
-  // Group pings by date with appropriate headers
-  Map<String, List<PingData>> _groupPingsByDate(List<PingData> pings) {
-    final Map<String, List<PingData>> grouped = {};
+  // Group pings by date category and return sorted list of DateGroups
+  List<DateGroup> _groupPingsByDate(List<PingData> pings) {
+    // Setup temporary storage for groups
+    final Map<String, DateGroup> groupMap = {};
+
+    // Setup date references
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
     final startOfWeek = today.subtract(Duration(days: now.weekday - 1));
     final startOfYear = DateTime(now.year);
 
+    // Group pings by date category
     for (final ping in pings) {
       final pingDate = DateTime(
         ping.time.year,
@@ -100,10 +116,9 @@ class SystemGrid extends StatelessWidget {
         ping.time.day,
       );
 
+      // Determine category based on date
       DateCategory category;
-      String header;
 
-      // Compare dates by year, month, day only (not time)
       if (pingDate.year == today.year &&
           pingDate.month == today.month &&
           pingDate.day == today.day) {
@@ -121,55 +136,40 @@ class SystemGrid extends StatelessWidget {
         category = DateCategory.pastYear;
       }
 
-      header = _formatDateHeader(pingDate, category);
+      // Create header based on category
+      final header = _formatDateHeader(pingDate, category);
 
-      if (!grouped.containsKey(header)) {
-        grouped[header] = [];
-      }
-
-      grouped[header]!.add(ping);
-    }
-
-    return grouped;
-  }
-
-  // Get date headers in chronological order
-  List<String> _getOrderedDateHeaders(List<String> headers) {
-    return headers.toList()
-      ..sort((a, b) {
-        // Keep "today" and "yesterday" at the top
-        if (a.startsWith('today')) return -1;
-        if (b.startsWith('today')) return 1;
-        if (a.startsWith('yesterday')) return -1;
-        if (b.startsWith('yesterday')) return 1;
-
-        // For other dates, first check if one has a year and the other doesn't
-        final aHasYear = a.split(', ').length > 2;
-        final bHasYear = b.split(', ').length > 2;
-
-        // Current year dates (without explicit year) should come before past year dates
-        if (aHasYear && !bHasYear) return 1;
-        if (!aHasYear && bHasYear) return -1;
-
-        // If both have years or both don't have years, compare chronologically
-        final aDate = _parseHeaderDate(a);
-        final bDate = _parseHeaderDate(b);
-        return bDate.compareTo(aDate); // Most recent first
-      });
-  }
-
-  DateTime _parseHeaderDate(String header) {
-    try {
-      // Try parsing with year first
-      return DateFormat('EEEE, MMM d, yyyy').parse(header);
-    } catch (e) {
-      // If that fails, try without year
-      try {
-        return DateFormat('EEEE, MMM d').parse(header);
-      } catch (e) {
-        // If all parsing fails, return epoch to put at end
-        return DateTime(1970);
+      // Create or add to group
+      if (!groupMap.containsKey(header)) {
+        groupMap[header] = DateGroup(
+          category: category,
+          date: pingDate,
+          header: header,
+          pings: [ping],
+        );
+      } else {
+        groupMap[header]!.pings.add(ping);
       }
     }
+
+    // Convert to list and sort
+    List<DateGroup> result = groupMap.values.toList();
+    _sortDateGroups(result);
+
+    return result;
+  }
+
+  // Sort date groups by category and date
+  void _sortDateGroups(List<DateGroup> groups) {
+    groups.sort((a, b) {
+      // First sort by category priority
+      int categoryComparison = a.category.index.compareTo(b.category.index);
+      if (categoryComparison != 0) {
+        return categoryComparison;
+      }
+
+      // If same category, sort by date (most recent first)
+      return b.date.compareTo(a.date);
+    });
   }
 }
