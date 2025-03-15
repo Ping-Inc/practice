@@ -12,10 +12,12 @@ class SettingsScaffold extends StatelessWidget {
       {super.key,
       required this.title,
       required this.subtitle,
-      required this.child});
+      required this.child,
+      this.subtitleWidget});
 
   final String title;
-  final String subtitle;
+  final String? subtitle;
+  final Widget? subtitleWidget;
   final Widget child;
 
   @override
@@ -48,7 +50,10 @@ class SettingsScaffold extends StatelessWidget {
                                       SizedBox(
                                         height: spacingSmall,
                                       ),
-                                      SystemText(text: subtitle),
+                                      if (subtitle != null)
+                                        SystemText(text: subtitle!),
+                                      if (subtitleWidget != null)
+                                        subtitleWidget!,
                                       SizedBox(
                                         height: spacingSmall,
                                       ),
