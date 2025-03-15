@@ -16,6 +16,14 @@ class HomePageExplore extends ConsumerStatefulWidget {
 
 class _ExplorePageState extends ConsumerState<HomePageExplore>
     with TickerProviderStateMixin {
+  TabController? _tabController;
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     ref.watch(currentDayOfWeekProvider);
     final currentTime = DateTime.now();
@@ -24,19 +32,24 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
     return switch (asyncFilters) {
       AsyncData(value: final filters) => DefaultTabController(
           length: filters.length,
-          child: ExplorePage(
-              tabController: TabController(
-                  initialIndex: filters.length - 1,
-                  length: filters.length,
-                  vsync: this),
-              tabs: filters.map((filter) {
-                return filter.title(currentTime);
-              }).toList(),
-              children: filters.map((filter) {
-                return filter.page(currentTime);
-              }).toList()),
+          child: Builder(builder: (context) {
+            _tabController?.dispose();
+            _tabController = TabController(
+                initialIndex: filters.length - 1,
+                length: filters.length,
+                vsync: this);
+
+            return ExplorePage(
+                tabController: _tabController!,
+                tabs: filters.map((filter) {
+                  return filter.title(currentTime);
+                }).toList(),
+                children: filters.map((filter) {
+                  return filter.page(currentTime);
+                }).toList());
+          }),
         ),
-      AsyncError() => SystemText(text: "Error"),
+      AsyncError() => SystemText(text: "Erro"),
       _ => SystemLoader()
     };
   }
