@@ -59,22 +59,54 @@ class PingsRepository {
     );
   }
 
-  static Future<List<Map<String, Object?>>> fetchLastWeek() async {
-    // Calculate the start and end of the last week (Sunday to Saturday)
-    final currentDate = DateTime.now();
+  static Future<bool> anyLastWeek() async {
+    // Get the current date in local time
+    final now = DateTime.now();
+    // Find the start of the current week (Monday)
+    final startOfCurrentWeek = now.subtract(Duration(days: now.weekday - 1));
+    final startOfCurrentWeekMidnight = DateTime(startOfCurrentWeek.year,
+        startOfCurrentWeek.month, startOfCurrentWeek.day);
 
-    DateTime endOfLastWeek =
-        currentDate.subtract(Duration(days: currentDate.weekday));
-    DateTime startOfLastWeek = endOfLastWeek.subtract(Duration(days: 6));
+    // Calculate start of last week (Monday of previous week)
+    final startOfLastWeek =
+        startOfCurrentWeekMidnight.subtract(const Duration(days: 7));
 
-    return db.query(
-      'pings',
-      where: 'time >= ? AND time <= ? AND hidden = 0',
-      whereArgs: [
+    // Calculate end of last week (Sunday of previous week, 23:59:59)
+    final endOfLastWeek =
+        startOfCurrentWeekMidnight.subtract(const Duration(milliseconds: 1));
+
+    final result = await db.rawQuery(
+      'SELECT COUNT(*) FROM pings WHERE datetime(time/1000, "unixepoch", "localtime") >= datetime(?/1000, "unixepoch", "localtime") AND datetime(time/1000, "unixepoch", "localtime") <= datetime(?/1000, "unixepoch", "localtime") AND hidden = 0',
+      [
         startOfLastWeek.millisecondsSinceEpoch,
         endOfLastWeek.millisecondsSinceEpoch
       ],
-      orderBy: 'time desc',
+    );
+    return (Sqflite.firstIntValue(result) ?? 0) > 0;
+  }
+
+  static Future<List<Map<String, Object?>>> fetchLastWeek() async {
+    // Get the current date in local time
+    final now = DateTime.now();
+    // Find the start of the current week (Monday)
+    final startOfCurrentWeek = now.subtract(Duration(days: now.weekday - 1));
+    final startOfCurrentWeekMidnight = DateTime(startOfCurrentWeek.year,
+        startOfCurrentWeek.month, startOfCurrentWeek.day);
+
+    // Calculate start of last week (Monday of previous week)
+    final startOfLastWeek =
+        startOfCurrentWeekMidnight.subtract(const Duration(days: 7));
+
+    // Calculate end of last week (Sunday of previous week, 23:59:59)
+    final endOfLastWeek =
+        startOfCurrentWeekMidnight.subtract(const Duration(milliseconds: 1));
+
+    return db.rawQuery(
+      'SELECT * FROM pings WHERE datetime(time/1000, "unixepoch", "localtime") >= datetime(?/1000, "unixepoch", "localtime") AND datetime(time/1000, "unixepoch", "localtime") <= datetime(?/1000, "unixepoch", "localtime") AND hidden = 0 ORDER BY time DESC',
+      [
+        startOfLastWeek.millisecondsSinceEpoch,
+        endOfLastWeek.millisecondsSinceEpoch
+      ],
     );
   }
 
@@ -96,17 +128,6 @@ class PingsRepository {
   static Future<bool> anyResonated() async {
     final result = await db.rawQuery(
       'SELECT COUNT(*) FROM pings WHERE resonant_count > 0 AND hidden = 0',
-    );
-    return (Sqflite.firstIntValue(result) ?? 0) > 0;
-  }
-
-  static Future<bool> anyLastWeek() async {
-    final result = await db.rawQuery(
-      'SELECT COUNT(*) FROM pings WHERE datetime(time/1000, "unixepoch", "localtime") >= datetime(?/1000, "unixepoch", "localtime") AND datetime(time/1000, "unixepoch", "localtime") <= datetime(?/1000, "unixepoch", "localtime") AND hidden = 0',
-      [
-        DateTime.now().subtract(Duration(days: 7)).millisecondsSinceEpoch,
-        DateTime.now().millisecondsSinceEpoch
-      ],
     );
     return (Sqflite.firstIntValue(result) ?? 0) > 0;
   }
