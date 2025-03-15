@@ -12,4 +12,12 @@ class ViewCount extends _$ViewCount {
 
     return viewCount;
   }
+
+  Future<void> incrementViewCount() async {
+    await PingsRepository.incrementViewCount(pingId);
+
+    final viewcount = await future;
+
+    state = AsyncData(viewcount + 1);
+  }
 }

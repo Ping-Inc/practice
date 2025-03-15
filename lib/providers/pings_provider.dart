@@ -41,7 +41,11 @@ class Pings extends _$Pings {
   void addAllPings(List<PingData> pings) async {
     await PingsRepository.insertAll(pings);
 
-    ref.invalidateSelf();
+    final originalPings = await future;
+
+    originalPings.addAll(pings);
+
+    state = AsyncData(originalPings);
   }
 
   void deletePing(PingData ping) async {

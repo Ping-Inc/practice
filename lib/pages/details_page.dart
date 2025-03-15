@@ -20,8 +20,7 @@ import 'package:practice/pages/traversal/traversal_day_of_week_page.dart';
 import 'package:practice/pages/traversal/traversal_mode_page.dart';
 import 'package:practice/pages/traversal/traversal_month_page.dart';
 import 'package:practice/pages/traversal/traversal_year_page.dart';
-import 'package:practice/providers/never_visited_pings_provider.dart';
-import 'package:practice/repositories/pings_repository.dart';
+import 'package:practice/providers/view_count_provider.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
@@ -37,12 +36,8 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    _incrementViewCount();
-  }
 
-  Future<void> _incrementViewCount() async {
-    await PingsRepository.incrementViewCount(widget.ping.id!);
-    ref.invalidate(neverVisitedPingsProvider);
+    ref.read(viewCountProvider(widget.ping.id!).notifier).incrementViewCount();
   }
 
   @override
