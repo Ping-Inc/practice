@@ -28,7 +28,7 @@ class Dial extends ConsumerWidget {
                           offset: Offset(0, -(pingButtonSize / 2 + 20)),
                           child: Column(children: [
                             SystemText(
-                              text: mode!.title(),
+                              text: mode!.title().toLowerCase(),
                             ),
                             SizedBox(
                               height: 8,
