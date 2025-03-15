@@ -5,8 +5,6 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:intl/intl.dart';
 
-enum DateCategory { today, yesterday, thisWeek, thisYear, pastYear }
-
 class SystemGrid extends StatelessWidget {
   const SystemGrid({super.key, required this.pings, this.showId = false});
 
@@ -16,97 +14,62 @@ class SystemGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Group pings by date category
-    Map<DateCategory, List<PingData>> groupedPings =
-        _groupPingsByDateCategory(pings);
+    final groupedPings = _groupPingsByDate();
 
-    // Create a list of date categories in order
-    List<DateCategory> dateCategories =
-        _getOrderedDateCategories(groupedPings.keys.toList());
+    // Sort headers chronologically (most recent first)
+    final dateHeaders = groupedPings.keys.toList()
+      ..sort((a, b) => _compareHeaders(a, b));
 
-    return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
-        if (notification is ScrollUpdateNotification &&
-            FocusScope.of(context).hasFocus) {
-          FocusScope.of(context).unfocus();
-        }
-        return true;
-      },
-      child: CustomScrollView(
-        slivers: [
-          // Generate sliver sections for each date category
-          for (final category in dateCategories) ...[
-            // Header for this date category
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: category == dateCategories.first ? 0 : spacingMedium,
-                  bottom: spacingSmall,
-                ),
-                child: SystemText(
-                  align: TextAlign.center,
-                  text: _formatCategoryHeader(category).toLowerCase(),
-                ),
-              ),
-            ),
-
-            // Grid of pings for this category
-            SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: spacingFour,
-                crossAxisSpacing: spacingFour,
-                childAspectRatio: 1,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final ping = groupedPings[category]![index];
-                  return PingCell(inputPing: ping, showId: showId);
-                },
-                childCount: groupedPings[category]!.length,
-              ),
-            ),
-          ],
-
-          // Add bottom padding
+    return CustomScrollView(
+      slivers: [
+        for (final header in dateHeaders) ...[
+          // Date header
           SliverToBoxAdapter(
-            child: SizedBox(height: spacingMedium),
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: header == dateHeaders.first ? 0 : spacingMedium,
+                bottom: spacingSmall,
+              ),
+              child: SystemText(
+                align: TextAlign.center,
+                text: header.toLowerCase(),
+              ),
+            ),
+          ),
+
+          // Grid for this date group
+          SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: spacingFour,
+              crossAxisSpacing: spacingFour,
+              childAspectRatio: 1,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => PingCell(
+                  inputPing: groupedPings[header]![index], showId: showId),
+              childCount: groupedPings[header]!.length,
+            ),
           ),
         ],
-      ),
+
+        // Bottom padding
+        SliverToBoxAdapter(child: SizedBox(height: spacingMedium)),
+      ],
     );
   }
 
-  String _formatCategoryHeader(DateCategory category) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final monthAbbr = DateFormat('MMM').format(now);
-    final dayOfMonth = now.day.toString();
-
-    switch (category) {
-      case DateCategory.today:
-        return 'today, $monthAbbr $dayOfMonth';
-      case DateCategory.yesterday:
-        final yesterday = today.subtract(const Duration(days: 1));
-        final yesterdayMonth = DateFormat('MMM').format(yesterday);
-        final yesterdayDay = yesterday.day.toString();
-        return 'yesterday, $yesterdayMonth $yesterdayDay';
-      case DateCategory.thisWeek:
-      case DateCategory.thisYear:
-        return DateFormat('EEEE, MMM d').format(now);
-      case DateCategory.pastYear:
-        return DateFormat('EEEE, MMM d, y').format(now);
-    }
-  }
-
-  // Group pings by date category
-  Map<DateCategory, List<PingData>> _groupPingsByDateCategory(
-      List<PingData> pings) {
-    final Map<DateCategory, List<PingData>> grouped = {};
+  // Group pings by date with appropriate headers
+  Map<String, List<PingData>> _groupPingsByDate() {
+    final Map<String, List<PingData>> grouped = {};
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
     final startOfWeek = today.subtract(Duration(days: now.weekday - 1));
     final startOfYear = DateTime(now.year);
+
+    final monthFormat = DateFormat('MMM');
+    final dayOfWeekFormat = DateFormat('EEEE');
 
     for (final ping in pings) {
       final pingDate = DateTime(
@@ -115,38 +78,68 @@ class SystemGrid extends StatelessWidget {
         ping.time.day,
       );
 
-      DateCategory category;
+      // Create appropriate header based on date
+      final String header;
+      final monthDay = '${monthFormat.format(pingDate)} ${pingDate.day}';
 
-      if (pingDate.isAtSameMomentAs(today)) {
-        category = DateCategory.today;
-      } else if (pingDate.isAtSameMomentAs(yesterday)) {
-        category = DateCategory.yesterday;
+      if (pingDate == today) {
+        header = 'today, $monthDay';
+      } else if (pingDate == yesterday) {
+        header = 'yesterday, $monthDay';
       } else if (pingDate.isAfter(startOfWeek) ||
           pingDate.isAtSameMomentAs(startOfWeek)) {
-        category = DateCategory.thisWeek;
+        header = '${dayOfWeekFormat.format(pingDate)}, $monthDay';
       } else if (pingDate.isAfter(startOfYear) ||
           pingDate.isAtSameMomentAs(startOfYear)) {
-        category = DateCategory.thisYear;
+        header = '${dayOfWeekFormat.format(pingDate)}, $monthDay';
       } else {
-        category = DateCategory.pastYear;
+        header =
+            '${dayOfWeekFormat.format(pingDate)}, $monthDay, ${pingDate.year}';
       }
 
-      if (!grouped.containsKey(category)) {
-        grouped[category] = [];
-      }
-
-      grouped[category]!.add(ping);
+      // Add ping to its group
+      (grouped[header] ??= []).add(ping);
     }
 
     return grouped;
   }
 
-  // Get date categories in a logical order
-  List<DateCategory> _getOrderedDateCategories(List<DateCategory> categories) {
-    return categories.toList()
-      ..sort((a, b) {
-        // Categories are already ordered by enum definition
-        return a.index.compareTo(b.index);
-      });
+  // Compare headers for sorting (most recent first)
+  int _compareHeaders(String a, String b) {
+    // Special handling for today/yesterday
+    if (a.startsWith('today')) return -1;
+    if (b.startsWith('today')) return 1;
+    if (a.startsWith('yesterday')) return -1;
+    if (b.startsWith('yesterday')) return 1;
+
+    // Extract dates from headers
+    final aDate = _extractDateFromHeader(a);
+    final bDate = _extractDateFromHeader(b);
+
+    // Most recent first
+    return bDate.compareTo(aDate);
+  }
+
+  // Extract date from header text
+  DateTime _extractDateFromHeader(String header) {
+    // Remove day name prefix and any "today"/"yesterday" text
+    final parts = header.split(', ');
+    if (parts.length < 2) return DateTime(1970);
+
+    String dateText = parts.length > 1 ? parts[1] : parts[0];
+
+    // Try to parse with year if present
+    if (parts.length > 2) {
+      try {
+        return DateFormat('MMM d, yyyy').parse('$dateText, ${parts[2]}');
+      } catch (_) {}
+    }
+
+    // Try without year
+    try {
+      return DateFormat('MMM d').parse(dateText);
+    } catch (_) {
+      return DateTime(1970); // Fallback
+    }
   }
 }
