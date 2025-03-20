@@ -17,7 +17,8 @@ class ResonatedPings extends _$ResonatedPings {
   Future<void> insert(PingData ping) async {
     final pings = await future;
 
-    pings.insert(0, ping.copyWith(resonantTime: DateTime.now()));
+    pings.removeWhere((existingPing) => existingPing.id == ping.id);
+    pings.insert(0, ping);
 
     state = AsyncData(pings);
   }
