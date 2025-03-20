@@ -109,8 +109,10 @@ const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
 const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
 const String sharedPrefsBrowseMode = "shared_prefs_browse_mode";
 const String sharedPrefsResonated = "shared_prefs_resonated";
+const String sharedPrefsOnboarded = "shared_prefs_onboarded";
 
 Timer? backupTimer;
 
 const String routeHome = 'home';
 const String routePingEntry = 'banned';
+const String routeOnboarding = 'onboarding';
