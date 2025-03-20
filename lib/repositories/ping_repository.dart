@@ -40,7 +40,7 @@ class PingRepository {
         SELECT * FROM replies_down
       )
       WHERE id != ?
-      ORDER BY id DESC
+      ORDER BY id ASC
     ''', [id, id, id]);
   }
 
