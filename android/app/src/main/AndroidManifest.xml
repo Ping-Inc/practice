@@ -10,6 +10,11 @@
         android:label="practice"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.posthog.posthog.API_KEY" android:value="phc_hw9DGBIr85NdIiGB9nI7Fq3f8db0iDhdpIrIgDnEi0Z" />
+        <meta-data android:name="com.posthog.posthog.POSTHOG_HOST" android:value="https://us.i.posthog.com" />  <!-- usually 'https://us.i.posthog.com' or 'https://eu.i.posthog.com' -->
+        <meta-data android:name="com.posthog.posthog.TRACK_APPLICATION_LIFECYCLE_EVENTS" android:value="true" />
+        <meta-data android:name="com.posthog.posthog.DEBUG" android:value="true" />
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"

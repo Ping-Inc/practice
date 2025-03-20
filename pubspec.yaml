@@ -54,6 +54,7 @@ dependencies:
   icloud_storage_sync: ^0.0.1
   flutter_native_splash: ^2.2.19
   url_launcher: ^6.3.1
+  posthog_flutter: ^4.0.1
 
 dev_dependencies:
   flutter_test:
