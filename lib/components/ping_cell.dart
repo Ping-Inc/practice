@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/system_tap.dart';
@@ -77,6 +78,23 @@ class PingCell extends ConsumerWidget {
                               ])),
                     ),
                   ]))),
+          onLongPress: () {
+            Clipboard.setData(ClipboardData(text: inputPing.text));
+
+            // Show toast message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                elevation: 0,
+                content: Text(
+                  'Copied to clipboard',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: themeForegroundBlue,
+                duration: Duration(seconds: 1),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          },
           onTap: tappable
               ? () => Navigator.push(
                     context,
