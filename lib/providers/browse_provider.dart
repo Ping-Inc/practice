@@ -11,7 +11,7 @@ class Browse extends _$Browse {
     String? mode = prefs.getString(sharedPrefsBrowseMode);
 
     return mode == null
-        ? BrowseEnum.focus
+        ? BrowseEnum.grid
         : BrowseEnum.values.firstWhere((e) => e.toString() == mode);
   }
 

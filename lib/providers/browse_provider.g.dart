@@ -6,7 +6,7 @@ part of 'browse_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$browseHash() => r'6450596c28d97d66bd8f4650e9a1265b7bb1cd00';
+String _$browseHash() => r'da506c50cf0ea16c96dc87c42c1a02ff57b91315';
 
 /// See also [Browse].
 @ProviderFor(Browse)

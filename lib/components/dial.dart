@@ -41,7 +41,7 @@ class Dial extends ConsumerWidget {
                           ]),
                         ),
                         Transform.rotate(
-                          angle: (mode == BrowseEnum.focus ? -45 : 45) *
+                          angle: (mode == BrowseEnum.grid ? -45 : 45) *
                               3.141592653589793 /
                               180, // 30 degrees to radians
                           child: Transform.translate(

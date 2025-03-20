@@ -74,14 +74,14 @@ class _ExplorePageState extends ConsumerState<HomePage>
 
                     if (details.primaryDelta! > 0 &&
                         (currentMode == null ||
-                            currentMode == BrowseEnum.focus)) {
-                      HapticFeedback.lightImpact();
-                      browseNotifier.setMode(BrowseEnum.grid);
-                    } else if (details.primaryDelta! < 0 &&
-                        (currentMode == null ||
                             currentMode == BrowseEnum.grid)) {
                       HapticFeedback.lightImpact();
                       browseNotifier.setMode(BrowseEnum.focus);
+                    } else if (details.primaryDelta! < 0 &&
+                        (currentMode == null ||
+                            currentMode == BrowseEnum.focus)) {
+                      HapticFeedback.lightImpact();
+                      browseNotifier.setMode(BrowseEnum.grid);
                     }
                   }
                 },
