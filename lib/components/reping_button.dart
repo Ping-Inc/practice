@@ -7,16 +7,19 @@ import 'package:practice/providers/any_resonated_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/repinged_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
+import 'package:practice/providers/time_provider.dart';
 
 class RepingButton extends ConsumerWidget {
   const RepingButton({super.key, required this.ping});
 
   final PingData ping;
 
-  bool repingedRecently(PingData updatedPing) {
+  bool repingedRecently(PingData updatedPing, WidgetRef ref) {
     if (updatedPing.resonantTime == null) {
       return false;
     }
+
+    ref.watch(timeProvider);
     final now = DateTime.now();
     final difference = now.difference(updatedPing.resonantTime!);
     return difference.inHours < 24;
@@ -24,7 +27,7 @@ class RepingButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isRepinged = repingedRecently(ref.watch(pingProvider(ping)));
+    final isRepinged = repingedRecently(ref.watch(pingProvider(ping)), ref);
 
     return SystemActionImage(
       onTap: isRepinged
