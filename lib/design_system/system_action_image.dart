@@ -28,7 +28,8 @@ class SystemActionImage extends StatelessWidget {
           SvgPicture.asset(
             colorFilter: color != null
                 ? ColorFilter.mode(color!, BlendMode.srcIn)
-                : null,
+                : ColorFilter.mode(
+                    Theme.of(context).colorScheme.primary, BlendMode.srcIn),
             imagePath,
             height: height,
             semanticsLabel: text, // Accessibility label
@@ -38,7 +39,7 @@ class SystemActionImage extends StatelessWidget {
           ),
           SystemText(
             text: text,
-            color: color ?? null,
+            color: color ?? Theme.of(context).colorScheme.primary,
           ),
         ],
       ),

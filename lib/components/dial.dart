@@ -36,7 +36,7 @@ class Dial extends ConsumerWidget {
                             Container(
                               height: modeDialHeight,
                               width: 2,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ]),
                         ),
@@ -49,7 +49,7 @@ class Dial extends ConsumerWidget {
                             child: Container(
                               height: modeDialHeight / 2,
                               width: 1,
-                              color: Colors.grey,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ),

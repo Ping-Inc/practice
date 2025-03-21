@@ -43,7 +43,10 @@ class PingBackground extends ConsumerWidget {
       decoration: BoxDecoration(
         color: calculateBackgroundColor(ref),
         borderRadius: BorderRadius.circular(spacingFour),
-        border: hidden ? Border.all(color: Colors.white, width: 0.5) : null,
+        border: hidden
+            ? Border.all(
+                color: Theme.of(context).colorScheme.primary, width: 0.5)
+            : null,
       ),
       child: child,
     );

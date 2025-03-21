@@ -112,5 +112,5 @@ flutter_launcher_icons:
     generate: false
 
 flutter_native_splash:
-  color: "#011C6B"
+  color: "#000000"
   android: false

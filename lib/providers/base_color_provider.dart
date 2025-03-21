@@ -12,7 +12,7 @@ class BaseColor extends _$BaseColor {
     int? colorValue = prefs.getInt(sharedPrefsColor);
 
     return colorValue == null
-        ? Color.fromRGBO(1, 28, 107, 1)
+        ? Color.fromRGBO(218, 233, 21, 1)
         : Color(colorValue);
   }
 

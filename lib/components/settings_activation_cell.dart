@@ -22,7 +22,7 @@ class SettingsActivationCell extends ConsumerWidget {
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             SystemText(
               text: text,
-              color: ref.watch(baseColorProvider).foreground,
+              color: Theme.of(context).colorScheme.outline,
             )
           ]),
         ));

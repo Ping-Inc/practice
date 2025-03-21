@@ -94,7 +94,7 @@ class PingPractice extends ConsumerWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
-          brightness: Brightness.dark,
+          brightness: color.brightness,
           scaffoldBackgroundColor: color.background,
           colorScheme: ColorScheme(
             brightness: color.brightness,

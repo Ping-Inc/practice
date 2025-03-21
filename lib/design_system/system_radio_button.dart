@@ -27,7 +27,8 @@ class SystemRadioButton extends StatelessWidget {
         onTap: () => enabled ? onChanged(value) : null,
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Radio(
-              fillColor: WidgetStatePropertyAll(Colors.white),
+              fillColor: WidgetStatePropertyAll(
+                  Theme.of(context).colorScheme.background),
               value: value,
               groupValue: groupValue,
               onChanged: null),
