@@ -102,6 +102,8 @@ const String sharedPrefsResonated = "shared_prefs_resonated";
 const String sharedPrefsOnboarded = "shared_prefs_onboarded";
 const String sharedPrefsColor = "shared_prefs_color";
 
+const Color defaultColor = Color(0xFF011C6B);
+
 Timer? backupTimer;
 
 const String routeHome = 'home';

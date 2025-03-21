@@ -17,7 +17,7 @@ class ThemePicker extends ConsumerWidget {
     // The issue was that the names weren't being respected because we need to use
     // MaterialColor or ColorSwatch<int> for the custom swatches
     final Map<ColorSwatch<Object>, String> customColors = {
-      ColorTools.createPrimarySwatch(Color(0xFF011C6B)): 'Deep Blue',
+      ColorTools.createPrimarySwatch(defaultColor): 'Deep Blue',
       ColorTools.createPrimarySwatch(Color(0xFF03DAC6)): 'Teal',
       ColorTools.createPrimarySwatch(Color(0xFFFF0266)): 'Pink',
       ColorTools.createPrimarySwatch(Color(0xFF2196F3)): 'Blue',

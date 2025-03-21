@@ -11,9 +11,7 @@ class BaseColor extends _$BaseColor {
   Color build() {
     int? colorValue = prefs.getInt(sharedPrefsColor);
 
-    return colorValue == null
-        ? Color.fromRGBO(1, 28, 107, 1)
-        : Color(colorValue);
+    return colorValue == null ? defaultColor : Color(colorValue);
   }
 
   void setColor(Color color) {
