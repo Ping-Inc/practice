@@ -24,7 +24,7 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
 
   final List<String> onboardingTexts = [
     "A camera roll for your thoughts —",
-    "Ping Practice is a not-for-profit journaling [method](https://pingpractice.org/method/) and, as you see here, an app.",
+    "Ping Practice is a not-for-profit journaling [method](https://pingpractice.org/method/) and an app.",
     "Meant to support you in decoupling sensing from sense-making —",
     "Pings are private and saved to your device.",
     "Happy pinging ^ _ ^"
