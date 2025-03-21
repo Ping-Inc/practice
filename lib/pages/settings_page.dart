@@ -10,6 +10,7 @@ import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/nav_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
 import 'package:practice/components/settings_activation_cell.dart';
+import 'package:practice/components/theme_picker.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
@@ -34,6 +35,12 @@ class SettingsPage extends ConsumerWidget {
                     bottomPadding: false,
                     child: Column(
                       children: [
+                        NavCellCluster(text: 'Feel', children: [
+                          ThemePicker(),
+                        ]),
+                        SizedBox(
+                          height: spacingMedium,
+                        ),
                         NavCellCluster(text: 'Backups', children: [
                           LocalBackupActivationCell(),
                           if (ref.watch(localBackupOnProvider))

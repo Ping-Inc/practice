@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/color_extensions.dart';
+import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
@@ -91,6 +93,7 @@ class PingPractice extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          fontFamily: FontEnum.sfpro.toFontFamily(),
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
