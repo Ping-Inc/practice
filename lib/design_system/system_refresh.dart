@@ -664,14 +664,15 @@ class SystemRefreshState extends State<SystemRefresh>
                             children: [
                               Icon(
                                 PhosphorIcons.dice_four,
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                               SizedBox(width: 4),
                               Padding(
                                   padding: EdgeInsets.only(bottom: 4),
                                   child: SystemText(
                                     text: "random",
-                                    color: Colors.white,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ))
                             ]);
                       },
