@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_image.dart';
+import 'package:practice/extensions/color_extensions.dart';
 import 'package:practice/providers/any_resonated_provider.dart';
+import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/repinged_count_provider.dart';
 import 'package:practice/providers/resonated_pings_provider.dart';
@@ -58,7 +59,7 @@ class RepingButton extends ConsumerWidget {
                 ref.read(anyResonatedProvider.notifier).resonancePresent();
               }
             },
-      color: isRepinged ? themeGray : null,
+      color: isRepinged ? ref.watch(baseColorProvider).secondary : null,
       imagePath: 'images/icons/reping.svg',
       height: 22,
       text: isRepinged ? 're-pinged' : 're-ping',

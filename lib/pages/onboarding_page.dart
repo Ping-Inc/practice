@@ -7,8 +7,10 @@ import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/extensions/color_extensions.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/onboarding_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +26,7 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
 
   final List<String> onboardingTexts = [
     "A camera roll for your thoughts —",
-    "Ping Practice is a not-for-profit journaling [method](https://pingpractice.org/method/) and an app.",
+    "Ping Practice is a not-for-profit journaling [method](https://pingpractice.org/method/) and, as you see here, an app.",
     "Meant to support you in decoupling sensing from sense-making —",
     "Pings are private and saved to your device.",
     "Happy pinging ^ _ ^"
@@ -35,7 +37,7 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
       currentStep++;
     });
 
-    if (currentStep >= onboardingTexts.length) {
+    if (currentStep >= onboardingTexts.length - 1) {
       // Complete onboarding and navigate to new ping page
       ref.read(onboardingProvider.notifier).complete();
     }
@@ -92,11 +94,10 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: themeCardBackgroundBlueOldest,
+        backgroundColor: ref.watch(baseColorProvider).ping,
         body: SafeArea(
             child: MainSpacingCell(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -104,14 +105,13 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
                   child: Padding(
                       padding: EdgeInsets.symmetric(vertical: spacingMedium),
                       child: RichText(
-                          textAlign: TextAlign.left,
                           text: TextSpan(
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   fontSize: TextSizeEnum.thirtySix.toFontSize(),
                                   fontFamily: FontEnum.garamond.toFontFamily(),
                                   height: lineHeight,
-                                  color: themeTextActiveBlue),
+                                  color: ref.watch(baseColorProvider).primary),
                               children: _buildTextSpans(
                                   onboardingTexts[currentStep]))))),
               SizedBox(

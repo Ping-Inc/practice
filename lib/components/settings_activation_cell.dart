@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/extensions/color_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 
-class SettingsActivationCell extends StatelessWidget {
+class SettingsActivationCell extends ConsumerWidget {
   const SettingsActivationCell(
       {super.key, required this.text, required this.onTap});
 
@@ -11,7 +14,7 @@ class SettingsActivationCell extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SystemTap(
         onTap: onTap,
         child: Padding(
@@ -19,7 +22,7 @@ class SettingsActivationCell extends StatelessWidget {
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             SystemText(
               text: text,
-              color: themeForegroundBlue,
+              color: ref.watch(baseColorProvider).foreground,
             )
           ]),
         ));

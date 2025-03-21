@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/system_tap.dart';
+import 'package:practice/extensions/color_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 
 class CaptureButton extends ConsumerStatefulWidget {
   const CaptureButton({super.key, required this.onTap, this.disabled = false});
@@ -71,7 +73,7 @@ class _PingEntryState extends ConsumerState<CaptureButton>
                 border: Border.all(
                   color: widget.disabled
                       ? Colors.grey
-                      : Theme.of(context).colorScheme.primary,
+                      : ref.watch(baseColorProvider).primary,
                   width: 4,
                 ),
                 shape: BoxShape.circle,
@@ -84,7 +86,7 @@ class _PingEntryState extends ConsumerState<CaptureButton>
                 decoration: BoxDecoration(
                   color: widget.disabled
                       ? Colors.grey
-                      : Theme.of(context).colorScheme.primary,
+                      : ref.watch(baseColorProvider).primary,
                   shape: BoxShape.circle,
                 ),
               ),

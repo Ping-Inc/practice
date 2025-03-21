@@ -90,16 +90,6 @@ const Map<int, String> migrationScripts = {
   '''
 };
 
-const Color themeUIBackgroundBlue = Color.fromRGBO(0, 19, 73, 1);
-const Color themeCardBackgroundBlueNewest = Color.fromRGBO(0, 43, 157, 1);
-const Color themeCardBackgroundBlueOldest = Color.fromRGBO(1, 28, 107, 1);
-const Color themeForegroundBlue = Color.fromRGBO(75, 106, 186, 1);
-
-const Color themeTextActiveBlue = Color.fromRGBO(217, 217, 217, 1);
-const Color themeGray = Color.fromRGBO(102, 114, 146, 1);
-const Color themePingIDInnerBlue = Color.fromRGBO(81, 113, 198, 1);
-const Color themePingIDOuterBlue = Color.fromRGBO(81, 113, 198, 0.25);
-
 final iCloudContainerId = 'iCloud.pingpractice';
 
 late SharedPreferences prefs;
@@ -110,6 +100,7 @@ const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
 const String sharedPrefsBrowseMode = "shared_prefs_browse_mode";
 const String sharedPrefsResonated = "shared_prefs_resonated";
 const String sharedPrefsOnboarded = "shared_prefs_onboarded";
+const String sharedPrefsColor = "shared_prefs_color";
 
 Timer? backupTimer;
 

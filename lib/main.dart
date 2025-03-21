@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/extensions/color_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,6 +86,8 @@ Future<void> initializeSharedPrefs() async {
 class PingPractice extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final color = ref.watch(baseColorProvider);
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -91,37 +95,37 @@ class PingPractice extends ConsumerWidget {
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
           brightness: Brightness.dark,
-          scaffoldBackgroundColor: themeUIBackgroundBlue,
+          scaffoldBackgroundColor: color.background,
           colorScheme: ColorScheme(
-            brightness: Brightness.dark,
-            primary: themeTextActiveBlue,
-            onPrimary: themeUIBackgroundBlue,
-            secondary: themeGray,
-            onSecondary: themeUIBackgroundBlue,
+            brightness: color.brightness,
+            primary: color.primary,
+            onPrimary: color.background,
+            secondary: color.secondary,
+            onSecondary: Colors.white,
             error: Color.fromRGBO(255, 0, 0, 1),
             onError: Colors.white,
-            surface: themeCardBackgroundBlueOldest,
-            onSurface: themeTextActiveBlue,
-            primaryContainer: themeUIBackgroundBlue,
-            onPrimaryContainer: themeTextActiveBlue,
-            secondaryContainer: themeCardBackgroundBlueOldest,
-            onSecondaryContainer: themeTextActiveBlue,
-            tertiary: themePingIDInnerBlue,
-            onTertiary: themeTextActiveBlue,
-            tertiaryContainer: themePingIDOuterBlue,
-            onTertiaryContainer: themeTextActiveBlue,
+            surface: color.ping,
+            onSurface: color.primary,
+            primaryContainer: color.background,
+            onPrimaryContainer: color.primary,
+            secondaryContainer: color.background,
+            onSecondaryContainer: color.primary,
+            tertiary: color.foreground,
+            onTertiary: color.ping,
+            tertiaryContainer: color.idOuter,
+            onTertiaryContainer: color.primary,
             errorContainer: Color.fromRGBO(255, 0, 0, 1),
             onErrorContainer: Colors.white,
-            surfaceContainerHighest: themePingIDInnerBlue,
-            onSurfaceVariant: themeTextActiveBlue,
-            outline: themePingIDInnerBlue,
-            outlineVariant: themePingIDOuterBlue,
-            shadow: themeGray,
-            scrim: themeGray,
-            inverseSurface: themeGray,
-            onInverseSurface: themeGray,
-            inversePrimary: themeGray,
-            surfaceTint: themeGray,
+            surfaceContainerHighest: color.idInner,
+            onSurfaceVariant: color.primary,
+            outline: color.idInner,
+            outlineVariant: color.idOuter,
+            shadow: color.secondary,
+            scrim: color.secondary,
+            inverseSurface: color.secondary,
+            onInverseSurface: color.secondary,
+            inversePrimary: color.secondary,
+            surfaceTint: color.secondary,
           )),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [

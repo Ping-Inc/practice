@@ -4,6 +4,8 @@ import 'package:practice/components/ping_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/extensions/color_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/ping_replies_provider.dart';
 
 class RepliesGrid extends ConsumerWidget {
@@ -20,7 +22,7 @@ class RepliesGrid extends ConsumerWidget {
           ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(height: spacingSix),
               SystemText(
-                color: themePingIDInnerBlue,
+                color: ref.watch(baseColorProvider).idInner,
                 text: 'replies',
                 size: TextSizeEnum.fifteen,
               ),

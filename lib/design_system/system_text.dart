@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
+import 'package:practice/extensions/color_extensions.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 
 class SystemText extends ConsumerWidget {
   const SystemText(
@@ -44,7 +46,7 @@ class SystemText extends ConsumerWidget {
             inherit: false,
             height: lineHeight,
             fontSize: size.toFontSize(),
-            color: color ?? Theme.of(context).colorScheme.primary,
+            color: color ?? ref.watch(baseColorProvider).primary,
             overflow: overflow));
   }
 }

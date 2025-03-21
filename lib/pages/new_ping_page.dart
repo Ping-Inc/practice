@@ -39,7 +39,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
     });
 
     return Scaffold(
-        backgroundColor: themeCardBackgroundBlueOldest,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
             child: Column(
           children: [

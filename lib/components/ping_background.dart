@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/extensions/color_extensions.dart';
+import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class PingBackground extends ConsumerWidget {
@@ -17,7 +19,7 @@ class PingBackground extends ConsumerWidget {
     }
 
     if (time == null) {
-      return themeCardBackgroundBlueOldest;
+      return ref.watch(baseColorProvider).ping;
     }
 
     final now = DateTime.now();
@@ -25,14 +27,14 @@ class PingBackground extends ConsumerWidget {
     final totalMinutesIn24Hours = 24 * 60;
 
     if (difference >= totalMinutesIn24Hours) {
-      return themeCardBackgroundBlueOldest;
+      return ref.watch(baseColorProvider).ping;
     }
 
     ref.watch(timeProvider);
 
     final percentage = difference / totalMinutesIn24Hours;
-    return Color.lerp(themeCardBackgroundBlueNewest,
-        themeCardBackgroundBlueOldest, percentage)!;
+    return Color.lerp(ref.watch(baseColorProvider).pingResonant,
+        ref.watch(baseColorProvider).ping, percentage)!;
   }
 
   @override

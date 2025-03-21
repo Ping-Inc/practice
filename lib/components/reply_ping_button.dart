@@ -25,8 +25,8 @@ class ReplyPingButton extends ConsumerWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(spacingFour),
                       color: replyOn
-                          ? themeForegroundBlue
-                          : Theme.of(context).colorScheme.surface),
+                          ? Theme.of(context).colorScheme.tertiary
+                          : null),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -35,7 +35,7 @@ class ReplyPingButton extends ConsumerWidget {
                         height: 18,
                         colorFilter: ColorFilter.mode(
                             replyOn
-                                ? Theme.of(context).colorScheme.surface
+                                ? Theme.of(context).colorScheme.onTertiary
                                 : Theme.of(context).colorScheme.primary,
                             BlendMode.srcIn),
                       ),
@@ -45,7 +45,7 @@ class ReplyPingButton extends ConsumerWidget {
                       SystemText(
                           text: 'reply',
                           color: replyOn
-                              ? Theme.of(context).colorScheme.surface
+                              ? Theme.of(context).colorScheme.onTertiary
                               : Theme.of(context).colorScheme.primary)
                     ],
                   )),
