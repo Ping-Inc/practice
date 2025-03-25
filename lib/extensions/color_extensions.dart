@@ -45,7 +45,7 @@ extension ColorExtensions on Color {
   }
 
   Color get secondary {
-    return primary.withAlpha(120);
+    return primary.withAlpha(160);
   }
 
   Color get idInner {
