@@ -45,21 +45,7 @@ extension ColorExtensions on Color {
   }
 
   Color get secondary {
-    if (this.brightness == Brightness.dark) {
-      // For darker colors, create a lighter, less saturated version
-      final hslColor = HSLColor.fromColor(this);
-      final adjustedColor = hslColor
-          .withLightness((hslColor.lightness * 2.3).clamp(0.0, 1.0))
-          .withSaturation((hslColor.saturation * 0.18).clamp(0.0, 1.0));
-      return adjustedColor.toColor();
-    } else {
-      // For lighter colors, create a darker, less saturated version
-      final hslColor = HSLColor.fromColor(this);
-      final adjustedColor = hslColor
-          .withLightness((hslColor.lightness * 0.7).clamp(0.0, 1.0))
-          .withSaturation((hslColor.saturation * 0.18).clamp(0.0, 1.0));
-      return adjustedColor.toColor();
-    }
+    return primary.withAlpha(120);
   }
 
   Color get idInner {
@@ -86,6 +72,6 @@ extension ColorExtensions on Color {
 
 extension BrightnessExtensions on Color {
   Brightness get brightness {
-    return this.computeLuminance() > 0.4 ? Brightness.light : Brightness.dark;
+    return this.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark;
   }
 }
