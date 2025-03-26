@@ -5,14 +5,12 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
-
-# Riverpod
-*.freezed.dart
-*.g.dart
 
 # IntelliJ related
 *.iml
@@ -49,3 +47,4 @@ app.*.map.json
 /android/app/release
 translator_key
 .env
+ios/build

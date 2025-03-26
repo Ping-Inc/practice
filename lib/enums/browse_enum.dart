@@ -1,0 +1,1 @@
+enum BrowseEnum { focus, grid }

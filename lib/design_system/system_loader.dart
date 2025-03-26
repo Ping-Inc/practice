@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:practice/constants.dart';
+import 'package:practice/design_system/system_text.dart';
 
 class SystemLoader extends StatefulWidget {
   const SystemLoader({super.key, this.color});
@@ -20,8 +21,7 @@ class _SystemLoaderState extends State<SystemLoader> {
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(const Duration(milliseconds: animationDuration),
-        (Timer t) {
+    timer = Timer.periodic(duration, (Timer t) {
       if (mounted) {
         setState(() {
           if (dots.length > 2) {
@@ -46,7 +46,7 @@ class _SystemLoaderState extends State<SystemLoader> {
     return Center(
         child: Padding(
       padding: const EdgeInsets.all(spacingFive),
-      child: Text('Loading$dots'),
+      child: SystemText(text: 'Loading$dots'),
     ));
   }
 }
