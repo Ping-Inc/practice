@@ -71,7 +71,7 @@ final visiblePingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef VisiblePingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$pingRepliesHash() => r'57382ff4045bf5ebb90eb04f43c03cbeee4cfbcf';
+String _$pingRepliesHash() => r'ba4debd063a897d979c13716afcf34a66a794973';
 
 /// Copied from Dart SDK
 class _SystemHash {

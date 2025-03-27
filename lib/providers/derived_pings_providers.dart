@@ -100,7 +100,7 @@ List<PingData> pingReplies(Ref ref, int pingId) {
 
           // Convert to pings and sort by time
           return visibleIds.map((id) => map[id]!).toList()
-            ..sort((a, b) => b.time.compareTo(a.time));
+            ..sort((a, b) => a.id!.compareTo(b.id!));
         },
         loading: () => [],
         error: (_, __) => [],
