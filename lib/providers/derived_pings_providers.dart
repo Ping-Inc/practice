@@ -110,9 +110,11 @@ List<PingData> pingReplies(Ref ref, int pingId) {
 @riverpod
 PingData? latestPing(Ref ref) {
   return ref.watch(pingsMapProvider).when(
-        data: (map) => map.values.where((ping) => !ping.hidden).isEmpty
-            ? null
-            : map.values.where((ping) => !ping.hidden).last,
+        data: (map) {
+          final visiblePings = map.values.where((ping) => !ping.hidden);
+          if (visiblePings.isEmpty) return null;
+          return visiblePings.reduce((a, b) => a.id! > b.id! ? a : b);
+        },
         loading: () => null,
         error: (_, __) => null,
       );
