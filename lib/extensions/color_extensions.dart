@@ -84,6 +84,6 @@ extension ColorExtensions on Color {
 
 extension BrightnessExtensions on Color {
   Brightness get brightness {
-    return this.computeLuminance() > 0.5 ? Brightness.light : Brightness.dark;
+    return this.computeLuminance() > 0.4 ? Brightness.light : Brightness.dark;
   }
 }
