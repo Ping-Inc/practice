@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_image.dart';
-import 'package:practice/extensions/color_extensions.dart';
-import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
@@ -52,7 +51,7 @@ class RepingButton extends ConsumerWidget {
           : () {
               ref.read(pingsMapProvider.notifier).incrementResonance(ping.id!);
             },
-      color: isRepinged ? ref.watch(baseColorProvider).secondary : null,
+      color: isRepinged ? Theme.of(context).colorScheme.secondary : null,
       imagePath: 'images/icons/reping.svg',
       height: 22,
       text: isRepinged ? 're-pinged' : 're-ping',
