@@ -45,8 +45,8 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
           tabs: ThemeModeEnum.values.map((filter) {
             return filter.title();
           }).toList(),
-          children: ThemeModeEnum.values.map((filter) {
-            return BrowseModePage(mode: filter);
+          children: ThemeModeEnum.values.map((mode) {
+            return BrowseModePage(mode: mode.toString().split('.').last);
           }).toList(),
         ),
       ),

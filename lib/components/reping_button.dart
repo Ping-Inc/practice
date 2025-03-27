@@ -3,11 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/extensions/color_extensions.dart';
-import 'package:practice/providers/any_resonated_provider.dart';
 import 'package:practice/providers/base_color_provider.dart';
-import 'package:practice/providers/ping_provider.dart';
-import 'package:practice/providers/repinged_count_provider.dart';
-import 'package:practice/providers/resonated_pings_provider.dart';
+import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class RepingButton extends ConsumerWidget {
@@ -28,7 +25,12 @@ class RepingButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isRepinged = repingedRecently(ref.watch(pingProvider(ping)), ref);
+    final updatedPing = ref.watch(pingsMapProvider).when(
+          data: (map) => map[ping.id!] ?? ping,
+          loading: () => ping,
+          error: (_, __) => ping,
+        );
+    final isRepinged = repingedRecently(updatedPing, ref);
 
     return SystemActionImage(
       onTap: isRepinged
@@ -48,16 +50,7 @@ class RepingButton extends ConsumerWidget {
               );
             }
           : () {
-              ref.read(pingProvider(ping).notifier).increaseResonance();
-              ref.read(repingedCountProvider(ping.id!).notifier).increment();
-
-              if (!ping.hidden) {
-                ref.read(resonatedPingsProvider.notifier).insert(ping);
-              }
-
-              if (ref.read(anyResonatedProvider).value == false) {
-                ref.read(anyResonatedProvider.notifier).resonancePresent();
-              }
+              ref.read(pingsMapProvider.notifier).incrementResonance(ping.id!);
             },
       color: isRepinged ? ref.watch(baseColorProvider).secondary : null,
       imagePath: 'images/icons/reping.svg',

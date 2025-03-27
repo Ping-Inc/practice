@@ -6,7 +6,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
-import 'package:practice/providers/latest_ping_provider.dart';
+import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
 class PingReplyText extends ConsumerWidget {
@@ -59,33 +59,29 @@ class PingReplyText extends ConsumerWidget {
       final latestPing = ref.watch(latestPingProvider);
 
       if (ref.watch(replyOnProvider)) {
-        return switch (latestPing) {
-          AsyncData(value: final latestPing) => Padding(
-              padding: EdgeInsets.only(bottom: spacingThree),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SystemText(
-                          text:
-                              _formatTimestamp(latestPing!.time).toLowerCase(),
-                          color: Theme.of(context).colorScheme.secondary)
-                    ],
-                  ),
-                  SizedBox(height: spacingTwo),
-                  SystemText(
-                      maxLines: 3,
-                      font: FontEnum.garamond,
-                      text: latestPing.text,
-                      size: TextSizeEnum.twenty,
-                      color: Theme.of(context).colorScheme.secondary)
-                ],
-              )),
-          _ => SizedBox.shrink()
-        };
+        return Padding(
+            padding: EdgeInsets.only(bottom: spacingThree),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SystemText(
+                        text: _formatTimestamp(latestPing!.time).toLowerCase(),
+                        color: Theme.of(context).colorScheme.secondary)
+                  ],
+                ),
+                SizedBox(height: spacingTwo),
+                SystemText(
+                    maxLines: 3,
+                    font: FontEnum.garamond,
+                    text: latestPing.text,
+                    size: TextSizeEnum.twenty,
+                    color: Theme.of(context).colorScheme.secondary)
+              ],
+            ));
       } else {
         return SizedBox.shrink();
       }

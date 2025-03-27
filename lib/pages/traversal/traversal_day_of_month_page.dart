@@ -6,9 +6,9 @@ import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/traversal/traversal_scaffold.dart';
 
 class TraversalDayOfMonthPage extends ConsumerStatefulWidget {
-  const TraversalDayOfMonthPage({super.key, required this.dayOfMonth});
+  const TraversalDayOfMonthPage({super.key, required this.time});
 
-  final int dayOfMonth;
+  final DateTime time;
 
   @override
   _TraversalDayOfMonthState createState() => _TraversalDayOfMonthState();
@@ -56,7 +56,7 @@ class _TraversalDayOfMonthState extends ConsumerState<TraversalDayOfMonthPage>
   void initState() {
     super.initState();
     _tabController = _tabController = TabController(
-      initialIndex: widget.dayOfMonth - 1,
+      initialIndex: widget.time.day - 1,
       length: daysOfMonth.length,
       vsync: this,
     );
@@ -72,16 +72,19 @@ class _TraversalDayOfMonthState extends ConsumerState<TraversalDayOfMonthPage>
   Widget build(BuildContext context) {
     return TraversalScaffold(
       child: DefaultTabController(
-        length: DateTime.daysPerWeek,
+        length: daysOfMonth.length,
         child: ExplorePage(
           tabController: _tabController,
           tabs: daysOfMonth.map((filter) {
             return filter.toString();
           }).toList(),
-          children: daysOfMonth.map((filter) {
+          children: daysOfMonth.map((day) {
+            // Create a new DateTime with the same year/month but with the selected day
+            final selectedDate =
+                DateTime(widget.time.year, widget.time.month, day);
             return BrowseTimePage(
               timeEnum: TimeFilterEnum.dayOfMonth,
-              time: DateTime(DateTime.now().year, 1, filter),
+              time: selectedDate,
             );
           }).toList(),
         ),

@@ -8,9 +8,9 @@ import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/traversal/traversal_scaffold.dart';
 
 class TraversalDayOfWeekPage extends ConsumerStatefulWidget {
-  const TraversalDayOfWeekPage({super.key, required this.dayOfWeek});
+  const TraversalDayOfWeekPage({super.key, required this.time});
 
-  final int dayOfWeek;
+  final DateTime time;
 
   @override
   _TraversalDayOfWeekState createState() => _TraversalDayOfWeekState();
@@ -24,7 +24,7 @@ class _TraversalDayOfWeekState extends ConsumerState<TraversalDayOfWeekPage>
   void initState() {
     super.initState();
     _tabController = _tabController = TabController(
-      initialIndex: widget.dayOfWeek - 1,
+      initialIndex: widget.time.weekday - 1,
       length: DateTime.daysPerWeek,
       vsync: this,
     );
@@ -46,19 +46,13 @@ class _TraversalDayOfWeekState extends ConsumerState<TraversalDayOfWeekPage>
           tabs: DayOfWeekEnum.values.map((filter) {
             return filter.title();
           }).toList(),
-          children: [
-            DateTime.monday,
-            DateTime.tuesday,
-            DateTime.wednesday,
-            DateTime.thursday,
-            DateTime.friday,
-            DateTime.saturday,
-            DateTime.sunday
-          ].map((filter) {
+          children: DayOfWeekEnum.values.map((day) {
+            final now = DateTime.now();
+            final selectedDate =
+                now.subtract(Duration(days: now.weekday - (day.index + 1)));
             return BrowseTimePage(
               timeEnum: TimeFilterEnum.dayOfWeek,
-              time: DateTime.now()
-                  .add(Duration(days: filter - DateTime.now().weekday)),
+              time: selectedDate,
             );
           }).toList(),
         ),

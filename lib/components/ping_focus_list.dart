@@ -52,8 +52,17 @@ class _PingFocusListState extends State<PingFocusList> {
             while (newI == i) {
               newI = Random().nextInt(widget.pings.length);
             }
-            _pageController.animateToPage(newI,
-                duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+
+            final distance = (newI - i).abs();
+            final duration = Duration(
+              milliseconds: (200 + (distance * 50)).clamp(200, 600),
+            );
+
+            _pageController.animateToPage(
+              newI,
+              duration: duration,
+              curve: Curves.easeOutCubic,
+            );
           }
         },
         child: SingleChildScrollView(

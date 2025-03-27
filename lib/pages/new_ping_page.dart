@@ -10,7 +10,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/current_ping_provider.dart';
-import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/pings_map_provider.dart';
 
 class NewPingPage extends ConsumerStatefulWidget {
   const NewPingPage({super.key, this.replyPing});
@@ -34,7 +34,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
   }
 
   Widget build(BuildContext context) {
-    ref.listen(pingsProvider, (previous, next) {
+    ref.listen(pingsMapProvider, (previous, next) {
       controller.clear();
     });
 
@@ -65,9 +65,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                         hintText: "Listening for pings...",
                         hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.secondary),
-
-                        // Add this line
-                        border: InputBorder.none, // And this one
+                        border: InputBorder.none,
                       ),
                       style: TextStyle(
                           fontSize: 36,
