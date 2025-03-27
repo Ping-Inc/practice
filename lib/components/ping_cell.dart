@@ -92,7 +92,8 @@ class PingCell extends ConsumerWidget {
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 ),
-                backgroundColor: Theme.of(context).colorScheme.surface,
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondaryContainer,
                 duration: Duration(seconds: 1),
                 behavior: SnackBarBehavior.floating,
               ),
