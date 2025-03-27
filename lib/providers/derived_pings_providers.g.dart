@@ -22,7 +22,7 @@ final allPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AllPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$resonatedPingsHash() => r'241bc62da3f4b054235e7f9300138eda58c74839';
+String _$resonatedPingsHash() => r'0c13b98bf5c8dead7ef39c0a4d5f1205f798f54d';
 
 /// See also [resonatedPings].
 @ProviderFor(resonatedPings)
