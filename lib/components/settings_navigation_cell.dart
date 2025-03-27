@@ -28,7 +28,8 @@ class SettingsNavigationCell extends StatelessWidget {
                   Row(children: [
                     SystemText(text: state),
                     SizedBox(width: spacingFive),
-                    Icon(PhosphorIcons.caret_right),
+                    Icon(PhosphorIcons.caret_right,
+                        color: Theme.of(context).colorScheme.primary),
                   ])
                 ])));
   }

@@ -72,7 +72,7 @@ class _PingEntryState extends ConsumerState<CaptureButton>
               decoration: BoxDecoration(
                 border: Border.all(
                   color: widget.disabled
-                      ? Colors.grey
+                      ? Theme.of(context).colorScheme.secondary
                       : ref.watch(baseColorProvider).primary,
                   width: 4,
                 ),
@@ -85,7 +85,7 @@ class _PingEntryState extends ConsumerState<CaptureButton>
                 width: _animation.value,
                 decoration: BoxDecoration(
                   color: widget.disabled
-                      ? Colors.grey
+                      ? Theme.of(context).colorScheme.secondary
                       : ref.watch(baseColorProvider).primary,
                   shape: BoxShape.circle,
                 ),
