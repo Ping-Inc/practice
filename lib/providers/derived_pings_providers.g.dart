@@ -222,7 +222,7 @@ class _PingRepliesProviderElement
   int get pingId => (origin as PingRepliesProvider).pingId;
 }
 
-String _$latestPingHash() => r'6a94198bcaf8a9663481f1f7a5c3f2e27a092c0f';
+String _$latestPingHash() => r'b8f5495e02760ffb67e00102981e0e0a39e7cac8';
 
 /// See also [latestPing].
 @ProviderFor(latestPing)
