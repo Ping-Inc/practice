@@ -38,7 +38,7 @@ class ThemePicker extends ConsumerWidget {
     return ColorPicker(
       padding: EdgeInsets.only(
           top: spacingSmall, bottom: spacingSmall, right: spacingXSmall),
-      color: ref.watch(baseColorProvider),
+      color: Theme.of(context).colorScheme.surface,
       onColorChanged: (color) =>
           ref.read(baseColorProvider.notifier).setColor(color),
       enableOpacity: false,

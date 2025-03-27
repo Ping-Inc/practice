@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/extensions/color_extensions.dart';
-import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/time_provider.dart';
 
 class PingBackground extends ConsumerWidget {
@@ -13,13 +11,13 @@ class PingBackground extends ConsumerWidget {
   final DateTime? time;
   final bool hidden;
 
-  Color calculateBackgroundColor(WidgetRef ref) {
+  Color calculateBackgroundColor(WidgetRef ref, BuildContext context) {
     if (hidden) {
       return Colors.transparent;
     }
 
     if (time == null) {
-      return ref.watch(baseColorProvider).ping;
+      return Theme.of(context).colorScheme.surface;
     }
 
     final now = DateTime.now();
@@ -27,21 +25,21 @@ class PingBackground extends ConsumerWidget {
     final totalMinutesIn24Hours = 24 * 60;
 
     if (difference >= totalMinutesIn24Hours) {
-      return ref.watch(baseColorProvider).ping;
+      return Theme.of(context).colorScheme.surface;
     }
 
     ref.watch(timeProvider);
 
     final percentage = difference / totalMinutesIn24Hours;
-    return Color.lerp(ref.watch(baseColorProvider).pingResonant,
-        ref.watch(baseColorProvider).ping, percentage)!;
+    return Color.lerp(Theme.of(context).colorScheme.secondaryContainer,
+        Theme.of(context).colorScheme.surface, percentage)!;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
-        color: calculateBackgroundColor(ref),
+        color: calculateBackgroundColor(ref, context),
         borderRadius: BorderRadius.circular(spacingFour),
         border: hidden
             ? Border.all(

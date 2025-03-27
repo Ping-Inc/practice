@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/text_size_enum.dart';
-import 'package:practice/extensions/color_extensions.dart';
-import 'package:practice/providers/base_color_provider.dart';
 
 class DetailCellCluster extends ConsumerWidget {
   const DetailCellCluster(
@@ -28,7 +26,7 @@ class DetailCellCluster extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SystemText(
-              color: ref.watch(baseColorProvider).idInner,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               text: title,
               size: TextSizeEnum.fifteen,
             ),

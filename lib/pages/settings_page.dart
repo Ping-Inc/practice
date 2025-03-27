@@ -14,10 +14,8 @@ import 'package:practice/components/theme_picker.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
-import 'package:practice/extensions/color_extensions.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
-import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -86,7 +84,7 @@ class SettingsPage extends ConsumerWidget {
                                   fontFamily: FontEnum.sfpro.toFontFamily(),
                                   height: lineHeight,
                                   color:
-                                      ref.watch(baseColorProvider).secondary),
+                                      Theme.of(context).colorScheme.secondary),
                               children: [
                                 TextSpan(
                                   text:

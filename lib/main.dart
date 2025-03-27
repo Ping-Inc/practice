@@ -111,7 +111,7 @@ class PingPractice extends ConsumerWidget {
             onSurface: color.primary,
             primaryContainer: color.background,
             onPrimaryContainer: color.primary,
-            secondaryContainer: color.background,
+            secondaryContainer: color.pingResonant,
             onSecondaryContainer: color.primary,
             tertiary: color.foreground,
             onTertiary: color.ping,

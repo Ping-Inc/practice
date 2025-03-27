@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/extensions/color_extensions.dart';
-import 'package:practice/providers/base_color_provider.dart';
 
 class SystemSwitch extends ConsumerWidget {
   const SystemSwitch({super.key, required this.value, required this.onChanged});
@@ -11,14 +10,15 @@ class SystemSwitch extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final baseColor = ref.watch(baseColorProvider);
-
     return Switch(
-      inactiveThumbColor: baseColor.background,
-      inactiveTrackColor: baseColor.secondary,
+      inactiveThumbColor: Theme.of(context).colorScheme.primary,
+      inactiveTrackColor: Theme.of(context).colorScheme.secondary,
       trackOutlineWidth: WidgetStateProperty.all(0.0),
       value: value,
-      onChanged: onChanged,
+      onChanged: (value) {
+        HapticFeedback.selectionClick();
+        onChanged(value);
+      },
     );
   }
 }

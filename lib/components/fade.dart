@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
-import 'package:practice/extensions/color_extensions.dart';
-import 'package:practice/providers/base_color_provider.dart';
 
 class Fade extends ConsumerWidget {
   const Fade({super.key, this.topDown = false});
@@ -13,7 +11,7 @@ class Fade extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final backgroundColor = ref.watch(baseColorProvider).background;
+    final backgroundColor = Theme.of(context).colorScheme.primaryContainer;
 
     return IgnorePointer(
         child: Align(
