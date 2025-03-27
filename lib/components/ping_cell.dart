@@ -90,9 +90,9 @@ class PingCell extends ConsumerWidget {
                 content: Text(
                   'Copied to clipboard',
                   style:
-                      TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 ),
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 duration: Duration(seconds: 1),
                 behavior: SnackBarBehavior.floating,
               ),

@@ -26,7 +26,7 @@ class DetailCellCluster extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SystemText(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              color: Theme.of(context).colorScheme.outline,
               text: title,
               size: TextSizeEnum.fifteen,
             ),
