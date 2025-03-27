@@ -5,7 +5,6 @@ import 'package:practice/components/capture_button.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/derived_pings_providers.dart' as derived;
-import 'package:practice/providers/ping_replies_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/providers/reply_on_provider.dart';
 
@@ -35,10 +34,7 @@ class NewPingButton extends ConsumerWidget {
             ref.read(replyOnProvider.notifier).reset();
           }
 
-          if (replyPing != null) {
-            ref.invalidate(pingRepliesProvider(replyPing!.id!));
-            context.pop();
-          }
+          if (replyPing != null) context.pop();
         });
   }
 }

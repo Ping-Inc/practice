@@ -71,7 +71,7 @@ final visiblePingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef VisiblePingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$pingRepliesHash() => r'bc4f4440438c680d5ad338bb1c89bf000fe0ba85';
+String _$pingRepliesHash() => r'57382ff4045bf5ebb90eb04f43c03cbeee4cfbcf';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -105,10 +105,10 @@ class PingRepliesFamily extends Family<List<PingData>> {
 
   /// See also [pingReplies].
   PingRepliesProvider call(
-    int parentId,
+    int pingId,
   ) {
     return PingRepliesProvider(
-      parentId,
+      pingId,
     );
   }
 
@@ -117,7 +117,7 @@ class PingRepliesFamily extends Family<List<PingData>> {
     covariant PingRepliesProvider provider,
   ) {
     return call(
-      provider.parentId,
+      provider.pingId,
     );
   }
 
@@ -140,11 +140,11 @@ class PingRepliesFamily extends Family<List<PingData>> {
 class PingRepliesProvider extends AutoDisposeProvider<List<PingData>> {
   /// See also [pingReplies].
   PingRepliesProvider(
-    int parentId,
+    int pingId,
   ) : this._internal(
           (ref) => pingReplies(
             ref as PingRepliesRef,
-            parentId,
+            pingId,
           ),
           from: pingRepliesProvider,
           name: r'pingRepliesProvider',
@@ -155,7 +155,7 @@ class PingRepliesProvider extends AutoDisposeProvider<List<PingData>> {
           dependencies: PingRepliesFamily._dependencies,
           allTransitiveDependencies:
               PingRepliesFamily._allTransitiveDependencies,
-          parentId: parentId,
+          pingId: pingId,
         );
 
   PingRepliesProvider._internal(
@@ -165,10 +165,10 @@ class PingRepliesProvider extends AutoDisposeProvider<List<PingData>> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.parentId,
+    required this.pingId,
   }) : super.internal();
 
-  final int parentId;
+  final int pingId;
 
   @override
   Override overrideWith(
@@ -183,7 +183,7 @@ class PingRepliesProvider extends AutoDisposeProvider<List<PingData>> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        parentId: parentId,
+        pingId: pingId,
       ),
     );
   }
@@ -195,13 +195,13 @@ class PingRepliesProvider extends AutoDisposeProvider<List<PingData>> {
 
   @override
   bool operator ==(Object other) {
-    return other is PingRepliesProvider && other.parentId == parentId;
+    return other is PingRepliesProvider && other.pingId == pingId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, parentId.hashCode);
+    hash = _SystemHash.combine(hash, pingId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -210,8 +210,8 @@ class PingRepliesProvider extends AutoDisposeProvider<List<PingData>> {
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin PingRepliesRef on AutoDisposeProviderRef<List<PingData>> {
-  /// The parameter `parentId` of this provider.
-  int get parentId;
+  /// The parameter `pingId` of this provider.
+  int get pingId;
 }
 
 class _PingRepliesProviderElement
@@ -219,7 +219,7 @@ class _PingRepliesProviderElement
   _PingRepliesProviderElement(super.provider);
 
   @override
-  int get parentId => (origin as PingRepliesProvider).parentId;
+  int get pingId => (origin as PingRepliesProvider).pingId;
 }
 
 String _$latestPingHash() => r'6a94198bcaf8a9663481f1f7a5c3f2e27a092c0f';
