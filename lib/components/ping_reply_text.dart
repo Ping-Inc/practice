@@ -37,7 +37,7 @@ class PingReplyText extends ConsumerWidget {
               children: [
                 SystemText(
                     text: _formatTimestamp(ping.time).toLowerCase(),
-                    color: Theme.of(context).colorScheme.secondary)
+                    color: Theme.of(context).colorScheme.onSurfaceVariant)
               ],
             ),
             SizedBox(height: spacingTwo),
@@ -46,7 +46,7 @@ class PingReplyText extends ConsumerWidget {
                 font: FontEnum.garamond,
                 text: ping.text,
                 size: TextSizeEnum.twenty,
-                color: Theme.of(context).colorScheme.secondary)
+                color: Theme.of(context).colorScheme.onSurfaceVariant)
           ],
         ));
   }
@@ -70,7 +70,7 @@ class PingReplyText extends ConsumerWidget {
                   children: [
                     SystemText(
                         text: _formatTimestamp(latestPing!.time).toLowerCase(),
-                        color: Theme.of(context).colorScheme.secondary)
+                        color: Theme.of(context).colorScheme.onSurfaceVariant)
                   ],
                 ),
                 SizedBox(height: spacingTwo),
@@ -79,7 +79,7 @@ class PingReplyText extends ConsumerWidget {
                     font: FontEnum.garamond,
                     text: latestPing.text,
                     size: TextSizeEnum.twenty,
-                    color: Theme.of(context).colorScheme.secondary)
+                    color: Theme.of(context).colorScheme.onSurfaceVariant)
               ],
             ));
       } else {

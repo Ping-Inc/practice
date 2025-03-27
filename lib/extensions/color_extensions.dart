@@ -48,25 +48,37 @@ extension ColorExtensions on Color {
     return primary.withAlpha(150);
   }
 
-  Color get idInner {
+  Color get reply {
     final hslColor = HSLColor.fromColor(this);
+
     if (this.brightness == Brightness.dark) {
-      // For darker colors, create a lighter, less saturated version (as before)
       final adjustedColor = hslColor
-          .withLightness(((hslColor.lightness * 2.6).clamp(0.0, 1.0)))
-          .withSaturation(((hslColor.saturation * 0.53).clamp(0.0, 1.0)));
+          .withLightness((hslColor.lightness * 2.0).clamp(0.0, 1.0))
+          .withSaturation((hslColor.saturation * 0.43).clamp(0.0, 1.0));
       return adjustedColor.toColor();
     } else {
-      // For lighter colors, create a darker, more saturated version (inverse)
       final adjustedColor = hslColor
-          .withLightness(((hslColor.lightness * 0.4).clamp(0.0, 1.0)))
-          .withSaturation(((hslColor.saturation * 0.53).clamp(0.0, 1.0)));
+          .withLightness((hslColor.lightness / 2.0).clamp(0.0, 1.0))
+          .withSaturation((hslColor.saturation * 0.43).clamp(0.0, 1.0));
       return adjustedColor.toColor();
     }
   }
 
-  Color get idOuter {
-    return idInner.withAlpha(64); // 0.25 * 255 ≈ 64
+  Color get idInner {
+    final hslColor = HSLColor.fromColor(this);
+    if (this.brightness == Brightness.dark) {
+      // For darker colors, create a lighter, more vibrant version
+      final adjustedColor = hslColor
+          .withLightness(((hslColor.lightness * 3.0).clamp(0.3, 0.7)))
+          .withSaturation(((hslColor.saturation * 0.8).clamp(0.4, 0.8)));
+      return adjustedColor.toColor();
+    } else {
+      // For lighter colors, create a darker, more vibrant version
+      final adjustedColor = hslColor
+          .withLightness(((hslColor.lightness * 0.5).clamp(0.3, 0.7)))
+          .withSaturation(((hslColor.saturation * 0.8).clamp(0.4, 0.8)));
+      return adjustedColor.toColor();
+    }
   }
 }
 
