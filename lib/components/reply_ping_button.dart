@@ -24,7 +24,7 @@ class ReplyPingButton extends ConsumerWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(spacingFour),
                     color:
-                        replyOn ? Theme.of(context).colorScheme.primary : null),
+                        replyOn ? Theme.of(context).colorScheme.outline : null),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
