@@ -50,7 +50,7 @@ class BackupUtils {
       final path = "${backupDir.path}/$fileName";
       final File file = File(path);
 
-      final pings = await PingsRepository.fetchAll();
+      final pings = await PingsRepository.fetch();
       final pingsList =
           pings.map<PingData>((data) => PingData.fromJson(data)).toList();
       final csvContent = _convertPingsToCSV(pingsList);

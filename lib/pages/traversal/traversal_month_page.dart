@@ -8,9 +8,9 @@ import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/traversal/traversal_scaffold.dart';
 
 class TraversalMonthPage extends ConsumerStatefulWidget {
-  const TraversalMonthPage({super.key, required this.month});
+  const TraversalMonthPage({super.key, required this.time});
 
-  final int month;
+  final DateTime time;
 
   @override
   _TraversalMonthState createState() => _TraversalMonthState();
@@ -24,7 +24,7 @@ class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
   void initState() {
     super.initState();
     _tabController = _tabController = TabController(
-      initialIndex: widget.month - 1,
+      initialIndex: widget.time.month - 1,
       length: DateTime.monthsPerYear,
       vsync: this,
     );
@@ -46,23 +46,11 @@ class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
           tabs: MonthEnum.values.map((filter) {
             return filter.title();
           }).toList(),
-          children: [
-            DateTime.january,
-            DateTime.february,
-            DateTime.march,
-            DateTime.april,
-            DateTime.may,
-            DateTime.june,
-            DateTime.july,
-            DateTime.august,
-            DateTime.september,
-            DateTime.october,
-            DateTime.november,
-            DateTime.december
-          ].map((filter) {
+          children: MonthEnum.values.map((month) {
+            final selectedDate = DateTime(widget.time.year, month.index + 1);
             return BrowseTimePage(
               timeEnum: TimeFilterEnum.month,
-              time: DateTime(DateTime.now().year, filter),
+              time: selectedDate,
             );
           }).toList(),
         ),

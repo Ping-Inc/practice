@@ -105,7 +105,8 @@ class PingCell extends ConsumerWidget {
               ? () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailsPage(ping: inputPing)),
+                        builder: (context) =>
+                            DetailsPage(pingId: inputPing.id!)),
                   )
               : null),
     ]);

@@ -38,9 +38,13 @@ extension WidgetParsing on FiltersEnum {
       case FiltersEnum.resonated:
         return BrowseResonatedPingsPage();
       case FiltersEnum.period_of_day:
-        return BrowseModePage(mode: time.themeMode());
+        final mode = time.themeMode();
+        return BrowseModePage(mode: mode.toString().split('.').last);
       case FiltersEnum.day_of_week:
-        return BrowseTimePage(time: time, timeEnum: TimeFilterEnum.dayOfWeek);
+        return BrowseTimePage(
+          timeEnum: TimeFilterEnum.dayOfWeek,
+          time: time,
+        );
       case FiltersEnum.one_week_old:
         return BrowseLastWeekPage();
       case FiltersEnum.hidden:

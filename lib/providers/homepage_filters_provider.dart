@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/enums/filters_enum.dart';
-import 'package:practice/providers/any_last_week_provider.dart';
-import 'package:practice/providers/any_resonated_provider.dart';
+import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'homepage_filters_provider.g.dart';
@@ -17,8 +16,8 @@ Future<List<FiltersEnum>> homepageFilters(Ref ref) async {
     FiltersEnum.all_pings
   ];
 
-  final resonated = await ref.watch(anyResonatedProvider.future);
-  final lastWeek = await ref.watch(anyLastWeekProvider.future);
+  final resonated = ref.watch(anyResonatedProvider);
+  final lastWeek = ref.watch(anyLastWeekProvider);
 
   if (resonated) {
     filters.add(FiltersEnum.resonated);

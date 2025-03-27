@@ -8,7 +8,7 @@ import 'package:practice/constants.dart';
 import 'dart:io';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/providers/pings_provider.dart';
+import 'package:practice/providers/pings_map_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImportPingsButton extends ConsumerWidget {
@@ -70,7 +70,7 @@ class ImportPingsButton extends ConsumerWidget {
                 }
               }
 
-              ref.read(pingsProvider.notifier).addAllPings(pings);
+              ref.read(pingsMapProvider.notifier).addAllPings(pings);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Theme.of(context).colorScheme.surface,
                   content: SystemText(
