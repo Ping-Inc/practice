@@ -14,10 +14,8 @@ extension ColorExtensions on Color {
 
   Color get pingResonant {
     final hslColor = HSLColor.fromColor(this);
-    // Original pingResonant was brighter and more saturated than base color
-    final adjustedColor = hslColor
-        .withLightness((hslColor.lightness * 1.3).clamp(0.0, 1.0))
-        .withSaturation((hslColor.saturation * 1.2).clamp(0.0, 1.0));
+    final adjustedColor =
+        hslColor.withLightness((hslColor.lightness * 1.48).clamp(0.0, 1.0));
     return adjustedColor.toColor();
   }
 
