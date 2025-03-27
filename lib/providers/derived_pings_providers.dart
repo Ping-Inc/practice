@@ -24,7 +24,11 @@ List<PingData> resonatedPings(Ref ref) {
         data: (map) => map.values
             .where((ping) => !ping.hidden && ping.resonantCount > 0)
             .toList()
-          ..sort((a, b) => b.resonantTime!.compareTo(a.resonantTime!)),
+          ..sort((a, b) {
+            if (a.resonantTime == null) return 1;
+            if (b.resonantTime == null) return -1;
+            return b.resonantTime!.compareTo(a.resonantTime!);
+          }),
         loading: () => [],
         error: (_, __) => [],
       );
