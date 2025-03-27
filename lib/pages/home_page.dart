@@ -102,7 +102,10 @@ class _ExplorePageState extends ConsumerState<HomePage>
                               width: tapTarget,
                               child: Center(
                                   child: Icon(PhosphorIcons.magnifying_glass,
-                                      size: 34)))),
+                                      size: 34,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary)))),
                       SystemTap(
                           onTap: () => Navigator.push(
                                 context,
@@ -110,7 +113,8 @@ class _ExplorePageState extends ConsumerState<HomePage>
                                     builder: (context) => NewPingPage()),
                               ),
                           child: Icon(PhosphorIcons.circle_fill,
-                              size: pingButtonSize)),
+                              size: pingButtonSize,
+                              color: Theme.of(context).colorScheme.primary)),
                       SystemTap(
                           onTap: () => Navigator.push(
                                 context,
@@ -121,7 +125,11 @@ class _ExplorePageState extends ConsumerState<HomePage>
                               height: tapTarget,
                               width: tapTarget,
                               child: Center(
-                                  child: Icon(PhosphorIcons.gear, size: 34)))),
+                                  child: Icon(PhosphorIcons.gear,
+                                      size: 34,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary)))),
                     ],
                   )
                 ]))),

@@ -19,7 +19,8 @@ class SystemButton extends StatelessWidget {
               horizontal: spacingThree, vertical: spacingFour),
           child: Row(
             children: [
-              if (icon != null) Icon(icon),
+              if (icon != null)
+                Icon(icon, color: Theme.of(context).colorScheme.primary),
               if (icon != null && text != null)
                 SizedBox(
                   width: spacingTwo,
