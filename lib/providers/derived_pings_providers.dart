@@ -51,12 +51,57 @@ List<PingData> visiblePings(Ref ref) {
 }
 
 @riverpod
-List<PingData> pingReplies(Ref ref, int parentId) {
+List<PingData> pingReplies(Ref ref, int pingId) {
   return ref.watch(pingsMapProvider).when(
-        data: (map) => map.values
-            .where((ping) => !ping.hidden && ping.replyId == parentId)
-            .toList()
-          ..sort((a, b) => b.time.compareTo(a.time)),
+        data: (map) {
+          if (!map.containsKey(pingId)) return [];
+
+          // Get all pings in the entire reply tree (both up and down)
+          final Set<int> allConnectedIds = {};
+          final Set<int> processedIds = {};
+          final List<int> toProcess = [pingId];
+
+          // Process all connected pings in breadth-first manner
+          while (toProcess.isNotEmpty) {
+            final currentId = toProcess.removeAt(0);
+            if (processedIds.contains(currentId)) continue;
+
+            processedIds.add(currentId);
+            allConnectedIds.add(currentId);
+
+            // Get the current ping
+            final currentPing = map[currentId];
+            if (currentPing == null) continue;
+
+            // Add parent (upward connection)
+            if (currentPing.replyId != null &&
+                !processedIds.contains(currentPing.replyId)) {
+              toProcess.add(currentPing.replyId!);
+            }
+
+            // Add children (downward connections)
+            final childIds = map.values
+                .where((p) => p.replyId == currentId && !p.hidden)
+                .map((p) => p.id!)
+                .toList();
+
+            for (final childId in childIds) {
+              if (!processedIds.contains(childId)) {
+                toProcess.add(childId);
+              }
+            }
+          }
+
+          // Remove the original ping ID and filter out hidden pings
+          allConnectedIds.remove(pingId);
+          final visibleIds = allConnectedIds
+              .where((id) => map[id] != null && !map[id]!.hidden)
+              .toList();
+
+          // Convert to pings and sort by time
+          return visibleIds.map((id) => map[id]!).toList()
+            ..sort((a, b) => b.time.compareTo(a.time));
+        },
         loading: () => [],
         error: (_, __) => [],
       );
