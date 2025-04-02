@@ -3,9 +3,9 @@ import 'package:practice/components/ping_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:intl/intl.dart';
+import 'package:practice/utils/ping_date_utils.dart';
 
-enum DateCategory { today, yesterday, thisWeek, thisYear, pastYear }
+enum DateCategory { today, yesterday, thisYear, pastYear }
 
 // Class to hold group information
 class DateGroup {
@@ -83,25 +83,6 @@ class SystemGrid extends StatelessWidget {
     );
   }
 
-  // Format date header based on category
-  String _formatDateHeader(DateTime date, DateCategory category) {
-    final monthAbbr = DateFormat('MMM').format(date);
-    final dayOfMonth = date.day.toString();
-    final dayOfWeek = DateFormat('EEEE').format(date);
-
-    switch (category) {
-      case DateCategory.today:
-        return 'today, $monthAbbr $dayOfMonth';
-      case DateCategory.yesterday:
-        return 'yesterday, $monthAbbr $dayOfMonth';
-      case DateCategory.thisWeek:
-      case DateCategory.thisYear:
-        return '$dayOfWeek, $monthAbbr $dayOfMonth';
-      case DateCategory.pastYear:
-        return '$dayOfWeek, $monthAbbr $dayOfMonth, ${date.year}';
-    }
-  }
-
   // Group pings by date category and return sorted list of DateGroups
   List<DateGroup> _groupPingsByDate(List<PingData> pings) {
     // Setup temporary storage for groups
@@ -111,50 +92,32 @@ class SystemGrid extends StatelessWidget {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
-    final startOfWeek = today.subtract(Duration(days: now.weekday - 1));
     final startOfYear = DateTime(now.year);
 
     // Group pings by date category
     for (final ping in pings) {
-      final DateTime pingDate;
-
-      // Use resonantTime if sortByResonance is true and resonantTime exists
-      if (sortByResonance && ping.resonantTime != null) {
-        pingDate = DateTime(
-          ping.resonantTime!.year,
-          ping.resonantTime!.month,
-          ping.resonantTime!.day,
-        );
-      } else {
-        pingDate = DateTime(
-          ping.time.year,
-          ping.time.month,
-          ping.time.day,
-        );
-      }
+      final DateTime pingDate = sortByResonance && ping.resonantTime != null
+          ? DateTime(
+              ping.resonantTime!.year,
+              ping.resonantTime!.month,
+              ping.resonantTime!.day,
+            )
+          : DateTime(
+              ping.time.year,
+              ping.time.month,
+              ping.time.day,
+            );
 
       // Determine category based on date
-      DateCategory category;
-
-      if (pingDate.year == today.year &&
-          pingDate.month == today.month &&
-          pingDate.day == today.day) {
-        category = DateCategory.today;
-      } else if (pingDate.year == yesterday.year &&
-          pingDate.month == yesterday.month &&
-          pingDate.day == yesterday.day) {
-        category = DateCategory.yesterday;
-      } else if (pingDate.isAfter(startOfWeek) && pingDate.isBefore(today)) {
-        category = DateCategory.thisWeek;
-      } else if (pingDate.isAfter(startOfYear) &&
-          pingDate.isBefore(startOfWeek)) {
-        category = DateCategory.thisYear;
-      } else {
-        category = DateCategory.pastYear;
-      }
+      final category = PingDateUtils.getDateCategory(
+        pingDate,
+        today: today,
+        yesterday: yesterday,
+        startOfYear: startOfYear,
+      );
 
       // Create header based on category
-      final header = _formatDateHeader(pingDate, category);
+      final header = PingDateUtils.formatForGridHeader(pingDate, category);
 
       // Create or add to group
       if (!groupMap.containsKey(header)) {
@@ -171,22 +134,14 @@ class SystemGrid extends StatelessWidget {
 
     // Convert to list and sort
     List<DateGroup> result = groupMap.values.toList();
-    _sortDateGroups(result);
+    PingDateUtils.sortDateGroups(result);
+
+    // Sort pings within each group
+    for (var group in result) {
+      PingDateUtils.sortPingsByTime(group.pings,
+          sortByResonance: sortByResonance);
+    }
 
     return result;
-  }
-
-  // Sort date groups by category and date
-  void _sortDateGroups(List<DateGroup> groups) {
-    groups.sort((a, b) {
-      // First sort by category priority
-      int categoryComparison = a.category.index.compareTo(b.category.index);
-      if (categoryComparison != 0) {
-        return categoryComparison;
-      }
-
-      // If same category, sort by date (most recent first)
-      return b.date.compareTo(a.date);
-    });
   }
 }
