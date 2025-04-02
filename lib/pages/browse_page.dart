@@ -32,7 +32,10 @@ class BrowsePage extends ConsumerWidget {
             font: FontEnum.sfmono,
           ))
         : browseMode == BrowseEnum.focus
-            ? PingFocusList(pings: pings)
+            ? PingFocusList(
+                pings: pings,
+                sortByResonance: sortByResonance,
+              )
             : Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: spacingMedium,

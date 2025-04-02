@@ -8,12 +8,17 @@ import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/utils/date_format_utils.dart';
+import 'package:practice/utils/ping_date_utils.dart';
 
 class PingFocusList extends StatefulWidget {
-  const PingFocusList({super.key, required this.pings});
+  const PingFocusList({
+    super.key,
+    required this.pings,
+    this.sortByResonance = false,
+  });
 
   final List<PingData> pings;
+  final bool sortByResonance;
 
   @override
   State<PingFocusList> createState() => _PingFocusListState();
@@ -75,8 +80,9 @@ class _PingFocusListState extends State<PingFocusList> {
               Padding(
                   padding: EdgeInsets.only(bottom: spacingSmall),
                   child: SystemText(
-                      text:
-                          DateFormatUtils.formatForPing(widget.pings[i].time))),
+                      text: PingDateUtils.formatForPing(widget.sortByResonance
+                          ? widget.pings[i].resonantTime!
+                          : widget.pings[i].time))),
               SizedBox(
                 height: MediaQuery.of(context).size.width,
                 child: PageView.builder(
