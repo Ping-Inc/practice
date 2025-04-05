@@ -102,9 +102,19 @@ List<PingData> pingReplies(Ref ref, int pingId) {
               .where((id) => map[id] != null && !map[id]!.hidden)
               .toList();
 
-          // Convert to pings and sort by time
-          return visibleIds.map((id) => map[id]!).toList()
-            ..sort((a, b) => a.id!.compareTo(b.id!));
+          // Convert to pings and include the current ping
+          final replies = [...visibleIds.map((id) => map[id]!)];
+
+          // Add the current ping
+          final currentPing = map[pingId];
+          if (currentPing != null && replies.length > 0) {
+            replies.add(currentPing);
+          }
+
+          // Sort all pings together by id
+          replies.sort((a, b) => a.id!.compareTo(b.id!));
+
+          return replies;
         },
         loading: () => [],
         error: (_, __) => [],

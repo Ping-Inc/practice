@@ -15,16 +15,22 @@ import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingCell extends ConsumerWidget {
-  const PingCell({super.key, required this.inputPing, this.tappable = true});
+  const PingCell(
+      {super.key,
+      required this.inputPing,
+      this.tappable = true,
+      this.border = false});
 
   final PingData inputPing;
   final bool tappable;
+  final bool border;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SystemTap(
           child: PingBackground(
+              border: border,
               hidden:
                   ref.watch(pingProvider(inputPing).select((p) => p.hidden)),
               time: ref

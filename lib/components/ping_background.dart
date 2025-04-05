@@ -5,11 +5,16 @@ import 'package:practice/providers/time_provider.dart';
 
 class PingBackground extends ConsumerWidget {
   const PingBackground(
-      {super.key, required this.child, this.time, this.hidden = false});
+      {super.key,
+      required this.child,
+      this.time,
+      this.hidden = false,
+      this.border = false});
 
   final Widget child;
   final DateTime? time;
   final bool hidden;
+  final bool border;
 
   Color calculateBackgroundColor(WidgetRef ref, BuildContext context) {
     if (hidden) {
@@ -44,7 +49,12 @@ class PingBackground extends ConsumerWidget {
         border: hidden
             ? Border.all(
                 color: Theme.of(context).colorScheme.primary, width: 0.5)
-            : null,
+            : border
+                ? Border.all(
+                    color:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                    width: 1)
+                : null,
       ),
       child: child,
     );
