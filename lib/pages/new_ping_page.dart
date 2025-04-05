@@ -43,7 +43,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
         body: SafeArea(
             child: Column(
           children: [
-            HeaderMin(),
+            HeaderMin(subtitle: "all pings"),
             Expanded(
                 child: MainSpacingCell(
                     child: Column(
