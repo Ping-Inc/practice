@@ -39,6 +39,11 @@ class SystemGrid extends StatelessWidget {
 
     return CustomScrollView(
       slivers: [
+        // Add top padding of 100px
+        SliverToBoxAdapter(
+          child: SizedBox(height: fadeHeightTop),
+        ),
+
         // Generate sliver sections for each date group
         for (int i = 0; i < dateGroups.length; i++) ...[
           // Header for this date
