@@ -28,12 +28,12 @@ class _HomePageState extends ConsumerState<NewPingPage> {
   bool isTransitioning = false;
   final GlobalKey<FlashAnimationState> _flashKey =
       GlobalKey<FlashAnimationState>();
-  int? _lastPingCount;
 
   @override
   void dispose() {
     focusNode.unfocus();
     focusNode.dispose();
+
     super.dispose();
   }
 
@@ -44,17 +44,12 @@ class _HomePageState extends ConsumerState<NewPingPage> {
   }
 
   Widget build(BuildContext context) {
-    final currentPingCount = ref.watch(pingsMapProvider).value?.length ?? 0;
-
-    if (_lastPingCount != null && currentPingCount > _lastPingCount!) {
+    ref.listen(pingsMapProvider, (previous, next) {
       setState(() {
         isTransitioning = true;
       });
       controller.clear();
-    }
-    if (currentPingCount > 0) {
-      _lastPingCount = currentPingCount;
-    }
+    });
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
