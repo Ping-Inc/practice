@@ -6,7 +6,7 @@ part of 'derived_pings_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allPingsHash() => r'b6ce3d83cdc1f917f999f1f07fd2d0b496a681df';
+String _$allPingsHash() => r'215ead643f3f528e50024c5471fcac0866753261';
 
 /// See also [allPings].
 @ProviderFor(allPings)
@@ -22,7 +22,7 @@ final allPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AllPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$resonatedPingsHash() => r'0c13b98bf5c8dead7ef39c0a4d5f1205f798f54d';
+String _$resonatedPingsHash() => r'a4c81a5444e29d93771ffee5c8b4a7464ad770bc';
 
 /// See also [resonatedPings].
 @ProviderFor(resonatedPings)
@@ -39,7 +39,7 @@ final resonatedPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ResonatedPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$hiddenPingsHash() => r'b046a3812399f2e471be1de5269ff19116ec5886';
+String _$hiddenPingsHash() => r'08bcdfbddd590b703697f45db6927e93b30a2ceb';
 
 /// See also [hiddenPings].
 @ProviderFor(hiddenPings)
@@ -55,22 +55,6 @@ final hiddenPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef HiddenPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$visiblePingsHash() => r'5909bb8f136d7a747b6dae462bf2f791bc65e923';
-
-/// See also [visiblePings].
-@ProviderFor(visiblePings)
-final visiblePingsProvider = AutoDisposeProvider<List<PingData>>.internal(
-  visiblePings,
-  name: r'visiblePingsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$visiblePingsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef VisiblePingsRef = AutoDisposeProviderRef<List<PingData>>;
 String _$pingRepliesHash() => r'582e2875a015f3b612288d14ec7c9513951d78a0';
 
 /// Copied from Dart SDK
@@ -238,7 +222,7 @@ final latestPingProvider = AutoDisposeProvider<PingData?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef LatestPingRef = AutoDisposeProviderRef<PingData?>;
-String _$modeFilteredPingsHash() => r'c5aab2a9649c2589e10303875696e19dd1fd8afc';
+String _$modeFilteredPingsHash() => r'05eb5138d9068afb5c9c4d4d48670c4bf38dc44f';
 
 /// See also [modeFilteredPings].
 @ProviderFor(modeFilteredPings)
@@ -369,7 +353,7 @@ class _ModeFilteredPingsProviderElement
   String get mode => (origin as ModeFilteredPingsProvider).mode;
 }
 
-String _$dayOfWeekPingsHash() => r'526a5f6ef40a8aeafc10f30258576ec2b55cd954';
+String _$dayOfWeekPingsHash() => r'f168e5e80608a815f29b910f643d6e86821ceed5';
 
 /// See also [dayOfWeekPings].
 @ProviderFor(dayOfWeekPings)
@@ -499,7 +483,7 @@ class _DayOfWeekPingsProviderElement
   int get weekday => (origin as DayOfWeekPingsProvider).weekday;
 }
 
-String _$monthPingsHash() => r'a98c5b42700a2b75c78be50187cb0c8b4f732318';
+String _$monthPingsHash() => r'33be0d454132db0d173318bc79720d09ba4452ad';
 
 /// See also [monthPings].
 @ProviderFor(monthPings)
@@ -629,7 +613,7 @@ class _MonthPingsProviderElement
   int get month => (origin as MonthPingsProvider).month;
 }
 
-String _$dayOfMonthPingsHash() => r'75fc8ba5cabc289f89a24f9590fb7fc1a3588d70';
+String _$dayOfMonthPingsHash() => r'c6c2a19ac1a5fc07a00768fee630225253bd1ebc';
 
 /// See also [dayOfMonthPings].
 @ProviderFor(dayOfMonthPings)
@@ -759,7 +743,7 @@ class _DayOfMonthPingsProviderElement
   int get day => (origin as DayOfMonthPingsProvider).day;
 }
 
-String _$yearPingsHash() => r'b9689f733a3c5db0f08512467dcf16d150658f2f';
+String _$yearPingsHash() => r'7caf7e8ef0334ea99cbd784510ca76422da22e51';
 
 /// See also [yearPings].
 @ProviderFor(yearPings)
@@ -888,7 +872,7 @@ class _YearPingsProviderElement
   int get year => (origin as YearPingsProvider).year;
 }
 
-String _$lastWeekPingsHash() => r'af533dfd390c1dfd10cb30cc4318f0a9db7e9c4f';
+String _$lastWeekPingsHash() => r'f3c26eacd87eff83bf622dc9364b891161acc21e';
 
 /// See also [lastWeekPings].
 @ProviderFor(lastWeekPings)
@@ -905,22 +889,6 @@ final lastWeekPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef LastWeekPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$pingOfTheDayHash() => r'4003805efccf83a83e5720c9bfc2db79faefa6cf';
-
-/// See also [pingOfTheDay].
-@ProviderFor(pingOfTheDay)
-final pingOfTheDayProvider = AutoDisposeProvider<PingData?>.internal(
-  pingOfTheDay,
-  name: r'pingOfTheDayProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$pingOfTheDayHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef PingOfTheDayRef = AutoDisposeProviderRef<PingData?>;
 String _$pingYearsHash() => r'663e2baeb3eee15f1127a2cdbb9cf141a567085c';
 
 /// See also [pingYears].
@@ -953,7 +921,7 @@ final anyResonatedProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AnyResonatedRef = AutoDisposeProviderRef<bool>;
-String _$anyLastWeekHash() => r'04f5862f58616e1490909e7d8c6cb6322702ae22';
+String _$anyLastWeekHash() => r'ee55699f0c3d5566688bf2d7c560f2d15af49cbc';
 
 /// See also [anyLastWeek].
 @ProviderFor(anyLastWeek)
@@ -1231,7 +1199,7 @@ class _PingResonanceCountProviderElement extends AutoDisposeProviderElement<int>
 }
 
 String _$dayOfWeekFilteredPingsHash() =>
-    r'068fb2bedbf220431cbd969477331c110f49ceb7';
+    r'3638cfd6f96b8a5e595aca1a0f4f9be52e9bb8e8';
 
 /// See also [dayOfWeekFilteredPings].
 @ProviderFor(dayOfWeekFilteredPings)
@@ -1366,7 +1334,7 @@ class _DayOfWeekFilteredPingsProviderElement
 }
 
 String _$monthFilteredPingsHash() =>
-    r'521c57cfc5a748e7a990af1516821bd5490fa357';
+    r'c7652392a416ed7ec76ade0afcb6d777a6afda61';
 
 /// See also [monthFilteredPings].
 @ProviderFor(monthFilteredPings)
@@ -1498,7 +1466,7 @@ class _MonthFilteredPingsProviderElement
 }
 
 String _$dayOfMonthFilteredPingsHash() =>
-    r'f59b943ebb953be1ac7158f8999dd93e0fa45dc0';
+    r'c575dfb8520c8576495f8031c15f2c598439e6b8';
 
 /// See also [dayOfMonthFilteredPings].
 @ProviderFor(dayOfMonthFilteredPings)
@@ -1631,7 +1599,7 @@ class _DayOfMonthFilteredPingsProviderElement
   int get dayOfMonth => (origin as DayOfMonthFilteredPingsProvider).dayOfMonth;
 }
 
-String _$yearFilteredPingsHash() => r'17d76b7589eed2721b34f22d566d8a0397c4390f';
+String _$yearFilteredPingsHash() => r'bc3f4045cfe7c39588ff8d0ac3e873eedf0aec4b';
 
 /// See also [yearFilteredPings].
 @ProviderFor(yearFilteredPings)
