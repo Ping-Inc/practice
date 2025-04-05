@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/components/fade.dart';
 import 'package:practice/components/search_text_field.dart';
 import 'package:practice/components/ping_search_list.dart';
 import 'package:practice/components/header_min.dart';
@@ -22,10 +23,13 @@ class SearchPage extends ConsumerWidget {
                       child: Column(
                         children: [
                           SearchTextField(),
-                          SizedBox(
-                            height: spacingMedium,
-                          ),
-                          Expanded(child: PingSearchList())
+                          Expanded(
+                              child: Stack(
+                            children: [
+                              PingSearchList(),
+                              Fade(topDown: true),
+                            ],
+                          ))
                         ],
                       )))
             ])));
