@@ -63,7 +63,6 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                       children: [
                                         PingCell(
                                           inputPing: ping!,
-                                          showId: true,
                                           tappable: false,
                                         ),
                                         DetailCellCluster(

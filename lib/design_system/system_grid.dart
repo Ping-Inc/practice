@@ -26,12 +26,10 @@ class SystemGrid extends StatelessWidget {
   const SystemGrid({
     super.key,
     required this.pings,
-    this.showId = false,
     this.sortByResonance = false,
   });
 
   final List<PingData> pings;
-  final bool showId;
   final bool sortByResonance;
 
   @override
@@ -68,7 +66,7 @@ class SystemGrid extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final ping = dateGroups[i].pings[index];
-                return PingCell(inputPing: ping, showId: showId);
+                return PingCell(inputPing: ping);
               },
               childCount: dateGroups[i].pings.length,
             ),

@@ -94,7 +94,6 @@ class _PingFocusListState extends State<PingFocusList> {
                       padding: EdgeInsets.symmetric(horizontal: spacingThree),
                       child: PingCell(
                         inputPing: widget.pings[i],
-                        showId: true,
                       ),
                     );
                   },
