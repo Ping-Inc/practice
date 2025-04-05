@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/capture_button.dart';
+import 'package:practice/components/flash_animation.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
@@ -21,6 +22,9 @@ class OnboardingPage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<OnboardingPage> {
   int currentStep = 0;
+  bool isTransitioning = false;
+  final GlobalKey<FlashAnimationState> _flashKey =
+      GlobalKey<FlashAnimationState>();
 
   final List<String> onboardingTexts = [
     "A camera roll for your thoughts —",
@@ -32,6 +36,7 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
 
   void _handleButtonTap() {
     setState(() {
+      isTransitioning = true;
       currentStep++;
     });
 
@@ -39,6 +44,12 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
       // Complete onboarding and navigate to new ping page
       ref.read(onboardingProvider.notifier).complete();
     }
+  }
+
+  void _onFlashComplete() {
+    setState(() {
+      isTransitioning = false;
+    });
   }
 
   List<TextSpan> _buildTextSpans(String text) {
@@ -90,42 +101,52 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
-        body: SafeArea(
-            child: MainSpacingCell(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
+        body: FlashAnimation(
+            key: _flashKey,
+            isTransitioning: isTransitioning,
+            onComplete: _onFlashComplete,
+            child: SafeArea(
+                child: MainSpacingCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                  Expanded(
+                      child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: spacingMedium),
+                          child: RichText(
+                              text: TextSpan(
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize:
+                                          TextSizeEnum.thirtySix.toFontSize(),
+                                      fontFamily:
+                                          FontEnum.garamond.toFontFamily(),
+                                      height: lineHeight,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                                  children: _buildTextSpans(
+                                      onboardingTexts[currentStep]))))),
+                  SizedBox(
+                    height: spacingFive,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-              Expanded(
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: spacingMedium),
-                      child: RichText(
-                          text: TextSpan(
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: TextSizeEnum.thirtySix.toFontSize(),
-                                  fontFamily: FontEnum.garamond.toFontFamily(),
-                                  height: lineHeight,
-                                  color: Theme.of(context).colorScheme.primary),
-                              children: _buildTextSpans(
-                                  onboardingTexts[currentStep]))))),
-              SizedBox(
-                height: spacingFive,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CaptureButton(
-                    onTap: _handleButtonTap,
+                      CaptureButton(
+                        onTap: _handleButtonTap,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: spacingFive,
                   )
-                ],
-              ),
-              SizedBox(
-                height: spacingFive,
-              )
-            ]))));
+                ])))));
   }
 }
