@@ -11,7 +11,6 @@ class Onboarding extends _$Onboarding {
   }
 
   void complete() {
-    prefs.setBool(sharedPrefsOnboarded, true);
     state = true;
   }
 }
