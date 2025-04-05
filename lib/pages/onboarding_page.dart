@@ -31,7 +31,7 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
     "Ping Practice is a not-for-profit journaling [method](https://pingpractice.org/method/) and app.",
     "Meant to support you in revisiting placeless thoughts —",
     "Pings are private and saved to your device.",
-    "Happy pinging ^ _ ^"
+    "Happy pinging"
   ];
 
   void _handleButtonTap() {
@@ -115,6 +115,7 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                   Expanded(
                       child: Padding(

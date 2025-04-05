@@ -100,7 +100,7 @@ const String sharedPrefsBackupTimeKey = "shared_prefs_backup_time_key";
 const String sharedPrefsBackupSha = "shared_prefs_backup_sha";
 const String sharedPrefsBrowseMode = "shared_prefs_browse_mode";
 const String sharedPrefsResonated = "shared_prefs_resonated";
-const String sharedPrefsOnboarded = "shared_prefs_onboarded2";
+const String sharedPrefsOnboarded = "shared_prefs_onboarded3";
 const String sharedPrefsColor = "shared_prefs_color";
 
 const Color defaultColor = Color(0xFF011C6B);
