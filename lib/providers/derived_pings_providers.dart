@@ -3,8 +3,6 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/day_of_week_enum.dart';
 import 'package:practice/enums/month_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
-import 'package:practice/providers/current_day_provider.dart';
-import 'package:practice/providers/current_hour_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/utils/ping_date_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,7 +11,6 @@ part 'derived_pings_providers.g.dart';
 
 @riverpod
 List<PingData> allPings(Ref ref) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) => map.values.where((ping) => !ping.hidden).toList()
           ..sort((a, b) => b.time.compareTo(a.time)),
@@ -24,7 +21,6 @@ List<PingData> allPings(Ref ref) {
 
 @riverpod
 List<PingData> resonatedPings(Ref ref) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) => map.values
             .where((ping) => !ping.hidden && ping.resonantCount > 0)
@@ -41,7 +37,6 @@ List<PingData> resonatedPings(Ref ref) {
 
 @riverpod
 List<PingData> hiddenPings(Ref ref) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) => map.values.where((ping) => ping.hidden).toList()
           ..sort((a, b) => b.time.compareTo(a.time)),
@@ -132,7 +127,6 @@ PingData? latestPing(Ref ref) {
 
 @riverpod
 List<PingData> modeFilteredPings(Ref ref, String mode) {
-  ref.watch(currentHourProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values.where((ping) {
@@ -160,7 +154,6 @@ List<PingData> modeFilteredPings(Ref ref, String mode) {
 
 @riverpod
 List<PingData> dayOfWeekPings(Ref ref, int weekday) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -175,7 +168,6 @@ List<PingData> dayOfWeekPings(Ref ref, int weekday) {
 
 @riverpod
 List<PingData> monthPings(Ref ref, int month) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -190,7 +182,6 @@ List<PingData> monthPings(Ref ref, int month) {
 
 @riverpod
 List<PingData> dayOfMonthPings(Ref ref, int day) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -205,7 +196,6 @@ List<PingData> dayOfMonthPings(Ref ref, int day) {
 
 @riverpod
 List<PingData> yearPings(Ref ref, int year) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -220,7 +210,6 @@ List<PingData> yearPings(Ref ref, int year) {
 
 @riverpod
 List<PingData> lastWeekPings(Ref ref) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           final (start, end) = PingDateUtils.getLastWeekRange();
@@ -266,7 +255,6 @@ bool anyResonated(Ref ref) {
 
 @riverpod
 bool anyLastWeek(Ref ref) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           final (start, end) = PingDateUtils.getLastWeekRange();
@@ -300,7 +288,6 @@ int pingResonanceCount(Ref ref, int pingId) {
 
 @riverpod
 List<PingData> dayOfWeekFilteredPings(Ref ref, DayOfWeekEnum dayOfWeek) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -316,7 +303,6 @@ List<PingData> dayOfWeekFilteredPings(Ref ref, DayOfWeekEnum dayOfWeek) {
 
 @riverpod
 List<PingData> monthFilteredPings(Ref ref, MonthEnum month) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -333,7 +319,6 @@ List<PingData> monthFilteredPings(Ref ref, MonthEnum month) {
 
 @riverpod
 List<PingData> dayOfMonthFilteredPings(Ref ref, int dayOfMonth) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values
@@ -348,7 +333,6 @@ List<PingData> dayOfMonthFilteredPings(Ref ref, int dayOfMonth) {
 
 @riverpod
 List<PingData> yearFilteredPings(Ref ref, int year) {
-  ref.watch(currentDayProvider);
   return ref.watch(pingsMapProvider).when(
         data: (map) {
           return map.values

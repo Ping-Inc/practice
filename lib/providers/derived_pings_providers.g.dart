@@ -6,7 +6,7 @@ part of 'derived_pings_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allPingsHash() => r'215ead643f3f528e50024c5471fcac0866753261';
+String _$allPingsHash() => r'e979e756e37153a0f42fb0a0d1697e26536bc244';
 
 /// See also [allPings].
 @ProviderFor(allPings)
@@ -22,7 +22,7 @@ final allPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AllPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$resonatedPingsHash() => r'a4c81a5444e29d93771ffee5c8b4a7464ad770bc';
+String _$resonatedPingsHash() => r'0c13b98bf5c8dead7ef39c0a4d5f1205f798f54d';
 
 /// See also [resonatedPings].
 @ProviderFor(resonatedPings)
@@ -39,7 +39,7 @@ final resonatedPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ResonatedPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$hiddenPingsHash() => r'08bcdfbddd590b703697f45db6927e93b30a2ceb';
+String _$hiddenPingsHash() => r'b046a3812399f2e471be1de5269ff19116ec5886';
 
 /// See also [hiddenPings].
 @ProviderFor(hiddenPings)
@@ -222,7 +222,7 @@ final latestPingProvider = AutoDisposeProvider<PingData?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef LatestPingRef = AutoDisposeProviderRef<PingData?>;
-String _$modeFilteredPingsHash() => r'05eb5138d9068afb5c9c4d4d48670c4bf38dc44f';
+String _$modeFilteredPingsHash() => r'c5aab2a9649c2589e10303875696e19dd1fd8afc';
 
 /// See also [modeFilteredPings].
 @ProviderFor(modeFilteredPings)
@@ -353,7 +353,7 @@ class _ModeFilteredPingsProviderElement
   String get mode => (origin as ModeFilteredPingsProvider).mode;
 }
 
-String _$dayOfWeekPingsHash() => r'f168e5e80608a815f29b910f643d6e86821ceed5';
+String _$dayOfWeekPingsHash() => r'526a5f6ef40a8aeafc10f30258576ec2b55cd954';
 
 /// See also [dayOfWeekPings].
 @ProviderFor(dayOfWeekPings)
@@ -483,7 +483,7 @@ class _DayOfWeekPingsProviderElement
   int get weekday => (origin as DayOfWeekPingsProvider).weekday;
 }
 
-String _$monthPingsHash() => r'33be0d454132db0d173318bc79720d09ba4452ad';
+String _$monthPingsHash() => r'a98c5b42700a2b75c78be50187cb0c8b4f732318';
 
 /// See also [monthPings].
 @ProviderFor(monthPings)
@@ -613,7 +613,7 @@ class _MonthPingsProviderElement
   int get month => (origin as MonthPingsProvider).month;
 }
 
-String _$dayOfMonthPingsHash() => r'c6c2a19ac1a5fc07a00768fee630225253bd1ebc';
+String _$dayOfMonthPingsHash() => r'75fc8ba5cabc289f89a24f9590fb7fc1a3588d70';
 
 /// See also [dayOfMonthPings].
 @ProviderFor(dayOfMonthPings)
@@ -743,7 +743,7 @@ class _DayOfMonthPingsProviderElement
   int get day => (origin as DayOfMonthPingsProvider).day;
 }
 
-String _$yearPingsHash() => r'7caf7e8ef0334ea99cbd784510ca76422da22e51';
+String _$yearPingsHash() => r'b9689f733a3c5db0f08512467dcf16d150658f2f';
 
 /// See also [yearPings].
 @ProviderFor(yearPings)
@@ -872,7 +872,7 @@ class _YearPingsProviderElement
   int get year => (origin as YearPingsProvider).year;
 }
 
-String _$lastWeekPingsHash() => r'f3c26eacd87eff83bf622dc9364b891161acc21e';
+String _$lastWeekPingsHash() => r'af533dfd390c1dfd10cb30cc4318f0a9db7e9c4f';
 
 /// See also [lastWeekPings].
 @ProviderFor(lastWeekPings)
@@ -921,7 +921,7 @@ final anyResonatedProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AnyResonatedRef = AutoDisposeProviderRef<bool>;
-String _$anyLastWeekHash() => r'ee55699f0c3d5566688bf2d7c560f2d15af49cbc';
+String _$anyLastWeekHash() => r'04f5862f58616e1490909e7d8c6cb6322702ae22';
 
 /// See also [anyLastWeek].
 @ProviderFor(anyLastWeek)
@@ -1199,7 +1199,7 @@ class _PingResonanceCountProviderElement extends AutoDisposeProviderElement<int>
 }
 
 String _$dayOfWeekFilteredPingsHash() =>
-    r'3638cfd6f96b8a5e595aca1a0f4f9be52e9bb8e8';
+    r'068fb2bedbf220431cbd969477331c110f49ceb7';
 
 /// See also [dayOfWeekFilteredPings].
 @ProviderFor(dayOfWeekFilteredPings)
@@ -1334,7 +1334,7 @@ class _DayOfWeekFilteredPingsProviderElement
 }
 
 String _$monthFilteredPingsHash() =>
-    r'c7652392a416ed7ec76ade0afcb6d777a6afda61';
+    r'521c57cfc5a748e7a990af1516821bd5490fa357';
 
 /// See also [monthFilteredPings].
 @ProviderFor(monthFilteredPings)
@@ -1466,7 +1466,7 @@ class _MonthFilteredPingsProviderElement
 }
 
 String _$dayOfMonthFilteredPingsHash() =>
-    r'c575dfb8520c8576495f8031c15f2c598439e6b8';
+    r'f59b943ebb953be1ac7158f8999dd93e0fa45dc0';
 
 /// See also [dayOfMonthFilteredPings].
 @ProviderFor(dayOfMonthFilteredPings)
@@ -1599,7 +1599,7 @@ class _DayOfMonthFilteredPingsProviderElement
   int get dayOfMonth => (origin as DayOfMonthFilteredPingsProvider).dayOfMonth;
 }
 
-String _$yearFilteredPingsHash() => r'bc3f4045cfe7c39588ff8d0ac3e873eedf0aec4b';
+String _$yearFilteredPingsHash() => r'17d76b7589eed2721b34f22d566d8a0397c4390f';
 
 /// See also [yearFilteredPings].
 @ProviderFor(yearFilteredPings)
