@@ -47,64 +47,76 @@ class _PingFocusListState extends State<PingFocusList> {
 
   @override
   Widget build(BuildContext context) {
-    return SystemRefresh(
-        edgeOffset: -spacingSmall,
-        onRefresh: () async {
-          HapticFeedback.lightImpact();
+    return Expanded(child: LayoutBuilder(builder: (context, constraints) {
+      return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        SystemRefresh(
+            edgeOffset: -spacingSmall,
+            onRefresh: () async {
+              HapticFeedback.lightImpact();
 
-          if (widget.pings.isNotEmpty && widget.pings.length > 1) {
-            int newI = i;
-            while (newI == i) {
-              newI = Random().nextInt(widget.pings.length);
-            }
+              if (widget.pings.isNotEmpty && widget.pings.length > 1) {
+                int newI = i;
+                while (newI == i) {
+                  newI = Random().nextInt(widget.pings.length);
+                }
 
-            final distance = (newI - i).abs();
-            final duration = Duration(
-              milliseconds: (200 + (distance * 50)).clamp(200, 600),
-            );
+                final distance = (newI - i).abs();
+                final duration = Duration(
+                  milliseconds: (200 + (distance * 50)).clamp(200, 600),
+                );
 
-            _pageController.animateToPage(
-              newI,
-              duration: duration,
-              curve: Curves.easeOutCubic,
-            );
-          }
-        },
-        child: SingleChildScrollView(
-          // Wrap Column in SingleChildScrollView to enable scrolling
-          physics:
-              const AlwaysScrollableScrollPhysics(), // Disable bounce effect while keeping scrollable
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                  padding: EdgeInsets.only(bottom: spacingSmall),
-                  child: SystemText(
-                      text: PingDateUtils.formatForPing(widget.sortByResonance
-                          ? widget.pings[i].resonantTime!
-                          : widget.pings[i].time))),
-              SizedBox(
-                height: MediaQuery.of(context).size.width,
-                child: PageView.builder(
-                  reverse: true,
-                  controller: _pageController,
-                  itemCount: widget.pings.length,
-                  itemBuilder: (context, i) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: spacingThree),
-                      child: PingCell(
-                        inputPing: widget.pings[i],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                height: spacingSmall,
-              ),
-              PingActionRow(ping: widget.pings[i]),
-            ],
-          ),
-        ));
+                _pageController.animateToPage(
+                  newI,
+                  duration: duration,
+                  curve: Curves.easeOutCubic,
+                );
+              }
+            },
+            child: SingleChildScrollView(
+                // Wrap Column in SingleChildScrollView to enable scrolling
+                physics:
+                    const AlwaysScrollableScrollPhysics(), // Disable bounce effect while keeping scrollable
+                child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: fadeHeightTop,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(bottom: spacingSmall),
+                            child: SystemText(
+                                text: PingDateUtils.formatForPing(
+                                    widget.sortByResonance
+                                        ? widget.pings[i].resonantTime!
+                                        : widget.pings[i].time))),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width -
+                              spacingThree * 8,
+                          child: PageView.builder(
+                            reverse: true,
+                            controller: _pageController,
+                            itemCount: widget.pings.length,
+                            itemBuilder: (context, i) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: spacingThree),
+                                child: PingCell(
+                                  inputPing: widget.pings[i],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: spacingMedium,
+                        ),
+                        PingActionRow(ping: widget.pings[i]),
+                      ],
+                    )))),
+      ]);
+    }));
   }
 }
