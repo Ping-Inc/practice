@@ -20,11 +20,8 @@ class HeaderMin extends StatelessWidget {
             SystemButton(
               onTap: () => Navigator.pop(context),
               icon: PhosphorIcons.caret_left,
+              text: subtitle ?? null,
             ),
-            if (subtitle != null)
-              SystemText(
-                text: subtitle!,
-              )
           ]),
           if (title != null)
             Align(
