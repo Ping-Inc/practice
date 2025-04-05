@@ -91,12 +91,6 @@ class SystemGrid extends StatelessWidget {
     // Setup temporary storage for groups
     final Map<String, DateGroup> groupMap = {};
 
-    // Setup date references
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(const Duration(days: 1));
-    final startOfYear = DateTime(now.year);
-
     // Group pings by date category
     for (final ping in pings) {
       final DateTime pingDate = sortByResonance && ping.resonantTime != null
@@ -112,12 +106,7 @@ class SystemGrid extends StatelessWidget {
             );
 
       // Determine category based on date
-      final category = PingDateUtils.getDateCategory(
-        pingDate,
-        today: today,
-        yesterday: yesterday,
-        startOfYear: startOfYear,
-      );
+      final category = PingDateUtils.getDateCategory(pingDate);
 
       // Create header based on category
       final header = PingDateUtils.formatForGridHeader(pingDate, category);

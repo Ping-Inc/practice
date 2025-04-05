@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
 import 'package:practice/pages/explore_page.dart';
-import 'package:practice/providers/current_day_of_week_provider.dart';
 import 'package:practice/providers/homepage_filters_provider.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -25,8 +24,6 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
   }
 
   Widget build(BuildContext context) {
-    ref.watch(currentDayOfWeekProvider);
-    final currentTime = DateTime.now();
     final asyncFilters = ref.watch(homepageFiltersProvider);
 
     return switch (asyncFilters) {
@@ -42,14 +39,14 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
             return ExplorePage(
                 tabController: _tabController!,
                 tabs: filters.map((filter) {
-                  return filter.title(currentTime);
+                  return filter.title();
                 }).toList(),
                 children: filters.map((filter) {
-                  return filter.page(currentTime);
+                  return filter.page();
                 }).toList());
           }),
         ),
-      AsyncError() => SystemText(text: "Erro"),
+      AsyncError() => SystemText(text: "Error"),
       _ => SystemLoader()
     };
   }
