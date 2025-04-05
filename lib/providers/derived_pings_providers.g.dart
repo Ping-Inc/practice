@@ -888,7 +888,7 @@ class _YearPingsProviderElement
   int get year => (origin as YearPingsProvider).year;
 }
 
-String _$lastWeekPingsHash() => r'e77892e045a7c1be63cf9670f0e710cda6b625b8';
+String _$lastWeekPingsHash() => r'af533dfd390c1dfd10cb30cc4318f0a9db7e9c4f';
 
 /// See also [lastWeekPings].
 @ProviderFor(lastWeekPings)
@@ -953,7 +953,7 @@ final anyResonatedProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AnyResonatedRef = AutoDisposeProviderRef<bool>;
-String _$anyLastWeekHash() => r'67163967270c64cc4eaa45685b95391298369dee';
+String _$anyLastWeekHash() => r'04f5862f58616e1490909e7d8c6cb6322702ae22';
 
 /// See also [anyLastWeek].
 @ProviderFor(anyLastWeek)

@@ -108,4 +108,17 @@ class PingDateUtils {
   static String _yearFormat(DateTime time) {
     return time.year.toString().toLowerCase();
   }
+
+  // Week Range Calculation
+  static (DateTime start, DateTime end) getLastWeekRange() {
+    final now = DateTime.now();
+    // Get the start of the current week (Monday)
+    final currentWeekStart = now.subtract(Duration(days: now.weekday - 1));
+    // Get the start of last week (Monday)
+    final lastWeekStart = currentWeekStart.subtract(const Duration(days: 7));
+    // Get the end of last week (Sunday)
+    final lastWeekEnd = currentWeekStart.subtract(const Duration(days: 1));
+
+    return (lastWeekStart, lastWeekEnd.add(const Duration(days: 1)));
+  }
 }
