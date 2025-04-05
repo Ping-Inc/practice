@@ -4,6 +4,7 @@ import 'package:practice/enums/day_of_week_enum.dart';
 import 'package:practice/enums/month_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
 import 'package:practice/providers/pings_map_provider.dart';
+import 'package:practice/utils/ping_date_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'derived_pings_providers.g.dart';
@@ -221,22 +222,12 @@ List<PingData> yearPings(Ref ref, int year) {
 List<PingData> lastWeekPings(Ref ref) {
   return ref.watch(pingsMapProvider).when(
         data: (map) {
-          final now = DateTime.now();
-          // Get the start of the current week (Monday)
-          final currentWeekStart =
-              now.subtract(Duration(days: now.weekday - 1));
-          // Get the start of last week (Monday)
-          final lastWeekStart =
-              currentWeekStart.subtract(const Duration(days: 7));
-          // Get the end of last week (Sunday)
-          final lastWeekEnd =
-              currentWeekStart.subtract(const Duration(days: 1));
-
+          final (start, end) = PingDateUtils.getLastWeekRange();
           return map.values
               .where((ping) =>
                   !ping.hidden &&
-                  ping.time.isAfter(lastWeekStart) &&
-                  ping.time.isBefore(lastWeekEnd.add(const Duration(days: 1))))
+                  ping.time.isAfter(start) &&
+                  ping.time.isBefore(end))
               .toList()
             ..sort((a, b) => b.time.compareTo(a.time));
         },
@@ -294,9 +285,11 @@ bool anyResonated(Ref ref) {
 bool anyLastWeek(Ref ref) {
   return ref.watch(pingsMapProvider).when(
         data: (map) {
-          final weekAgo = DateTime.now().subtract(const Duration(days: 7));
-          return map.values
-              .any((ping) => !ping.hidden && ping.time.isAfter(weekAgo));
+          final (start, end) = PingDateUtils.getLastWeekRange();
+          return map.values.any((ping) =>
+              !ping.hidden &&
+              ping.time.isAfter(start) &&
+              ping.time.isBefore(end));
         },
         loading: () => false,
         error: (_, __) => false,
