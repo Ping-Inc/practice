@@ -34,6 +34,7 @@ class RepliesGrid extends ConsumerWidget {
                     children: replies.map((reply) {
                       return PingCell(
                         inputPing: reply,
+                        border: reply.id == pingId,
                       );
                     }).toList()))
           ])
