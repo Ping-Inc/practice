@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice/components/fade.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
@@ -19,7 +20,7 @@ class ExplorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-          padding: EdgeInsets.symmetric(vertical: spacingSmall),
+          padding: EdgeInsets.only(top: spacingSmall),
           child: TabBar(
               padding: EdgeInsets.only(right: spacingMedium, left: 0),
               controller: tabController,
@@ -43,7 +44,13 @@ class ExplorePage extends StatelessWidget {
                       fontFamily: FontEnum.sfpro.toFontFamily()),
                 );
               }).toList())),
-      Expanded(child: TabBarView(controller: tabController, children: children))
+      Expanded(
+          child: Stack(
+        children: [
+          TabBarView(controller: tabController, children: children),
+          Align(alignment: Alignment.topCenter, child: Fade(topDown: true)),
+        ],
+      ))
     ]);
   }
 }

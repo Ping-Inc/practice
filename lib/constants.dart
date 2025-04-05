@@ -28,7 +28,8 @@ const double spacingXLarge = 90;
 
 const double pingButtonSize = 85;
 const double modeDialHeight = 20;
-const double fadeHeight = 70;
+const double fadeHeightTop = 40;
+const double fadeHeightBottom = 80;
 
 const double cornerRadius = spacingFive;
 

@@ -17,7 +17,7 @@ class Fade extends ConsumerWidget {
         child: Align(
             alignment: topDown ? Alignment.topCenter : Alignment.bottomCenter,
             child: Container(
-              height: fadeHeight,
+              height: topDown ? fadeHeightTop : fadeHeightBottom,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
