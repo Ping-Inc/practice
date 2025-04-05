@@ -9,16 +9,6 @@ class PingsRepository {
     return db.query('pings', orderBy: 'time desc');
   }
 
-  static Future<List<Map<String, Object?>>> search(String search) async {
-    return db.query(
-      'pings',
-      where:
-          'text LIKE ? AND hidden = 0', // Assuming the column you want to search is named 'content'
-      whereArgs: ['%$search%'],
-      orderBy: 'time desc',
-    );
-  }
-
   static Future<int> insert(String pingText, DateTime pingTime) async {
     return await db.insert('pings', {
       'time': pingTime.millisecondsSinceEpoch,
