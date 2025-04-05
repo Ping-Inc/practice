@@ -5,6 +5,7 @@ import 'package:practice/pages/explore_page.dart';
 import 'package:practice/providers/homepage_filters_provider.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/providers/time_provider.dart';
 
 class HomePageExplore extends ConsumerStatefulWidget {
   const HomePageExplore({super.key});
@@ -24,6 +25,7 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
   }
 
   Widget build(BuildContext context) {
+    ref.watch(timeProvider);
     final asyncFilters = ref.watch(homepageFiltersProvider);
 
     return switch (asyncFilters) {
