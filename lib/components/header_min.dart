@@ -6,9 +6,10 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/text_size_enum.dart';
 
 class HeaderMin extends StatelessWidget {
-  const HeaderMin({super.key, this.title});
+  const HeaderMin({super.key, this.title, this.subtitle});
 
   final String? title;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,10 @@ class HeaderMin extends StatelessWidget {
               onTap: () => Navigator.pop(context),
               icon: PhosphorIcons.caret_left,
             ),
+            if (subtitle != null)
+              SystemText(
+                text: subtitle!,
+              )
           ]),
           if (title != null)
             Align(
