@@ -52,7 +52,7 @@ class SettingsBackupLocalPage extends ConsumerWidget {
                   ),
                   TextSpan(
                     text:
-                        ' app on this device. To save a copy to your iCloud account, visit the "Cloud" section within Settings.',
+                        ' app on this device.  Look for a file named something like \"pings_a8ecb.csv\". To save a copy to your iCloud account, visit the "Cloud" section within Settings.',
                   ),
                 ],
               ))
