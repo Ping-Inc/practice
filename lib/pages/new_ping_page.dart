@@ -28,6 +28,12 @@ class _HomePageState extends ConsumerState<NewPingPage> {
   bool isTransitioning = false;
   final GlobalKey<FlashAnimationState> _flashKey =
       GlobalKey<FlashAnimationState>();
+  bool initialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -45,10 +51,21 @@ class _HomePageState extends ConsumerState<NewPingPage> {
 
   Widget build(BuildContext context) {
     ref.listen(pingsMapProvider, (previous, next) {
-      setState(() {
-        isTransitioning = true;
-      });
-      controller.clear();
+      bool onboarded = prefs.getBool(sharedPrefsOnboarded) ?? false;
+
+      if (initialized || !onboarded) {
+        setState(() {
+          isTransitioning = true;
+        });
+        controller.clear();
+        if (!onboarded) {
+          onboarded = true;
+          initialized = true;
+          prefs.setBool(sharedPrefsOnboarded, true);
+        }
+      } else {
+        initialized = true;
+      }
     });
 
     return Scaffold(

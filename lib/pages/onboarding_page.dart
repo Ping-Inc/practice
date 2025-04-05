@@ -40,7 +40,8 @@ class _HomePageState extends ConsumerState<OnboardingPage> {
       currentStep++;
     });
 
-    if (currentStep >= onboardingTexts.length - 1) {
+    // Only complete onboarding after showing the final page
+    if (currentStep > onboardingTexts.length - 1) {
       // Complete onboarding and navigate to new ping page
       ref.read(onboardingProvider.notifier).complete();
     }
