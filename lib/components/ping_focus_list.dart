@@ -45,7 +45,7 @@ class _PingFocusListState extends State<PingFocusList> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: LayoutBuilder(builder: (context, constraints) {
+    return LayoutBuilder(builder: (context, constraints) {
       return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SystemRefresh(
             edgeOffset: -spacingSmall,
@@ -115,6 +115,6 @@ class _PingFocusListState extends State<PingFocusList> {
                       ],
                     )))),
       ]);
-    }));
+    });
   }
 }
