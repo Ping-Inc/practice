@@ -15,14 +15,9 @@ import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingCell extends ConsumerWidget {
-  const PingCell(
-      {super.key,
-      required this.inputPing,
-      this.showId = false,
-      this.tappable = true});
+  const PingCell({super.key, required this.inputPing, this.tappable = true});
 
   final PingData inputPing;
-  final bool showId;
   final bool tappable;
 
   @override
@@ -59,24 +54,19 @@ class PingCell extends ConsumerWidget {
                                       fontFamily:
                                           FontEnum.garamond.toFontFamily()),
                                 )),
-                                showId
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                            Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: spacingXSmall,
-                                                    bottom: 4),
-                                                child: SystemText(
-                                                    align: TextAlign.center,
-                                                    text: inputPing.id!
-                                                        .toString(),
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .secondary))
-                                          ])
-                                    : SizedBox(height: spacingXSmall)
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.only(
+                                              top: spacingXSmall, bottom: 4),
+                                          child: SystemText(
+                                              align: TextAlign.center,
+                                              text: inputPing.id!.toString(),
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary))
+                                    ])
                               ])),
                     ),
                   ]))),

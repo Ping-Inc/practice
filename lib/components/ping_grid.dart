@@ -6,12 +6,10 @@ class PingGrid extends StatelessWidget {
   const PingGrid({
     super.key,
     required this.pings,
-    this.showId = false,
     this.sortByResonance = false,
   });
 
   final List<PingData> pings;
-  final bool showId;
   final bool sortByResonance;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,6 @@ class PingGrid extends StatelessWidget {
         },
         child: SystemGrid(
           pings: pings,
-          showId: showId,
           sortByResonance: sortByResonance,
         ));
   }
