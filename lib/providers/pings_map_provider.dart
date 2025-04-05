@@ -38,9 +38,13 @@ class PingsMap extends _$PingsMap {
   Future<void> addAllPings(List<PingData> pings) async {
     final newMap = Map<int, PingData>.from(state.value!);
     for (var ping in pings) {
-      final id = await PingsRepository.insert(ping.text, ping.time);
-      final newPing = ping.copyWith(id: id);
-      newMap[id] = newPing;
+      try {
+        final id = await PingsRepository.insert(ping.text, ping.time);
+        final newPing = ping.copyWith(id: id);
+        newMap[id] = newPing;
+      } catch (e) {
+        print('Error inserting ping: $e');
+      }
     }
     state = AsyncData(newMap);
   }
