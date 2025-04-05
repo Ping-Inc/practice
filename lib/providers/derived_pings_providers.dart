@@ -3,6 +3,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/day_of_week_enum.dart';
 import 'package:practice/enums/month_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
+import 'package:practice/providers/current_hour_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/utils/ping_date_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,6 +12,8 @@ part 'derived_pings_providers.g.dart';
 
 @riverpod
 List<PingData> allPings(Ref ref) {
+  ref.watch(currentHourProvider);
+
   return ref.watch(pingsMapProvider).when(
         data: (map) => map.values.where((ping) => !ping.hidden).toList()
           ..sort((a, b) => b.time.compareTo(a.time)),
@@ -247,7 +250,7 @@ PingData? pingOfTheDay(Ref ref) {
               .where((ping) => !ping.hidden && ping.time.isAfter(today))
               .toList();
           if (pings.isEmpty) return null;
-          return pings[DateTime.now().millisecondsSinceEpoch % pings.length];
+          return pings[now.millisecondsSinceEpoch % pings.length];
         },
         loading: () => null,
         error: (_, __) => null,

@@ -6,7 +6,7 @@ part of 'derived_pings_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allPingsHash() => r'e979e756e37153a0f42fb0a0d1697e26536bc244';
+String _$allPingsHash() => r'b6ce3d83cdc1f917f999f1f07fd2d0b496a681df';
 
 /// See also [allPings].
 @ProviderFor(allPings)
@@ -905,7 +905,7 @@ final lastWeekPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef LastWeekPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$pingOfTheDayHash() => r'c0b2f40d889fcdf6e9172623b22ca42818da2447';
+String _$pingOfTheDayHash() => r'4003805efccf83a83e5720c9bfc2db79faefa6cf';
 
 /// See also [pingOfTheDay].
 @ProviderFor(pingOfTheDay)

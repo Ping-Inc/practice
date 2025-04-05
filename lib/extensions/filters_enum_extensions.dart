@@ -12,7 +12,8 @@ import 'package:practice/pages/browse_resonated_pings.dart';
 import 'package:practice/pages/browse_time_page.dart';
 
 extension StringParsing on FiltersEnum {
-  String title(DateTime time) {
+  String title() {
+    final time = DateTime.now();
     switch (this) {
       case FiltersEnum.all_pings:
         return "all pings";
@@ -31,7 +32,8 @@ extension StringParsing on FiltersEnum {
 }
 
 extension WidgetParsing on FiltersEnum {
-  Widget page(DateTime time) {
+  Widget page() {
+    final time = DateTime.now();
     switch (this) {
       case FiltersEnum.all_pings:
         return BrowseAllPage();

@@ -6,12 +6,12 @@ class PingDateUtils {
   PingDateUtils._();
 
   // Date Categories
-  static DateCategory getDateCategory(
-    DateTime date, {
-    required DateTime today,
-    required DateTime yesterday,
-    required DateTime startOfYear,
-  }) {
+  static DateCategory getDateCategory(DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final startOfYear = DateTime(now.year);
+
     if (date.year == today.year &&
         date.month == today.month &&
         date.day == today.day) {
