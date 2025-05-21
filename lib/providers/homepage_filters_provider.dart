@@ -9,26 +9,17 @@ part 'homepage_filters_provider.g.dart';
 
 @riverpod
 Future<List<FiltersEnum>> homepageFilters(Ref ref) async {
-  final List<FiltersEnum> filters = [
-    FiltersEnum.hidden,
-    FiltersEnum.day_of_week,
-    FiltersEnum.period_of_day,
-    FiltersEnum.all_pings
-  ];
-
   final resonated = ref.watch(anyResonatedProvider);
   final lastWeek = ref.watch(anyLastWeekProvider);
 
-  if (resonated) {
-    filters.add(FiltersEnum.resonated);
-  }
-
-  if (lastWeek) {
-    filters.insert(
-      1,
-      FiltersEnum.one_week_old,
-    );
-  }
+  final List<FiltersEnum> filters = [
+    FiltersEnum.hidden,
+    if (lastWeek) FiltersEnum.one_week_old,
+    FiltersEnum.day_of_week,
+    FiltersEnum.period_of_day,
+    if (resonated) FiltersEnum.resonated,
+    FiltersEnum.all_pings
+  ];
 
   return filters;
 }
