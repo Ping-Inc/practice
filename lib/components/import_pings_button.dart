@@ -9,7 +9,7 @@ import 'dart:io';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/pings_map_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:practice/l10n/app_localizations.dart';
 
 class ImportPingsButton extends ConsumerWidget {
   @override
