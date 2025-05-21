@@ -1,8 +1,8 @@
 enum FiltersEnum {
   hidden,
+  one_week_old,
   day_of_week,
   period_of_day,
-  all_pings,
-  one_week_old,
-  resonated
+  resonated,
+  all_pings
 }

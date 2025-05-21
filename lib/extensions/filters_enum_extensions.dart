@@ -15,18 +15,18 @@ extension StringParsing on FiltersEnum {
   String title() {
     final time = DateTime.now();
     switch (this) {
-      case FiltersEnum.all_pings:
-        return "all pings";
-      case FiltersEnum.resonated:
-        return "re-pings";
-      case FiltersEnum.period_of_day:
-        return "${time.themeMode().title()}s";
-      case FiltersEnum.day_of_week:
-        return "${time.dayOfWeek().title()}s";
-      case FiltersEnum.one_week_old:
-        return "last week";
       case FiltersEnum.hidden:
         return "hidden";
+      case FiltersEnum.one_week_old:
+        return "last week";
+      case FiltersEnum.day_of_week:
+        return "${time.dayOfWeek().title()}s";
+      case FiltersEnum.period_of_day:
+        return "${time.themeMode().title()}s";
+      case FiltersEnum.resonated:
+        return "re-pings";
+      case FiltersEnum.all_pings:
+        return "all pings";
     }
   }
 }
@@ -35,22 +35,22 @@ extension WidgetParsing on FiltersEnum {
   Widget page() {
     final time = DateTime.now();
     switch (this) {
-      case FiltersEnum.all_pings:
-        return BrowseAllPage();
-      case FiltersEnum.resonated:
-        return BrowseResonatedPingsPage();
-      case FiltersEnum.period_of_day:
-        final mode = time.themeMode();
-        return BrowseModePage(mode: mode.toString().split('.').last);
+      case FiltersEnum.hidden:
+        return BrowseHiddenPage();
+      case FiltersEnum.one_week_old:
+        return BrowseLastWeekPage();
       case FiltersEnum.day_of_week:
         return BrowseTimePage(
           timeEnum: TimeFilterEnum.dayOfWeek,
           time: time,
         );
-      case FiltersEnum.one_week_old:
-        return BrowseLastWeekPage();
-      case FiltersEnum.hidden:
-        return BrowseHiddenPage();
+      case FiltersEnum.period_of_day:
+        final mode = time.themeMode();
+        return BrowseModePage(mode: mode.toString().split('.').last);
+      case FiltersEnum.resonated:
+        return BrowseResonatedPingsPage();
+      case FiltersEnum.all_pings:
+        return BrowseAllPage();
     }
   }
 }
