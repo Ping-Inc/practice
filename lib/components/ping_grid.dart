@@ -7,10 +7,13 @@ class PingGrid extends StatelessWidget {
     super.key,
     required this.pings,
     this.sortByResonance = false,
+    required this.shouldRetainScrollPosition
   });
 
   final List<PingData> pings;
   final bool sortByResonance;
+  final bool shouldRetainScrollPosition;
+
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
@@ -24,6 +27,7 @@ class PingGrid extends StatelessWidget {
         child: SystemGrid(
           pings: pings,
           sortByResonance: sortByResonance,
+          shouldRetainScrollPosition: shouldRetainScrollPosition,
         ));
   }
 }

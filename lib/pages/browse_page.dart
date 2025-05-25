@@ -43,6 +43,7 @@ class BrowsePage extends ConsumerWidget {
                 child: PingGrid(
                   pings: pings,
                   sortByResonance: sortByResonance,
+                  shouldRetainScrollPosition: false,
                 ));
   }
 }

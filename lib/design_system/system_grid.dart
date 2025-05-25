@@ -27,10 +27,12 @@ class SystemGrid extends StatelessWidget {
     super.key,
     required this.pings,
     this.sortByResonance = false,
+    required this.shouldRetainScrollPosition
   });
 
   final List<PingData> pings;
   final bool sortByResonance;
+  final bool shouldRetainScrollPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class SystemGrid extends StatelessWidget {
     List<DateGroup> dateGroups = _groupPingsByDate(pings);
 
     return CustomScrollView(
+      key: shouldRetainScrollPosition ? PageStorageKey<String>('ping_search_grid') : null,
       slivers: [
         // Add top padding of 100px
         SliverToBoxAdapter(
