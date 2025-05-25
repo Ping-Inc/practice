@@ -12,7 +12,7 @@ class PingSearchList extends ConsumerWidget {
     final pings = ref.watch(searchProvider);
 
     return switch (pings) {
-      AsyncData(value: final pingsValue) => PingGrid(pings: pingsValue),
+      AsyncData(value: final pingsValue) => PingGrid(pings: pingsValue, shouldRetainScrollPosition: true),
       AsyncError() => SystemText(text: "Error"),
       _ => SizedBox.shrink()
     };
