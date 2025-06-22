@@ -1,2 +1,1 @@
-Testing out the build notes functionality!
-This build and the previous one are both dev test builds; no new features... yet!
+Rough initial version of the custom lens experience for design iteration.
