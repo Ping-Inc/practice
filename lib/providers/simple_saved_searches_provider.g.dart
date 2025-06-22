@@ -1,28 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'homepage_filters_provider.dart';
+part of 'simple_saved_searches_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homepageFiltersHash() => r'7dd3c8dd3bcd5714ad80d8712fcbc9f58745aea2';
+String _$simpleSavedSearchesHash() =>
+    r'786e6c5255d6167b499775e66d521a9fee8beb3a';
 
-/// See also [homepageFilters].
-@ProviderFor(homepageFilters)
-final homepageFiltersProvider =
-    AutoDisposeFutureProvider<List<LensItem>>.internal(
-  homepageFilters,
-  name: r'homepageFiltersProvider',
+/// See also [SimpleSavedSearches].
+@ProviderFor(SimpleSavedSearches)
+final simpleSavedSearchesProvider = AutoDisposeAsyncNotifierProvider<
+    SimpleSavedSearches, List<String>>.internal(
+  SimpleSavedSearches.new,
+  name: r'simpleSavedSearchesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$homepageFiltersHash,
+      : _$simpleSavedSearchesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef HomepageFiltersRef = AutoDisposeFutureProviderRef<List<LensItem>>;
+typedef _$SimpleSavedSearches = AutoDisposeAsyncNotifier<List<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
