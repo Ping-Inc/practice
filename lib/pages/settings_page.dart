@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/browse_activation_cell.dart';
 import 'package:practice/components/cloud_backup_activation_cell.dart';
+import 'package:practice/components/clear_saved_searches_cell.dart';
 import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/local_backup_activation_cell.dart';
 import 'package:practice/components/main_spacing_cell.dart';
@@ -33,6 +34,12 @@ class SettingsPage extends ConsumerWidget {
                     bottomPadding: false,
                     child: Column(
                       children: [
+                        NavCellCluster(text: 'Dev Settings', children: [
+                          ClearSavedSearchesCell(),
+                        ]),
+                        SizedBox(
+                          height: spacingMedium,
+                        ),
                         NavCellCluster(text: 'Feel', children: [
                           ThemePicker(),
                         ]),

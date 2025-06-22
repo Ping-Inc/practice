@@ -10,6 +10,7 @@ import 'package:practice/pages/browse_last_week_page.dart';
 import 'package:practice/pages/browse_mode_page.dart';
 import 'package:practice/pages/browse_resonated_pings.dart';
 import 'package:practice/pages/browse_time_page.dart';
+import 'package:practice/pages/browse_saved_search_page.dart';
 
 extension StringParsing on FiltersEnum {
   String title() {
@@ -27,6 +28,8 @@ extension StringParsing on FiltersEnum {
         return "re-pings";
       case FiltersEnum.all_pings:
         return "all pings";
+      case FiltersEnum.saved_search:
+        return "saved search";
     }
   }
 }
@@ -51,6 +54,24 @@ extension WidgetParsing on FiltersEnum {
         return BrowseResonatedPingsPage();
       case FiltersEnum.all_pings:
         return BrowseAllPage();
+      case FiltersEnum.saved_search:
+        return Container();
     }
+  }
+}
+
+extension LensItemExtensions on LensItem {
+  String title() {
+    if (isSavedSearch && savedSearchQuery != null) {
+      return '"$savedSearchQuery"';
+    }
+    return filter.title();
+  }
+
+  Widget page() {
+    if (isSavedSearch && savedSearchQuery != null) {
+      return BrowseSavedSearchPage(query: savedSearchQuery!);
+    }
+    return filter.page();
   }
 }
