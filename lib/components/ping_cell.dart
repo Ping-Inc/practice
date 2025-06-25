@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_background.dart';
+import 'package:practice/components/ping_context_menu.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
@@ -24,6 +25,28 @@ class PingCell extends ConsumerWidget {
   final PingData inputPing;
   final bool tappable;
   final bool border;
+
+  void _showContextMenu(BuildContext context) {
+    
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.transparent,
+      useSafeArea: false,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: PingContextMenu(
+            pingData: inputPing,
+            border: border,
+          ),
+        );
+      },
+    );
+
+    HapticFeedback.mediumImpact();
+
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,25 +99,7 @@ class PingCell extends ConsumerWidget {
                               ])),
                     ),
                   ]))),
-          onLongPress: () {
-            Clipboard.setData(ClipboardData(text: inputPing.text));
-
-            // Show toast message
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                elevation: 0,
-                content: Text(
-                  'Copied to clipboard',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                ),
-                backgroundColor:
-                    Theme.of(context).colorScheme.secondaryContainer,
-                duration: Duration(seconds: 1),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
+          onLongPress: () => _showContextMenu(context),
           onTap: tappable
               ? () => Navigator.push(
                     context,

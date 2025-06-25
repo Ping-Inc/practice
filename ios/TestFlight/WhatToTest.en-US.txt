@@ -1,1 +1,2 @@
-Rough initial version of the custom lens experience for design iteration.
+First step toward the long-press proof of concept.
+No differentiation between different browse modes, no animation, no shadow effect, etc.
