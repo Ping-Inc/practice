@@ -75,7 +75,7 @@ class FlashAnimationState extends State<FlashAnimation>
                     color: Theme.of(context)
                         .colorScheme
                         .secondaryContainer
-                        .withOpacity(_animation.value),
+                        .withValues(alpha: _animation.value),
                   )
                 : const SizedBox.shrink();
           },
