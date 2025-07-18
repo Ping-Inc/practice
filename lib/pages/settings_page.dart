@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/browse_activation_cell.dart';
+import 'package:practice/components/gesture_detector_toggle.dart';
 import 'package:practice/components/cloud_backup_activation_cell.dart';
 import 'package:practice/components/clear_saved_searches_cell.dart';
 import 'package:practice/components/import_pings_button.dart';
@@ -36,6 +37,7 @@ class SettingsPage extends ConsumerWidget {
                       children: [
                         NavCellCluster(text: 'Dev Settings', children: [
                           ClearSavedSearchesCell(),
+                          CircularGestureActivationCell(),
                         ]),
                         SizedBox(
                           height: spacingMedium,
