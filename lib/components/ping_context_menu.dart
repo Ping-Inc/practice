@@ -28,8 +28,8 @@ class PingContextMenu extends ConsumerWidget {
   final PingData pingData;
   final bool border;
 
-  void _shareText(BuildContext context) async {
-  await pingData.share(context);
+  void _exportText(BuildContext context) async {
+  await pingData.export(context);
   Navigator.of(context).pop();
   }
 
@@ -145,9 +145,9 @@ class PingContextMenu extends ConsumerWidget {
                           height: 18,
                         ),
                         SystemActionImage(
-                          onTap: () => _shareText(context),
+                          onTap: () => _exportText(context),
                           imagePath: 'images/icons/export.svg',
-                          text: 'share',
+                          text: 'export',
                           height: 18,
                         ),
                         SizedBox(width: 48),
