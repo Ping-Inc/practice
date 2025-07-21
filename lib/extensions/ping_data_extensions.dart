@@ -26,7 +26,7 @@ date: $dayOfWeek, $month $dayOfMonth, $year
 time: $timeFormatted''';
   }
   
-  Future<void> share(BuildContext context) async {
+  Future<void> export(BuildContext context) async {
     final RenderBox? box = context.findRenderObject() as RenderBox?;
     final Rect sharePositionOrigin = box != null 
         ? box.localToGlobal(Offset.zero) & box.size
