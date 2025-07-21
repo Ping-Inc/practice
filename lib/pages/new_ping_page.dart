@@ -5,7 +5,7 @@ import 'package:practice/components/header_min.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/new_ping_button.dart';
 import 'package:practice/components/ping_reply_text.dart';
-import 'package:practice/components/reply_ping_button.dart';
+import 'package:practice/components/reply_button.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/font_enum.dart';
@@ -105,7 +105,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                           if (widget.replyPing == null)
                             Align(
                               alignment: Alignment.centerLeft,
-                              child: ReplyPingButton(),
+                              child: ReplyButton(),
                             ),
                           NewPingButton(
                               textEditingController: controller,
