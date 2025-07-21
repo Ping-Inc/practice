@@ -16,6 +16,7 @@ import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/providers/ping_provider.dart';
+import 'package:practice/extensions/ping_data_extensions.dart';
 
 class PingContextMenu extends ConsumerWidget {
   const PingContextMenu({
@@ -26,6 +27,11 @@ class PingContextMenu extends ConsumerWidget {
 
   final PingData pingData;
   final bool border;
+
+  void _shareText(BuildContext context) async {
+  await pingData.share(context);
+  Navigator.of(context).pop();
+  }
 
   void _copyToClipboard(BuildContext context) {
     Clipboard.setData(ClipboardData(text: pingData.text));
@@ -138,7 +144,12 @@ class PingContextMenu extends ConsumerWidget {
                           text: 'copy',
                           height: 18,
                         ),
-                        SizedBox(width: 48),
+                        SystemActionImage(
+                          onTap: () => _shareText(context),
+                          imagePath: 'images/icons/export.svg',
+                          text: 'share',
+                          height: 18,
+                        ),
                         SizedBox(width: 48),
                       ],
                     ),
