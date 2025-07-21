@@ -1,1 +1,1 @@
-Exploring a circular gesture recognizer for switching between `grid` and `focus` views. You can toggle between old and new versions in the Settings menu!
+Long-press context menu v1, including Export.
