@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_background.dart';
+import 'package:practice/components/hide_ping_button.dart';
+import 'package:practice/components/reping_button.dart';
+import 'package:practice/components/reply_ping_button.dart';
+import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
@@ -58,8 +62,8 @@ class PingContextMenu extends ConsumerWidget {
               Column(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.61,
-                    height: MediaQuery.of(context).size.width * 0.61,
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    height: MediaQuery.of(context).size.width * 0.85,
                     child: PingBackground(
                       border: border,
                       hidden: ref.watch(pingProvider(pingData).select((p) => p.hidden)),
@@ -110,28 +114,33 @@ class PingContextMenu extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  
-                  SizedBox(height: spacingSmall),
-                  
-                  GestureDetector(
-                    onTap: () => _copyToClipboard(context),
-                    child: Container(
-                      padding: EdgeInsets.all(spacingSmall),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.copy,
-                            size: 24,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          SizedBox(height: 4),
-                          SystemText(
-                            text: 'copy',
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ],
-                      ),
+                  SizedBox(height: spacingMedium),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: spacingMedium),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        HidePingButton(ping: pingData),
+                        RepingButton(ping: pingData),
+                        ReplyPingButton(ping: pingData)
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: spacingMedium),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: spacingMedium),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SystemActionImage(
+                          onTap: () => _copyToClipboard(context),
+                          imagePath: 'images/icons/copy.svg',
+                          text: 'copy',
+                          height: 18,
+                        ),
+                        SizedBox(width: 48),
+                        SizedBox(width: 48),
+                      ],
                     ),
                   ),
                 ],
