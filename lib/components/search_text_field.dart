@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/providers/search_string_provider.dart';
 import 'package:practice/providers/search_provider.dart';
+import 'package:practice/providers/cached_search_provider.dart';
+import 'package:practice/providers/cached_search_setting_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
 
 class SearchTextField extends ConsumerStatefulWidget {
@@ -57,7 +59,11 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     final searchString = ref.watch(searchStringProvider);
-    final searchResults = ref.watch(searchProvider);
+    final useCachedSearch = ref.watch(cachedSearchSettingProvider);
+    
+    final searchResults = useCachedSearch 
+      ? ref.watch(cachedSearchProvider)
+      : ref.watch(searchProvider);
     
     final showPlusButton = searchResults.when(
       data: (pings) => pings.length > 3,
@@ -89,6 +95,11 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
                       onPressed: () {
                         HapticFeedback.selectionClick();
                         ref.read(searchStringProvider.notifier).setSearch('');
+                        
+                        if (useCachedSearch) {
+                          ref.read(cachedSearchProvider.notifier).search('');
+                        }
+                        
                         controller.clear();
                         focusNode.requestFocus();
                       },
@@ -100,8 +111,13 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
                 borderSide: BorderSide.none,
               ),
             ),
-            onChanged: (value) =>
-                ref.read(searchStringProvider.notifier).setSearch(value),
+            onChanged: (value) {
+              ref.read(searchStringProvider.notifier).setSearch(value);
+              
+              if (useCachedSearch) {
+                ref.read(cachedSearchProvider.notifier).search(value);
+              }
+            },
           ),
         ),
         if (showPlusButton) ...[
