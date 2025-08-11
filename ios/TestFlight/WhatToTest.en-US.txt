@@ -1,1 +1,1 @@
-Long-press context menu v1, including Export.
+Added option in Dev Settings to hide/view focus action buttons; integrated circular gesture recognizer.

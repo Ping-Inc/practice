@@ -15,7 +15,6 @@ import 'package:practice/pages/settings_page.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
 import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -26,13 +25,11 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _ExplorePageState extends ConsumerState<HomePage>
     with WidgetsBindingObserver {
-  bool _useCircularGesture = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _loadGestureSetting();
   }
 
   @override
@@ -41,22 +38,13 @@ class _ExplorePageState extends ConsumerState<HomePage>
     super.dispose();
   }
 
-  _loadGestureSetting() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _useCircularGesture = prefs.getBool('circular_gesture_enabled') ?? false;
-    });
-  }
-
   void _onNavigationReturn() {
-    _loadGestureSetting();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        _loadGestureSetting();
         break;
       case AppLifecycleState.inactive:
         if (ref.read(localBackupOnProvider)) BackupUtils.backupPings();
@@ -104,7 +92,7 @@ class _ExplorePageState extends ConsumerState<HomePage>
               child: Icon(
                 PhosphorIcons.circle_fill,
                 size: pingButtonSize,
-                color: _useCircularGesture ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             SystemTap(
@@ -132,48 +120,24 @@ class _ExplorePageState extends ConsumerState<HomePage>
       ],
     );
 
-    if (_useCircularGesture) {
-      return CircularGestureDetector(
-        onAngleUpdate: (angleDiff) {
-          final browseNotifier = ref.read(browseTempProvider.notifier);
-          final currentMode = ref.read(browseTempProvider);
+    return CircularGestureDetector(
+      onAngleUpdate: (angleDiff) {
+        final browseNotifier = ref.read(browseTempProvider.notifier);
+        final currentMode = ref.read(browseTempProvider);
 
-          if (angleDiff > 0 &&
-              (currentMode == null || currentMode == BrowseEnum.grid)) {
-            HapticFeedback.lightImpact();
-            browseNotifier.setMode(BrowseEnum.focus);
-          }
-          else if (angleDiff < 0 &&
-              (currentMode == null || currentMode == BrowseEnum.focus)) {
-            HapticFeedback.lightImpact();
-            browseNotifier.setMode(BrowseEnum.grid);
-          }
-        },
-        child: bottomNav,
-      );
-    } else {
-      return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onHorizontalDragUpdate: (details) {
-          if (details.primaryDelta != null &&
-              details.primaryDelta!.abs() > 8) {
-            final browseNotifier = ref.read(browseTempProvider.notifier);
-            final currentMode = ref.read(browseTempProvider);
-
-            if (details.primaryDelta! > 0 &&
-                (currentMode == null || currentMode == BrowseEnum.grid)) {
-              HapticFeedback.lightImpact();
-              browseNotifier.setMode(BrowseEnum.focus);
-            } else if (details.primaryDelta! < 0 &&
-                (currentMode == null || currentMode == BrowseEnum.focus)) {
-              HapticFeedback.lightImpact();
-              browseNotifier.setMode(BrowseEnum.grid);
-            }
-          }
-        },
-        child: bottomNav,
-      );
-    }
+        if (angleDiff > 0 &&
+            (currentMode == null || currentMode == BrowseEnum.grid)) {
+          HapticFeedback.lightImpact();
+          browseNotifier.setMode(BrowseEnum.focus);
+        }
+        else if (angleDiff < 0 &&
+            (currentMode == null || currentMode == BrowseEnum.focus)) {
+          HapticFeedback.lightImpact();
+          browseNotifier.setMode(BrowseEnum.grid);
+        }
+      },
+      child: bottomNav,
+    );
   }
 
   @override
