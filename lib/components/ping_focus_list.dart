@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_action_row.dart';
 import 'package:practice/components/ping_cell.dart';
 import 'package:practice/constants.dart';
@@ -9,6 +10,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/utils/ping_date_utils.dart';
+import 'package:practice/providers/hide_focus_buttons_provider.dart';
 
 class PingFocusList extends StatefulWidget {
   const PingFocusList({
@@ -111,7 +113,14 @@ class _PingFocusListState extends State<PingFocusList> {
                         SizedBox(
                           height: spacingMedium,
                         ),
-                        PingActionRow(ping: widget.pings[i]),
+                        Consumer(
+                          builder: (context, ref, child) {
+                            final hideFocusButtons = ref.watch(hideFocusButtonsProvider);
+                            return hideFocusButtons 
+                                ? SizedBox.shrink() 
+                                : PingActionRow(ping: widget.pings[i]);
+                          },
+                        ),
                       ],
                     )))),
       ]);
