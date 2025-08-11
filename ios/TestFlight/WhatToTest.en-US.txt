@@ -1,1 +1,1 @@
-Added option in Dev Settings to hide/view focus action buttons; integrated circular gesture recognizer.
+Check out Dev Settings for a cached search provider (to reduce flickering when typing in search bar).
