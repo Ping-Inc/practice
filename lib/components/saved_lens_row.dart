@@ -95,7 +95,7 @@ class SavedLensRow extends ConsumerWidget {
           SnackBar(
             elevation: 0,
             content: Text(
-              'Lens "$lensName" removed',
+              '"$lensName" lens removed',
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
             ),
             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
