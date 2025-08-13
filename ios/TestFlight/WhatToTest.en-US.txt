@@ -1,1 +1,1 @@
-Check out Dev Settings for a cached search provider (to reduce flickering when typing in search bar).
+Custom lenses PoC *except* ping count.
