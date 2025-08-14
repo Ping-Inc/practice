@@ -1,1 +1,1 @@
-Bug fix: context menu "re-ping" UI update.
+Remove leading spaces from export text; add haptics to "create lens" button.
