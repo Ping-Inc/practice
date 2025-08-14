@@ -16,7 +16,7 @@ extension PingDataSharing on PingData {
     return '''
 +-----------------+
 
-  $pingText
+$pingText
 
 +-----------------+
 
