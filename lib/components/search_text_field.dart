@@ -134,7 +134,10 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
         if (showPlusButton) ...[
           SizedBox(width: spacingSmall),
           GestureDetector(
-            onTap: isButtonActive ? _saveCurrentSearch : null,
+            onTap: isButtonActive ? () {
+              HapticFeedback.selectionClick();
+              _saveCurrentSearch();
+            } : null,
             child: SvgPicture.asset(
               'images/icons/create-lens.svg',
               width: 32,
