@@ -1,1 +1,1 @@
-Custom lenses PoC *except* ping count.
+Bug fix: context menu "re-ping" UI update.
