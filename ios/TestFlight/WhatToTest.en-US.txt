@@ -1,1 +1,1 @@
-Remove leading spaces from export text; add haptics to "create lens" button.
+Add back arrow to “secret” lenses view!  Traversal pages!

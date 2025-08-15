@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/pages/browse_time_page.dart';
 import 'package:practice/pages/explore_page.dart';
@@ -59,6 +61,10 @@ class _TraversalYearState extends ConsumerState<TraversalYearPage>
       child: DefaultTabController(
         length: years.length,
         child: ExplorePage(
+          backArrow: SystemButton(
+            onTap: () => Navigator.pop(context),
+            icon: PhosphorIcons.caret_left,
+          ),
           tabController: _tabController,
           tabs: years.map((year) => year.toString()).toList(),
           children: years.map((year) {
