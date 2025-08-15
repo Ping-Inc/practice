@@ -12,22 +12,22 @@ class ExplorePage extends StatelessWidget {
     required this.tabController,
     required this.tabs,
     required this.children,
-    this.leading
+    this.backArrow
   });
 
   final TabController tabController;
   final List<String> tabs;
   final List<Widget> children;
-  final Widget? leading;
+  final Widget? backArrow;
 
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
         padding: EdgeInsets.only(top: spacingSmall),
-        child: leading != null 
+        child: backArrow != null 
           ? Row(
               children: [
-                leading!,
+                backArrow!,
                 Expanded(
                   child: TabBar(
                     tabAlignment: TabAlignment.start,
