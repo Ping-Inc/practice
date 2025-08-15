@@ -76,7 +76,7 @@ class _TraversalDayOfMonthState extends ConsumerState<TraversalDayOfMonthPage>
       child: DefaultTabController(
         length: daysOfMonth.length,
         child: ExplorePage(
-          leading: SystemButton(
+          backArrow: SystemButton(
             onTap: () => Navigator.pop(context),
             icon: PhosphorIcons.caret_left,
           ),

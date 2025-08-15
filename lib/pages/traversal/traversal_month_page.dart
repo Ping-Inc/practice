@@ -44,7 +44,7 @@ class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
       child: DefaultTabController(
         length: DateTime.monthsPerYear,
         child: ExplorePage(
-          leading: SystemButton(
+          backArrow: SystemButton(
             onTap: () => Navigator.pop(context),
             icon: PhosphorIcons.caret_left,
           ),

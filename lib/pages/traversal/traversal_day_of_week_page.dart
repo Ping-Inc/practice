@@ -44,7 +44,7 @@ class _TraversalDayOfWeekState extends ConsumerState<TraversalDayOfWeekPage>
       child: DefaultTabController(
         length: DateTime.daysPerWeek,
         child: ExplorePage(
-          leading: SystemButton(
+          backArrow: SystemButton(
             onTap: () => Navigator.pop(context),
             icon: PhosphorIcons.caret_left,
           ),

@@ -43,7 +43,7 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
       child: DefaultTabController(
         length: ThemeModeEnum.values.length,
         child: ExplorePage(
-          leading: SystemButton(
+          backArrow: SystemButton(
             onTap: () => Navigator.pop(context),
             icon: PhosphorIcons.caret_left,
           ),
