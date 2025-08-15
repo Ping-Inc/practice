@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/month_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/month_enum_extensions.dart';
@@ -42,6 +44,10 @@ class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
       child: DefaultTabController(
         length: DateTime.monthsPerYear,
         child: ExplorePage(
+          leading: SystemButton(
+            onTap: () => Navigator.pop(context),
+            icon: PhosphorIcons.caret_left,
+          ),
           tabController: _tabController,
           tabs: MonthEnum.values.map((filter) {
             return filter.title();

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/day_of_week_enum.dart';
 import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/extensions/day_of_week_enum_extensions.dart';
@@ -42,6 +44,10 @@ class _TraversalDayOfWeekState extends ConsumerState<TraversalDayOfWeekPage>
       child: DefaultTabController(
         length: DateTime.daysPerWeek,
         child: ExplorePage(
+          leading: SystemButton(
+            onTap: () => Navigator.pop(context),
+            icon: PhosphorIcons.caret_left,
+          ),
           tabController: _tabController,
           tabs: DayOfWeekEnum.values.map((filter) {
             return filter.title();

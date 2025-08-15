@@ -7,22 +7,58 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 
 class ExplorePage extends StatelessWidget {
-  const ExplorePage(
-      {super.key,
-      required this.tabController,
-      required this.tabs,
-      required this.children});
+  const ExplorePage({
+    super.key,
+    required this.tabController,
+    required this.tabs,
+    required this.children,
+    this.leading
+  });
 
   final TabController tabController;
   final List<String> tabs;
   final List<Widget> children;
+  final Widget? leading;
 
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-          padding: EdgeInsets.only(top: spacingSmall),
-          child: TabBar(
-              padding: EdgeInsets.only(right: spacingMedium, left: 0),
+        padding: EdgeInsets.only(top: spacingSmall),
+        child: leading != null 
+          ? Row(
+              children: [
+                leading!,
+                Expanded(
+                  child: TabBar(
+                    tabAlignment: TabAlignment.start,
+                    controller: tabController,
+                    isScrollable: true,
+                    splashFactory: NoSplash.splashFactory,
+                    dividerColor: Colors.transparent,
+                    labelColor: Theme.of(context).colorScheme.primary,
+                    unselectedLabelColor: Theme.of(context).colorScheme.secondary,
+                    indicator: UnderlineTabIndicator(
+                      borderSide: BorderSide(
+                        width: 2.0,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    onTap: (value) {},
+                    tabs: tabs.map((tab) {
+                      return Text(
+                        tab,
+                        style: TextStyle(
+                          fontSize: TextSizeEnum.twentyNine.toFontSize(),
+                          fontFamily: FontEnum.sfpro.toFontFamily(),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            )
+          : TabBar(
+              padding: EdgeInsets.only(right: spacingMedium, left: spacingMedium),
               controller: tabController,
               isScrollable: true,
               splashFactory: NoSplash.splashFactory,
@@ -43,14 +79,17 @@ class ExplorePage extends StatelessWidget {
                       fontSize: TextSizeEnum.twentyNine.toFontSize(),
                       fontFamily: FontEnum.sfpro.toFontFamily()),
                 );
-              }).toList())),
+              }).toList(),
+            ),
+      ),
       Expanded(
-          child: Stack(
-        children: [
-          TabBarView(controller: tabController, children: children),
-          Align(alignment: Alignment.topCenter, child: Fade(topDown: true)),
-        ],
-      ))
+        child: Stack(
+          children: [
+            TabBarView(controller: tabController, children: children),
+            Align(alignment: Alignment.topCenter, child: Fade(topDown: true)),
+          ],
+        ),
+      )
     ]);
   }
 }
