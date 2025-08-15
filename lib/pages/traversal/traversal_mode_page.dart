@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/design_system/system_button.dart';
 import 'package:practice/enums/theme_mode_enum.dart';
 import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/browse_mode_page.dart';
@@ -41,6 +43,10 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
       child: DefaultTabController(
         length: ThemeModeEnum.values.length,
         child: ExplorePage(
+          backArrow: SystemButton(
+            onTap: () => Navigator.pop(context),
+            icon: PhosphorIcons.caret_left,
+          ),
           tabController: _tabController,
           tabs: ThemeModeEnum.values.map((filter) {
             return filter.title();
