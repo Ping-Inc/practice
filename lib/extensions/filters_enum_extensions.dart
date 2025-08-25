@@ -8,6 +8,7 @@ import 'package:practice/pages/browse_all_page.dart';
 import 'package:practice/pages/browse_hidden_page.dart';
 import 'package:practice/pages/browse_last_week_page.dart';
 import 'package:practice/pages/browse_mode_page.dart';
+import 'package:practice/pages/browse_placed_pings.dart';
 import 'package:practice/pages/browse_resonated_pings.dart';
 import 'package:practice/pages/browse_time_page.dart';
 import 'package:practice/pages/browse_saved_search_page.dart';
@@ -26,6 +27,8 @@ extension StringParsing on FiltersEnum {
         return "${time.themeMode().title()}s";
       case FiltersEnum.resonated:
         return "re-pings";
+      case FiltersEnum.placed:
+        return "placed";
       case FiltersEnum.all_pings:
         return "all pings";
       case FiltersEnum.saved_search:
@@ -52,6 +55,8 @@ extension WidgetParsing on FiltersEnum {
         return BrowseModePage(mode: mode.toString().split('.').last);
       case FiltersEnum.resonated:
         return BrowseResonatedPingsPage();
+      case FiltersEnum.placed:
+        return BrowsePlacedPingsPage();
       case FiltersEnum.all_pings:
         return BrowseAllPage();
       case FiltersEnum.saved_search:

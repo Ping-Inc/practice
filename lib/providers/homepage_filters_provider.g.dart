@@ -6,7 +6,7 @@ part of 'homepage_filters_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homepageFiltersHash() => r'7dd3c8dd3bcd5714ad80d8712fcbc9f58745aea2';
+String _$homepageFiltersHash() => r'7866147ff16e226e0d0856640df11a2e7ca91648';
 
 /// See also [homepageFilters].
 @ProviderFor(homepageFilters)

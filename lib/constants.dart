@@ -88,6 +88,12 @@ const Map<int, String> migrationScripts = {
   ''',
   10: '''
   ALTER TABLE pings ADD COLUMN resonant_time INTEGER
+  ''',
+  11: '''
+  ALTER TABLE pings ADD COLUMN is_placed BOOLEAN DEFAULT 0
+  ''',
+  12: '''
+  ALTER TABLE pings ADD COLUMN placed_time INTEGER
   '''
 };
 
