@@ -29,6 +29,10 @@ mixin _$PingData {
   bool get hidden;
   @NullableDateTimeConverter()
   DateTime? get resonantTime;
+  @BooleanConverter()
+  bool get isPlaced;
+  @NullableDateTimeConverter()
+  DateTime? get placedTime;
 
   /// Create a copy of PingData
   /// with the given fields replaced by the non-null parameter values.
@@ -55,17 +59,21 @@ mixin _$PingData {
                 other.resonantCount == resonantCount) &&
             (identical(other.hidden, hidden) || other.hidden == hidden) &&
             (identical(other.resonantTime, resonantTime) ||
-                other.resonantTime == resonantTime));
+                other.resonantTime == resonantTime) &&
+            (identical(other.isPlaced, isPlaced) ||
+                other.isPlaced == isPlaced) &&
+            (identical(other.placedTime, placedTime) ||
+                other.placedTime == placedTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, time, text, replyId,
-      viewCount, resonantCount, hidden, resonantTime);
+      viewCount, resonantCount, hidden, resonantTime, isPlaced, placedTime);
 
   @override
   String toString() {
-    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime)';
+    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime, isPlaced: $isPlaced, placedTime: $placedTime)';
   }
 }
 
@@ -82,7 +90,9 @@ abstract mixin class $PingDataCopyWith<$Res> {
       int viewCount,
       int resonantCount,
       @BooleanConverter() bool hidden,
-      @NullableDateTimeConverter() DateTime? resonantTime});
+      @NullableDateTimeConverter() DateTime? resonantTime,
+      @BooleanConverter() bool isPlaced,
+      @NullableDateTimeConverter() DateTime? placedTime});
 }
 
 /// @nodoc
@@ -105,6 +115,8 @@ class _$PingDataCopyWithImpl<$Res> implements $PingDataCopyWith<$Res> {
     Object? resonantCount = null,
     Object? hidden = null,
     Object? resonantTime = freezed,
+    Object? isPlaced = null,
+    Object? placedTime = freezed,
   }) {
     return _then(_self.copyWith(
       id: freezed == id
@@ -139,6 +151,14 @@ class _$PingDataCopyWithImpl<$Res> implements $PingDataCopyWith<$Res> {
           ? _self.resonantTime
           : resonantTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isPlaced: null == isPlaced
+          ? _self.isPlaced
+          : isPlaced // ignore: cast_nullable_to_non_nullable
+              as bool,
+      placedTime: freezed == placedTime
+          ? _self.placedTime
+          : placedTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -155,7 +175,9 @@ class _Ping implements PingData {
       required this.viewCount,
       required this.resonantCount,
       @BooleanConverter() required this.hidden,
-      @NullableDateTimeConverter() required this.resonantTime});
+      @NullableDateTimeConverter() required this.resonantTime,
+      @BooleanConverter() this.isPlaced = false,
+      @NullableDateTimeConverter() this.placedTime});
   factory _Ping.fromJson(Map<String, dynamic> json) => _$PingFromJson(json);
 
   @override
@@ -177,6 +199,13 @@ class _Ping implements PingData {
   @override
   @NullableDateTimeConverter()
   final DateTime? resonantTime;
+  @override
+  @JsonKey()
+  @BooleanConverter()
+  final bool isPlaced;
+  @override
+  @NullableDateTimeConverter()
+  final DateTime? placedTime;
 
   /// Create a copy of PingData
   /// with the given fields replaced by the non-null parameter values.
@@ -208,17 +237,21 @@ class _Ping implements PingData {
                 other.resonantCount == resonantCount) &&
             (identical(other.hidden, hidden) || other.hidden == hidden) &&
             (identical(other.resonantTime, resonantTime) ||
-                other.resonantTime == resonantTime));
+                other.resonantTime == resonantTime) &&
+            (identical(other.isPlaced, isPlaced) ||
+                other.isPlaced == isPlaced) &&
+            (identical(other.placedTime, placedTime) ||
+                other.placedTime == placedTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, time, text, replyId,
-      viewCount, resonantCount, hidden, resonantTime);
+      viewCount, resonantCount, hidden, resonantTime, isPlaced, placedTime);
 
   @override
   String toString() {
-    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime)';
+    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime, isPlaced: $isPlaced, placedTime: $placedTime)';
   }
 }
 
@@ -236,7 +269,9 @@ abstract mixin class _$PingCopyWith<$Res> implements $PingDataCopyWith<$Res> {
       int viewCount,
       int resonantCount,
       @BooleanConverter() bool hidden,
-      @NullableDateTimeConverter() DateTime? resonantTime});
+      @NullableDateTimeConverter() DateTime? resonantTime,
+      @BooleanConverter() bool isPlaced,
+      @NullableDateTimeConverter() DateTime? placedTime});
 }
 
 /// @nodoc
@@ -259,6 +294,8 @@ class __$PingCopyWithImpl<$Res> implements _$PingCopyWith<$Res> {
     Object? resonantCount = null,
     Object? hidden = null,
     Object? resonantTime = freezed,
+    Object? isPlaced = null,
+    Object? placedTime = freezed,
   }) {
     return _then(_Ping(
       id: freezed == id
@@ -292,6 +329,14 @@ class __$PingCopyWithImpl<$Res> implements _$PingCopyWith<$Res> {
       resonantTime: freezed == resonantTime
           ? _self.resonantTime
           : resonantTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      isPlaced: null == isPlaced
+          ? _self.isPlaced
+          : isPlaced // ignore: cast_nullable_to_non_nullable
+              as bool,
+      placedTime: freezed == placedTime
+          ? _self.placedTime
+          : placedTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }

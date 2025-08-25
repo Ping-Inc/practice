@@ -905,6 +905,56 @@ final pingYearsProvider = AutoDisposeProvider<List<int>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PingYearsRef = AutoDisposeProviderRef<List<int>>;
+String _$placedPingsHash() => r'd9ca50dd1477e4243a8300f31342f98c4491f59e';
+
+/// See also [placedPings].
+@ProviderFor(placedPings)
+final placedPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
+  placedPings,
+  name: r'placedPingsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$placedPingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PlacedPingsRef = AutoDisposeProviderRef<List<PingData>>;
+String _$anyPlacedHash() => r'5241c0f9606e3d1cc53915810cafdd09b703e87e';
+
+/// See also [anyPlaced].
+@ProviderFor(anyPlaced)
+final anyPlacedProvider = AutoDisposeProvider<bool>.internal(
+  anyPlaced,
+  name: r'anyPlacedProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$anyPlacedHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AnyPlacedRef = AutoDisposeProviderRef<bool>;
+String _$mostRecentPlacedPingHash() =>
+    r'b87a87c39e3ea102ceb1a7bb2333b1c97d940c17';
+
+/// See also [mostRecentPlacedPing].
+@ProviderFor(mostRecentPlacedPing)
+final mostRecentPlacedPingProvider = AutoDisposeProvider<PingData?>.internal(
+  mostRecentPlacedPing,
+  name: r'mostRecentPlacedPingProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mostRecentPlacedPingHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef MostRecentPlacedPingRef = AutoDisposeProviderRef<PingData?>;
 String _$anyResonatedHash() => r'3a96e105a70f00822d254100d6376c07db4ceada';
 
 /// See also [anyResonated].

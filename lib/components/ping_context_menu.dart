@@ -15,6 +15,7 @@ import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
+import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/extensions/ping_data_extensions.dart';
 
@@ -52,8 +53,62 @@ class PingContextMenu extends ConsumerWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+void _placeInCapture(BuildContext context, WidgetRef ref) {
+  Navigator.of(context).pop();
+  
+  if (pingData.id == null) return;
+  
+  ref.read(pingProvider(pingData).notifier).placeInCapture();
+      
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      elevation: 0,
+      content: GestureDetector(
+        onTap: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewPingPage(),
+            ),
+          );
+        },
+        child: Text(
+          'Ping placed in capture',
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      duration: Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+    ),
+  );
+}
+
+void _releaseFromCapture(BuildContext context, WidgetRef ref) {
+  Navigator.of(context).pop();
+  
+  ref.read(pingProvider(pingData).notifier).releaseFromCapture();
+  
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      elevation: 0,
+      content: Text(
+        'Ping released from capture',
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      duration: Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+    ),
+  );
+}
+
+@override
+Widget build(BuildContext context, WidgetRef ref) {
+  final currentPing = ref.watch(pingProvider(pingData));
+  final isCurrentlyInCapture = currentPing.isPlaced;
+
     return Material(
       color: Colors.transparent,
       child: BackdropFilter(
@@ -150,7 +205,16 @@ class PingContextMenu extends ConsumerWidget {
                           text: 'export',
                           height: 18,
                         ),
-                        SizedBox(width: 48),
+                        SystemActionImage(
+                          onTap: () => isCurrentlyInCapture 
+                            ? _releaseFromCapture(context, ref)
+                            : _placeInCapture(context, ref),
+                          imagePath: isCurrentlyInCapture 
+                            ? 'images/icons/release.svg' 
+                            : 'images/icons/place.svg',
+                          text: isCurrentlyInCapture ? 'release' : 'place',
+                          height: 18,
+                        ),
                       ],
                     ),
                   ),

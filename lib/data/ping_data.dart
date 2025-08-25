@@ -18,6 +18,8 @@ abstract class PingData with _$PingData {
     required int resonantCount,
     @BooleanConverter() required bool hidden,
     @NullableDateTimeConverter() required DateTime? resonantTime,
+    @BooleanConverter() @Default(false) bool isPlaced,
+    @NullableDateTimeConverter() DateTime? placedTime,
   }) = _Ping;
 
   factory PingData.fromJson(Map<String, dynamic> json) =>
