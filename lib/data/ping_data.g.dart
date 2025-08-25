@@ -6,7 +6,7 @@ part of 'ping_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PingImpl _$$PingImplFromJson(Map<String, dynamic> json) => _$PingImpl(
+_Ping _$PingFromJson(Map<String, dynamic> json) => _Ping(
       id: (json['id'] as num?)?.toInt(),
       time: const DateTimeConverter().fromJson((json['time'] as num).toInt()),
       text: json['text'] as String,
@@ -19,8 +19,7 @@ _$PingImpl _$$PingImplFromJson(Map<String, dynamic> json) => _$PingImpl(
           .fromJson((json['resonant_time'] as num?)?.toInt()),
     );
 
-Map<String, dynamic> _$$PingImplToJson(_$PingImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PingToJson(_Ping instance) => <String, dynamic>{
       'id': instance.id,
       'time': const DateTimeConverter().toJson(instance.time),
       'text': instance.text,
