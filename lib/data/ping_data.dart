@@ -7,7 +7,7 @@ part 'ping_data.freezed.dart';
 part 'ping_data.g.dart';
 
 @freezed
-class PingData with _$PingData {
+abstract class PingData with _$PingData {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory PingData({
     int? id,
