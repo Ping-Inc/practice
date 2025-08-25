@@ -4,6 +4,7 @@ enum FiltersEnum {
   day_of_week,
   period_of_day,
   resonated,
+  placed,
   all_pings,
   saved_search,
 }

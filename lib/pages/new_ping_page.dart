@@ -12,6 +12,7 @@ import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
+import 'package:practice/providers/derived_pings_providers.dart';
 
 class NewPingPage extends ConsumerStatefulWidget {
   const NewPingPage({super.key, this.replyPing});
@@ -48,6 +49,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     ref.listen(pingsMapProvider, (previous, next) {
       setState(() {
@@ -55,6 +57,9 @@ class _HomePageState extends ConsumerState<NewPingPage> {
       });
       controller.clear();
     });
+
+    final mostRecentPlaced = ref.watch(mostRecentPlacedPingProvider);
+    final captureHintText = mostRecentPlaced?.text;
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -86,7 +91,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                                 .set(value.trim())
                           },
                           decoration: InputDecoration(
-                            hintText: "Listening for pings...",
+                            hintText: captureHintText != null ? "$captureHintText..." : "Listening for pings...",
                             hintStyle: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary),
                             border: InputBorder.none,

@@ -17,6 +17,12 @@ _Ping _$PingFromJson(Map<String, dynamic> json) => _Ping(
           const BooleanConverter().fromJson((json['hidden'] as num).toInt()),
       resonantTime: const NullableDateTimeConverter()
           .fromJson((json['resonant_time'] as num?)?.toInt()),
+      isPlaced: json['is_placed'] == null
+          ? false
+          : const BooleanConverter()
+              .fromJson((json['is_placed'] as num).toInt()),
+      placedTime: const NullableDateTimeConverter()
+          .fromJson((json['placed_time'] as num?)?.toInt()),
     );
 
 Map<String, dynamic> _$PingToJson(_Ping instance) => <String, dynamic>{
@@ -29,4 +35,7 @@ Map<String, dynamic> _$PingToJson(_Ping instance) => <String, dynamic>{
       'hidden': const BooleanConverter().toJson(instance.hidden),
       'resonant_time':
           const NullableDateTimeConverter().toJson(instance.resonantTime),
+      'is_placed': const BooleanConverter().toJson(instance.isPlaced),
+      'placed_time':
+          const NullableDateTimeConverter().toJson(instance.placedTime),
     };

@@ -12,6 +12,7 @@ part 'homepage_filters_provider.g.dart';
 Future<List<LensItem>> homepageFilters(Ref ref) async {
   final resonated = ref.watch(anyResonatedProvider);
   final lastWeek = ref.watch(anyLastWeekProvider);
+  final placed = ref.watch(anyPlacedProvider);
   final savedSearches = await ref.watch(simpleSavedSearchesProvider.future);
 
   final List<LensItem> filters = [
@@ -20,6 +21,7 @@ Future<List<LensItem>> homepageFilters(Ref ref) async {
     LensItem.filter(FiltersEnum.day_of_week),
     LensItem.filter(FiltersEnum.period_of_day),
     if (resonated) LensItem.filter(FiltersEnum.resonated),
+    if (placed) LensItem.filter(FiltersEnum.placed),
     ...savedSearches.map((query) => LensItem.savedSearch(query)),
     LensItem.filter(FiltersEnum.all_pings),
   ];

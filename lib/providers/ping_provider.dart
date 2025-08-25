@@ -21,4 +21,22 @@ class Ping extends _$Ping {
     ref.read(pingsMapProvider.notifier).toggleVisibility(state.id!);
     state = state.copyWith(hidden: !state.hidden);
   }
+
+  Future<void> placeInCapture() async {
+    final updatedPing = state.copyWith(
+      isPlaced: true,
+      placedTime: DateTime.now(),
+    );
+    ref.read(pingsMapProvider.notifier).updatePing(updatedPing);
+    state = updatedPing;
+  }
+
+  Future<void> releaseFromCapture() async {
+    final updatedPing = state.copyWith(
+      isPlaced: false,
+      placedTime: null,
+    );
+    ref.read(pingsMapProvider.notifier).updatePing(updatedPing);
+    state = updatedPing;
+  }
 }
