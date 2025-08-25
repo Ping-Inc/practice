@@ -244,6 +244,45 @@ List<int> pingYears(Ref ref) {
 }
 
 @riverpod
+List<PingData> placedPings(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+    data: (map) {
+      return map.values
+          .where((ping) => ping.isPlaced && !ping.hidden)
+          .toList()
+        ..sort((a, b) => b.time.compareTo(a.time));
+    },
+    loading: () => [],
+    error: (_, __) => [],
+  );
+}
+
+@riverpod
+bool anyPlaced(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+    data: (map) => map.values.any((ping) => ping.isPlaced),
+    loading: () => false,
+    error: (_, __) => false,
+  );
+}
+
+@riverpod
+PingData? mostRecentPlacedPing(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+    data: (map) {
+      final placedPings = map.values
+          .where((ping) => ping.isPlaced && !ping.hidden)
+          .toList()
+        ..sort((a, b) => b.placedTime!.compareTo(a.placedTime!));
+      
+      return placedPings.isNotEmpty ? placedPings.first : null;
+    },
+    loading: () => null,
+    error: (_, __) => null,
+  );
+}
+
+@riverpod
 bool anyResonated(Ref ref) {
   return ref.watch(pingsMapProvider).when(
         data: (map) =>
