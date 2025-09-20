@@ -27,11 +27,13 @@ class SystemGrid extends StatelessWidget {
     super.key,
     required this.pings,
     this.sortByResonance = false,
+    this.sortByPlaced = false,
     required this.shouldRetainScrollPosition
   });
 
   final List<PingData> pings;
   final bool sortByResonance;
+  final bool sortByPlaced;
   final bool shouldRetainScrollPosition;
 
   @override
@@ -96,17 +98,27 @@ class SystemGrid extends StatelessWidget {
 
     // Group pings by date category
     for (final ping in pings) {
-      final DateTime pingDate = sortByResonance && ping.resonantTime != null
-          ? DateTime(
-              ping.resonantTime!.year,
-              ping.resonantTime!.month,
-              ping.resonantTime!.day,
-            )
-          : DateTime(
-              ping.time.year,
-              ping.time.month,
-              ping.time.day,
-            );
+      final DateTime pingDate;
+      
+      if (sortByResonance && ping.resonantTime != null) {
+        pingDate = DateTime(
+          ping.resonantTime!.year,
+          ping.resonantTime!.month,
+          ping.resonantTime!.day,
+        );
+      } else if (sortByPlaced && ping.placedTime != null) {
+        pingDate = DateTime(
+          ping.placedTime!.year,
+          ping.placedTime!.month,
+          ping.placedTime!.day,
+        );
+      } else {
+        pingDate = DateTime(
+          ping.time.year,
+          ping.time.month,
+          ping.time.day,
+        );
+      }
 
       // Determine category based on date
       final category = PingDateUtils.getDateCategory(pingDate);
@@ -134,7 +146,7 @@ class SystemGrid extends StatelessWidget {
     // Sort pings within each group
     for (var group in result) {
       PingDateUtils.sortPingsByTime(group.pings,
-          sortByResonance: sortByResonance);
+          sortByResonance: sortByResonance, sortByPlaced: sortByPlaced);
     }
 
     return result;

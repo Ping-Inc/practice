@@ -15,10 +15,12 @@ class BrowsePage extends ConsumerWidget {
     super.key,
     required this.pings,
     this.sortByResonance = false,
+    this.sortByPlaced = false,
   });
 
   final List<PingData> pings;
   final bool sortByResonance;
+  final bool sortByPlaced;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,6 +37,7 @@ class BrowsePage extends ConsumerWidget {
             ? PingFocusList(
                 pings: pings,
                 sortByResonance: sortByResonance,
+                sortByPlaced: sortByPlaced,
               )
             : Padding(
                 padding: EdgeInsets.symmetric(
@@ -43,6 +46,7 @@ class BrowsePage extends ConsumerWidget {
                 child: PingGrid(
                   pings: pings,
                   sortByResonance: sortByResonance,
+                  sortByPlaced: sortByPlaced,
                   shouldRetainScrollPosition: false,
                 ));
   }
