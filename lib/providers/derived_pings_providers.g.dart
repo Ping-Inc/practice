@@ -905,7 +905,7 @@ final pingYearsProvider = AutoDisposeProvider<List<int>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PingYearsRef = AutoDisposeProviderRef<List<int>>;
-String _$placedPingsHash() => r'd9ca50dd1477e4243a8300f31342f98c4491f59e';
+String _$placedPingsHash() => r'3be438d42ba56901e451303fd7bbb7c48c98d329';
 
 /// See also [placedPings].
 @ProviderFor(placedPings)
@@ -938,7 +938,7 @@ final anyPlacedProvider = AutoDisposeProvider<bool>.internal(
 // ignore: unused_element
 typedef AnyPlacedRef = AutoDisposeProviderRef<bool>;
 String _$mostRecentPlacedPingHash() =>
-    r'b87a87c39e3ea102ceb1a7bb2333b1c97d940c17';
+    r'71ae51ebc99fc1ef767df8209dd497aef6f55def';
 
 /// See also [mostRecentPlacedPing].
 @ProviderFor(mostRecentPlacedPing)
