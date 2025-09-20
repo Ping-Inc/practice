@@ -9,12 +9,14 @@ class PingBackground extends ConsumerWidget {
       required this.child,
       this.time,
       this.hidden = false,
-      this.border = false});
+      this.border = false,
+      this.isPlaced = false});
 
   final Widget child;
   final DateTime? time;
   final bool hidden;
   final bool border;
+  final bool isPlaced;
 
   Color calculateBackgroundColor(WidgetRef ref, BuildContext context) {
     if (hidden) {
@@ -49,6 +51,10 @@ class PingBackground extends ConsumerWidget {
         border: hidden
             ? Border.all(
                 color: Theme.of(context).colorScheme.primary, width: 0.5)
+            : isPlaced
+                ? Border.all(
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+                    width: 1)
             : border
                 ? Border.all(
                     color:

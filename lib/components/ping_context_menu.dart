@@ -129,6 +129,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       border: border,
                       hidden: ref.watch(pingProvider(pingData).select((p) => p.hidden)),
                       time: ref.watch(pingProvider(pingData).select((p) => p.resonantTime)),
+                      isPlaced: ref.watch(pingProvider(pingData).select((p) => p.isPlaced)),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: spacingFour, vertical: spacingFour),
