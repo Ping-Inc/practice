@@ -90,10 +90,10 @@ const Map<int, String> migrationScripts = {
   ALTER TABLE pings ADD COLUMN resonant_time INTEGER
   ''',
   11: '''
-  ALTER TABLE pings ADD COLUMN is_placed BOOLEAN DEFAULT 0
+  -- Conditional migration for is_placed column handled in code
   ''',
   12: '''
-  ALTER TABLE pings ADD COLUMN placed_time INTEGER
+  -- Conditional migration for placed_time column handled in code
   '''
 };
 
