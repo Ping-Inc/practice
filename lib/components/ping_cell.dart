@@ -26,7 +26,7 @@ class PingCell extends ConsumerWidget {
   final bool tappable;
   final bool border;
 
-  void _showContextMenu(BuildContext context) {
+  void _showContextMenu(BuildContext context, WidgetRef ref) {
     
     showDialog(
       context: context,
@@ -58,6 +58,8 @@ class PingCell extends ConsumerWidget {
                   ref.watch(pingProvider(inputPing).select((p) => p.hidden)),
               time: ref
                   .watch(pingProvider(inputPing).select((p) => p.resonantTime)),
+              isPlaced:
+                ref.watch(pingProvider(inputPing).select((p) => p.isPlaced)),
               child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: spacingFour, vertical: spacingFour),
@@ -99,7 +101,7 @@ class PingCell extends ConsumerWidget {
                               ])),
                     ),
                   ]))),
-          onLongPress: () => _showContextMenu(context),
+          onLongPress: () => _showContextMenu(context, ref),
           onTap: tappable
               ? () => Navigator.push(
                     context,
