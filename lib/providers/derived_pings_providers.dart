@@ -250,7 +250,11 @@ List<PingData> placedPings(Ref ref) {
       return map.values
           .where((ping) => ping.isPlaced && !ping.hidden)
           .toList()
-        ..sort((a, b) => b.time.compareTo(a.time));
+        ..sort((a, b) {
+          if (a.placedTime == null) return 1;
+          if (b.placedTime == null) return -1;
+          return b.placedTime!.compareTo(a.placedTime!);
+        });
     },
     loading: () => [],
     error: (_, __) => [],
@@ -273,7 +277,11 @@ PingData? mostRecentPlacedPing(Ref ref) {
       final placedPings = map.values
           .where((ping) => ping.isPlaced && !ping.hidden)
           .toList()
-        ..sort((a, b) => b.placedTime!.compareTo(a.placedTime!));
+        ..sort((a, b) {
+          if (a.placedTime == null) return 1;
+          if (b.placedTime == null) return -1;
+          return b.placedTime!.compareTo(a.placedTime!);
+        });
       
       return placedPings.isNotEmpty ? placedPings.first : null;
     },

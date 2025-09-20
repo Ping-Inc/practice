@@ -8,6 +8,9 @@ class BrowsePlacedPingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BrowsePage(pings: ref.watch(placedPingsProvider));
+    return BrowsePage(
+      pings: ref.watch(placedPingsProvider),
+      sortByPlaced: true,
+    );
   }
 }

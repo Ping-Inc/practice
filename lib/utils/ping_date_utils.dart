@@ -80,12 +80,27 @@ class PingDateUtils {
   }
 
   static void sortPingsByTime(List<PingData> pings,
-      {bool sortByResonance = false}) {
+      {bool sortByResonance = false, bool sortByPlaced = false}) {
     pings.sort((a, b) {
-      final aTime =
-          sortByResonance && a.resonantTime != null ? a.resonantTime! : a.time;
-      final bTime =
-          sortByResonance && b.resonantTime != null ? b.resonantTime! : b.time;
+      final DateTime aTime;
+      final DateTime bTime;
+      
+      if (sortByResonance && a.resonantTime != null) {
+        aTime = a.resonantTime!;
+      } else if (sortByPlaced && a.placedTime != null) {
+        aTime = a.placedTime!;
+      } else {
+        aTime = a.time;
+      }
+      
+      if (sortByResonance && b.resonantTime != null) {
+        bTime = b.resonantTime!;
+      } else if (sortByPlaced && b.placedTime != null) {
+        bTime = b.placedTime!;
+      } else {
+        bTime = b.time;
+      }
+      
       return bTime.compareTo(aTime);
     });
   }

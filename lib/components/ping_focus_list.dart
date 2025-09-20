@@ -17,10 +17,12 @@ class PingFocusList extends StatefulWidget {
     super.key,
     required this.pings,
     this.sortByResonance = false,
+    this.sortByPlaced = false,
   });
 
   final List<PingData> pings;
   final bool sortByResonance;
+  final bool sortByPlaced;
 
   @override
   State<PingFocusList> createState() => _PingFocusListState();
@@ -91,7 +93,9 @@ class _PingFocusListState extends State<PingFocusList> {
                                 text: PingDateUtils.formatForPing(
                                     widget.sortByResonance
                                         ? widget.pings[i].resonantTime!
-                                        : widget.pings[i].time))),
+                                        : widget.sortByPlaced && widget.pings[i].placedTime != null
+                                            ? widget.pings[i].placedTime!
+                                            : widget.pings[i].time))),
                         SizedBox(
                           height: MediaQuery.of(context).size.width -
                               spacingThree * 8,
