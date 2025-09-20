@@ -31,10 +31,7 @@ Future<Database> _initDatabase() async {
     // if the database does not exist, onCreate executes all the sql requests of the "migrationScripts" map
     onCreate: (Database db, int version) async {
       for (int i = 1; i <= nbrMigrationScripts; i++) {
-        final script = migrationScripts[i];
-        if (script != null) {
-          await db.execute(script);
-        }
+        await _executeScript(db, i);
       }
     },
 
@@ -42,13 +39,51 @@ Future<Database> _initDatabase() async {
     /// from the version defined in parameter, onUpgrade will execute all sql requests greater than the old version
     onUpgrade: (db, oldVersion, newVersion) async {
       for (int i = oldVersion + 1; i <= newVersion; i++) {
-        final script = migrationScripts[i];
-        if (script != null) {
-          await db.execute(script);
-        }
+        await _executeScript(db, i);
       }
     },
   );
+}
+
+Future<bool> _columnExists(Database db, String tableName, String columnName) async {
+  try {
+    final result = await db.rawQuery("PRAGMA table_info($tableName)");
+    for (final row in result) {
+      if (row['name'] == columnName) {
+        return true;
+      }
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<void> _executeScript(Database db, int migrationNumber) async {
+  if (migrationNumber == 11) {
+    if (!await _columnExists(db, 'pings', 'is_placed')) {
+      await db.execute('ALTER TABLE pings ADD COLUMN is_placed BOOLEAN DEFAULT 0');
+      print('Added is_placed column');
+    } else {
+      print('is_placed column already exists, skipping');
+    }
+    return;
+  }
+  
+  if (migrationNumber == 12) {
+    if (!await _columnExists(db, 'pings', 'placed_time')) {
+      await db.execute('ALTER TABLE pings ADD COLUMN placed_time INTEGER');
+      print('Added placed_time column');
+    } else {
+      print('placed_time column already exists, skipping');
+    }
+    return;
+  }
+  
+  final script = migrationScripts[migrationNumber];
+  if (script != null) {
+    await db.execute(script);
+  }
 }
 
 void main() async {

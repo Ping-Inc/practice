@@ -1,1 +1,3 @@
-Place in capture. *PLEASE back up pings before updating!* Had a little scare with my initial testing of this one...
+Place in capture feature work merged in. *PLEASE back up pings before updating!* I had some database issues with my initial testing... recoverable, but not worth the scare!
+
+Might need to sort out a smoother method of switching between builds. Downgrading to previous versions may cause issues, but forward updates are stable.
