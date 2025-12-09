@@ -15,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:practice/l10n/app_localizations.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 Future<void> setBackupSha() async {
   if (await prefs.getString(sharedPrefsBackupSha) == null) {
@@ -108,8 +110,12 @@ String generateRandomSha() {
   return sha1Hash.toString().substring(0, 5);
 }
 
+
 Future<void> initializeDb() async {
   try {
+    if (kIsWeb) {
+      databaseFactory = databaseFactoryFfiWeb;
+    }
     db = await _initDatabase();
   } catch (e) {
     print('Error initializing database: $e');

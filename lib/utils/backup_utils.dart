@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io';
+import 'package:universal_io/io.dart';
 import 'package:icloud_storage_sync/icloud_storage_sync_platform_interface.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -7,9 +7,11 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/repositories/pings_repository.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class BackupUtils {
   static Future<void> download() async {
+    if (kIsWeb) return;
     final directory = await getApplicationDocumentsDirectory();
 
     try {
@@ -35,6 +37,7 @@ class BackupUtils {
   }
 
   static Future<void> backupPings() async {
+    if (kIsWeb) return;
     final directory = await getApplicationDocumentsDirectory();
 
     if (await Permission.storage.request().isGranted) {
@@ -66,6 +69,7 @@ class BackupUtils {
   }
 
   static void openPingsFolder() async {
+    if (kIsWeb) return;
     final directory = await getApplicationDocumentsDirectory();
 
     if (await Permission.storage.request().isGranted) {

@@ -1,0 +1,88 @@
+Synthetic package output (package:flutter_gen) is deprecated: https://flutter.dev/to/flutter-gen-deprecation. In a future release, synthetic-package will default to `false` and will later be removed entirely.
+
+Compiling lib/main.dart for the Web...                          
+Target dart2js failed: ProcessException: Process exited abnormally with exit code 1:
+lib/components/import_pings_button.dart:20:25:
+Error: Can't find '}' to match '{'.
+        onTap: () async {
+                        ^
+lib/components/import_pings_button.dart:101:13:
+Error: 'catch' can't be used as an identifier because it's a keyword.
+          } catch (e) {
+            ^^^^^
+lib/components/import_pings_button.dart:101:21:
+Error: Expected ';' after this.
+          } catch (e) {
+                    ^
+lib/components/import_pings_button.dart:21:11:
+Error: A try block must be followed by an 'on', 'catch', or 'finally' clause.
+          try {
+          ^^^
+lib/components/import_pings_button.dart:110:10:
+Error: Expected an identifier, but got ','.
+        },
+         ^
+lib/components/import_pings_button.dart:110:9:
+Error: Expected ';' after this.
+        },
+        ^
+lib/components/import_pings_button.dart:110:10:
+Error: Unexpected token ';'.
+        },
+         ^
+lib/components/import_pings_button.dart:111:45:
+Error: Expected ';' after this.
+        text: AppLocalizations.of(context)!.import_pings);
+                                            ^^^^^^^^^^^^
+lib/components/import_pings_button.dart:19:34:
+Error: Required named parameter 'text' must be provided.
+    return SettingsActivationCell(
+                                 ^
+lib/components/settings_activation_cell.dart:8:9:
+Info: Found this candidate, but the arguments don't match.
+  const SettingsActivationCell(
+        ^^^^^^^^^^^^^^^^^^^^^^
+Error: Compilation failed.
+  Command: /opt/homebrew/Caskroom/flutter/3.29.2/flutter/bin/cache/dart-sdk/bin/dart compile js --platform-binaries=/opt/homebrew/Caskroom/flutter/3.29.2/flutter/bin/cache/flutter_web_sdk/kernel --invoker=flutter_tool -Ddart.vm.product=true -DFLUTTER_WEB_USE_SKIA=true -DFLUTTER_WEB_USE_SKWASM=false -DFLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.com/flutter-canvaskit/18b71d647a292a980abb405ac7d16fe1f0b20434/ --native-null-assertions --no-source-maps -o /Users/pp/Library/Mobile Documents/com~apple~CloudDocs/Ping Practice/practice-1/.dart_tool/flutter_build/2b895b047c2de07e6cc46404a9075afa/app.dill --packages=/Users/pp/Library/Mobile Documents/com~apple~CloudDocs/Ping Practice/practice-1/.dart_tool/package_config.json --cfe-only /Users/pp/Library/Mobile Documents/com~apple~CloudDocs/Ping Practice/practice-1/.dart_tool/flutter_build/2b895b047c2de07e6cc46404a9075afa/main.dart
+#0      RunResult.throwException (package:flutter_tools/src/base/process.dart:118:5)
+#1      _DefaultProcessUtils.run (package:flutter_tools/src/base/process.dart:344:19)
+<asynchronous suspension>
+#2      Dart2JSTarget.build (package:flutter_tools/src/build_system/targets/web.dart:201:5)
+<asynchronous suspension>
+#3      _BuildInstance._invokeInternal (package:flutter_tools/src/build_system/build_system.dart:876:9)
+<asynchronous suspension>
+#4      Future.wait.<anonymous closure> (dart:async/future.dart:528:21)
+<asynchronous suspension>
+#5      _BuildInstance.invokeTarget (package:flutter_tools/src/build_system/build_system.dart:814:32)
+<asynchronous suspension>
+#6      Future.wait.<anonymous closure> (dart:async/future.dart:528:21)
+<asynchronous suspension>
+#7      _BuildInstance.invokeTarget (package:flutter_tools/src/build_system/build_system.dart:814:32)
+<asynchronous suspension>
+#8      FlutterBuildSystem.build (package:flutter_tools/src/build_system/build_system.dart:637:16)
+<asynchronous suspension>
+#9      WebBuilder.buildWeb (package:flutter_tools/src/web/compile.dart:93:34)
+<asynchronous suspension>
+#10     BuildWebCommand.runCommand (package:flutter_tools/src/commands/build_web.dart:253:5)
+<asynchronous suspension>
+#11     FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1558:27)
+<asynchronous suspension>
+#12     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#13     CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+<asynchronous suspension>
+#14     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:496:9)
+<asynchronous suspension>
+#15     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#16     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:431:5)
+<asynchronous suspension>
+#17     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:98:11)
+<asynchronous suspension>
+#18     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#19     main (package:flutter_tools/executable.dart:99:3)
+<asynchronous suspension>
+
+Compiling lib/main.dart for the Web...                             11.0s
+Error: Failed to compile application for the Web.
