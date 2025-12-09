@@ -5,11 +5,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:practice/components/settings_activation_cell.dart';
 import 'package:practice/constants.dart';
-import 'dart:io';
+import 'package:universal_io/io.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:convert';
 
 class ImportPingsButton extends ConsumerWidget {
   @override
@@ -17,16 +19,33 @@ class ImportPingsButton extends ConsumerWidget {
     return SettingsActivationCell(
         onTap: () async {
           try {
-            final directory = await getApplicationDocumentsDirectory();
+            // Directory is not needed for web file picking
+            String? initialDirectory;
+            if (!kIsWeb) {
+               final directory = await getApplicationDocumentsDirectory();
+               initialDirectory = directory.path;
+            }
 
             FilePickerResult? result = await FilePicker.platform.pickFiles(
-                initialDirectory: '${directory.path}',
+                initialDirectory: initialDirectory,
                 type: FileType.custom,
                 allowedExtensions: ['csv']);
 
-            if (result != null && result.files.single.path != null) {
-              File file = File(result.files.single.path!);
-              List<String> lines = await file.readAsLines();
+            if (result != null) {
+              List<String> lines = [];
+              
+              if (kIsWeb) {
+                final bytes = result.files.single.bytes;
+                if (bytes != null) {
+                  final content = utf8.decode(bytes);
+                  lines = LineSplitter.split(content).toList();
+                }
+              } else if (result.files.single.path != null) {
+                File file = File(result.files.single.path!);
+                lines = await file.readAsLines();
+              }
+
+              if (lines.isNotEmpty) {
 
               List<PingData> pings = [];
               late int textIndex;
@@ -79,6 +98,7 @@ class ImportPingsButton extends ConsumerWidget {
                           .pings_imported(pings.length)),
                   duration: Duration(seconds: scaffoldTime)));
             }
+          }
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Theme.of(context).colorScheme.surface,

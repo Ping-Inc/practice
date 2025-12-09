@@ -18,8 +18,6 @@ Future<List<LensItem>> homepageFilters(Ref ref) async {
   final List<LensItem> filters = [
     LensItem.filter(FiltersEnum.hidden),
     if (lastWeek) LensItem.filter(FiltersEnum.one_week_old),
-    LensItem.filter(FiltersEnum.day_of_week),
-    LensItem.filter(FiltersEnum.period_of_day),
     if (resonated) LensItem.filter(FiltersEnum.resonated),
     if (placed) LensItem.filter(FiltersEnum.placed),
     ...savedSearches.map((query) => LensItem.savedSearch(query)),
