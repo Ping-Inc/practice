@@ -7,7 +7,7 @@ import 'package:practice/constants.dart';
 import 'package:practice/providers/search_string_provider.dart';
 import 'package:practice/providers/search_provider.dart';
 import 'package:practice/providers/cached_search_provider.dart';
-import 'package:practice/providers/cached_search_setting_provider.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
 
 class SearchTextField extends ConsumerStatefulWidget {
