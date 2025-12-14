@@ -4,7 +4,7 @@ import 'package:practice/components/ping_grid.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/search_provider.dart';
 import 'package:practice/providers/cached_search_provider.dart';
-import 'package:practice/providers/cached_search_setting_provider.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 
 class PingSearchList extends ConsumerWidget {
   const PingSearchList({super.key});

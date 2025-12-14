@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/settings_activation_cell.dart';
-import 'package:practice/providers/cached_search_setting_provider.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 
 class CachedSearchToggleCell extends ConsumerWidget {
   const CachedSearchToggleCell({super.key});

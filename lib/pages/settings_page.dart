@@ -19,6 +19,7 @@ import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,13 +40,15 @@ class SettingsPage extends ConsumerWidget {
                     bottomPadding: false,
                     child: Column(
                       children: [
-                        NavCellCluster(text: 'Dev Settings', children: [
-                          HideFocusButtonsSettingCell(),
-                          CachedSearchToggleCell()
-                        ]),
-                        SizedBox(
-                          height: spacingMedium,
-                        ),
+                        if (ref.watch(showDevSettingsProvider)) ...[
+                          NavCellCluster(text: 'Dev Settings', children: [
+                            HideFocusButtonsSettingCell(),
+                            CachedSearchToggleCell()
+                          ]),
+                          SizedBox(
+                            height: spacingMedium,
+                          ),
+                        ],
                         savedSearches.when(
                           data: (searches) => searches.isNotEmpty
                               ? Column(
