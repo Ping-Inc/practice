@@ -10,13 +10,13 @@ class PingBackground extends ConsumerWidget {
       this.time,
       this.hidden = false,
       this.border = false,
-      this.isPlaced = false});
+      this.isCurrentlyInCapture = false});
 
   final Widget child;
   final DateTime? time;
   final bool hidden;
   final bool border;
-  final bool isPlaced;
+  final bool isCurrentlyInCapture;
 
   Color calculateBackgroundColor(WidgetRef ref, BuildContext context) {
     if (hidden) {
@@ -51,7 +51,7 @@ class PingBackground extends ConsumerWidget {
         border: hidden
             ? Border.all(
                 color: Theme.of(context).colorScheme.primary, width: 0.5)
-            : isPlaced
+            : isCurrentlyInCapture
                 ? Border.all(
                     color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
                     width: 1)

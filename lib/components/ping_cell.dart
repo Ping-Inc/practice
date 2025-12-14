@@ -13,6 +13,7 @@ import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/details_page.dart';
+import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingCell extends ConsumerWidget {
@@ -50,6 +51,9 @@ class PingCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final activePing = ref.watch(activePlacedPingProvider);
+    final isCurrentlyInCapture = activePing != null && activePing.id == inputPing.id;
+
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SystemTap(
           child: PingBackground(
@@ -58,8 +62,7 @@ class PingCell extends ConsumerWidget {
                   ref.watch(pingProvider(inputPing).select((p) => p.hidden)),
               time: ref
                   .watch(pingProvider(inputPing).select((p) => p.resonantTime)),
-              isPlaced:
-                ref.watch(pingProvider(inputPing).select((p) => p.isPlaced)),
+              isCurrentlyInCapture: isCurrentlyInCapture,
               child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: spacingFour, vertical: spacingFour),
