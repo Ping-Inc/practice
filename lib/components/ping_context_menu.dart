@@ -14,10 +14,11 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
+import 'package:practice/extensions/ping_data_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/new_ping_page.dart';
+import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/ping_provider.dart';
-import 'package:practice/extensions/ping_data_extensions.dart';
 
 class PingContextMenu extends ConsumerWidget {
   const PingContextMenu({
@@ -106,8 +107,8 @@ void _releaseFromCapture(BuildContext context, WidgetRef ref) {
 
 @override
 Widget build(BuildContext context, WidgetRef ref) {
-  final currentPing = ref.watch(pingProvider(pingData));
-  final isCurrentlyInCapture = currentPing.isPlaced;
+  final activePing = ref.watch(activePlacedPingProvider);
+  final isCurrentlyInCapture = activePing?.id == pingData.id;
 
     return Material(
       color: Colors.transparent,
@@ -129,7 +130,7 @@ Widget build(BuildContext context, WidgetRef ref) {
                       border: border,
                       hidden: ref.watch(pingProvider(pingData).select((p) => p.hidden)),
                       time: ref.watch(pingProvider(pingData).select((p) => p.resonantTime)),
-                      isPlaced: ref.watch(pingProvider(pingData).select((p) => p.isPlaced)),
+                      isCurrentlyInCapture: isCurrentlyInCapture,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: spacingFour, vertical: spacingFour),
