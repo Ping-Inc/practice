@@ -58,8 +58,8 @@ class _HomePageState extends ConsumerState<NewPingPage> {
       controller.clear();
     });
 
-    final mostRecentPlaced = ref.watch(mostRecentPlacedPingProvider);
-    final captureHintText = mostRecentPlaced?.text;
+    final activePing = ref.watch(activePlacedPingProvider);
+    final captureHintText = activePing?.text ?? "Listening for pings...";
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
@@ -91,7 +91,7 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                                 .set(value.trim())
                           },
                           decoration: InputDecoration(
-                            hintText: captureHintText != null ? "$captureHintText..." : "Listening for pings...",
+                            hintText: captureHintText,
                             hintStyle: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary),
                             border: InputBorder.none,

@@ -271,22 +271,39 @@ bool anyPlaced(Ref ref) {
 }
 
 @riverpod
-PingData? mostRecentPlacedPing(Ref ref) {
+PingData? activePlacedPing(Ref ref) {
   return ref.watch(pingsMapProvider).when(
     data: (map) {
-      final placedPings = map.values
+      final activePings = map.values
           .where((ping) => ping.isPlaced && !ping.hidden)
           .toList()
-        ..sort((a, b) {
-          if (a.placedTime == null) return 1;
-          if (b.placedTime == null) return -1;
-          return b.placedTime!.compareTo(a.placedTime!);
-        });
-      
-      return placedPings.isNotEmpty ? placedPings.first : null;
+        ..sort((a, b) => b.placedTime!.compareTo(a.placedTime!));
+
+      return activePings.isNotEmpty ? activePings.first : null;
     },
     loading: () => null,
     error: (_, __) => null,
+  );
+}
+
+@riverpod
+bool isMostRecentPlacedPing(Ref ref, PingData ping) {
+  final activePing = ref.watch(activePlacedPingProvider);
+  return activePing?.id == ping.id;
+}
+
+@riverpod
+List<PingData> historicalPlacedPings(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+    data: (map) {
+      final placedPings = map.values
+          .where((ping) => ping.placedTime != null)
+          .toList()
+        ..sort((a, b) => b.placedTime!.compareTo(a.placedTime!));
+      return placedPings;
+    },
+    loading: () => [],
+    error: (_, __) => [],
   );
 }
 

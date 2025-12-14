@@ -937,24 +937,173 @@ final anyPlacedProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AnyPlacedRef = AutoDisposeProviderRef<bool>;
-String _$mostRecentPlacedPingHash() =>
-    r'71ae51ebc99fc1ef767df8209dd497aef6f55def';
+String _$activePlacedPingHash() => r'7ccf8903c84f612fdd7f19e027017c6126041351';
 
-/// See also [mostRecentPlacedPing].
-@ProviderFor(mostRecentPlacedPing)
-final mostRecentPlacedPingProvider = AutoDisposeProvider<PingData?>.internal(
-  mostRecentPlacedPing,
-  name: r'mostRecentPlacedPingProvider',
+/// See also [activePlacedPing].
+@ProviderFor(activePlacedPing)
+final activePlacedPingProvider = AutoDisposeProvider<PingData?>.internal(
+  activePlacedPing,
+  name: r'activePlacedPingProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$mostRecentPlacedPingHash,
+      : _$activePlacedPingHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef MostRecentPlacedPingRef = AutoDisposeProviderRef<PingData?>;
+typedef ActivePlacedPingRef = AutoDisposeProviderRef<PingData?>;
+String _$isMostRecentPlacedPingHash() =>
+    r'bf0a3990f539659e76855b589f49ac56766fe24a';
+
+/// See also [isMostRecentPlacedPing].
+@ProviderFor(isMostRecentPlacedPing)
+const isMostRecentPlacedPingProvider = IsMostRecentPlacedPingFamily();
+
+/// See also [isMostRecentPlacedPing].
+class IsMostRecentPlacedPingFamily extends Family<bool> {
+  /// See also [isMostRecentPlacedPing].
+  const IsMostRecentPlacedPingFamily();
+
+  /// See also [isMostRecentPlacedPing].
+  IsMostRecentPlacedPingProvider call(
+    PingData ping,
+  ) {
+    return IsMostRecentPlacedPingProvider(
+      ping,
+    );
+  }
+
+  @override
+  IsMostRecentPlacedPingProvider getProviderOverride(
+    covariant IsMostRecentPlacedPingProvider provider,
+  ) {
+    return call(
+      provider.ping,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'isMostRecentPlacedPingProvider';
+}
+
+/// See also [isMostRecentPlacedPing].
+class IsMostRecentPlacedPingProvider extends AutoDisposeProvider<bool> {
+  /// See also [isMostRecentPlacedPing].
+  IsMostRecentPlacedPingProvider(
+    PingData ping,
+  ) : this._internal(
+          (ref) => isMostRecentPlacedPing(
+            ref as IsMostRecentPlacedPingRef,
+            ping,
+          ),
+          from: isMostRecentPlacedPingProvider,
+          name: r'isMostRecentPlacedPingProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$isMostRecentPlacedPingHash,
+          dependencies: IsMostRecentPlacedPingFamily._dependencies,
+          allTransitiveDependencies:
+              IsMostRecentPlacedPingFamily._allTransitiveDependencies,
+          ping: ping,
+        );
+
+  IsMostRecentPlacedPingProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.ping,
+  }) : super.internal();
+
+  final PingData ping;
+
+  @override
+  Override overrideWith(
+    bool Function(IsMostRecentPlacedPingRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: IsMostRecentPlacedPingProvider._internal(
+        (ref) => create(ref as IsMostRecentPlacedPingRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        ping: ping,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<bool> createElement() {
+    return _IsMostRecentPlacedPingProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is IsMostRecentPlacedPingProvider && other.ping == ping;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, ping.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin IsMostRecentPlacedPingRef on AutoDisposeProviderRef<bool> {
+  /// The parameter `ping` of this provider.
+  PingData get ping;
+}
+
+class _IsMostRecentPlacedPingProviderElement
+    extends AutoDisposeProviderElement<bool> with IsMostRecentPlacedPingRef {
+  _IsMostRecentPlacedPingProviderElement(super.provider);
+
+  @override
+  PingData get ping => (origin as IsMostRecentPlacedPingProvider).ping;
+}
+
+String _$historicalPlacedPingsHash() =>
+    r'4da2f26cad2686f4130d4fff80b41f9b0a8f6228';
+
+/// See also [historicalPlacedPings].
+@ProviderFor(historicalPlacedPings)
+final historicalPlacedPingsProvider =
+    AutoDisposeProvider<List<PingData>>.internal(
+  historicalPlacedPings,
+  name: r'historicalPlacedPingsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$historicalPlacedPingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef HistoricalPlacedPingsRef = AutoDisposeProviderRef<List<PingData>>;
 String _$anyResonatedHash() => r'3a96e105a70f00822d254100d6376c07db4ceada';
 
 /// See also [anyResonated].
