@@ -10,7 +10,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/utils/ping_date_utils.dart';
-import 'package:practice/providers/hide_focus_buttons_provider.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 
 class PingFocusList extends StatefulWidget {
   const PingFocusList({
