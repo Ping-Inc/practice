@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/settings_activation_cell.dart';
-import 'package:practice/providers/hide_focus_buttons_provider.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 
 class HideFocusButtonsSettingCell extends ConsumerWidget {
   const HideFocusButtonsSettingCell({super.key});
