@@ -59,7 +59,9 @@ class _HomePageState extends ConsumerState<NewPingPage> {
     });
 
     final activePing = ref.watch(activePlacedPingProvider);
-    final captureHintText = activePing?.text ?? "Listening for pings...";
+    final captureHintText = activePing != null
+        ? '${activePing.text}...'
+        : 'Listening for pings...';
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
