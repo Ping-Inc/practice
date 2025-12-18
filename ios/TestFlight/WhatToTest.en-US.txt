@@ -1,12 +1,1 @@
-* `INTERNAL` TEST FOR MID-DECEMBER `BETA` RELEASE *
-
-3 new features to try... 
-
-#1 Export: when you long-press on a ping, you'll see the option to export it in plain text (along with some of its metadata) 
- 
-#2 Long-press: notice a new menu appears when you tap and hold on any ping, anywhere in the app. 
- 
-#3 Custom lenses: "all pings," "re-ping," "afternoons," etc...now you can now create a custom lens. Try searching for a word or phrase. Specifically, something that appears in multiple pings you've captured. Notice an icon "[ + ]" appears next to the search bar. Tap it, and you'll see this lens appear alongside the default ones.
-
-* This is a test for what the `beta` build will look like, to verify that the correct settings have been adopted AND that the "Dev Settings" section is hidden behind the feature flag.
-* You'll need to place a new ping in capture to trigger the fix for the previous "place in capture" bug.
+Internal release.
