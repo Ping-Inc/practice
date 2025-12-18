@@ -9,7 +9,7 @@ enum ReleaseType {
 
 class FeatureFlags {
   // * CHANGE THIS FOR `internal` vs `beta` (vs `...`) RELEASES *
-  static const ReleaseType releaseType = ReleaseType.beta; // TODO: Change to `internal` for internal builds
+  static const ReleaseType releaseType = ReleaseType.internal; // TODO: Change to `internal` for internal builds
   
   static bool get showDevSettings {
     switch (releaseType) {
