@@ -32,11 +32,13 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
       AsyncData(value: final filters) => DefaultTabController(
           length: filters.length,
           child: Builder(builder: (context) {
-            _tabController?.dispose();
-            _tabController = TabController(
-                initialIndex: filters.length - 1,
-                length: filters.length,
-                vsync: this);
+            if (_tabController == null || _tabController!.length != filters.length) {
+              _tabController?.dispose();
+              _tabController = TabController(
+                  initialIndex: filters.length - 1,
+                  length: filters.length,
+                  vsync: this);
+            }
 
             return ExplorePage(
                 tabController: _tabController!,
