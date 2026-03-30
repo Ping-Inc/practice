@@ -18,7 +18,7 @@ class Ping extends _$Ping {
   }
 
   Future<void> toggleVisibility() async {
-    ref.read(pingsMapProvider.notifier).toggleVisibility(state.id!);
+    await ref.read(pingsMapProvider.notifier).toggleVisibility(state.id!);
     state = state.copyWith(hidden: !state.hidden);
   }
 

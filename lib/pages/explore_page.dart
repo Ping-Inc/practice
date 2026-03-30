@@ -85,7 +85,9 @@ class ExplorePage extends StatelessWidget {
       Expanded(
         child: Stack(
           children: [
-            TabBarView(controller: tabController, children: children),
+            TabBarView(
+                controller: tabController,
+                children: children),
             Align(alignment: Alignment.topCenter, child: Fade(topDown: true)),
           ],
         ),

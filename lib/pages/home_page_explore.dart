@@ -28,15 +28,27 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
     ref.watch(timeProvider);
     final asyncFilters = ref.watch(homepageFiltersProvider);
 
-    return switch (asyncFilters) {
-      AsyncData(value: final filters) => DefaultTabController(
+    if (asyncFilters.hasValue && asyncFilters.value != null) {
+      final filters = asyncFilters.value!;
+      return DefaultTabController(
           length: filters.length,
           child: Builder(builder: (context) {
-            _tabController?.dispose();
-            _tabController = TabController(
-                initialIndex: filters.length - 1,
-                length: filters.length,
-                vsync: this);
+            if (_tabController == null || _tabController!.length != filters.length) {
+              final previousIndex = _tabController?.index;
+              _tabController?.dispose();
+
+              int initialIndex = filters.length - 1;
+              if (previousIndex != null && previousIndex < filters.length) {
+                initialIndex = previousIndex;
+              } else if (previousIndex != null && previousIndex >= filters.length) {
+                initialIndex = filters.length - 1;
+              }
+
+              _tabController = TabController(
+                  initialIndex: initialIndex,
+                  length: filters.length,
+                  vsync: this);
+            }
 
             return ExplorePage(
                 tabController: _tabController!,
@@ -47,9 +59,11 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
                   return filter.page();
                 }).toList());
           }),
-        ),
-      AsyncError() => SystemText(text: "Error"),
-      _ => SystemLoader()
-    };
+        );
+    } else if (asyncFilters.hasError) {
+      return SystemText(text: "Error");
+    } else {
+      return SystemLoader();
+    }
   }
 }
