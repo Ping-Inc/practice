@@ -13,7 +13,7 @@ class PingRepository {
   static Future<void> toggleVisibility(int id, bool hide) async {
     await db.rawUpdate(
       'UPDATE pings SET hidden = ? WHERE id = ?',
-      [hide, id],
+      [hide ? 1 : 0, id],
     );
   }
 }
