@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/enums/filters_enum.dart';
 import 'package:practice/extensions/filters_enum_extensions.dart';
 import 'package:practice/pages/explore_page.dart';
 import 'package:practice/providers/homepage_filters_provider.dart';
