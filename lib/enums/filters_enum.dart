@@ -17,4 +17,16 @@ class LensItem {
   const LensItem.savedSearch(this.savedSearchQuery) : filter = FiltersEnum.saved_search;
 
   bool get isSavedSearch => filter == FiltersEnum.saved_search;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+  
+    return other is LensItem &&
+      other.filter == filter &&
+      other.savedSearchQuery == savedSearchQuery;
+  }
+
+  @override
+  int get hashCode => filter.hashCode ^ savedSearchQuery.hashCode;
 }
