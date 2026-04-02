@@ -17,6 +17,7 @@ class HomePageExplore extends ConsumerStatefulWidget {
 class _ExplorePageState extends ConsumerState<HomePageExplore>
     with TickerProviderStateMixin {
   TabController? _tabController;
+  List<LensItem>? _previousFilters;
 
   @override
   void dispose() {
@@ -34,14 +35,18 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
           length: filters.length,
           child: Builder(builder: (context) {
             if (_tabController == null || _tabController!.length != filters.length) {
-              final previousIndex = _tabController?.index;
-              _tabController?.dispose();
-
               int initialIndex = filters.length - 1;
-              if (previousIndex != null && previousIndex < filters.length) {
-                initialIndex = previousIndex;
-              } else if (previousIndex != null && previousIndex >= filters.length) {
-                initialIndex = filters.length - 1;
+
+              if (_tabController != null && _previousFilters != null) {
+                final previousIndex = _tabController!.index;
+                if (previousIndex >= 0 && previousIndex < _previousFilters!.length) {
+                  final activeLens = _previousFilters![previousIndex];
+                  final newIndex = filters.indexOf(activeLens);
+                  if (newIndex != -1) {
+                    initialIndex = newIndex;
+                  }
+                }
+                _tabController!.dispose();
               }
 
               _tabController = TabController(
@@ -49,6 +54,8 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
                   length: filters.length,
                   vsync: this);
             }
+            
+            _previousFilters = filters;
 
             return ExplorePage(
                 tabController: _tabController!,
