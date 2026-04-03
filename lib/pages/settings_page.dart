@@ -96,9 +96,9 @@ class SettingsPage extends ConsumerWidget {
                                 Uri.parse('https://pingpractice.org/method')),
                           ),
                           SettingsActivationCell(
-                            text: 'Transmissions',
+                            text: 'Latest Transmission',
                             onTap: () => launchUrl(Uri.parse(
-                                'https://pingpractice.org/transmissions')),
+                                'https://pingpractice.org/transmissions/what-are-other-people-pinging/')),
                           ),
                           SettingsActivationCell(
                             text: 'Contact',
