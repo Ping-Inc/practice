@@ -13,7 +13,9 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/current_ping_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
-
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:practice/components/system_tap.dart';
+import 'package:practice/pages/search_page.dart';
 class NewPingPage extends ConsumerStatefulWidget {
   const NewPingPage({super.key, this.replyPing});
 
@@ -117,6 +119,24 @@ class _HomePageState extends ConsumerState<NewPingPage> {
                           NewPingButton(
                               textEditingController: controller,
                               replyPing: widget.replyPing),
+                          if (widget.replyPing == null)
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: SystemTap(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SearchPage()),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.all(spacingFive),
+                                  child: Icon(
+                                    PhosphorIcons.magnifying_glass,
+                                    size: 22,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                       SizedBox(
