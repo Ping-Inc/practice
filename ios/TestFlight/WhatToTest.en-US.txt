@@ -1,7 +1,18 @@
-3 new features to try... 
+A few fixes, all to do with scroll position.  Details below.
 
-#1 Export: when you long-press on a ping, you'll see the option to export it in plain text (along with some of its metadata) 
+Also: updated "Settings" to include a a link to the latest Transmission, "What are other people pinging?"
+
+Last thing. Nico Chilla: thank you for making me aware of issue #3 below!
+
+Ok! Please be in touch with any ideas / issues: peter@pingpractice.org
+
+== Fixes ==
+You will no longer lose your place when you:
+1. Tap the "re-ping" button as you browse in "focus" view [i]
+2. Long-press on a ping while browsing in "grid" view and tap the "re-ping" button within the menu that appears [ii]
+3. Tap or swipe back from the "ping detail" page to "grid" view [iii]
  
-#2 Long-press: notice a new menu appears when you tap and hold on any ping, anywhere in the app. 
- 
-#3 Custom lenses: "all pings," "re-ping," "afternoons," etc...now you can now create a custom lens. Try searching for a word or phrase. Specifically, something that appears in multiple pings you've captured. Notice an icon "[ + ]" appears next to the search bar. Tap it, and you'll see this lens appear alongside the default ones.
+- - -
+i. https://github.com/Ping-Inc/practice/issues/32
+ii. https://github.com/Ping-Inc/practice/issues/30
+iii. https://github.com/Ping-Inc/practice/issues/27
