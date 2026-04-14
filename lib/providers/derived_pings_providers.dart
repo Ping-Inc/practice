@@ -408,3 +408,36 @@ List<PingData> yearFilteredPings(Ref ref, int year) {
         error: (_, __) => [],
       );
 }
+
+@riverpod
+List<PingData> onThisDayPings(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+        data: (map) {
+          final now = DateTime.now();
+          return map.values
+              .where((ping) => 
+                  !ping.hidden && 
+                  ping.time.month == now.month && 
+                  ping.time.day == now.day)
+              .toList()
+            ..sort((a, b) => b.time.compareTo(a.time));
+        },
+        loading: () => [],
+        error: (_, __) => [],
+      );
+}
+
+@riverpod
+bool anyOnThisDay(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+        data: (map) {
+          final now = DateTime.now();
+          return map.values.any((ping) => 
+              !ping.hidden && 
+              ping.time.month == now.month && 
+              ping.time.day == now.day);
+        },
+        loading: () => false,
+        error: (_, __) => false,
+      );
+}

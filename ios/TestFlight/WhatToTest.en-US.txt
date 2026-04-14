@@ -1,18 +1,8 @@
-A few fixes, all to do with scroll position.  Details below.
-
-Also: updated "Settings" to include a a link to the latest Transmission, "What are other people pinging?"
-
-Last thing. Nico Chilla: thank you for making me aware of issue #3 below!
+Three small'ish changes this week: 
+#1 Adding "search" button to "capture" page
+#2 Introducing an "on this day" lens that will show you pings from this date in previous years (if any exist)
+#3 Swapping position of "search" and "settings" 
 
 Ok! Please be in touch with any ideas / issues: peter@pingpractice.org
 
-== Fixes ==
-You will no longer lose your place when you:
-1. Tap the "re-ping" button as you browse in "focus" view [i]
-2. Long-press on a ping while browsing in "grid" view and tap the "re-ping" button within the menu that appears [ii]
-3. Tap or swipe back from the "ping detail" page to "grid" view [iii]
- 
-- - -
-i. https://github.com/Ping-Inc/practice/issues/32
-ii. https://github.com/Ping-Inc/practice/issues/30
-iii. https://github.com/Ping-Inc/practice/issues/27
+Until then ☀️

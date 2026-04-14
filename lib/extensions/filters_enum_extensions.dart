@@ -12,7 +12,7 @@ import 'package:practice/pages/browse_placed_pings.dart';
 import 'package:practice/pages/browse_resonated_pings.dart';
 import 'package:practice/pages/browse_time_page.dart';
 import 'package:practice/pages/browse_saved_search_page.dart';
-
+import 'package:practice/pages/browse_on_this_day_page.dart';
 extension StringParsing on FiltersEnum {
   String title() {
     final time = DateTime.now();
@@ -31,6 +31,8 @@ extension StringParsing on FiltersEnum {
         return "placed";
       case FiltersEnum.all_pings:
         return "all pings";
+      case FiltersEnum.on_this_day:
+        return "on this day";
       case FiltersEnum.saved_search:
         return "saved search";
     }
@@ -59,6 +61,8 @@ extension WidgetParsing on FiltersEnum {
         return BrowsePlacedPingsPage();
       case FiltersEnum.all_pings:
         return BrowseAllPage();
+      case FiltersEnum.on_this_day:
+        return BrowseOnThisDayPage();
       case FiltersEnum.saved_search:
         return Container();
     }
