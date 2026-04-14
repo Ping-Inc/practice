@@ -1928,5 +1928,39 @@ class _YearFilteredPingsProviderElement
   @override
   int get year => (origin as YearFilteredPingsProvider).year;
 }
+
+String _$onThisDayPingsHash() => r'31ad176425d2ed0a5c307a99207c7243f5063040';
+
+/// See also [onThisDayPings].
+@ProviderFor(onThisDayPings)
+final onThisDayPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
+  onThisDayPings,
+  name: r'onThisDayPingsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$onThisDayPingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef OnThisDayPingsRef = AutoDisposeProviderRef<List<PingData>>;
+String _$anyOnThisDayHash() => r'ceceb8a948e68f5b68947f60df67644dc1397749';
+
+/// See also [anyOnThisDay].
+@ProviderFor(anyOnThisDay)
+final anyOnThisDayProvider = AutoDisposeProvider<bool>.internal(
+  anyOnThisDay,
+  name: r'anyOnThisDayProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$anyOnThisDayHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AnyOnThisDayRef = AutoDisposeProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,1 +1,3 @@
-Internal release.
+Trying out a couple of things:
+#1 Adding search to capture page
+#2 Adding an "on this day" lens
