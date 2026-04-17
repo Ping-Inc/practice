@@ -19,10 +19,10 @@ Future<List<LensItem>> homepageFilters(Ref ref) async {
   final List<LensItem> filters = [
     LensItem.filter(FiltersEnum.hidden),
     if (lastWeek) LensItem.filter(FiltersEnum.one_week_old),
-    if (onThisDay) LensItem.filter(FiltersEnum.on_this_day),
     if (resonated) LensItem.filter(FiltersEnum.resonated),
     if (historicalPlaced.isNotEmpty) LensItem.filter(FiltersEnum.placed),
     ...savedSearches.map((query) => LensItem.savedSearch(query)),
+    if (onThisDay) LensItem.filter(FiltersEnum.on_this_day),
     LensItem.filter(FiltersEnum.all_pings),
   ];
 
