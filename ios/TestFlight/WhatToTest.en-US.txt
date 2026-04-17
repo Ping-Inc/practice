@@ -1,7 +1,6 @@
 Three small'ish changes this week: 
-#1 Adding "search" button to "capture" page
-#2 Introducing an "on this day" lens that will show you pings from this date in previous years (if any exist)
-#3 Swapping position of "search" and "settings" 
+#1 Adding "search" button to "capture" page (and swapping position of "search" and "settings" in browse)
+#2 Introducing an "on this day" lens (positioned left of "all pings") that shows pings from this date in previous years (excluding the current year)
 
 Ok! Please be in touch with any ideas / issues: peter@pingpractice.org
 
