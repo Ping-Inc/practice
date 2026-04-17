@@ -68,16 +68,19 @@ class _ExplorePageState extends ConsumerState<HomePage>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SystemTap(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SearchPage()),
-              ),
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+                _onNavigationReturn();
+              },
               child: SizedBox(
                 height: tapTarget,
                 width: tapTarget,
                 child: Center(
                   child: Icon(
-                    PhosphorIcons.magnifying_glass,
+                    PhosphorIcons.gear,
                     size: 34,
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -96,19 +99,16 @@ class _ExplorePageState extends ConsumerState<HomePage>
               ),
             ),
             SystemTap(
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                );
-                _onNavigationReturn();
-              },
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()),
+              ),
               child: SizedBox(
                 height: tapTarget,
                 width: tapTarget,
                 child: Center(
                   child: Icon(
-                    PhosphorIcons.gear,
+                    PhosphorIcons.magnifying_glass,
                     size: 34,
                     color: Theme.of(context).colorScheme.primary,
                   ),
