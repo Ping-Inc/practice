@@ -418,7 +418,8 @@ List<PingData> onThisDayPings(Ref ref) {
               .where((ping) => 
                   !ping.hidden && 
                   ping.time.month == now.month && 
-                  ping.time.day == now.day)
+                  ping.time.day == now.day &&
+                  ping.time.year < now.year)
               .toList()
             ..sort((a, b) => b.time.compareTo(a.time));
         },
@@ -435,7 +436,8 @@ bool anyOnThisDay(Ref ref) {
           return map.values.any((ping) => 
               !ping.hidden && 
               ping.time.month == now.month && 
-              ping.time.day == now.day);
+              ping.time.day == now.day &&
+              ping.time.year < now.year);
         },
         loading: () => false,
         error: (_, __) => false,
