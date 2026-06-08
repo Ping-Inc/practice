@@ -17,10 +17,12 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/ping_data_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/new_ping_page.dart';
+import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/ping_provider.dart';
+import 'package:practice/providers/pings_map_provider.dart';
 
-class PingContextMenu extends ConsumerWidget {
+class PingContextMenu extends ConsumerStatefulWidget {
   const PingContextMenu({
     super.key,
     required this.pingData,
@@ -30,16 +32,44 @@ class PingContextMenu extends ConsumerWidget {
   final PingData pingData;
   final bool border;
 
-  void _exportText(BuildContext context) async {
-  await pingData.export(context);
-  Navigator.of(context).pop();
+  @override
+  ConsumerState<PingContextMenu> createState() => _PingContextMenuState();
+}
+
+class _PingContextMenuState extends ConsumerState<PingContextMenu> {
+  bool _exporting = false;
+
+  PingData get pingData => widget.pingData;
+  bool get border => widget.border;
+
+  Future<void> _exportText(BuildContext context) async {
+    if (_exporting) return;
+    _exporting = true;
+
+    final pingsMap = ref.read(pingsMapProvider).value;
+    final latestPingId = (pingsMap == null || pingsMap.isEmpty)
+        ? (pingData.id ?? 0)
+        : pingsMap.keys.reduce((a, b) => a > b ? a : b);
+    final baseColor = ref.read(baseColorProvider);
+
+    try {
+      await pingData.export(
+        context,
+        latestPingId: latestPingId,
+        baseColor: baseColor,
+      );
+    } finally {
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    }
   }
 
   void _copyToClipboard(BuildContext context) {
     Clipboard.setData(ClipboardData(text: pingData.text));
-    
+
     Navigator.of(context).pop();
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         elevation: 0,
@@ -54,61 +84,61 @@ class PingContextMenu extends ConsumerWidget {
     );
   }
 
-void _placeInCapture(BuildContext context, WidgetRef ref) {
-  Navigator.of(context).pop();
-  
-  if (pingData.id == null) return;
-  
-  ref.read(pingProvider(pingData).notifier).placeInCapture();
-      
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      elevation: 0,
-      content: GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => NewPingPage(),
-            ),
-          );
-        },
-        child: Text(
-          'Ping placed in capture',
+  void _placeInCapture(BuildContext context) {
+    Navigator.of(context).pop();
+
+    if (pingData.id == null) return;
+
+    ref.read(pingProvider(pingData).notifier).placeInCapture();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        elevation: 0,
+        content: GestureDetector(
+          onTap: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewPingPage(),
+              ),
+            );
+          },
+          child: Text(
+            'Ping placed in capture',
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  void _releaseFromCapture(BuildContext context) {
+    Navigator.of(context).pop();
+
+    ref.read(pingProvider(pingData).notifier).releaseFromCapture();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        elevation: 0,
+        content: Text(
+          'Ping released from capture',
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
       ),
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-      duration: Duration(seconds: 2),
-      behavior: SnackBarBehavior.floating,
-    ),
-  );
-}
+    );
+  }
 
-void _releaseFromCapture(BuildContext context, WidgetRef ref) {
-  Navigator.of(context).pop();
-  
-  ref.read(pingProvider(pingData).notifier).releaseFromCapture();
-  
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      elevation: 0,
-      content: Text(
-        'Ping released from capture',
-        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-      duration: Duration(seconds: 2),
-      behavior: SnackBarBehavior.floating,
-    ),
-  );
-}
-
-@override
-Widget build(BuildContext context, WidgetRef ref) {
-  final activePing = ref.watch(activePlacedPingProvider);
-  final isCurrentlyInCapture = activePing?.id == pingData.id;
+  @override
+  Widget build(BuildContext context) {
+    final activePing = ref.watch(activePlacedPingProvider);
+    final isCurrentlyInCapture = activePing?.id == pingData.id;
 
     return Material(
       color: Colors.transparent,
@@ -208,11 +238,11 @@ Widget build(BuildContext context, WidgetRef ref) {
                           height: 18,
                         ),
                         SystemActionImage(
-                          onTap: () => isCurrentlyInCapture 
-                            ? _releaseFromCapture(context, ref)
-                            : _placeInCapture(context, ref),
-                          imagePath: isCurrentlyInCapture 
-                            ? 'images/icons/release.svg' 
+                          onTap: () => isCurrentlyInCapture
+                            ? _releaseFromCapture(context)
+                            : _placeInCapture(context),
+                          imagePath: isCurrentlyInCapture
+                            ? 'images/icons/release.svg'
                             : 'images/icons/place.svg',
                           text: isCurrentlyInCapture ? 'release' : 'place',
                           height: 18,

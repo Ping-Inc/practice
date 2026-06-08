@@ -1,4 +1,1 @@
-Trying out a couple of things:
-#1 Swapping positions of the "search" and "settings" buttons within browse
-#2 Moving position of "on this day" lens so that, if present, it will appear to the left of "all pings"
-#3 Revising "on this day" lens logic so pings from the current year are excluded
+Experimenting with the ability to generate a PNG of a Ping and save it to your camera roll and/or export to other apps.
