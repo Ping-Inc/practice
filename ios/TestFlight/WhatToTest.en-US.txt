@@ -1,1 +1,1 @@
-Experimenting with the ability to generate a PNG of a Ping and save it to your camera roll and/or export to other apps.
+Added "save" button within context menu to save Ping as PNG. Restored "export" button to share text only. Revised Ping PNG export design.

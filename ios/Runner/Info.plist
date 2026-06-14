@@ -46,6 +46,8 @@
 		<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>Some features of the app might need access to the photo library.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Ping uses this access to save ping images to your Photos library.</string>
 		<key>NSUbiquitousContainers</key>
 		<dict>
 			<key>iCloud.pingpractice</key>

@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gal/gal.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/hide_ping_button.dart';
 import 'package:practice/components/reping_button.dart';
@@ -21,6 +25,7 @@ import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
+import 'package:practice/utils/ping_export_renderer.dart';
 
 class PingContextMenu extends ConsumerStatefulWidget {
   const PingContextMenu({
@@ -37,14 +42,21 @@ class PingContextMenu extends ConsumerStatefulWidget {
 }
 
 class _PingContextMenuState extends ConsumerState<PingContextMenu> {
-  bool _exporting = false;
+  bool _saving = false;
 
   PingData get pingData => widget.pingData;
   bool get border => widget.border;
 
   Future<void> _exportText(BuildContext context) async {
-    if (_exporting) return;
-    _exporting = true;
+    await pingData.export(context);
+    if (mounted) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  Future<void> _saveToPhotos(BuildContext context) async {
+    if (_saving) return;
+    _saving = true;
 
     final pingsMap = ref.read(pingsMapProvider).value;
     final latestPingId = (pingsMap == null || pingsMap.isEmpty)
@@ -52,16 +64,75 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
         : pingsMap.keys.reduce((a, b) => a > b ? a : b);
     final baseColor = ref.read(baseColorProvider);
 
+    File? pngFile;
+    bool succeeded = false;
     try {
-      await pingData.export(
-        context,
+      pngFile = await PingExportRenderer.renderToTempFile(
+        context: context,
+        ping: pingData,
         latestPingId: latestPingId,
         baseColor: baseColor,
       );
+      await Gal.putImage(pngFile.path);
+      succeeded = true;
+    } catch (_) {
+      succeeded = false;
     } finally {
-      if (mounted) {
-        Navigator.of(context).pop();
+      if (pngFile != null) {
+        try {
+          if (await pngFile.exists()) {
+            await pngFile.delete();
+          }
+        } catch (_) {}
       }
+      _saving = false;
+    }
+
+    if (!mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
+    Navigator.of(context).pop();
+
+    if (succeeded) {
+      messenger.showSnackBar(
+        SnackBar(
+          elevation: 0,
+          content: Text(
+            'Ping saved to Photos',
+            style: TextStyle(color: colorScheme.onSurface),
+          ),
+          backgroundColor: colorScheme.secondaryContainer,
+          duration: const Duration(seconds: 1),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else {
+      messenger.showSnackBar(
+        SnackBar(
+          elevation: 0,
+          content: Text.rich(
+            TextSpan(
+              style: TextStyle(color: colorScheme.onSurface),
+              children: [
+                const TextSpan(text: "Couldn't save Ping. Try checking "),
+                TextSpan(
+                  text: 'Settings',
+                  style: const TextStyle(decoration: TextDecoration.underline),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      messenger.hideCurrentSnackBar();
+                      openAppSettings();
+                    },
+                ),
+                const TextSpan(text: '.'),
+              ],
+            ),
+          ),
+          backgroundColor: colorScheme.secondaryContainer,
+          duration: const Duration(seconds: 4),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 
@@ -212,6 +283,7 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
                     padding: EdgeInsets.symmetric(horizontal: spacingMedium),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         HidePingButton(ping: pingData),
                         RepingButton(ping: pingData),
@@ -224,6 +296,7 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
                     padding: EdgeInsets.symmetric(horizontal: spacingMedium),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SystemActionImage(
                           onTap: () => _copyToClipboard(context),
@@ -245,6 +318,22 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
                             ? 'images/icons/release.svg'
                             : 'images/icons/place.svg',
                           text: isCurrentlyInCapture ? 'release' : 'place',
+                          height: 18,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: spacingMedium),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: spacingMedium),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SystemActionImage(
+                          onTap: () => _saveToPhotos(context),
+                          imagePath: 'images/icons/save.svg',
+                          text: 'save',
                           height: 18,
                         ),
                       ],
