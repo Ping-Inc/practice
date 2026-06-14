@@ -19,13 +19,15 @@ class ExportPingCard extends StatelessWidget {
   final int latestPingId;
   final Color baseColor;
 
-  static const double width = 852;
-  static const double height = 922;
-  static const double _cornerRadius = 40;
-  static const double _horizontalInset = 52;
-  static const double _verticalInset = 40;
-  static const double _metadataFontSize = 24;
-  static const double _bodyStartingFontSize = 140;
+  static const double width = 360;
+  static const double height = 640;
+  static const double _cardWidth = 284;
+  static const double _cardHeight = 307;
+  static const double _cornerRadius = 13;
+  static const double _horizontalInset = 17;
+  static const double _verticalInset = 13;
+  static const double _metadataFontSize = 8;
+  static const double _bodyStartingFontSize = 47;
 
   String get _dateLabel {
     return DateFormat('EEEE, MMMM d, y').format(ping.time);
@@ -61,32 +63,39 @@ class ExportPingCard extends StatelessWidget {
         child: Container(
           width: width,
           height: height,
-          decoration: BoxDecoration(
-            color: baseColor.ping,
-            borderRadius: BorderRadius.circular(_cornerRadius),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: _horizontalInset,
-              vertical: _verticalInset,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Center(child: Text(_dateLabel, style: metadataStyle)),
-                Expanded(
-                  child: Center(
-                    child: AutoSizeText(
-                      ping.text,
-                      minFontSize: 1,
-                      maxLines: null,
-                      textAlign: TextAlign.left,
-                      style: bodyStyle,
-                    ),
-                  ),
+          color: baseColor.background,
+          child: Center(
+            child: Container(
+              width: _cardWidth,
+              height: _cardHeight,
+              decoration: BoxDecoration(
+                color: baseColor.ping,
+                borderRadius: BorderRadius.circular(_cornerRadius),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _horizontalInset,
+                  vertical: _verticalInset,
                 ),
-                Center(child: Text(_idLabel, style: metadataStyle)),
-              ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Center(child: Text(_dateLabel, style: metadataStyle)),
+                    Expanded(
+                      child: Center(
+                        child: AutoSizeText(
+                          ping.text,
+                          minFontSize: 1,
+                          maxLines: null,
+                          textAlign: TextAlign.left,
+                          style: bodyStyle,
+                        ),
+                      ),
+                    ),
+                    Center(child: Text(_idLabel, style: metadataStyle)),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
