@@ -1,1 +1,1 @@
-Added "save" button within context menu to save Ping as PNG. Restored "export" button to share text only. Revised Ping PNG export design.
+updated PNG export design. thank you, nico for the guidance! let's see how this feels. next up: auto-saving upon capture.

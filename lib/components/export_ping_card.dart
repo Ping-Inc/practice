@@ -27,17 +27,18 @@ class ExportPingCard extends StatelessWidget {
   static const double _horizontalInset = 17;
   static const double _verticalInset = 13;
   static const double _metadataFontSize = 8;
-  static const double _bodyStartingFontSize = 47;
+  static const double _bodyFontSize = 22;
 
   String get _dateLabel {
-    return DateFormat('EEEE, MMMM d, y').format(ping.time);
+    final weekday = DateFormat('EEE').format(ping.time);
+    final date = DateFormat('MMMM d, y').format(ping.time);
+    final time = DateFormat('h:mma').format(ping.time).toLowerCase();
+    return '$weekday. $date • $time';
   }
 
   String get _idLabel {
     final formatter = NumberFormat.decimalPattern();
-    final current = formatter.format(ping.id);
-    final latest = formatter.format(latestPingId);
-    return 'Ping $current of $latest';
+    return '#${formatter.format(ping.id)}';
   }
 
   @override
@@ -51,7 +52,7 @@ class ExportPingCard extends StatelessWidget {
 
     final bodyStyle = TextStyle(
       fontFamily: FontEnum.garamond.toFontFamily(),
-      fontSize: _bodyStartingFontSize,
+      fontSize: _bodyFontSize,
       color: baseColor.primary,
       height: lineHeight,
     );
@@ -80,9 +81,9 @@ class ExportPingCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Center(child: Text(_dateLabel, style: metadataStyle)),
                     Expanded(
-                      child: Center(
+                      child: Align(
+                        alignment: Alignment.topLeft,
                         child: AutoSizeText(
                           ping.text,
                           minFontSize: 1,
@@ -92,7 +93,13 @@ class ExportPingCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Center(child: Text(_idLabel, style: metadataStyle)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(_dateLabel, style: metadataStyle),
+                        Text(_idLabel, style: metadataStyle),
+                      ],
+                    ),
                   ],
                 ),
               ),
