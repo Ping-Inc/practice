@@ -1,7 +1,9 @@
-Three small'ish changes this week: 
-#1 Adding "search" button to "capture" page (and swapping position of "search" and "settings" in browse)
-#2 Introducing an "on this day" lens (positioned left of "all pings") that shows pings from this date in previous years (excluding the current year)
+You can now save a ping to the iOS Photos app.
+
+To try it out, long-press on any ping and then tap the [new] "save" button.
+
+Thank you to Nicolas Ayoub for the design guidance.
 
 Ok! Please be in touch with any ideas / issues: peter@pingpractice.org
 
-Until then ☀️
+Until then – happy pinging •
