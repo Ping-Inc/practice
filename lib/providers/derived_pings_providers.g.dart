@@ -1929,7 +1929,7 @@ class _YearFilteredPingsProviderElement
   int get year => (origin as YearFilteredPingsProvider).year;
 }
 
-String _$onThisDayPingsHash() => r'31ad176425d2ed0a5c307a99207c7243f5063040';
+String _$onThisDayPingsHash() => r'6d18ddddb706200c20be60318ad2ad02407d97e1';
 
 /// See also [onThisDayPings].
 @ProviderFor(onThisDayPings)
@@ -1946,7 +1946,7 @@ final onThisDayPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef OnThisDayPingsRef = AutoDisposeProviderRef<List<PingData>>;
-String _$anyOnThisDayHash() => r'ceceb8a948e68f5b68947f60df67644dc1397749';
+String _$anyOnThisDayHash() => r'729e6c2f817c5797eb065d0fc34c9f128e219367';
 
 /// See also [anyOnThisDay].
 @ProviderFor(anyOnThisDay)

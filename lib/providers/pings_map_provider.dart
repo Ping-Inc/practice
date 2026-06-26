@@ -15,7 +15,7 @@ class PingsMap extends _$PingsMap {
     };
   }
 
-  Future<void> addPing(String pingText, int? replyId) async {
+  Future<PingData> addPing(String pingText, int? replyId) async {
     final now = DateTime.now();
     final id = replyId == null
         ? await PingsRepository.insert(pingText, now)
@@ -33,6 +33,7 @@ class PingsMap extends _$PingsMap {
     );
 
     state = AsyncData({...state.value!, id: newPing});
+    return newPing;
   }
 
   Future<void> addAllPings(List<PingData> pings) async {
