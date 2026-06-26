@@ -1,1 +1,1 @@
-updated PNG export design. thank you, nico for the guidance! let's see how this feels. next up: auto-saving upon capture.
+with this build, you can auto-save Pings to your Photos app upon capture. to try it out, enable the newly-added "Photos" setting

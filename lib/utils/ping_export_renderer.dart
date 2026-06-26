@@ -20,6 +20,20 @@ class PingExportRenderer {
     required PingData ping,
     required int latestPingId,
     required Color baseColor,
+  }) {
+    return renderToTempFileFromOverlay(
+      overlay: Overlay.of(context),
+      ping: ping,
+      latestPingId: latestPingId,
+      baseColor: baseColor,
+    );
+  }
+
+  static Future<File> renderToTempFileFromOverlay({
+    required OverlayState overlay,
+    required PingData ping,
+    required int latestPingId,
+    required Color baseColor,
   }) async {
     final widget = ExportPingCard(
       ping: ping,
@@ -28,7 +42,7 @@ class PingExportRenderer {
     );
 
     final bytes = await _renderWidgetToPngBytes(
-      context: context,
+      overlay: overlay,
       widget: widget,
       logicalSize: const Size(ExportPingCard.width, ExportPingCard.height),
     );
@@ -40,7 +54,7 @@ class PingExportRenderer {
   }
 
   static Future<Uint8List> _renderWidgetToPngBytes({
-    required BuildContext context,
+    required OverlayState overlay,
     required Widget widget,
     required Size logicalSize,
   }) async {
@@ -62,7 +76,6 @@ class PingExportRenderer {
       },
     );
 
-    final overlay = Overlay.of(context);
     overlay.insert(entry);
 
     try {

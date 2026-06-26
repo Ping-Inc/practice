@@ -8,6 +8,7 @@ import 'package:practice/components/cached_search_toggle.dart';
 import 'package:practice/components/cloud_backup_activation_cell.dart';
 import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/local_backup_activation_cell.dart';
+import 'package:practice/components/photos_backup_activation_cell.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/nav_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
@@ -78,6 +79,7 @@ class SettingsPage extends ConsumerWidget {
                           LocalBackupActivationCell(),
                           if (ref.watch(localBackupOnProvider))
                             CloudBackupActivationCell(),
+                          PhotosBackupActivationCell(),
                           ImportPingsButton(),
                         ]),
                         SizedBox(

@@ -23,6 +23,10 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 
+# Claude Code: local/personal settings stay out of version control;
+# .claude/launch.json (shared dev-server config) is intentionally tracked.
+.claude/settings.local.json
+
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id

@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "practice (web)",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "-d", "web-server", "--web-port", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "practice (web, profile)",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "-d", "web-server", "--web-port", "8081", "--profile"],
+      "port": 8081
+    },
+    {
+      "name": "practice (web, release)",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "-d", "web-server", "--web-port", "8082", "--release"],
+      "port": 8082
+    }
+  ]
+}

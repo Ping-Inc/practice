@@ -1,28 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'homepage_filters_provider.dart';
+part of 'photos_backup_on_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homepageFiltersHash() => r'a6251560ead2edb24d721776239a80cd4a74694c';
+String _$photosBackupOnHash() => r'b624d5c50b8a68f7bfa11239822140d9cba5dec3';
 
-/// See also [homepageFilters].
-@ProviderFor(homepageFilters)
-final homepageFiltersProvider =
-    AutoDisposeFutureProvider<List<LensItem>>.internal(
-  homepageFilters,
-  name: r'homepageFiltersProvider',
+/// See also [PhotosBackupOn].
+@ProviderFor(PhotosBackupOn)
+final photosBackupOnProvider =
+    AutoDisposeNotifierProvider<PhotosBackupOn, bool>.internal(
+  PhotosBackupOn.new,
+  name: r'photosBackupOnProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$homepageFiltersHash,
+      : _$photosBackupOnHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef HomepageFiltersRef = AutoDisposeFutureProviderRef<List<LensItem>>;
+typedef _$PhotosBackupOn = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
