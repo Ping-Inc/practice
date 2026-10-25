@@ -10,6 +10,7 @@ import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/local_backup_activation_cell.dart';
 import 'package:practice/components/photos_backup_activation_cell.dart';
 import 'package:practice/components/public_mode_settings_cell.dart';
+import 'package:practice/components/public_settings_cells.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/nav_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
@@ -47,6 +48,15 @@ class SettingsPage extends ConsumerWidget {
                             HideFocusButtonsSettingCell(),
                             CachedSearchToggleCell(),
                             PublicModeSettingCell(),
+                          ]),
+                          SizedBox(
+                            height: spacingMedium,
+                          ),
+                        ],
+                        if (ref.watch(publicModeEnabledProvider)) ...[
+                          NavCellCluster(text: 'Public', children: [
+                            PublicModeActivationCell(),
+                            PublicPingsCountCell(),
                           ]),
                           SizedBox(
                             height: spacingMedium,
