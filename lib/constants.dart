@@ -47,6 +47,9 @@ const double smallX = 20;
 
 const int scaffoldTime = 2;
 
+// The capture screen's placeholder when nothing is placed.
+const String captureHintDefault = 'Listening for pings...';
+
 const Map<int, String> migrationScripts = {
   1: '''
   CREATE TABLE pings (
