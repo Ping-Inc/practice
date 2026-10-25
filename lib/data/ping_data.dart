@@ -20,7 +20,17 @@ abstract class PingData with _$PingData {
     @NullableDateTimeConverter() required DateTime? resonantTime,
     @BooleanConverter() @Default(false) bool isPlaced,
     @NullableDateTimeConverter() DateTime? placedTime,
+    // Non-null means the ping is public; it's when it was made public.
+    @NullableDateTimeConverter() DateTime? publicTime,
   }) = _Ping;
+
+  const PingData._();
+
+  bool get isPublic => publicTime != null;
+
+  // A ping can be made public once it's 24 hours old.
+  bool canBePublic(DateTime now) =>
+      now.difference(time) >= const Duration(hours: 24);
 
   factory PingData.fromJson(Map<String, dynamic> json) =>
       _$PingDataFromJson(json);

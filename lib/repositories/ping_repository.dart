@@ -11,9 +11,19 @@ class PingRepository {
   }
 
   static Future<void> toggleVisibility(int id, bool hide) async {
+    // Hiding a ping also makes it private.
     await db.rawUpdate(
-      'UPDATE pings SET hidden = ? WHERE id = ?',
-      [hide ? 1 : 0, id],
+      hide
+          ? 'UPDATE pings SET hidden = 1, public_time = NULL WHERE id = ?'
+          : 'UPDATE pings SET hidden = 0 WHERE id = ?',
+      [id],
+    );
+  }
+
+  static Future<void> setPublicTime(int id, DateTime? publicTime) async {
+    await db.rawUpdate(
+      'UPDATE pings SET public_time = ? WHERE id = ?',
+      [publicTime?.millisecondsSinceEpoch, id],
     );
   }
 }

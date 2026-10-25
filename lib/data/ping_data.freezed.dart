@@ -31,7 +31,10 @@ mixin _$PingData {
   @BooleanConverter()
   bool get isPlaced;
   @NullableDateTimeConverter()
-  DateTime? get placedTime;
+  DateTime?
+      get placedTime; // Non-null means the ping is public; it's when it was made public.
+  @NullableDateTimeConverter()
+  DateTime? get publicTime;
 
   /// Create a copy of PingData
   /// with the given fields replaced by the non-null parameter values.
@@ -62,17 +65,30 @@ mixin _$PingData {
             (identical(other.isPlaced, isPlaced) ||
                 other.isPlaced == isPlaced) &&
             (identical(other.placedTime, placedTime) ||
-                other.placedTime == placedTime));
+                other.placedTime == placedTime) &&
+            (identical(other.publicTime, publicTime) ||
+                other.publicTime == publicTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, time, text, replyId,
-      viewCount, resonantCount, hidden, resonantTime, isPlaced, placedTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      time,
+      text,
+      replyId,
+      viewCount,
+      resonantCount,
+      hidden,
+      resonantTime,
+      isPlaced,
+      placedTime,
+      publicTime);
 
   @override
   String toString() {
-    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime, isPlaced: $isPlaced, placedTime: $placedTime)';
+    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime, isPlaced: $isPlaced, placedTime: $placedTime, publicTime: $publicTime)';
   }
 }
 
@@ -91,7 +107,8 @@ abstract mixin class $PingDataCopyWith<$Res> {
       @BooleanConverter() bool hidden,
       @NullableDateTimeConverter() DateTime? resonantTime,
       @BooleanConverter() bool isPlaced,
-      @NullableDateTimeConverter() DateTime? placedTime});
+      @NullableDateTimeConverter() DateTime? placedTime,
+      @NullableDateTimeConverter() DateTime? publicTime});
 }
 
 /// @nodoc
@@ -116,6 +133,7 @@ class _$PingDataCopyWithImpl<$Res> implements $PingDataCopyWith<$Res> {
     Object? resonantTime = freezed,
     Object? isPlaced = null,
     Object? placedTime = freezed,
+    Object? publicTime = freezed,
   }) {
     return _then(_self.copyWith(
       id: freezed == id
@@ -157,6 +175,10 @@ class _$PingDataCopyWithImpl<$Res> implements $PingDataCopyWith<$Res> {
       placedTime: freezed == placedTime
           ? _self.placedTime
           : placedTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      publicTime: freezed == publicTime
+          ? _self.publicTime
+          : publicTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -265,7 +287,8 @@ extension PingDataPatterns on PingData {
             @BooleanConverter() bool hidden,
             @NullableDateTimeConverter() DateTime? resonantTime,
             @BooleanConverter() bool isPlaced,
-            @NullableDateTimeConverter() DateTime? placedTime)?
+            @NullableDateTimeConverter() DateTime? placedTime,
+            @NullableDateTimeConverter() DateTime? publicTime)?
         $default, {
     required TResult orElse(),
   }) {
@@ -282,7 +305,8 @@ extension PingDataPatterns on PingData {
             _that.hidden,
             _that.resonantTime,
             _that.isPlaced,
-            _that.placedTime);
+            _that.placedTime,
+            _that.publicTime);
       case _:
         return orElse();
     }
@@ -313,7 +337,8 @@ extension PingDataPatterns on PingData {
             @BooleanConverter() bool hidden,
             @NullableDateTimeConverter() DateTime? resonantTime,
             @BooleanConverter() bool isPlaced,
-            @NullableDateTimeConverter() DateTime? placedTime)
+            @NullableDateTimeConverter() DateTime? placedTime,
+            @NullableDateTimeConverter() DateTime? publicTime)
         $default,
   ) {
     final _that = this;
@@ -329,7 +354,8 @@ extension PingDataPatterns on PingData {
             _that.hidden,
             _that.resonantTime,
             _that.isPlaced,
-            _that.placedTime);
+            _that.placedTime,
+            _that.publicTime);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -359,7 +385,8 @@ extension PingDataPatterns on PingData {
             @BooleanConverter() bool hidden,
             @NullableDateTimeConverter() DateTime? resonantTime,
             @BooleanConverter() bool isPlaced,
-            @NullableDateTimeConverter() DateTime? placedTime)?
+            @NullableDateTimeConverter() DateTime? placedTime,
+            @NullableDateTimeConverter() DateTime? publicTime)?
         $default,
   ) {
     final _that = this;
@@ -375,7 +402,8 @@ extension PingDataPatterns on PingData {
             _that.hidden,
             _that.resonantTime,
             _that.isPlaced,
-            _that.placedTime);
+            _that.placedTime,
+            _that.publicTime);
       case _:
         return null;
     }
@@ -385,7 +413,7 @@ extension PingDataPatterns on PingData {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _Ping implements PingData {
+class _Ping extends PingData {
   const _Ping(
       {this.id,
       @DateTimeConverter() required this.time,
@@ -396,7 +424,9 @@ class _Ping implements PingData {
       @BooleanConverter() required this.hidden,
       @NullableDateTimeConverter() required this.resonantTime,
       @BooleanConverter() this.isPlaced = false,
-      @NullableDateTimeConverter() this.placedTime});
+      @NullableDateTimeConverter() this.placedTime,
+      @NullableDateTimeConverter() this.publicTime})
+      : super._();
   factory _Ping.fromJson(Map<String, dynamic> json) => _$PingFromJson(json);
 
   @override
@@ -425,6 +455,10 @@ class _Ping implements PingData {
   @override
   @NullableDateTimeConverter()
   final DateTime? placedTime;
+// Non-null means the ping is public; it's when it was made public.
+  @override
+  @NullableDateTimeConverter()
+  final DateTime? publicTime;
 
   /// Create a copy of PingData
   /// with the given fields replaced by the non-null parameter values.
@@ -460,17 +494,30 @@ class _Ping implements PingData {
             (identical(other.isPlaced, isPlaced) ||
                 other.isPlaced == isPlaced) &&
             (identical(other.placedTime, placedTime) ||
-                other.placedTime == placedTime));
+                other.placedTime == placedTime) &&
+            (identical(other.publicTime, publicTime) ||
+                other.publicTime == publicTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, time, text, replyId,
-      viewCount, resonantCount, hidden, resonantTime, isPlaced, placedTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      time,
+      text,
+      replyId,
+      viewCount,
+      resonantCount,
+      hidden,
+      resonantTime,
+      isPlaced,
+      placedTime,
+      publicTime);
 
   @override
   String toString() {
-    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime, isPlaced: $isPlaced, placedTime: $placedTime)';
+    return 'PingData(id: $id, time: $time, text: $text, replyId: $replyId, viewCount: $viewCount, resonantCount: $resonantCount, hidden: $hidden, resonantTime: $resonantTime, isPlaced: $isPlaced, placedTime: $placedTime, publicTime: $publicTime)';
   }
 }
 
@@ -490,7 +537,8 @@ abstract mixin class _$PingCopyWith<$Res> implements $PingDataCopyWith<$Res> {
       @BooleanConverter() bool hidden,
       @NullableDateTimeConverter() DateTime? resonantTime,
       @BooleanConverter() bool isPlaced,
-      @NullableDateTimeConverter() DateTime? placedTime});
+      @NullableDateTimeConverter() DateTime? placedTime,
+      @NullableDateTimeConverter() DateTime? publicTime});
 }
 
 /// @nodoc
@@ -515,6 +563,7 @@ class __$PingCopyWithImpl<$Res> implements _$PingCopyWith<$Res> {
     Object? resonantTime = freezed,
     Object? isPlaced = null,
     Object? placedTime = freezed,
+    Object? publicTime = freezed,
   }) {
     return _then(_Ping(
       id: freezed == id
@@ -556,6 +605,10 @@ class __$PingCopyWithImpl<$Res> implements _$PingCopyWith<$Res> {
       placedTime: freezed == placedTime
           ? _self.placedTime
           : placedTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      publicTime: freezed == publicTime
+          ? _self.publicTime
+          : publicTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }

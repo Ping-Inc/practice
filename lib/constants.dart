@@ -94,6 +94,9 @@ const Map<int, String> migrationScripts = {
   ''',
   12: '''
   -- Conditional migration for placed_time column handled in code
+  ''',
+  13: '''
+  -- Conditional migration for public_time column handled in code
   '''
 };
 

@@ -36,6 +36,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_native_splash (2.4.3):
     - Flutter
+  - gal (1.0.0):
+    - Flutter
+    - FlutterMacOS
   - icloud_storage_sync (0.0.2):
     - Flutter
   - open_file_ios (0.0.1):
@@ -69,6 +72,7 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
+  - gal (from `.symlinks/plugins/gal/darwin`)
   - icloud_storage_sync (from `.symlinks/plugins/icloud_storage_sync/ios`)
   - open_file_ios (from `.symlinks/plugins/open_file_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -94,6 +98,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
+  gal:
+    :path: ".symlinks/plugins/gal/darwin"
   icloud_storage_sync:
     :path: ".symlinks/plugins/icloud_storage_sync/ios"
   open_file_ios:
@@ -119,6 +125,7 @@ SPEC CHECKSUMS:
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
+  gal: baecd024ebfd13c441269ca7404792a7152fde89
   icloud_storage_sync: 280709abe2f8966d1ae48ec3330d21f4fbf7331d
   open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb
   path_provider_foundation: bb55f6dbba17d0dccd6737fe6f7f34fbd0376880
@@ -134,4 +141,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d1b5ac829d128015c20593c29682d4bdec0b57a9
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.17.0
