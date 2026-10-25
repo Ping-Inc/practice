@@ -27,6 +27,11 @@ class FeatureFlags {
   static bool get defaultCachedSearch {
     return true; // Default is to enable cached search (the "new" search provider)
   }
+
+  // Public mode: used on internal builds until someone sets it in "Dev Settings"
+  static const bool defaultPublicModeInternal = false;
+  // Public mode: beta builds have no "Dev Settings", so this is the only switch
+  static const bool defaultPublicModeBeta = false;
 }
 
 final showDevSettingsProvider = Provider<bool>((ref) {
@@ -111,3 +116,42 @@ final cachedSearchSettingProvider = StateNotifierProvider<CachedSearchSettingNot
     return CachedSearchSettingNotifier();
   },
 );
+
+// DEV SETTING: Public mode (experimental)
+class PublicModeEnabledNotifier extends StateNotifier<bool> {
+  PublicModeEnabledNotifier() : super(_defaultValue) {
+    _loadSetting();
+  }
+
+  static const String _prefsKey = 'public_mode_enabled';
+
+  static bool get _defaultValue {
+    switch (FeatureFlags.releaseType) {
+      case ReleaseType.internal:
+        return FeatureFlags.defaultPublicModeInternal;
+      case ReleaseType.beta:
+        return FeatureFlags.defaultPublicModeBeta;
+    }
+  }
+
+  Future<void> _loadSetting() async {
+    if (FeatureFlags.releaseType != ReleaseType.internal) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    state = prefs.getBool(_prefsKey) ?? _defaultValue;
+  }
+
+  Future<void> toggle() async {
+    if (FeatureFlags.releaseType != ReleaseType.internal) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    final newValue = !state;
+    await prefs.setBool(_prefsKey, newValue);
+    state = newValue;
+  }
+}
+
+final publicModeEnabledProvider =
+    StateNotifierProvider<PublicModeEnabledNotifier, bool>((ref) {
+  return PublicModeEnabledNotifier();
+});

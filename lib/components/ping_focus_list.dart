@@ -68,22 +68,37 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
 
     // If the pings list has changed, we need to check if our focused ping has moved
     if (widget.pings != oldWidget.pings) {
+      if (widget.pings.isEmpty) return;
+
       final focusedId = ref.read(focusedPingIdProvider);
-      if (focusedId != null) {
-        final newIndex = widget.pings.indexWhere((p) => p.id == focusedId);
-        
-        // If the ping is still in the list but at a different index
-        if (newIndex != -1 && newIndex != i) {
-          // Update local index
-          setState(() {
-            i = newIndex;
-          });
-          
-          // Jump to the new page immediately to prevent visual jumping (flicker)
-          // Doing this synchronously ensures the render phase uses the new position
-          if (_pageController.hasClients) {
-            _pageController.jumpToPage(newIndex);
+      var newIndex = focusedId == null
+          ? -1
+          : widget.pings.indexWhere((p) => p.id == focusedId);
+
+      // The focused ping left the list (e.g. it was hidden, or shown from the
+      // hidden lens): stay at the same position, or the last one if the list
+      // got shorter, and focus whichever ping is there now.
+      if (newIndex == -1) {
+        newIndex = i.clamp(0, widget.pings.length - 1);
+        final newFocusedId = widget.pings[newIndex].id;
+        // Providers can't be changed while the tree is building.
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            ref.read(focusedPingIdProvider.notifier).state = newFocusedId;
           }
+        });
+      }
+
+      if (newIndex != i) {
+        // Update local index
+        setState(() {
+          i = newIndex;
+        });
+
+        // Jump to the new page immediately to prevent visual jumping (flicker)
+        // Doing this synchronously ensures the render phase uses the new position
+        if (_pageController.hasClients) {
+          _pageController.jumpToPage(newIndex);
         }
       }
     }
@@ -91,6 +106,11 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
 
   @override
   Widget build(BuildContext context) {
+    // The lens page shows its empty state instead of this list.
+    if (widget.pings.isEmpty) return const SizedBox.shrink();
+    // Never read past the end, even for a frame while the list is changing.
+    final current = widget.pings[min(i, widget.pings.length - 1)];
+
     return LayoutBuilder(builder: (context, constraints) {
       return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SystemRefresh(
@@ -134,10 +154,10 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
                             child: SystemText(
                                 text: PingDateUtils.formatForPing(
                                     widget.sortByResonance
-                                        ? widget.pings[i].resonantTime!
-                                        : widget.sortByPlaced && widget.pings[i].placedTime != null
-                                            ? widget.pings[i].placedTime!
-                                            : widget.pings[i].time))),
+                                        ? current.resonantTime!
+                                        : widget.sortByPlaced && current.placedTime != null
+                                            ? current.placedTime!
+                                            : current.time))),
                         SizedBox(
                           height: MediaQuery.of(context).size.width -
                               spacingThree * 8,
@@ -164,7 +184,7 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
                             final hideFocusButtons = ref.watch(hideFocusButtonsProvider);
                             return hideFocusButtons 
                                 ? SizedBox.shrink() 
-                                : PingActionRow(ping: widget.pings[i]);
+                                : PingActionRow(ping: current);
                           },
                         ),
                       ],

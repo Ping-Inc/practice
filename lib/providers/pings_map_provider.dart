@@ -78,9 +78,32 @@ class PingsMap extends _$PingsMap {
     final ping = state.value![id];
     if (ping == null) return;
 
-    await PingRepository.toggleVisibility(id, !ping.hidden);
-    final updatedPing = ping.copyWith(hidden: !ping.hidden);
+    final hide = !ping.hidden;
+    await PingRepository.toggleVisibility(id, hide);
+    // Hiding a ping also makes it private.
+    final updatedPing = hide
+        ? ping.copyWith(hidden: true, publicTime: null)
+        : ping.copyWith(hidden: false);
     state = AsyncData({...state.value!, id: updatedPing});
+  }
+
+  Future<void> makePublic(int id) async {
+    final ping = state.value![id];
+    if (ping == null || ping.hidden || ping.isPublic) return;
+    if (!ping.canBePublic(DateTime.now())) return;
+
+    final publicTime = DateTime.now();
+    await PingRepository.setPublicTime(id, publicTime);
+    state = AsyncData(
+        {...state.value!, id: ping.copyWith(publicTime: publicTime)});
+  }
+
+  Future<void> makePrivate(int id) async {
+    final ping = state.value![id];
+    if (ping == null || !ping.isPublic) return;
+
+    await PingRepository.setPublicTime(id, null);
+    state = AsyncData({...state.value!, id: ping.copyWith(publicTime: null)});
   }
 
   Future<void> incrementViewCount(int id) async {

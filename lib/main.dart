@@ -81,6 +81,16 @@ Future<void> _executeScript(Database db, int migrationNumber) async {
     }
     return;
   }
+
+  if (migrationNumber == 13) {
+    if (!await _columnExists(db, 'pings', 'public_time')) {
+      await db.execute('ALTER TABLE pings ADD COLUMN public_time INTEGER');
+      print('Added public_time column');
+    } else {
+      print('public_time column already exists, skipping');
+    }
+    return;
+  }
   
   final script = migrationScripts[migrationNumber];
   if (script != null) {
