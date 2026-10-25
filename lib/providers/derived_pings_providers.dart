@@ -45,6 +45,19 @@ List<PingData> hiddenPings(Ref ref) {
       );
 }
 
+// Public pings, most recently made public first.
+@riverpod
+List<PingData> publicPings(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+        data: (map) => map.values
+            .where((ping) => !ping.hidden && ping.isPublic)
+            .toList()
+          ..sort((a, b) => b.publicTime!.compareTo(a.publicTime!)),
+        loading: () => [],
+        error: (_, __) => [],
+      );
+}
+
 @riverpod
 List<PingData> pingReplies(Ref ref, int pingId) {
   return ref.watch(pingsMapProvider).when(
@@ -305,6 +318,15 @@ List<PingData> historicalPlacedPings(Ref ref) {
     loading: () => [],
     error: (_, __) => [],
   );
+}
+
+@riverpod
+bool anyPublic(Ref ref) {
+  return ref.watch(pingsMapProvider).when(
+        data: (map) => map.values.any((ping) => !ping.hidden && ping.isPublic),
+        loading: () => false,
+        error: (_, __) => false,
+      );
 }
 
 @riverpod

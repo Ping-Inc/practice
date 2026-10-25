@@ -55,6 +55,22 @@ final hiddenPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef HiddenPingsRef = AutoDisposeProviderRef<List<PingData>>;
+String _$publicPingsHash() => r'c0ec2e25f758054c740c5ffcfc1411c8a1cc25f5';
+
+/// See also [publicPings].
+@ProviderFor(publicPings)
+final publicPingsProvider = AutoDisposeProvider<List<PingData>>.internal(
+  publicPings,
+  name: r'publicPingsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$publicPingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PublicPingsRef = AutoDisposeProviderRef<List<PingData>>;
 String _$pingRepliesHash() => r'582e2875a015f3b612288d14ec7c9513951d78a0';
 
 /// Copied from Dart SDK
@@ -1104,6 +1120,22 @@ final historicalPlacedPingsProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef HistoricalPlacedPingsRef = AutoDisposeProviderRef<List<PingData>>;
+String _$anyPublicHash() => r'688f8e3ce6a189ca929b1a3dad0b6dfef8b20b40';
+
+/// See also [anyPublic].
+@ProviderFor(anyPublic)
+final anyPublicProvider = AutoDisposeProvider<bool>.internal(
+  anyPublic,
+  name: r'anyPublicProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$anyPublicHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AnyPublicRef = AutoDisposeProviderRef<bool>;
 String _$anyResonatedHash() => r'3a96e105a70f00822d254100d6376c07db4ceada';
 
 /// See also [anyResonated].

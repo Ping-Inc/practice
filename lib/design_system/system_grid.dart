@@ -3,6 +3,7 @@ import 'package:practice/components/ping_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/lens_date.dart';
 import 'package:practice/utils/ping_date_utils.dart';
 
 enum DateCategory { today, yesterday, thisYear, pastYear }
@@ -26,14 +27,12 @@ class SystemGrid extends StatelessWidget {
   const SystemGrid({
     super.key,
     required this.pings,
-    this.sortByResonance = false,
-    this.sortByPlaced = false,
+    this.lensDate = LensDate.captured,
     required this.shouldRetainScrollPosition
   });
 
   final List<PingData> pings;
-  final bool sortByResonance;
-  final bool sortByPlaced;
+  final LensDate lensDate;
   final bool shouldRetainScrollPosition;
 
   @override
@@ -98,27 +97,8 @@ class SystemGrid extends StatelessWidget {
 
     // Group pings by date category
     for (final ping in pings) {
-      final DateTime pingDate;
-      
-      if (sortByResonance && ping.resonantTime != null) {
-        pingDate = DateTime(
-          ping.resonantTime!.year,
-          ping.resonantTime!.month,
-          ping.resonantTime!.day,
-        );
-      } else if (sortByPlaced && ping.placedTime != null) {
-        pingDate = DateTime(
-          ping.placedTime!.year,
-          ping.placedTime!.month,
-          ping.placedTime!.day,
-        );
-      } else {
-        pingDate = DateTime(
-          ping.time.year,
-          ping.time.month,
-          ping.time.day,
-        );
-      }
+      final date = lensDate.of(ping);
+      final pingDate = DateTime(date.year, date.month, date.day);
 
       // Determine category based on date
       final category = PingDateUtils.getDateCategory(pingDate);
@@ -145,8 +125,7 @@ class SystemGrid extends StatelessWidget {
 
     // Sort pings within each group
     for (var group in result) {
-      PingDateUtils.sortPingsByTime(group.pings,
-          sortByResonance: sortByResonance, sortByPlaced: sortByPlaced);
+      PingDateUtils.sortPingsByTime(group.pings, lensDate: lensDate);
     }
 
     return result;

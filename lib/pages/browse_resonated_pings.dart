@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/enums/lens_date.dart';
 import 'package:practice/pages/browse_page.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 
@@ -10,7 +11,7 @@ class BrowseResonatedPingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return BrowsePage(
       pings: ref.watch(resonatedPingsProvider),
-      sortByResonance: true,
+      lensDate: LensDate.rePinged,
     );
   }
 }
