@@ -9,6 +9,7 @@ import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
+import 'package:practice/enums/lens_date.dart';
 import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/pings_focus_provider.dart';
 import 'package:practice/utils/ping_date_utils.dart';
@@ -17,13 +18,11 @@ class PingFocusList extends ConsumerStatefulWidget {
   const PingFocusList({
     super.key,
     required this.pings,
-    this.sortByResonance = false,
-    this.sortByPlaced = false,
+    this.lensDate = LensDate.captured,
   });
 
   final List<PingData> pings;
-  final bool sortByResonance;
-  final bool sortByPlaced;
+  final LensDate lensDate;
 
   @override
   ConsumerState<PingFocusList> createState() => _PingFocusListState();
@@ -153,11 +152,7 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
                             padding: EdgeInsets.only(bottom: spacingSmall),
                             child: SystemText(
                                 text: PingDateUtils.formatForPing(
-                                    widget.sortByResonance
-                                        ? current.resonantTime!
-                                        : widget.sortByPlaced && current.placedTime != null
-                                            ? current.placedTime!
-                                            : current.time))),
+                                    widget.lensDate.of(current)))),
                         SizedBox(
                           height: MediaQuery.of(context).size.width -
                               spacingThree * 8,
