@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_background.dart';
+import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/design_system/dusk.dart';
 import 'package:practice/design_system/system_switch.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
+import 'package:practice/pages/passcode_page.dart';
 import 'package:practice/pages/settings/settings_scaffold.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
+import 'package:practice/providers/passcode_provider.dart';
 
 /// Settings › Public.
 ///
-/// The switch and the Passcode row are placeholders for now: the passcode
-/// screens come next, then public mode itself.
-class SettingsPublicPage extends StatelessWidget {
+/// The Public mode switch is a placeholder until public mode itself exists.
+class SettingsPublicPage extends ConsumerWidget {
   const SettingsPublicPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final passcodeSet = ref.watch(passcodeProvider);
+
     return SettingsScaffold(
       title: 'Public',
       subtitle: null,
@@ -50,10 +55,25 @@ class SettingsPublicPage extends StatelessWidget {
           ),
           SizedBox(height: spacingMedium),
           _Group(
-            // No arrow and no tap yet: choosing a passcode comes next.
-            row: _SettingsRow(
-              label: 'Passcode',
-              trailing: SystemText(text: 'Not set'),
+            // Sets the passcode, or changes it (without asking for the
+            // current one: this page is only reachable in private mode).
+            row: SystemTap(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const PasscodePage(flow: PasscodeFlow.set),
+                ),
+              ),
+              child: _SettingsRow(
+                label: 'Passcode',
+                trailing: Row(children: [
+                  SystemText(text: passcodeSet ? 'Set' : 'Not set'),
+                  SizedBox(width: spacingFive),
+                  Icon(PhosphorIcons.caret_right,
+                      color: Theme.of(context).colorScheme.primary),
+                ]),
+              ),
             ),
             note: 'Once Public mode is enabled, your passcode will be '
                 'required to return to Private mode.',

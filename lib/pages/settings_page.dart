@@ -17,6 +17,7 @@ import 'package:practice/components/page_with_header.dart';
 import 'package:practice/components/settings_activation_cell.dart';
 import 'package:practice/components/saved_lens_row.dart';
 import 'package:practice/components/theme_picker.dart';
+import 'package:practice/components/try_unlock_settings_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
@@ -48,6 +49,9 @@ class SettingsPage extends ConsumerWidget {
                             HideFocusButtonsSettingCell(),
                             CachedSearchToggleCell(),
                             PublicModeSettingCell(),
+                            // TEMPORARY: remove in slice 5.
+                            if (ref.watch(publicModeEnabledProvider))
+                              TryUnlockSettingCell(),
                           ]),
                           SizedBox(
                             height: spacingMedium,
