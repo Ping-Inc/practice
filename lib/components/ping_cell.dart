@@ -15,6 +15,7 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 
@@ -123,7 +124,10 @@ class PingCell extends ConsumerWidget {
                               ])),
                     ),
                   ]))),
-          onLongPress: () => _showContextMenu(menuContext, ref),
+          // No long-press menu in public mode.
+          onLongPress: ref.watch(isPublicModeProvider)
+              ? null
+              : () => _showContextMenu(menuContext, ref),
           onTap: tappable
               ? () => Navigator.push(
                     context,

@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/pings_map_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 PingData ping(int id, {DateTime? madePublic, bool hidden = false}) => PingData(
       id: id,
@@ -28,6 +30,9 @@ class _FakePingsMap extends PingsMap {
 void main() {
   test('public pings: only public, not hidden, most recently made public first',
       () async {
+    // Private mode (the app mode is read from preferences).
+    SharedPreferences.setMockInitialValues({});
+    prefs = await SharedPreferences.getInstance();
     final container = ProviderContainer(overrides: [
       pingsMapProvider.overrideWith(() => _FakePingsMap([
             ping(1, madePublic: DateTime(2026, 10, 3)),

@@ -22,6 +22,7 @@ import 'package:practice/pages/traversal/traversal_month_page.dart';
 import 'package:practice/pages/traversal/traversal_year_page.dart';
 import 'package:practice/extensions/time_filter_enum_extensions.dart';
 import 'package:practice/providers/pings_map_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 
 class DetailsPage extends ConsumerStatefulWidget {
   const DetailsPage({super.key, required this.pingId});
@@ -37,11 +38,18 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
   void initState() {
     super.initState();
 
-    ref.read(pingsMapProvider.notifier).incrementViewCount(widget.pingId);
+    // Looking at a ping in public mode doesn't count as a visit.
+    if (!ref.read(isPublicModeProvider)) {
+      ref.read(pingsMapProvider.notifier).incrementViewCount(widget.pingId);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Public mode is read-only: the date and time aren't links (the pages
+    // they open would show private pings) and there's no action row.
+    final readOnly = ref.watch(isPublicModeProvider);
+
     return ref.watch(pingsMapProvider).when(
           data: (map) {
             final ping = map[widget.pingId];
@@ -74,7 +82,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                                         .toDateFormat())
                                                     .format(ping.time)
                                                     .toLowerCase(),
-                                                onClick: () {
+                                                onClick: readOnly ? null : () {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -91,7 +99,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                                         .toDateFormat())
                                                     .format(ping.time)
                                                     .toLowerCase(),
-                                                onClick: () {
+                                                onClick: readOnly ? null : () {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -108,7 +116,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                                         .toDateFormat())
                                                     .format(ping.time)
                                                     .toLowerCase(),
-                                                onClick: () {
+                                                onClick: readOnly ? null : () {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -125,7 +133,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                                         .toDateFormat())
                                                     .format(ping.time)
                                                     .toLowerCase(),
-                                                onClick: () {
+                                                onClick: readOnly ? null : () {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -147,7 +155,7 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                                     title: DateFormat('h:mm a')
                                                         .format(ping.time)
                                                         .toLowerCase(),
-                                                    onClick: () {
+                                                    onClick: readOnly ? null : () {
                                                       Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
@@ -177,13 +185,14 @@ class _DetailsPageState extends ConsumerState<DetailsPage> {
                                       ])))),
                       Fade(),
                     ])),
-                    Container(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        child: Padding(
-                            padding: EdgeInsets.only(top: spacingFour),
-                            child: MainSpacingCell(
-                                bottomPadding: true,
-                                child: PingActionRow(ping: ping))))
+                    if (!readOnly)
+                      Container(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          child: Padding(
+                              padding: EdgeInsets.only(top: spacingFour),
+                              child: MainSpacingCell(
+                                  bottomPadding: true,
+                                  child: PingActionRow(ping: ping))))
                   ],
                 ),
                 Fade(

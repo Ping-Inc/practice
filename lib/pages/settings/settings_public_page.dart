@@ -13,10 +13,10 @@ import 'package:practice/pages/passcode_page.dart';
 import 'package:practice/pages/settings/settings_scaffold.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 import 'package:practice/providers/passcode_provider.dart';
+import 'package:practice/utils/public_mode_switch.dart';
 
-/// Settings › Public.
-///
-/// The Public mode switch is a placeholder until public mode itself exists.
+/// Settings › Public. Only reachable in private mode, so the switch is off;
+/// turning it on enters public mode.
 class SettingsPublicPage extends ConsumerWidget {
   const SettingsPublicPage({super.key});
 
@@ -34,8 +34,12 @@ class SettingsPublicPage extends ConsumerWidget {
           _Group(
             row: _SettingsRow(
               label: 'Public mode',
-              // Doesn't turn on public mode yet.
-              trailing: SystemSwitch(value: false, onChanged: (_) {}),
+              trailing: SystemSwitch(
+                value: false,
+                onChanged: (on) {
+                  if (on) enterPublicMode(context, ref);
+                },
+              ),
             ),
             note: 'Only Pings you have made public will appear in Public '
                 'mode. Pings can be made public 24 hours after capture.',

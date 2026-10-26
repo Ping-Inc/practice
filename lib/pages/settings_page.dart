@@ -17,12 +17,13 @@ import 'package:practice/components/page_with_header.dart';
 import 'package:practice/components/settings_activation_cell.dart';
 import 'package:practice/components/saved_lens_row.dart';
 import 'package:practice/components/theme_picker.dart';
-import 'package:practice/components/try_unlock_settings_cell.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
+import 'package:practice/pages/settings/public_mode_settings_page.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
@@ -33,6 +34,9 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // In public mode, Settings only offers the way back to private mode.
+    if (ref.watch(isPublicModeProvider)) return const PublicModeSettingsPage();
+
     final savedSearches = ref.watch(simpleSavedSearchesProvider);
     
     return Scaffold(
@@ -49,9 +53,6 @@ class SettingsPage extends ConsumerWidget {
                             HideFocusButtonsSettingCell(),
                             CachedSearchToggleCell(),
                             PublicModeSettingCell(),
-                            // TEMPORARY: remove in slice 5.
-                            if (ref.watch(publicModeEnabledProvider))
-                              TryUnlockSettingCell(),
                           ]),
                           SizedBox(
                             height: spacingMedium,

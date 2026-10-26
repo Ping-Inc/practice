@@ -11,6 +11,7 @@ import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/lens_date.dart';
 import 'package:practice/providers/feature_flags_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/pings_focus_provider.dart';
 import 'package:practice/utils/ping_date_utils.dart';
 
@@ -176,7 +177,10 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
                         ),
                         Consumer(
                           builder: (context, ref, child) {
-                            final hideFocusButtons = ref.watch(hideFocusButtonsProvider);
+                            // No actions in public mode.
+                            final hideFocusButtons =
+                                ref.watch(hideFocusButtonsProvider) ||
+                                    ref.watch(isPublicModeProvider);
                             return hideFocusButtons 
                                 ? SizedBox.shrink() 
                                 : PingActionRow(ping: current);

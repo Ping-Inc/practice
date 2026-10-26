@@ -8,6 +8,7 @@ import 'package:practice/providers/search_string_provider.dart';
 import 'package:practice/providers/search_provider.dart';
 import 'package:practice/providers/cached_search_provider.dart';
 import 'package:practice/providers/feature_flags_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
 
 class SearchTextField extends ConsumerStatefulWidget {
@@ -67,11 +68,16 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
       ? ref.watch(cachedSearchProvider)
       : ref.watch(searchProvider);
     
-    final showPlusButton = searchResults.when(
-      data: (pings) => pings.length > 3,
-      loading: () => false,
-      error: (_, __) => false,
-    );
+    final isPublic = ref.watch(isPublicModeProvider);
+
+    // No saving lenses in public mode: a guest's lens would show up in your
+    // private lenses.
+    final showPlusButton = !isPublic &&
+        searchResults.when(
+          data: (pings) => pings.length > 3,
+          loading: () => false,
+          error: (_, __) => false,
+        );
 
     final currentSearchExists = savedSearches.when(
       data: (searches) => searches.any((search) => 
@@ -90,7 +96,7 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
             autofocus: true,
             controller: controller,
             decoration: InputDecoration(
-              hintText: 'Search',
+              hintText: isPublic ? 'Search public Pings' : 'Search',
               hintStyle: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
