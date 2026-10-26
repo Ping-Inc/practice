@@ -42,6 +42,8 @@
 		<string>This app needs access to the Documents folder to backup your pings.</string>
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 		<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Face ID lets you return to Private mode if you forget your passcode.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
 		<key>NSPhotoLibraryUsageDescription</key>

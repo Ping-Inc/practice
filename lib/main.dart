@@ -9,6 +9,7 @@ import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/color_extensions.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/providers/base_color_provider.dart';
+import 'package:practice/providers/passcode_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,6 +106,7 @@ void main() async {
       [initializeSharedPrefs(), initializeDb(), BackupUtils.download()]);
 
   await setBackupSha();
+  await clearPasscodeIfReinstalled(prefs, KeychainPasscodeStore());
 
   runApp(
     ProviderScope(
