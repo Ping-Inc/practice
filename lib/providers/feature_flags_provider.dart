@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/constants.dart' as app_prefs;
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Made this as an enum, so it's easy to expand in the future if needed (e.g., for "production" / "public" builds)
@@ -119,9 +120,9 @@ final cachedSearchSettingProvider = StateNotifierProvider<CachedSearchSettingNot
 
 // DEV SETTING: Public mode (experimental)
 class PublicModeEnabledNotifier extends StateNotifier<bool> {
-  PublicModeEnabledNotifier() : super(_defaultValue) {
-    _loadSetting();
-  }
+  // Read synchronously (preferences are loaded before the app starts), so
+  // public mode's colors are right from the first frame.
+  PublicModeEnabledNotifier() : super(_initialValue);
 
   static const String _prefsKey = 'public_mode_enabled';
 
@@ -134,19 +135,16 @@ class PublicModeEnabledNotifier extends StateNotifier<bool> {
     }
   }
 
-  Future<void> _loadSetting() async {
-    if (FeatureFlags.releaseType != ReleaseType.internal) return;
-
-    final prefs = await SharedPreferences.getInstance();
-    state = prefs.getBool(_prefsKey) ?? _defaultValue;
+  static bool get _initialValue {
+    if (FeatureFlags.releaseType != ReleaseType.internal) return _defaultValue;
+    return app_prefs.prefs.getBool(_prefsKey) ?? _defaultValue;
   }
 
   Future<void> toggle() async {
     if (FeatureFlags.releaseType != ReleaseType.internal) return;
 
-    final prefs = await SharedPreferences.getInstance();
     final newValue = !state;
-    await prefs.setBool(_prefsKey, newValue);
+    await app_prefs.prefs.setBool(_prefsKey, newValue);
     state = newValue;
   }
 }

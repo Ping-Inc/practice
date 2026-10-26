@@ -8,6 +8,7 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/browse_enum.dart';
 import 'package:practice/enums/lens_date.dart';
 import 'package:practice/enums/font_enum.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/browse_provider.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
 
@@ -29,7 +30,9 @@ class BrowsePage extends ConsumerWidget {
     return pings.isEmpty
         ? Center(
             child: SystemText(
-            text: 'No pings match this filter',
+            text: ref.watch(isPublicModeProvider)
+                ? 'No Pings are public yet.'
+                : 'No pings match this filter',
             font: FontEnum.sfmono,
           ))
         : browseMode == BrowseEnum.focus
