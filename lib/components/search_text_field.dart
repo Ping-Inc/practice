@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/providers/search_string_provider.dart';
-import 'package:practice/providers/search_provider.dart';
 import 'package:practice/providers/cached_search_provider.dart';
-import 'package:practice/providers/feature_flags_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
 
 class SearchTextField extends ConsumerStatefulWidget {
@@ -60,18 +59,19 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     final searchString = ref.watch(searchStringProvider);
-    final useCachedSearch = ref.watch(cachedSearchSettingProvider);
     final savedSearches = ref.watch(simpleSavedSearchesProvider);
+    final searchResults = ref.watch(cachedSearchProvider);
     
-    final searchResults = useCachedSearch 
-      ? ref.watch(cachedSearchProvider)
-      : ref.watch(searchProvider);
-    
-    final showPlusButton = searchResults.when(
-      data: (pings) => pings.length > 3,
-      loading: () => false,
-      error: (_, __) => false,
-    );
+    final isPublic = ref.watch(isPublicModeProvider);
+
+    // No saving lenses in public mode: a guest's lens would show up in your
+    // private lenses.
+    final showPlusButton = !isPublic &&
+        searchResults.when(
+          data: (pings) => pings.length > 3,
+          loading: () => false,
+          error: (_, __) => false,
+        );
 
     final currentSearchExists = savedSearches.when(
       data: (searches) => searches.any((search) => 
@@ -90,7 +90,7 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
             autofocus: true,
             controller: controller,
             decoration: InputDecoration(
-              hintText: 'Search',
+              hintText: isPublic ? 'Search public Pings' : 'Search',
               hintStyle: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
@@ -106,11 +106,8 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
                       onPressed: () {
                         HapticFeedback.selectionClick();
                         ref.read(searchStringProvider.notifier).setSearch('');
-                        
-                        if (useCachedSearch) {
-                          ref.read(cachedSearchProvider.notifier).search('');
-                        }
-                        
+                        ref.read(cachedSearchProvider.notifier).search('');
+
                         controller.clear();
                         focusNode.requestFocus();
                       },
@@ -124,10 +121,7 @@ class _PingEntryState extends ConsumerState<SearchTextField> {
             ),
             onChanged: (value) {
               ref.read(searchStringProvider.notifier).setSearch(value);
-              
-              if (useCachedSearch) {
-                ref.read(cachedSearchProvider.notifier).search(value);
-              }
+              ref.read(cachedSearchProvider.notifier).search(value);
             },
           ),
         ),

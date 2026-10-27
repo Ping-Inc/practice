@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:practice/data/ping_data.dart';
+import 'package:practice/enums/lens_date.dart';
 import 'package:practice/design_system/system_grid.dart';
 
 class PingDateUtils {
@@ -80,29 +81,8 @@ class PingDateUtils {
   }
 
   static void sortPingsByTime(List<PingData> pings,
-      {bool sortByResonance = false, bool sortByPlaced = false}) {
-    pings.sort((a, b) {
-      final DateTime aTime;
-      final DateTime bTime;
-      
-      if (sortByResonance && a.resonantTime != null) {
-        aTime = a.resonantTime!;
-      } else if (sortByPlaced && a.placedTime != null) {
-        aTime = a.placedTime!;
-      } else {
-        aTime = a.time;
-      }
-      
-      if (sortByResonance && b.resonantTime != null) {
-        bTime = b.resonantTime!;
-      } else if (sortByPlaced && b.placedTime != null) {
-        bTime = b.placedTime!;
-      } else {
-        bTime = b.time;
-      }
-      
-      return bTime.compareTo(aTime);
-    });
+      {LensDate lensDate = LensDate.captured}) {
+    pings.sort((a, b) => lensDate.of(b).compareTo(lensDate.of(a)));
   }
 
   // Private formatting helpers

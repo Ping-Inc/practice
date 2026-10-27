@@ -8,7 +8,10 @@ import 'package:practice/constants.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/extensions/color_extensions.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
+import 'package:practice/design_system/dusk.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/base_color_provider.dart';
+import 'package:practice/providers/passcode_provider.dart';
 import 'package:practice/providers/router_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,6 +84,16 @@ Future<void> _executeScript(Database db, int migrationNumber) async {
     }
     return;
   }
+
+  if (migrationNumber == 13) {
+    if (!await _columnExists(db, 'pings', 'public_time')) {
+      await db.execute('ALTER TABLE pings ADD COLUMN public_time INTEGER');
+      print('Added public_time column');
+    } else {
+      print('public_time column already exists, skipping');
+    }
+    return;
+  }
   
   final script = migrationScripts[migrationNumber];
   if (script != null) {
@@ -95,6 +108,7 @@ void main() async {
       [initializeSharedPrefs(), initializeDb(), BackupUtils.download()]);
 
   await setBackupSha();
+  await clearPasscodeIfReinstalled(prefs, KeychainPasscodeStore());
 
   runApp(
     ProviderScope(
@@ -130,47 +144,14 @@ class PingPractice extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final color = ref.watch(baseColorProvider);
+    final isPublic = ref.watch(isPublicModeProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          fontFamily: FontEnum.sfpro.toFontFamily(),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-          brightness: color.brightness,
-          scaffoldBackgroundColor: color.background,
-          colorScheme: ColorScheme(
-            brightness: color.brightness,
-            primary: color.primary,
-            onPrimary: color.background,
-            secondary: color.secondary,
-            onSecondary: color.background,
-            error: Color.fromRGBO(255, 0, 0, 1),
-            onError: color.primary,
-            surface: color.ping,
-            onSurface: color.primary,
-            primaryContainer: color.background,
-            onPrimaryContainer: color.primary,
-            secondaryContainer: color.pingResonant,
-            onSecondaryContainer: color.primary,
-            tertiary: color.foreground,
-            onTertiary: color.ping,
-            tertiaryContainer: color.idInner,
-            onTertiaryContainer: color.primary,
-            errorContainer: Color.fromRGBO(255, 0, 0, 1),
-            onErrorContainer: color.background,
-            surfaceContainerHighest: color.idInner,
-            onSurfaceVariant: color.reply,
-            outline: color.idInner,
-            outlineVariant: color.idInner,
-            shadow: color.secondary,
-            scrim: color.secondary,
-            inverseSurface: color.secondary,
-            onInverseSurface: color.secondary,
-            inversePrimary: color.secondary,
-            surfaceTint: color.secondary,
-          )),
+      // Public mode uses the fixed dusk palette instead of the chosen color.
+      theme: isPublic ? _duskTheme() : _themeFor(color),
+      // Fade between the two when switching modes.
+      themeAnimationDuration: const Duration(milliseconds: 400),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -182,3 +163,81 @@ class PingPractice extends ConsumerWidget {
     );
   }
 }
+
+ThemeData _buildTheme({
+  required Brightness brightness,
+  required Color background,
+  required Color primary,
+  required Color secondary,
+  required Color ping,
+  required Color pingResonant,
+  required Color foreground,
+  required Color idInner,
+  required Color reply,
+}) {
+  return ThemeData(
+      fontFamily: FontEnum.sfpro.toFontFamily(),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      brightness: brightness,
+      scaffoldBackgroundColor: background,
+      colorScheme: ColorScheme(
+        brightness: brightness,
+        primary: primary,
+        onPrimary: background,
+        secondary: secondary,
+        onSecondary: background,
+        error: Color.fromRGBO(255, 0, 0, 1),
+        onError: primary,
+        surface: ping,
+        onSurface: primary,
+        primaryContainer: background,
+        onPrimaryContainer: primary,
+        secondaryContainer: pingResonant,
+        onSecondaryContainer: primary,
+        tertiary: foreground,
+        onTertiary: ping,
+        tertiaryContainer: idInner,
+        onTertiaryContainer: primary,
+        errorContainer: Color.fromRGBO(255, 0, 0, 1),
+        onErrorContainer: background,
+        surfaceContainerHighest: idInner,
+        onSurfaceVariant: reply,
+        outline: idInner,
+        outlineVariant: idInner,
+        shadow: secondary,
+        scrim: secondary,
+        inverseSurface: secondary,
+        onInverseSurface: secondary,
+        inversePrimary: secondary,
+        surfaceTint: secondary,
+      ));
+}
+
+/// The private-mode theme, built from the color chosen in Settings › Feel.
+ThemeData _themeFor(Color color) => _buildTheme(
+      brightness: color.brightness,
+      background: color.background,
+      primary: color.primary,
+      secondary: color.secondary,
+      ping: color.ping,
+      pingResonant: color.pingResonant,
+      foreground: color.foreground,
+      idInner: color.idInner,
+      reply: color.reply,
+    );
+
+/// Public mode's fixed grayscale "dusk" theme.
+ThemeData _duskTheme() => _buildTheme(
+      brightness: Brightness.dark,
+      background: Dusk.background,
+      primary: Dusk.text,
+      secondary: Dusk.secondary,
+      ping: Dusk.card,
+      // No re-ping glow in public mode.
+      pingResonant: Dusk.card,
+      foreground: Dusk.outline,
+      idInner: Dusk.outline,
+      reply: Dusk.outline,
+    );

@@ -8,6 +8,7 @@ enum FiltersEnum {
   all_pings,
   on_this_day,
   saved_search,
+  public,
 }
 
 class LensItem {

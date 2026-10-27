@@ -47,6 +47,9 @@ const double smallX = 20;
 
 const int scaffoldTime = 2;
 
+// The capture screen's placeholder when nothing is placed.
+const String captureHintDefault = 'Listening for pings...';
+
 const Map<int, String> migrationScripts = {
   1: '''
   CREATE TABLE pings (
@@ -94,6 +97,9 @@ const Map<int, String> migrationScripts = {
   ''',
   12: '''
   -- Conditional migration for placed_time column handled in code
+  ''',
+  13: '''
+  -- Conditional migration for public_time column handled in code
   '''
 };
 

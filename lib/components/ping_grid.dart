@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_grid.dart';
+import 'package:practice/enums/lens_date.dart';
 
 class PingGrid extends StatelessWidget {
   const PingGrid({
     super.key,
     required this.pings,
-    this.sortByResonance = false,
-    this.sortByPlaced = false,
+    this.lensDate = LensDate.captured,
     required this.shouldRetainScrollPosition
   });
 
   final List<PingData> pings;
-  final bool sortByResonance;
-  final bool sortByPlaced;
+  final LensDate lensDate;
   final bool shouldRetainScrollPosition;
 
   @override
@@ -28,8 +27,7 @@ class PingGrid extends StatelessWidget {
         },
         child: SystemGrid(
           pings: pings,
-          sortByResonance: sortByResonance,
-          sortByPlaced: sortByPlaced,
+          lensDate: lensDate,
           shouldRetainScrollPosition: shouldRetainScrollPosition,
         ));
   }

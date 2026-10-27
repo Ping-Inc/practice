@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/browse_activation_cell.dart';
-import 'package:practice/components/focus_buttons_settings_cell.dart';
-import 'package:practice/components/cached_search_toggle.dart';
 import 'package:practice/components/cloud_backup_activation_cell.dart';
 import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/local_backup_activation_cell.dart';
 import 'package:practice/components/photos_backup_activation_cell.dart';
+import 'package:practice/components/public_mode_settings_cell.dart';
+import 'package:practice/components/public_settings_cells.dart';
 import 'package:practice/components/main_spacing_cell.dart';
 import 'package:practice/components/nav_cell_cluster.dart';
 import 'package:practice/components/page_with_header.dart';
@@ -20,6 +20,8 @@ import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
 import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
+import 'package:practice/pages/settings/public_mode_settings_page.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:practice/providers/simple_saved_searches_provider.dart';
@@ -30,6 +32,9 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // In public mode, Settings only offers the way back to private mode.
+    if (ref.watch(isPublicModeProvider)) return const PublicModeSettingsPage();
+
     final savedSearches = ref.watch(simpleSavedSearchesProvider);
     
     return Scaffold(
@@ -43,8 +48,16 @@ class SettingsPage extends ConsumerWidget {
                       children: [
                         if (ref.watch(showDevSettingsProvider)) ...[
                           NavCellCluster(text: 'Dev Settings', children: [
-                            HideFocusButtonsSettingCell(),
-                            CachedSearchToggleCell()
+                            PublicModeSettingCell(),
+                          ]),
+                          SizedBox(
+                            height: spacingMedium,
+                          ),
+                        ],
+                        if (ref.watch(publicModeEnabledProvider)) ...[
+                          NavCellCluster(text: 'Public', children: [
+                            PublicModeActivationCell(),
+                            PublicPingsCountCell(),
                           ]),
                           SizedBox(
                             height: spacingMedium,

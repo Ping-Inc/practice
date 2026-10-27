@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_action_row.dart';
@@ -9,7 +10,8 @@ import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
 import 'package:practice/design_system/system_refresh.dart';
 import 'package:practice/design_system/system_text.dart';
-import 'package:practice/providers/feature_flags_provider.dart';
+import 'package:practice/enums/lens_date.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/pings_focus_provider.dart';
 import 'package:practice/utils/ping_date_utils.dart';
 
@@ -17,13 +19,11 @@ class PingFocusList extends ConsumerStatefulWidget {
   const PingFocusList({
     super.key,
     required this.pings,
-    this.sortByResonance = false,
-    this.sortByPlaced = false,
+    this.lensDate = LensDate.captured,
   });
 
   final List<PingData> pings;
-  final bool sortByResonance;
-  final bool sortByPlaced;
+  final LensDate lensDate;
 
   @override
   ConsumerState<PingFocusList> createState() => _PingFocusListState();
@@ -56,10 +56,24 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
         });
         // Update the provider with the new focused ping ID
         if (i >= 0 && i < widget.pings.length) {
-          ref.read(focusedPingIdProvider.notifier).state = widget.pings[i].id;
+          _setFocusedPing(widget.pings[i].id);
         }
       }
     });
+  }
+
+  /// Remembers which ping is focused. Providers can't be changed while the
+  /// screen is being rebuilt (e.g. when the list changes and the page jumps),
+  /// so in that case it waits until the rebuild is done.
+  void _setFocusedPing(int? id) {
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) ref.read(focusedPingIdProvider.notifier).state = id;
+      });
+    } else {
+      ref.read(focusedPingIdProvider.notifier).state = id;
+    }
   }
 
   @override
@@ -68,22 +82,31 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
 
     // If the pings list has changed, we need to check if our focused ping has moved
     if (widget.pings != oldWidget.pings) {
+      if (widget.pings.isEmpty) return;
+
       final focusedId = ref.read(focusedPingIdProvider);
-      if (focusedId != null) {
-        final newIndex = widget.pings.indexWhere((p) => p.id == focusedId);
-        
-        // If the ping is still in the list but at a different index
-        if (newIndex != -1 && newIndex != i) {
-          // Update local index
-          setState(() {
-            i = newIndex;
-          });
-          
-          // Jump to the new page immediately to prevent visual jumping (flicker)
-          // Doing this synchronously ensures the render phase uses the new position
-          if (_pageController.hasClients) {
-            _pageController.jumpToPage(newIndex);
-          }
+      var newIndex = focusedId == null
+          ? -1
+          : widget.pings.indexWhere((p) => p.id == focusedId);
+
+      // The focused ping left the list (e.g. it was hidden, or shown from the
+      // hidden lens): stay at the same position, or the last one if the list
+      // got shorter, and focus whichever ping is there now.
+      if (newIndex == -1) {
+        newIndex = i.clamp(0, widget.pings.length - 1);
+        _setFocusedPing(widget.pings[newIndex].id);
+      }
+
+      if (newIndex != i) {
+        // Update local index
+        setState(() {
+          i = newIndex;
+        });
+
+        // Jump to the new page immediately to prevent visual jumping (flicker)
+        // Doing this synchronously ensures the render phase uses the new position
+        if (_pageController.hasClients) {
+          _pageController.jumpToPage(newIndex);
         }
       }
     }
@@ -91,6 +114,11 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
 
   @override
   Widget build(BuildContext context) {
+    // The lens page shows its empty state instead of this list.
+    if (widget.pings.isEmpty) return const SizedBox.shrink();
+    // Never read past the end, even for a frame while the list is changing.
+    final current = widget.pings[min(i, widget.pings.length - 1)];
+
     return LayoutBuilder(builder: (context, constraints) {
       return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SystemRefresh(
@@ -133,11 +161,7 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
                             padding: EdgeInsets.only(bottom: spacingSmall),
                             child: SystemText(
                                 text: PingDateUtils.formatForPing(
-                                    widget.sortByResonance
-                                        ? widget.pings[i].resonantTime!
-                                        : widget.sortByPlaced && widget.pings[i].placedTime != null
-                                            ? widget.pings[i].placedTime!
-                                            : widget.pings[i].time))),
+                                    widget.lensDate.of(current)))),
                         SizedBox(
                           height: MediaQuery.of(context).size.width -
                               spacingThree * 8,
@@ -161,10 +185,12 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
                         ),
                         Consumer(
                           builder: (context, ref, child) {
-                            final hideFocusButtons = ref.watch(hideFocusButtonsProvider);
+                            // No actions in public mode.
+                            final hideFocusButtons =
+                                ref.watch(isPublicModeProvider);
                             return hideFocusButtons 
                                 ? SizedBox.shrink() 
-                                : PingActionRow(ping: widget.pings[i]);
+                                : PingActionRow(ping: current);
                           },
                         ),
                       ],
