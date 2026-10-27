@@ -43,6 +43,11 @@ class _FocusGridZoomState extends ConsumerState<FocusGridZoom>
   late final AnimationController _zoom;
   late final AnimationController _fade;
 
+  // Each view is built once and reused on every frame of the zoom, so a
+  // lens with thousands of pings isn't rebuilt 60 times a second.
+  Widget? _focusView;
+  Widget? _gridView;
+
   // How far focus shrinks, and how large the grid starts.
   static const double _focusAway = 0.72;
   static const double _gridAway = 1.35;
@@ -52,9 +57,18 @@ class _FocusGridZoomState extends ConsumerState<FocusGridZoom>
   @override
   void initState() {
     super.initState();
-    final start = ref.read(currentBrowseModeProvider) == BrowseEnum.grid ? 1.0 : 0.0;
+    final start =
+        ref.read(currentBrowseModeProvider) == BrowseEnum.grid ? 1.0 : 0.0;
     _zoom = AnimationController(vsync: this, value: start);
     _fade = AnimationController(vsync: this, value: start);
+  }
+
+  @override
+  void didUpdateWidget(covariant FocusGridZoom oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // New pings (or a new lens): build the views again.
+    _focusView = null;
+    _gridView = null;
   }
 
   @override
@@ -65,6 +79,16 @@ class _FocusGridZoomState extends ConsumerState<FocusGridZoom>
   }
 
   void _goTo(BrowseEnum mode) {
+    // The view being switched to is put in place (still invisible) in this
+    // frame. Building it can take a while with many pings, so the zoom starts
+    // once that frame is drawn, and plays in full instead of skipping ahead.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || ref.read(currentBrowseModeProvider) != mode) return;
+      _start(mode);
+    });
+  }
+
+  void _start(BrowseEnum mode) {
     final target = mode == BrowseEnum.grid ? 1.0 : 0.0;
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
 
@@ -90,8 +114,9 @@ class _FocusGridZoomState extends ConsumerState<FocusGridZoom>
       builder: (context, _) {
         final z = _zoom.value;
         final f = _fade.value;
-        final showFocus = f < 1 || z < 1;
-        final showGrid = f > 0 || z > 0;
+        // A view is drawn while it's the one switched to, or still on screen.
+        final showFocus = !toGrid || f < 1 || z < 1;
+        final showGrid = toGrid || f > 0 || z > 0;
 
         // Each view keeps its identity (a key), so when the other one is
         // removed at the end of the zoom it isn't rebuilt from scratch.
@@ -115,10 +140,10 @@ class _FocusGridZoomState extends ConsumerState<FocusGridZoom>
           fit: StackFit.expand,
           children: [
             if (showFocus)
-              layer('focus', widget.focus(context), 1 + (_focusAway - 1) * z,
-                  1 - f, !toGrid),
+              layer('focus', _focusView ??= widget.focus(context),
+                  1 + (_focusAway - 1) * z, 1 - f, !toGrid),
             if (showGrid)
-              layer('grid', widget.grid(context),
+              layer('grid', _gridView ??= widget.grid(context),
                   _gridAway + (1 - _gridAway) * z, f, toGrid),
           ],
         ));
