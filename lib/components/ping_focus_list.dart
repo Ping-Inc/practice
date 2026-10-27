@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/ping_action_row.dart';
@@ -56,10 +57,24 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
         });
         // Update the provider with the new focused ping ID
         if (i >= 0 && i < widget.pings.length) {
-          ref.read(focusedPingIdProvider.notifier).state = widget.pings[i].id;
+          _setFocusedPing(widget.pings[i].id);
         }
       }
     });
+  }
+
+  /// Remembers which ping is focused. Providers can't be changed while the
+  /// screen is being rebuilt (e.g. when the list changes and the page jumps),
+  /// so in that case it waits until the rebuild is done.
+  void _setFocusedPing(int? id) {
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) ref.read(focusedPingIdProvider.notifier).state = id;
+      });
+    } else {
+      ref.read(focusedPingIdProvider.notifier).state = id;
+    }
   }
 
   @override
@@ -80,13 +95,7 @@ class _PingFocusListState extends ConsumerState<PingFocusList> {
       // got shorter, and focus whichever ping is there now.
       if (newIndex == -1) {
         newIndex = i.clamp(0, widget.pings.length - 1);
-        final newFocusedId = widget.pings[newIndex].id;
-        // Providers can't be changed while the tree is building.
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            ref.read(focusedPingIdProvider.notifier).state = newFocusedId;
-          }
-        });
+        _setFocusedPing(widget.pings[newIndex].id);
       }
 
       if (newIndex != i) {
