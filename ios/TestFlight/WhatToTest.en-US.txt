@@ -10,3 +10,5 @@ to try it out:
 5) enter public mode by visiting settings, tapping "public mode", and turning on the switch (the first time, you'll choose a passcode)
 
 note: once you enter public mode, someone will need your passcode (or your face id) to return to private mode.
+
+[new] turning the dial between focus and grid now zooms in and out, instead of switching instantly.
