@@ -1,1 +1,12 @@
-with this build, you can auto-save Pings to your Photos app upon capture. to try it out, enable the newly-added "Photos" setting
+[new] this build introduces a new "public mode."
+
+public mode is designed for you to feel safe handing your phone over to a friend for them to browse select pings.
+
+to try it out:
+1) go to settings
+2) under the "dev settings" heading, tap "try out public mode (experimental)"
+3) find a ping older than 24 hours that you'd like to make public
+4) tap the "public" button that should now be visible beneath it (or in the long-press menu)
+5) enter public mode by visiting settings, tapping "public mode", and turning on the switch (the first time, you'll choose a passcode)
+
+note: once you enter public mode, someone will need your passcode (or your face id) to return to private mode.
