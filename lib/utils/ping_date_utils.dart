@@ -10,9 +10,20 @@ class PingDateUtils {
   static DateCategory getDateCategory(DateTime date) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(const Duration(days: 1));
-    final startOfYear = DateTime(now.year);
+    return dateCategoryOf(date,
+        today: today,
+        yesterday: today.subtract(const Duration(days: 1)),
+        startOfYear: DateTime(now.year));
+  }
 
+  /// [getDateCategory] with the reference days worked out by the caller, for
+  /// sorting many days at once (making dates is slow).
+  static DateCategory dateCategoryOf(
+    DateTime date, {
+    required DateTime today,
+    required DateTime yesterday,
+    required DateTime startOfYear,
+  }) {
     if (date.year == today.year &&
         date.month == today.month &&
         date.day == today.day) {
@@ -49,10 +60,15 @@ class PingDateUtils {
     }
   }
 
+  // Made once and reused: creating a date format is slow, and the grid
+  // needs a heading for every day.
+  static final _monthAbbr = DateFormat('MMM');
+  static final _weekday = DateFormat('EEEE');
+
   static String formatForGridHeader(DateTime date, DateCategory category) {
-    final monthAbbr = DateFormat('MMM').format(date);
+    final monthAbbr = _monthAbbr.format(date);
     final dayOfMonth = date.day.toString();
-    final dayOfWeek = DateFormat('EEEE').format(date);
+    final dayOfWeek = _weekday.format(date);
 
     switch (category) {
       case DateCategory.today:
