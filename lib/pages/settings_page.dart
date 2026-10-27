@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/components/browse_activation_cell.dart';
-import 'package:practice/components/focus_buttons_settings_cell.dart';
-import 'package:practice/components/cached_search_toggle.dart';
 import 'package:practice/components/cloud_backup_activation_cell.dart';
 import 'package:practice/components/import_pings_button.dart';
 import 'package:practice/components/local_backup_activation_cell.dart';
@@ -50,8 +48,6 @@ class SettingsPage extends ConsumerWidget {
                       children: [
                         if (ref.watch(showDevSettingsProvider)) ...[
                           NavCellCluster(text: 'Dev Settings', children: [
-                            HideFocusButtonsSettingCell(),
-                            CachedSearchToggleCell(),
                             PublicModeSettingCell(),
                           ]),
                           SizedBox(
