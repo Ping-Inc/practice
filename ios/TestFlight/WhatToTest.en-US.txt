@@ -1,8 +1,12 @@
 [new] this build introduces a new "public mode."
 
-public mode is designed for you to feel safe handing your phone over to a friend for them to browse select pings.
+public mode is designed for you to feel safe handing your phone over to a friend for them to browse select pings. more details below.
 
-to try it out:
+[new] turning the dial between focus and grid now zooms in and out, instead of switching instantly.
+
+[new] moving between lenses now gives a light haptic tick, whether you tap a lens or swipe to it.
+
+to try "public mode":
 1) go to settings
 2) under the "dev settings" heading, tap "try out public mode (experimental)"
 3) find a ping older than 24 hours that you'd like to make public
@@ -11,4 +15,3 @@ to try it out:
 
 note: once you enter public mode, someone will need your passcode (or your face id) to return to private mode.
 
-[new] turning the dial between focus and grid now zooms in and out, instead of switching instantly.

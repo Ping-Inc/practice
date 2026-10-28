@@ -8,6 +8,7 @@ import 'package:practice/extensions/month_enum_extensions.dart';
 import 'package:practice/pages/browse_time_page.dart';
 import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/traversal/traversal_scaffold.dart';
+import 'package:practice/utils/tab_change_haptic.dart';
 
 class TraversalMonthPage extends ConsumerStatefulWidget {
   const TraversalMonthPage({super.key, required this.time});
@@ -21,6 +22,8 @@ class TraversalMonthPage extends ConsumerStatefulWidget {
 class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  // A tick when moving between tabs, as in the lens row.
+  late TabChangeHaptic _haptic;
 
   @override
   void initState() {
@@ -30,10 +33,12 @@ class _TraversalMonthState extends ConsumerState<TraversalMonthPage>
       length: DateTime.monthsPerYear,
       vsync: this,
     );
+    _haptic = TabChangeHaptic(_tabController);
   }
 
   @override
   void dispose() {
+    _haptic.dispose();
     _tabController.dispose();
     super.dispose();
   }

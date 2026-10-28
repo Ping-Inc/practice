@@ -7,6 +7,7 @@ import 'package:practice/extensions/theme_mode_enum_extensions.dart';
 import 'package:practice/pages/browse_mode_page.dart';
 import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/traversal/traversal_scaffold.dart';
+import 'package:practice/utils/tab_change_haptic.dart';
 
 class TraversalModePage extends ConsumerStatefulWidget {
   const TraversalModePage({super.key, required this.inputMode});
@@ -20,6 +21,8 @@ class TraversalModePage extends ConsumerStatefulWidget {
 class _TraversalPageState extends ConsumerState<TraversalModePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  // A tick when moving between tabs, as in the lens row.
+  late TabChangeHaptic _haptic;
 
   @override
   void initState() {
@@ -29,10 +32,12 @@ class _TraversalPageState extends ConsumerState<TraversalModePage>
       length: ThemeModeEnum.values.length,
       vsync: this,
     );
+    _haptic = TabChangeHaptic(_tabController);
   }
 
   @override
   void dispose() {
+    _haptic.dispose();
     _tabController.dispose();
     super.dispose();
   }
