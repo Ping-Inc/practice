@@ -7,6 +7,7 @@ import 'package:practice/providers/homepage_filters_provider.dart';
 import 'package:practice/design_system/system_loader.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/providers/time_provider.dart';
+import 'package:practice/utils/tab_change_haptic.dart';
 
 class HomePageExplore extends ConsumerStatefulWidget {
   const HomePageExplore({super.key});
@@ -18,10 +19,13 @@ class HomePageExplore extends ConsumerStatefulWidget {
 class _ExplorePageState extends ConsumerState<HomePageExplore>
     with TickerProviderStateMixin {
   TabController? _tabController;
+  // A tick when moving between lenses.
+  TabChangeHaptic? _haptic;
   List<LensItem>? _previousFilters;
 
   @override
   void dispose() {
+    _haptic?.dispose();
     _tabController?.dispose();
     super.dispose();
   }
@@ -47,6 +51,7 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
                     initialIndex = newIndex;
                   }
                 }
+                _haptic?.dispose();
                 _tabController!.dispose();
               }
 
@@ -54,6 +59,7 @@ class _ExplorePageState extends ConsumerState<HomePageExplore>
                   initialIndex: initialIndex,
                   length: filters.length,
                   vsync: this);
+              _haptic = TabChangeHaptic(_tabController!);
             }
             
             _previousFilters = filters;

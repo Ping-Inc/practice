@@ -6,6 +6,7 @@ import 'package:practice/enums/time_filter_enum.dart';
 import 'package:practice/pages/browse_time_page.dart';
 import 'package:practice/pages/explore_page.dart';
 import 'package:practice/pages/traversal/traversal_scaffold.dart';
+import 'package:practice/utils/tab_change_haptic.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 
 class TraversalYearPage extends ConsumerStatefulWidget {
@@ -20,6 +21,8 @@ class TraversalYearPage extends ConsumerStatefulWidget {
 class _TraversalYearState extends ConsumerState<TraversalYearPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  // A tick when moving between tabs, as in the lens row.
+  late TabChangeHaptic _haptic;
   List<int> _years = [];
 
   @override
@@ -31,6 +34,7 @@ class _TraversalYearState extends ConsumerState<TraversalYearPage>
       length: _years.length,
       vsync: this,
     );
+    _haptic = TabChangeHaptic(_tabController);
   }
 
   @override
@@ -39,17 +43,20 @@ class _TraversalYearState extends ConsumerState<TraversalYearPage>
     final newYears = ref.read(pingYearsProvider);
     if (newYears != _years) {
       _years = newYears;
+      _haptic.dispose();
       _tabController.dispose();
       _tabController = TabController(
         initialIndex: _years.indexWhere((year) => year == widget.year),
         length: _years.length,
         vsync: this,
       );
+      _haptic = TabChangeHaptic(_tabController);
     }
   }
 
   @override
   void dispose() {
+    _haptic.dispose();
     _tabController.dispose();
     super.dispose();
   }
