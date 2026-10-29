@@ -1,5 +1,3 @@
-[fixed] the app no longer crashes on launch on iOS 27. if you see anything odd when leaving and returning to the app (backups, face id, sharing, importing), please let us know.
-
 [new] this build introduces a new "public mode."
 
 public mode is designed for you to feel safe handing your phone over to a friend for them to browse select pings. more details below.
