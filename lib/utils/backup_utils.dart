@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:universal_io/io.dart';
 import 'package:icloud_storage_sync/icloud_storage_sync_platform_interface.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/constants.dart';
@@ -65,25 +64,6 @@ class BackupUtils {
         filePath: path,
         destinationRelativePath: fileName,
       );
-    }
-  }
-
-  static void openPingsFolder() async {
-    if (kIsWeb) return;
-    final directory = await getApplicationDocumentsDirectory();
-
-    if (await Permission.storage.request().isGranted) {
-      final backupDir = Directory("${directory.path}/backups");
-
-      if (!await backupDir.exists()) {
-        await backupDir.create(recursive: true);
-      }
-
-      // Check if the URI can be launched
-      final result = await OpenFile.open(backupDir.path);
-      if (result.type != ResultType.done) {
-        throw 'Could not open ${backupDir.path}';
-      }
     }
   }
 
