@@ -23,8 +23,9 @@ class AppModeNotifier extends StateNotifier<bool> {
 final appModeProvider =
     StateNotifierProvider<AppModeNotifier, bool>((ref) => AppModeNotifier());
 
-/// True when the app is in public mode. Always false while the Public mode
-/// switch in Dev Settings is off, so the app can never get stuck in it.
+/// True when the app is in public mode. Always false if public mode isn't
+/// available ([publicModeEnabledProvider]), so turning it off can never leave
+/// the app stuck in it.
 final isPublicModeProvider = Provider<bool>((ref) {
   return ref.watch(publicModeEnabledProvider) && ref.watch(appModeProvider);
 });
