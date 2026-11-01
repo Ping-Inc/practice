@@ -6,8 +6,8 @@ import 'package:practice/design_system/system_text.dart';
 import 'package:practice/pages/settings/settings_public_page.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
 
-/// Settings › Public › "Public mode". Always "Off" here: in public mode,
-/// Settings shows its own page.
+/// Settings › Public › "Public mode". Reads "Enter" since this row is only
+/// seen in private mode: in public mode, Settings shows its own page.
 class PublicModeActivationCell extends StatelessWidget {
   const PublicModeActivationCell({super.key});
 
@@ -15,7 +15,7 @@ class PublicModeActivationCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return SettingsNavigationCell(
       text: 'Public mode',
-      state: 'Off',
+      state: 'Enter',
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const SettingsPublicPage()),
