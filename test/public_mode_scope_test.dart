@@ -42,7 +42,6 @@ class _FakeSavedSearches extends SimpleSavedSearches {
 
 Future<ProviderContainer> containerIn({required bool publicMode}) async {
   SharedPreferences.setMockInitialValues({
-    'public_mode_enabled': true,
     'app_mode_public': publicMode,
   });
   prefs = await SharedPreferences.getInstance();
