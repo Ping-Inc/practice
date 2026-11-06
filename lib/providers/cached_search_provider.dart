@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 import 'package:practice/data/ping_data.dart';
-import 'package:practice/providers/pings_map_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
+import 'package:practice/providers/scoped_pings_map_provider.dart';
 import 'dart:async';
 
 class CachedSearchNotifier extends AsyncNotifier<List<PingData>> {
@@ -11,6 +12,12 @@ class CachedSearchNotifier extends AsyncNotifier<List<PingData>> {
 
   @override
   Future<List<PingData>> build() async {
+    // Switching between private and public mode starts search over, so
+    // results cached in one mode never show in the other.
+    ref.watch(isPublicModeProvider);
+    _cache.clear();
+    _currentQuery = '';
+
     ref.onDispose(() {
       _debounceTimer?.cancel();
     });
@@ -70,7 +77,7 @@ class CachedSearchNotifier extends AsyncNotifier<List<PingData>> {
   }
 
   Future<List<PingData>> performSearch(String searchString) async {
-    return ref.read(pingsMapProvider).when(
+    return ref.read(scopedPingsMapProvider).when(
       data: (map) {
         final visiblePings = map.values.where((ping) => !ping.hidden);
         return visiblePings

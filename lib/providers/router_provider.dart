@@ -6,6 +6,7 @@ import 'package:practice/pages/home_page.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/pages/onboarding_page.dart';
 import 'package:practice/providers/onboarding_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router_provider.g.dart';
@@ -20,6 +21,13 @@ GoRouter router(Ref ref) {
         // If not onboarded and not already on onboarding page, redirect to onboarding
         if (!isOnboarded && state.matchedLocation != "/$routeOnboarding") {
           return "/$routeOnboarding";
+        }
+
+        // In public mode capture isn't available, so open on the pings
+        // view instead of the capture screen.
+        final isPublic = ref.read(isPublicModeProvider);
+        if (isPublic && state.matchedLocation == "/$routePingEntry") {
+          return "/";
         }
 
         // If onboarded and on onboarding page, redirect to new ping page

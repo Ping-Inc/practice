@@ -42,6 +42,8 @@
 		<string>This app needs access to the Documents folder to backup your pings.</string>
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 		<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Face ID lets you return to Private mode if you forget your passcode.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Ping uses your location to map and relate your app entries. This data is stored locally and never shared.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
@@ -69,6 +71,27 @@
 		</array>
 		<key>NSUbiquitousKeyValueStore</key>
 		<true/>
+		<key>UIApplicationSceneManifest</key>
+		<dict>
+			<key>UIApplicationSupportsMultipleScenes</key>
+			<false/>
+			<key>UISceneConfigurations</key>
+			<dict>
+				<key>UIWindowSceneSessionRoleApplication</key>
+				<array>
+					<dict>
+						<key>UISceneClassName</key>
+						<string>UIWindowScene</string>
+						<key>UISceneConfigurationName</key>
+						<string>flutter</string>
+						<key>UISceneDelegateClassName</key>
+						<string>FlutterSceneDelegate</string>
+						<key>UISceneStoryboardFile</key>
+						<string>Main</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIFileSharingEnabled</key>

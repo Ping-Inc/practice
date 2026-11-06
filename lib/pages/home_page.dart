@@ -13,6 +13,7 @@ import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/pages/search_page.dart';
 import 'package:practice/pages/settings_page.dart';
 import 'package:practice/providers/browse_temp_provider.dart';
+import 'package:practice/providers/app_mode_provider.dart';
 import 'package:practice/providers/local_backup_on_provider.dart';
 import 'package:practice/utils/backup_utils.dart';
 
@@ -59,6 +60,7 @@ class _ExplorePageState extends ConsumerState<HomePage>
   }
 
   Widget _buildBottomNavigation() {
+    final isPublic = ref.watch(isPublicModeProvider);
     final bottomNav = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -87,15 +89,22 @@ class _ExplorePageState extends ConsumerState<HomePage>
                 ),
               ),
             ),
+            // Capture isn't available in public mode: the button is dimmed
+            // and does nothing, but stays put since the dial turns around it.
             SystemTap(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewPingPage()),
-              ),
-              child: Icon(
-                PhosphorIcons.circle_fill,
-                size: pingButtonSize,
-                color: Theme.of(context).colorScheme.primary,
+              onTap: isPublic
+                  ? null
+                  : () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NewPingPage()),
+                      ),
+              child: Opacity(
+                opacity: isPublic ? 0.35 : 1,
+                child: Icon(
+                  PhosphorIcons.circle_fill,
+                  size: pingButtonSize,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
             SystemTap(

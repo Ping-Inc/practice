@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // Made this as an enum, so it's easy to expand in the future if needed (e.g., for "production" / "public" builds)
 enum ReleaseType {
@@ -19,95 +18,19 @@ class FeatureFlags {
         return false; // Do NOT show "Dev Settings" for non-internal builds
     }
   }
-  
-  static bool get defaultHideFocusButtons {
-    return false; // Default is to show focus buttons
-  }
-  
-  static bool get defaultCachedSearch {
-    return true; // Default is to enable cached search (the "new" search provider)
-  }
 }
 
 final showDevSettingsProvider = Provider<bool>((ref) {
   return FeatureFlags.showDevSettings;
 });
 
-// DEV SETTING: Hide focus buttons
-class HideFocusButtonsNotifier extends StateNotifier<bool> {
-  HideFocusButtonsNotifier() : super(false) {
-    _loadSetting();
-  }
-
-  Future<void> _loadSetting() async {
-    final prefs = await SharedPreferences.getInstance();
-    
-    switch (FeatureFlags.releaseType) {
-      case ReleaseType.internal: // Use user's preference from "Dev Settings"
-        state = prefs.getBool('hide_focus_buttons') ?? false;
-        break;
-      default: // Use hardcoded default
-        state = FeatureFlags.defaultHideFocusButtons;
-        break;
-    }
-  }
-
-  Future<void> toggle() async {
-    if (FeatureFlags.releaseType != ReleaseType.internal) return;
-    
-    final prefs = await SharedPreferences.getInstance();
-    final newValue = !state;
-    await prefs.setBool('hide_focus_buttons', newValue);
-    state = newValue;
-  }
-
-  Future<void> setValue(bool value) async {
-    if (FeatureFlags.releaseType != ReleaseType.internal) return;
-    
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('hide_focus_buttons', value);
-    state = value;
-  }
-}
-
-final hideFocusButtonsProvider = StateNotifierProvider<HideFocusButtonsNotifier, bool>((ref) {
-  return HideFocusButtonsNotifier();
-});
-
-// DEV SETTING: Cached Search
-class CachedSearchSettingNotifier extends StateNotifier<bool> {
-  CachedSearchSettingNotifier() : super(false) {
-    _loadSetting();
-  }
-
-  Future<void> _loadSetting() async {
-    final prefs = await SharedPreferences.getInstance();
-    
-    switch (FeatureFlags.releaseType) {
-      case ReleaseType.internal: // Use user's preference from "Dev Settings"
-        state = prefs.getBool('cached_search_enabled') ?? false;
-        break;
-      default: // Use hardcoded default
-        state = FeatureFlags.defaultCachedSearch;
-        break;
-    }
-  }
-
-  Future<void> setSetting(bool value) async {
-    if (FeatureFlags.releaseType != ReleaseType.internal) return;
-    
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('cached_search_enabled', value);
-    state = value;
-  }
-
-  Future<void> toggle() async {
-    await setSetting(!state);
-  }
-}
-
-final cachedSearchSettingProvider = StateNotifierProvider<CachedSearchSettingNotifier, bool>(
-  (ref) {
-    return CachedSearchSettingNotifier();
-  },
-);
+/// Whether public mode is available. It's on for everyone.
+///
+/// Every part of public mode checks this, so it's the one place to change if
+/// people can opt out later, or if public mode is turned off. When it's false
+/// the app is never in public mode and the public buttons are hidden.
+///
+/// The old "public_mode_enabled" preference from the Dev Settings switch is
+/// deliberately ignored: testers who turned the experiment off still have
+/// `false` saved. An opt-out should use a new preference.
+final publicModeEnabledProvider = Provider<bool>((ref) => true);

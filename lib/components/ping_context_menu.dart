@@ -9,11 +9,13 @@ import 'package:gal/gal.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:practice/components/ping_background.dart';
 import 'package:practice/components/hide_ping_button.dart';
+import 'package:practice/components/public_toggle_button.dart';
 import 'package:practice/components/reping_button.dart';
 import 'package:practice/components/reply_ping_button.dart';
 import 'package:practice/design_system/system_action_image.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
+import 'package:practice/design_system/dusk.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
@@ -23,6 +25,7 @@ import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/new_ping_page.dart';
 import 'package:practice/providers/base_color_provider.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 import 'package:practice/providers/pings_map_provider.dart';
 import 'package:practice/utils/ping_export_renderer.dart';
@@ -206,10 +209,37 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
     );
   }
 
+  Widget _actionRow(List<Widget> buttons,
+      {MainAxisAlignment alignment = MainAxisAlignment.spaceEvenly}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: spacingMedium),
+      child: Row(
+        mainAxisAlignment: alignment,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: buttons,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final activePing = ref.watch(activePlacedPingProvider);
     final isCurrentlyInCapture = activePing?.id == pingData.id;
+    final showAsPublic = ref.watch(publicModeEnabledProvider) &&
+        ref.watch(pingProvider(pingData).select((p) => p.isPublic));
+    final showPublicToggle = canTogglePublic(ref, pingData);
+    final copyButton = SystemActionImage(
+      onTap: () => _copyToClipboard(context),
+      imagePath: 'images/icons/copy.svg',
+      text: 'copy',
+      height: 18,
+    );
+    final saveButton = SystemActionImage(
+      onTap: () => _saveToPhotos(context),
+      imagePath: 'images/icons/save.svg',
+      text: 'save',
+      height: 18,
+    );
 
     return Material(
       color: Colors.transparent,
@@ -224,7 +254,10 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
               Spacer(flex: 2),
               Column(
                 children: [
-                  Container(
+                  // The Builder gives the card a context that sees the dusk colors.
+                  PublicCardTheme(
+                    enabled: showAsPublic,
+                    child: Builder(builder: (context) => Container(
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.width * 0.85,
                     child: PingBackground(
@@ -277,68 +310,63 @@ class _PingContextMenuState extends ConsumerState<PingContextMenu> {
                         ]),
                       ),
                     ),
-                  ),
+                  ))),
                   SizedBox(height: spacingMedium),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: spacingMedium),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        HidePingButton(ping: pingData),
-                        RepingButton(ping: pingData),
-                        ReplyPingButton(ping: pingData)
-                      ],
-                    ),
-                  ),
+                  // With the "public" button: public, re-ping, reply /
+                  // hide, export, place / copy, save. Without it (pings under
+                  // a day old, hidden pings, or Public mode off): hide/show,
+                  // re-ping, reply / copy, export, place / save.
+                  _actionRow([
+                    showPublicToggle
+                        ? PublicToggleButton(ping: pingData)
+                        : HidePingButton(ping: pingData),
+                    RepingButton(ping: pingData),
+                    ReplyPingButton(ping: pingData),
+                  ]),
                   SizedBox(height: spacingMedium),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: spacingMedium),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SystemActionImage(
-                          onTap: () => _copyToClipboard(context),
-                          imagePath: 'images/icons/copy.svg',
-                          text: 'copy',
-                          height: 18,
-                        ),
-                        SystemActionImage(
-                          onTap: () => _exportText(context),
-                          imagePath: 'images/icons/export.svg',
-                          text: 'export',
-                          height: 18,
-                        ),
-                        SystemActionImage(
-                          onTap: () => isCurrentlyInCapture
-                            ? _releaseFromCapture(context)
-                            : _placeInCapture(context),
-                          imagePath: isCurrentlyInCapture
-                            ? 'images/icons/release.svg'
-                            : 'images/icons/place.svg',
-                          text: isCurrentlyInCapture ? 'release' : 'place',
-                          height: 18,
-                        ),
-                      ],
+                  _actionRow([
+                    showPublicToggle
+                        ? HidePingButton(ping: pingData)
+                        : copyButton,
+                    SystemActionImage(
+                      onTap: () => _exportText(context),
+                      imagePath: 'images/icons/export.svg',
+                      text: 'export',
+                      height: 18,
                     ),
-                  ),
+                    SystemActionImage(
+                      onTap: () => isCurrentlyInCapture
+                        ? _releaseFromCapture(context)
+                        : _placeInCapture(context),
+                      imagePath: isCurrentlyInCapture
+                        ? 'images/icons/release.svg'
+                        : 'images/icons/place.svg',
+                      text: isCurrentlyInCapture ? 'release' : 'place',
+                      height: 18,
+                    ),
+                  ]),
                   SizedBox(height: spacingMedium),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: spacingMedium),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SystemActionImage(
-                          onTap: () => _saveToPhotos(context),
-                          imagePath: 'images/icons/save.svg',
-                          text: 'save',
-                          height: 18,
-                        ),
-                      ],
-                    ),
-                  ),
+                  showPublicToggle
+                      ? _actionRow([
+                          copyButton,
+                          saveButton,
+                          // An invisible third button keeps "copy" and
+                          // "save" lined up under the columns above.
+                          Visibility(
+                            visible: false,
+                            maintainSize: true,
+                            maintainAnimation: true,
+                            maintainState: true,
+                            child: SystemActionImage(
+                              onTap: null,
+                              imagePath: 'images/icons/reply.svg',
+                              text: 'reply',
+                              height: 18,
+                            ),
+                          ),
+                        ])
+                      : _actionRow([saveButton],
+                          alignment: MainAxisAlignment.center),
                 ],
               ),
               Spacer(flex: 3),

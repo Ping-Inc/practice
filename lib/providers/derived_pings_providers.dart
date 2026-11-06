@@ -3,7 +3,7 @@ import 'package:practice/data/ping_data.dart';
 import 'package:practice/enums/day_of_week_enum.dart';
 import 'package:practice/enums/month_enum.dart';
 import 'package:practice/extensions/date_time_extensions.dart';
-import 'package:practice/providers/pings_map_provider.dart';
+import 'package:practice/providers/scoped_pings_map_provider.dart';
 import 'package:practice/utils/ping_date_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,7 +11,7 @@ part 'derived_pings_providers.g.dart';
 
 @riverpod
 List<PingData> allPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) => map.values.where((ping) => !ping.hidden).toList()
           ..sort((a, b) => b.time.compareTo(a.time)),
         loading: () => [],
@@ -21,7 +21,7 @@ List<PingData> allPings(Ref ref) {
 
 @riverpod
 List<PingData> resonatedPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) => map.values
             .where((ping) => !ping.hidden && ping.resonantCount > 0)
             .toList()
@@ -37,7 +37,7 @@ List<PingData> resonatedPings(Ref ref) {
 
 @riverpod
 List<PingData> hiddenPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) => map.values.where((ping) => ping.hidden).toList()
           ..sort((a, b) => b.time.compareTo(a.time)),
         loading: () => [],
@@ -45,9 +45,22 @@ List<PingData> hiddenPings(Ref ref) {
       );
 }
 
+// Public pings, most recently made public first.
+@riverpod
+List<PingData> publicPings(Ref ref) {
+  return ref.watch(scopedPingsMapProvider).when(
+        data: (map) => map.values
+            .where((ping) => !ping.hidden && ping.isPublic)
+            .toList()
+          ..sort((a, b) => b.publicTime!.compareTo(a.publicTime!)),
+        loading: () => [],
+        error: (_, __) => [],
+      );
+}
+
 @riverpod
 List<PingData> pingReplies(Ref ref, int pingId) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           if (!map.containsKey(pingId)) return [];
 
@@ -114,7 +127,7 @@ List<PingData> pingReplies(Ref ref, int pingId) {
 
 @riverpod
 PingData? latestPing(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           final visiblePings = map.values.where((ping) => !ping.hidden);
           if (visiblePings.isEmpty) return null;
@@ -127,7 +140,7 @@ PingData? latestPing(Ref ref) {
 
 @riverpod
 List<PingData> modeFilteredPings(Ref ref, String mode) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values.where((ping) {
             if (ping.hidden) return false;
@@ -154,7 +167,7 @@ List<PingData> modeFilteredPings(Ref ref, String mode) {
 
 @riverpod
 List<PingData> dayOfWeekPings(Ref ref, int weekday) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) => !ping.hidden && ping.time.weekday == weekday)
@@ -168,7 +181,7 @@ List<PingData> dayOfWeekPings(Ref ref, int weekday) {
 
 @riverpod
 List<PingData> monthPings(Ref ref, int month) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) => !ping.hidden && ping.time.month == month)
@@ -182,7 +195,7 @@ List<PingData> monthPings(Ref ref, int month) {
 
 @riverpod
 List<PingData> dayOfMonthPings(Ref ref, int day) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) => !ping.hidden && ping.time.day == day)
@@ -196,7 +209,7 @@ List<PingData> dayOfMonthPings(Ref ref, int day) {
 
 @riverpod
 List<PingData> yearPings(Ref ref, int year) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) => !ping.hidden && ping.time.year == year)
@@ -210,7 +223,7 @@ List<PingData> yearPings(Ref ref, int year) {
 
 @riverpod
 List<PingData> lastWeekPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           final (start, end) = PingDateUtils.getLastWeekRange();
           return map.values
@@ -228,7 +241,7 @@ List<PingData> lastWeekPings(Ref ref) {
 
 @riverpod
 List<int> pingYears(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           final years = map.values
               .where((ping) => !ping.hidden)
@@ -245,7 +258,7 @@ List<int> pingYears(Ref ref) {
 
 @riverpod
 List<PingData> placedPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
     data: (map) {
       return map.values
           .where((ping) => ping.isPlaced && !ping.hidden)
@@ -263,7 +276,7 @@ List<PingData> placedPings(Ref ref) {
 
 @riverpod
 bool anyPlaced(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
     data: (map) => map.values.any((ping) => ping.isPlaced),
     loading: () => false,
     error: (_, __) => false,
@@ -272,7 +285,7 @@ bool anyPlaced(Ref ref) {
 
 @riverpod
 PingData? activePlacedPing(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
     data: (map) {
       final activePings = map.values
           .where((ping) => ping.isPlaced && !ping.hidden)
@@ -294,7 +307,7 @@ bool isMostRecentPlacedPing(Ref ref, PingData ping) {
 
 @riverpod
 List<PingData> historicalPlacedPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
     data: (map) {
       final placedPings = map.values
           .where((ping) => ping.placedTime != null)
@@ -308,8 +321,17 @@ List<PingData> historicalPlacedPings(Ref ref) {
 }
 
 @riverpod
+bool anyPublic(Ref ref) {
+  return ref.watch(scopedPingsMapProvider).when(
+        data: (map) => map.values.any((ping) => !ping.hidden && ping.isPublic),
+        loading: () => false,
+        error: (_, __) => false,
+      );
+}
+
+@riverpod
 bool anyResonated(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) =>
             map.values.any((ping) => !ping.hidden && ping.resonantCount > 0),
         loading: () => false,
@@ -319,7 +341,7 @@ bool anyResonated(Ref ref) {
 
 @riverpod
 bool anyLastWeek(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           final (start, end) = PingDateUtils.getLastWeekRange();
           return map.values.any((ping) =>
@@ -334,7 +356,7 @@ bool anyLastWeek(Ref ref) {
 
 @riverpod
 int pingViewCount(Ref ref, int pingId) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) => map[pingId]?.viewCount ?? 0,
         loading: () => 0,
         error: (_, __) => 0,
@@ -343,7 +365,7 @@ int pingViewCount(Ref ref, int pingId) {
 
 @riverpod
 int pingResonanceCount(Ref ref, int pingId) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) => map[pingId]?.resonantCount ?? 0,
         loading: () => 0,
         error: (_, __) => 0,
@@ -352,7 +374,7 @@ int pingResonanceCount(Ref ref, int pingId) {
 
 @riverpod
 List<PingData> dayOfWeekFilteredPings(Ref ref, DayOfWeekEnum dayOfWeek) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where(
@@ -367,7 +389,7 @@ List<PingData> dayOfWeekFilteredPings(Ref ref, DayOfWeekEnum dayOfWeek) {
 
 @riverpod
 List<PingData> monthFilteredPings(Ref ref, MonthEnum month) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) =>
@@ -383,7 +405,7 @@ List<PingData> monthFilteredPings(Ref ref, MonthEnum month) {
 
 @riverpod
 List<PingData> dayOfMonthFilteredPings(Ref ref, int dayOfMonth) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) => !ping.hidden && ping.time.day == dayOfMonth)
@@ -397,7 +419,7 @@ List<PingData> dayOfMonthFilteredPings(Ref ref, int dayOfMonth) {
 
 @riverpod
 List<PingData> yearFilteredPings(Ref ref, int year) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           return map.values
               .where((ping) => !ping.hidden && ping.time.year == year)
@@ -411,7 +433,7 @@ List<PingData> yearFilteredPings(Ref ref, int year) {
 
 @riverpod
 List<PingData> onThisDayPings(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           final now = DateTime.now();
           return map.values
@@ -430,7 +452,7 @@ List<PingData> onThisDayPings(Ref ref) {
 
 @riverpod
 bool anyOnThisDay(Ref ref) {
-  return ref.watch(pingsMapProvider).when(
+  return ref.watch(scopedPingsMapProvider).when(
         data: (map) {
           final now = DateTime.now();
           return map.values.any((ping) => 

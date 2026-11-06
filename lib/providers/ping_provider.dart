@@ -19,7 +19,21 @@ class Ping extends _$Ping {
 
   Future<void> toggleVisibility() async {
     await ref.read(pingsMapProvider.notifier).toggleVisibility(state.id!);
-    state = state.copyWith(hidden: !state.hidden);
+    // Hiding a ping also makes it private.
+    state = state.hidden
+        ? state.copyWith(hidden: false)
+        : state.copyWith(hidden: true, publicTime: null);
+  }
+
+  Future<void> makePublic() async {
+    await ref.read(pingsMapProvider.notifier).makePublic(state.id!);
+    final updated = ref.read(pingsMapProvider).value?[state.id!];
+    if (updated != null) state = state.copyWith(publicTime: updated.publicTime);
+  }
+
+  Future<void> makePrivate() async {
+    await ref.read(pingsMapProvider.notifier).makePrivate(state.id!);
+    state = state.copyWith(publicTime: null);
   }
 
   Future<void> placeInCapture() async {

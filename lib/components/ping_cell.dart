@@ -7,6 +7,7 @@ import 'package:practice/components/ping_context_menu.dart';
 import 'package:practice/components/system_tap.dart';
 import 'package:practice/constants.dart';
 import 'package:practice/data/ping_data.dart';
+import 'package:practice/design_system/dusk.dart';
 import 'package:practice/design_system/system_text.dart';
 import 'package:practice/enums/font_enum.dart';
 import 'package:practice/enums/text_size_enum.dart';
@@ -14,6 +15,8 @@ import 'package:practice/extensions/font_enum_extensions.dart';
 import 'package:practice/extensions/text_size_enum_extensions.dart';
 import 'package:practice/pages/details_page.dart';
 import 'package:practice/providers/derived_pings_providers.dart';
+import 'package:practice/providers/app_mode_provider.dart';
+import 'package:practice/providers/feature_flags_provider.dart';
 import 'package:practice/providers/ping_provider.dart';
 
 class PingCell extends ConsumerWidget {
@@ -51,6 +54,23 @@ class PingCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final showAsPublic = ref.watch(publicModeEnabledProvider) &&
+        ref.watch(pingProvider(inputPing).select((p) => p.isPublic));
+
+    // The Builder gives the card a context that sees the dusk colors. The
+    // long-press menu opens from the outer context instead: a dialog copies
+    // the colors around where it's opened, so opening it from inside the dusk
+    // colors would keep the menu's card dusk even after the ping is made
+    // private there.
+    final menuContext = context;
+    return PublicCardTheme(
+        enabled: showAsPublic,
+        child: Builder(
+            builder: (context) => _buildCard(context, ref, menuContext)));
+  }
+
+  Widget _buildCard(
+      BuildContext context, WidgetRef ref, BuildContext menuContext) {
     final activePing = ref.watch(activePlacedPingProvider);
     final isCurrentlyInCapture = activePing != null && activePing.id == inputPing.id;
 
@@ -104,7 +124,10 @@ class PingCell extends ConsumerWidget {
                               ])),
                     ),
                   ]))),
-          onLongPress: () => _showContextMenu(context, ref),
+          // No long-press menu in public mode.
+          onLongPress: ref.watch(isPublicModeProvider)
+              ? null
+              : () => _showContextMenu(menuContext, ref),
           onTap: tappable
               ? () => Navigator.push(
                     context,

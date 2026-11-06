@@ -9,6 +9,7 @@ import 'package:practice/pages/browse_hidden_page.dart';
 import 'package:practice/pages/browse_last_week_page.dart';
 import 'package:practice/pages/browse_mode_page.dart';
 import 'package:practice/pages/browse_placed_pings.dart';
+import 'package:practice/pages/browse_public_page.dart';
 import 'package:practice/pages/browse_resonated_pings.dart';
 import 'package:practice/pages/browse_time_page.dart';
 import 'package:practice/pages/browse_saved_search_page.dart';
@@ -35,6 +36,8 @@ extension StringParsing on FiltersEnum {
         return "on this day";
       case FiltersEnum.saved_search:
         return "saved search";
+      case FiltersEnum.public:
+        return "public";
     }
   }
 }
@@ -65,6 +68,8 @@ extension WidgetParsing on FiltersEnum {
         return BrowseOnThisDayPage();
       case FiltersEnum.saved_search:
         return Container();
+      case FiltersEnum.public:
+        return BrowsePublicPage();
     }
   }
 }
