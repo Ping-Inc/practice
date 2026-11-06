@@ -1,15 +1,15 @@
 [new: public mode] 
 this build introduces a new "public mode."
 
-public mode is designed for you to feel safe handing your phone over to a friend for them to browse select pings. more details below.
+public mode is designed for you to feel safe handing your phone over to a friend to browse select pings.
 
 [new: zoom] 
 turning the dial between focus and grid now zooms in and out, instead of switching instantly.
 
 [instructions: public mode]
 1) find a ping older than 24 hours that you'd like to make public
-2) tap the "public" button that should now be visible beneath it (or in the long-press menu)
-3) enter public mode by visiting settings, tapping "public mode", and turning on the switch (the first time, you'll choose a passcode)
+2) tap the "public" button that should now be visible
+3) enter public mode by visiting settings, tapping "public mode", and turning on the switch 
 
-note: once in public mode, you will need to enter your passcode (or your face id) to return to private mode.
+note: once in public mode, you will need a passcode to return to private mode.
 
